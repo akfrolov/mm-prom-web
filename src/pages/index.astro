@@ -1,5 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ObjectCard from '../components/ObjectCard.astro';
+import { getCollection } from 'astro:content';
+const objects = (await getCollection('objects')).sort((a, b) => a.data.sort - b.data.sort);
+const objById = Object.fromEntries(objects.map((o) => [o.id, o]));
+const ribbonParks = ['atlas-garazhny', 'avrora-vitebsky', 'antares'].map((id) => objById[id]);
+const ribbonProduction = ['voyskovitsy-park', 'volhonskoe', 'parnas'].map((id) => objById[id]);
+const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id) => objById[id]);
 ---
 <BaseLayout title="Единое окно промышленника — ММ Пром" description="ММ Пром — единое окно промышленника: комплексные решения и полный цикл услуг по промышленной недвижимости — аренда, покупка, управление и строительство объектов. С 2011 года: 200 000+ м² в управлении, 25+ проектов, 150+ компаний-резидентов.">
   <Fragment slot="head">
@@ -842,176 +849,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="b-rail-group">
         <h3>Индустриальные парки</h3>
         <div class="b-rail">
-          <article class="obj-card reveal">
-            <a class="obj-card__presentation" href="/gejt-broshury/"><svg class="obj-meta-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>Презентация</a>
-            <figure class="b-media">
-              <img src="https://mm-prom.ru/wp-content/uploads/2026/09/image-14-09-26-10-33-1-scaled-optimized.png" alt="Атлас Гаражный — индустриальный парк" loading="lazy" onerror="this.classList.add('is-broken')">
-              <figcaption>Атлас Гаражный — современный индустриальный парк</figcaption>
-            </figure>
-            <div class="obj-card__body">
-              <div class="obj-card__badges">
-                <span class="badge badge--park">Индустриальный парк</span>
-                <a class="obj-card__link" href="/atlas-garazhnyj/" aria-label="Открыть страницу объекта: Атлас Гаражный"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
-              </div>
-              <h3>Атлас Гаражный</h3>
-              <p class="obj-card__desc">Современный индустриальный парк в промышленной зоне Обухово: 14 минут до метро пешком, 5 минут до КАД.</p>
-              <ul class="obj-card__meta">
-                <li><svg class="obj-meta-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.66 17.66l-1.11 1.11 1.11 1.11-1.41 1.41-1.11-1.11-1.11 1.11-1.41-1.41 1.11-1.11-1.11-1.11 1.41-1.41 1.11 1.11 1.11-1.11 1.41 1.41zM3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zm-2 8h8v8h-8v-8zm2 2v4h4v-4h-4z"/></svg><span>Площадь: <strong>8577 м²</strong></span></li>
-                <li><svg class="obj-meta-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/></svg><span>Мощность: <strong>1 МВт, с возможностью увеличения</strong></span></li>
-                <li><svg class="obj-meta-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M19 14V6c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zm-9-1c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-6v11c0 1.1-.9 2-2 2H4v-2h17V7h2z"/></svg><span>Аренда: <strong>от 1 300 м²</strong></span></li>
-              </ul>
-            </div>
-          </article>
-          <article class="obj-card reveal">
-            <a class="obj-card__presentation" href="/gejt-broshury/"><svg class="obj-meta-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>Презентация</a>
-            <figure class="b-media">
-              <img src="https://mm-prom.ru/wp-content/uploads/2026/05/garage.avif" alt="Аврора Витебский — индустриальный парк" loading="lazy" onerror="this.classList.add('is-broken')">
-              <figcaption>Аврора Витебский — индустриальный парк на Витебском проспекте</figcaption>
-            </figure>
-            <div class="obj-card__body">
-              <div class="obj-card__badges">
-                <span class="badge badge--park">Индустриальный парк</span>
-                <a class="obj-card__link" href="/avrora-vitebskij/" aria-label="Открыть страницу объекта: Аврора Витебский"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
-              </div>
-              <h3>Аврора Витебский</h3>
-              <p class="obj-card__desc">Индустриальный парк на Витебском проспекте: 12 минут до станции метро Купчино на транспорте, 5 минут до КАД.</p>
-              <ul class="obj-card__meta">
-                <li><svg class="obj-meta-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.66 17.66l-1.11 1.11 1.11 1.11-1.41 1.41-1.11-1.11-1.11 1.11-1.41-1.41 1.11-1.11-1.11-1.11 1.41-1.41 1.11 1.11 1.11-1.11 1.41 1.41zM3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zm-2 8h8v8h-8v-8zm2 2v4h4v-4h-4z"/></svg><span>Территория: <strong>38 га</strong></span></li>
-                <li><svg class="obj-meta-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.66 17.66l-1.11 1.11 1.11 1.11-1.41 1.41-1.11-1.11-1.11 1.11-1.41-1.41 1.11-1.11-1.11-1.11 1.41-1.41 1.11 1.11 1.11-1.11 1.41 1.41zM3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zm-2 8h8v8h-8v-8zm2 2v4h4v-4h-4z"/></svg><span>Площадь застройки: <strong>более 200 000 м²</strong></span></li>
-                <li><svg class="obj-meta-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/></svg><span>Мощность: <strong>от 1 до 25 МВт</strong></span></li>
-              </ul>
-            </div>
-          </article>
-          <article class="obj-card reveal">
-            <figure class="b-media">
-              <img src="https://mm-prom.ru/wp-content/uploads/2026/05/cases03.avif" alt="Антарес Латышских Стрелков — готовый объект" loading="lazy" onerror="this.classList.add('is-broken')">
-              <figcaption>Антарес Латышских Стрелков — готовый объект</figcaption>
-            </figure>
-            <div class="obj-card__body">
-              <div class="obj-card__badges">
-                <span class="badge badge--technopark">Технопарк</span>
-                <a class="obj-card__link" href="/kartochka-obekta/" aria-label="Открыть карточку: Антарес Латышских Стрелков"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
-              </div>
-              <h3>Антарес Латышских Стрелков</h3>
-              <p class="obj-card__desc">Готовый объект для аренды и покупки. [УТОЧНИТЬ параметры объекта]</p>
-              <ul class="obj-card__meta">
-                <li><svg class="obj-meta-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.66 17.66l-1.11 1.11 1.11 1.11-1.41 1.41-1.11-1.11-1.11 1.11-1.41-1.41 1.11-1.11-1.11-1.11 1.41-1.41 1.11 1.11 1.11-1.11 1.41 1.41zM3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zm-2 8h8v8h-8v-8zm2 2v4h4v-4h-4z"/></svg><span>Площадь: <strong>[УТОЧНИТЬ]</strong></span></li>
-                <li><svg class="icon-loc" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" fill="#5A3994"/><circle cx="12" cy="9" r="3" fill="#EBB81E"/></svg><span>Локация: <strong>[УТОЧНИТЬ]</strong></span></li>
-              </ul>
-            </div>
-          </article>
+          {ribbonParks.map((o) => <ObjectCard obj={o} />)}
         </div>
       </div>
 
       <div class="b-rail-group">
         <h3>Производственные площади</h3>
         <div class="b-rail">
-          <article class="obj-card reveal">
-            <div class="img-placeholder" data-img="Фото: Войсковицы"><svg class="obj-meta-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>Фото: Войсковицы</div>
-            <div class="obj-card__body">
-              <div class="obj-card__badges">
-                <span class="badge badge--park">Производственные площади</span>
-                <a class="obj-card__link" href="/kartochka-obekta/" aria-label="Открыть карточку: Войсковицы"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
-              </div>
-              <h3>Войсковицы</h3>
-              <p class="obj-card__desc">Производственный комплекс в Гатчинском районе</p>
-              <ul class="obj-card__meta">
-                <li><svg class="icon-loc" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" fill="#5A3994"/><circle cx="12" cy="9" r="3" fill="#EBB81E"/></svg><span>Локация: <strong>ЛО, Гатчинский р-н, пос. Войсковицы</strong></span></li>
-                <li><svg class="obj-meta-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.66 17.66l-1.11 1.11 1.11 1.11-1.41 1.41-1.11-1.11-1.11 1.11-1.41-1.41 1.11-1.11-1.11-1.11 1.41-1.41 1.11 1.11 1.11-1.11 1.41 1.41zM3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zm-2 8h8v8h-8v-8zm2 2v4h4v-4h-4z"/></svg><span>Земельные участки: <strong>1,2 / 1,2 / 2,4 / 0,25 / 0,42 га</strong></span></li>
-              </ul>
-            </div>
-          </article>
-          <article class="obj-card reveal">
-            <div class="img-placeholder" data-img="Фото: Волхонское"><svg class="obj-meta-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>Фото: Волхонское</div>
-            <div class="obj-card__body">
-              <div class="obj-card__badges">
-                <span class="badge badge--park">Производственные площади</span>
-                <a class="obj-card__link" href="/kartochka-obekta/" aria-label="Открыть карточку: Волхонское"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
-              </div>
-              <h3>Волхонское</h3>
-              <p class="obj-card__desc">Промышленный парк</p>
-              <ul class="obj-card__meta">
-                <li><svg class="icon-loc" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" fill="#5A3994"/><circle cx="12" cy="9" r="3" fill="#EBB81E"/></svg><span>Локация: <strong>ЛО, Ломоносовский р-н, Волхонское ш. 2</strong></span></li>
-              </ul>
-            </div>
-          </article>
-          <article class="obj-card reveal">
-            <figure class="b-media">
-              <img src="/parnas.png" alt="Парнас — производственные площади" loading="lazy">
-              <figcaption>Парнас — производственные площади</figcaption>
-            </figure>
-            <div class="obj-card__body">
-              <div class="obj-card__badges">
-                <span class="badge badge--park">Производственные площади</span>
-                <a class="obj-card__link" href="/kartochka-obekta/" aria-label="Открыть карточку: Парнас"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
-              </div>
-              <h3>Парнас</h3>
-              <p class="obj-card__desc">Производственные площади</p>
-              <ul class="obj-card__meta">
-                <li><svg class="icon-loc" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" fill="#5A3994"/><circle cx="12" cy="9" r="3" fill="#EBB81E"/></svg><span>Локация: <strong>ЛО, Всеволожский р-н, Бугровское г.п., дер. Порошкино</strong></span></li>
-              </ul>
-            </div>
-          </article>
+          {ribbonProduction.map((o) => <ObjectCard obj={o} />)}
         </div>
       </div>
 
       <div class="b-rail-group">
         <h3>Земельные участки</h3>
         <div class="b-rail">
-          <article class="obj-card reveal">
-            <figure class="b-media">
-              <img src="https://invest-platforma.com/images/cms/thumbs/81456c67b957e0342b34ded43074cc5a8f87c29e/vid_sverhu_277_191_jpg_5_80.jpg" alt="Земельный участок в Волосовском районе" loading="lazy" onerror="this.classList.add('is-broken')">
-              <figcaption>Земельный участок в Волосовском районе</figcaption>
-            </figure>
-            <div class="obj-card__body">
-              <div class="obj-card__badges">
-                <span class="badge badge--park">Земельный участок</span>
-                <a class="obj-card__link" href="https://invest-platforma.com/nedvizhimost/zemelnye-uchastki/promyshlennye/zemelniy-uchastok-volosovskiy-rayon/" target="_blank" rel="noopener" aria-label="Открыть страницу объекта: Земельный участок в Волосовском районе"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
-              </div>
-              <h3>Земельный участок в Волосовском районе</h3>
-              <p class="obj-card__desc">Ленинградская обл., Волосовский р-н, Калитинское сельское поселение</p>
-              <ul class="obj-card__meta">
-                <li><svg class="obj-meta-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.66 17.66l-1.11 1.11 1.11 1.11-1.41 1.41-1.11-1.11-1.11 1.11-1.41-1.41 1.11-1.11-1.11-1.11 1.41-1.41 1.11 1.11 1.11-1.11 1.41 1.41zM3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zm-2 8h8v8h-8v-8zm2 2v4h4v-4h-4z"/></svg><span>Площадь: <strong>18 Га</strong></span></li>
-                <li><svg class="obj-meta-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M19 14V6c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zm-9-1c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-6v11c0 1.1-.9 2-2 2H4v-2h17V7h2z"/></svg><span>Цена: <strong>150 000 000 ₽</strong></span></li>
-              </ul>
-            </div>
-          </article>
-          <article class="obj-card reveal">
-            <figure class="b-media">
-              <img src="https://invest-platforma.com/images/cms/thumbs/9da232089252239060403f11bb82cd755797e165/zu_koltushi_277_191_png_5_80.png" alt="Земельный участок в Колтушах" loading="lazy" onerror="this.classList.add('is-broken')">
-              <figcaption>Земельный участок в Колтушах</figcaption>
-            </figure>
-            <div class="obj-card__body">
-              <div class="obj-card__badges">
-                <span class="badge badge--park">Земельный участок</span>
-                <a class="obj-card__link" href="https://invest-platforma.com/nedvizhimost/zemelnye-uchastki/promyshlennye/zemelniy-uchastok-koltushi/" target="_blank" rel="noopener" aria-label="Открыть страницу объекта: Земельный участок в Колтушах"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
-              </div>
-              <h3>Земельный участок в Колтушах</h3>
-              <p class="obj-card__desc">Ленинградская область, Всеволожский район, Колтушское сельское поселение</p>
-              <ul class="obj-card__meta">
-                <li><svg class="obj-meta-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.66 17.66l-1.11 1.11 1.11 1.11-1.41 1.41-1.11-1.11-1.11 1.11-1.41-1.41 1.11-1.11-1.11-1.11 1.41-1.41 1.11 1.11 1.11-1.11 1.41 1.41zM3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zm-2 8h8v8h-8v-8zm2 2v4h4v-4h-4z"/></svg><span>Площадь: <strong>1.8 Га</strong></span></li>
-                <li><svg class="obj-meta-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M19 14V6c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zm-9-1c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-6v11c0 1.1-.9 2-2 2H4v-2h17V7h2z"/></svg><span>Цена: <strong>100 000 000 ₽</strong></span></li>
-              </ul>
-            </div>
-          </article>
-          <article class="obj-card reveal">
-            <figure class="b-media">
-              <img src="/tervolovo.jpg" alt="Земельный участок в Терволово" loading="lazy">
-              <figcaption>Земельный участок в Терволово</figcaption>
-            </figure>
-            <div class="obj-card__body">
-              <div class="obj-card__badges">
-                <span class="badge badge--park">Земельный участок</span>
-                <a class="obj-card__link" href="/katalog/" aria-label="Открыть карточку: Земельный участок в Терволово"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
-              </div>
-              <h3>Земельный участок в Терволово</h3>
-              <p class="obj-card__desc">Продажа земельного участка — земли сельскохозяйственного назначения</p>
-              <ul class="obj-card__meta">
-                <li><svg class="obj-meta-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.66 17.66l-1.11 1.11 1.11 1.11-1.41 1.41-1.11-1.11-1.11 1.11-1.41-1.41 1.11-1.11-1.11-1.11 1.41-1.41 1.11 1.11 1.11-1.11 1.41 1.41zM3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zm-2 8h8v8h-8v-8zm2 2v4h4v-4h-4z"/></svg><span>Площадь: <strong>3,6 Га</strong></span></li>
-                <li><svg class="icon-loc" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" fill="#5A3994"/><circle cx="12" cy="9" r="3" fill="#EBB81E"/></svg><span>Локация: <strong>ЛО, Гатчинский м.о., п. Терволово</strong></span></li>
-              </ul>
-            </div>
-          </article>
+          {ribbonLand.map((o) => <ObjectCard obj={o} />)}
         </div>
       </div>
     </div>

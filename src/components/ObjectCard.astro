@@ -1,0 +1,53 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  obj: CollectionEntry<'objects'>;
+  stagger?: number;
+}
+
+const { obj, stagger } = Astro.props;
+const d = obj.data;
+const href = d.link || d.external || '';
+const isExternal = (d.linkExternal ?? false) || href.startsWith('http');
+---
+
+<article class="obj-card reveal" style={stagger !== undefined ? `--i:${stagger}` : undefined}>
+  {d.presentation && (
+    <a class="obj-card__presentation" href={d.presentation}>
+      <span class="material-symbols-outlined" aria-hidden="true">description</span>Презентация
+    </a>
+  )}
+  {d.media ? (
+    <figure class="b-media">
+      <img src={d.media.src} alt={d.media.alt} loading="lazy" onerror="this.classList.add('is-broken')" />
+      <figcaption>{d.media.caption}</figcaption>
+    </figure>
+  ) : d.placeholder ? (
+    <div class="img-placeholder" data-img={d.placeholder}>
+      <span class="material-symbols-outlined" aria-hidden="true">image</span>{d.placeholder}
+    </div>
+  ) : null}
+  <div class="obj-card__body">
+    <div class="obj-card__badges">
+      {d.badgeLabel && <span class={`badge ${d.badgeClass ?? 'badge--park'}`}>{d.badgeLabel}</span>}
+      {href && (
+        <a class="obj-card__link" href={href} aria-label={`Открыть страницу объекта: ${d.title}`} {...(isExternal ? { target: '_blank', rel: 'noopener' } : {})}>
+          <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span>
+        </a>
+      )}
+    </div>
+    <h3>{d.title}</h3>
+    <p class="obj-card__desc">{d.cardDesc ?? d.desc}</p>
+    {d.meta && d.meta.length > 0 && (
+      <ul class="obj-card__meta">
+        {d.meta.map(([icon, label, value]) => (
+          <li>
+            <span class="material-symbols-outlined" aria-hidden="true">{icon}</span>
+            <span>{label}: <strong>{value}</strong></span>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</article>

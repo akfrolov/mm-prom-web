@@ -1,0 +1,50 @@
+{
+  "title": "Волхонское",
+  "type": "production",
+  "typeLabel": "Производственный комплекс",
+  "deal": [
+    "Аренда"
+  ],
+  "dealTypes": [
+    "rent"
+  ],
+  "area": "по запросу",
+  "areaNum": null,
+  "location": "lo",
+  "address": "ЛО, Ломоносовский р-н, Волхонское шоссе, 2",
+  "district": "Ломоносовский район",
+  "desc": "Промышленный парк: участки и готовые помещения рядом с КАД, варианты под аренду и покупку.",
+  "specs": [
+    [
+      "place",
+      "Локация",
+      "ЛО, Ломоносовский р-н, Волхонское шоссе, 2"
+    ],
+    [
+      "description",
+      "Формат",
+      "промышленный парк, участки и готовые помещения"
+    ]
+  ],
+  "price": "",
+  "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/gorigo/vid-sverhu2.jpeg",
+  "external": "",
+  "coords": [
+    59.748,
+    30.195
+  ],
+  "busy": false,
+  "sort": 25,
+  "badgeLabel": "Производственные площади",
+  "badgeClass": "badge--park",
+  "link": "/kartochka-obekta/",
+  "placeholder": "Фото: Волхонское",
+  "cardDesc": "Промышленный парк",
+  "meta": [
+    [
+      "place",
+      "Локация",
+      "ЛО, Ломоносовский р-н, Волхонское ш. 2"
+    ]
+  ]
+}
