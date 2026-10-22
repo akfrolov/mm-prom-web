@@ -1,2 +1,7 @@
 # Kilo: планы, стейт и служебные файлы сессий
 .kilo/
+
+# Astro
+node_modules/
+dist/
+.astro/
