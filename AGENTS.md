@@ -55,7 +55,7 @@ ACCEPTANCE-ISSUES.md, mockup/); сквозной smoke — `docs/REGRESSION.md`.
 
 `pipeline.conf` при первом прогоне: `MODELS` — дефолты владельца; `VERIFY_CMD` пустой — осознанно (качество через пост-чеки шагов и visual-цепь); `WORKTREE_LINKS`/`WORKTREE_BOOTSTRAP` пустые; `RESOLVE_PROMPT_FILE` — минимальный или пусто.
 
-Коммит-дисциплина: документы фич/CR, `docs/REGRESSION.md`, `docs/SPRINTS.md` и `tools/` — tracked и закоммичены ДО прогона (kilo-шаги исполняются в worktree от HEAD main; untracked туда не попадают); `.kilo/` (plans/state) — excluded, раннер сам чинит exclude.
+Коммит-дисциплина: документы фич/CR, `docs/REGRESSION.md`, `docs/SPRINTS.md` и `tools/` — tracked и закоммичены ДО прогона (kilo-шаги исполняются в worktree от HEAD main; untracked туда не попадают); `.kilo/` (планы/stейт) — игнорируется через `.gitignore`.
 
 ### Канон plan.tsv
 
