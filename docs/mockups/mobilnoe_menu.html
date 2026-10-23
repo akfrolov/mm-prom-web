@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Шрифты: Manrope (фолбэк Averta CY) + Inter; Material Symbols для иконок.
+     Офлайн макеты работают с деградацией на системные шрифты и текст. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+<style>
+/* ─── Канон брейкпоинтов (mobile-first, UX §3 дефолт) ──────────────────
+   Базовые стили = смартфон (360–767px).
+   @media (min-width: 768px)  → планшет (768–1023px).
+   @media (min-width: 1024px) → десктоп (≥1024px).
+   Контрольная ширина дизайна — 1366px.
+   Шапка: <1024 — бургер + оверлей меню; ≥1024 — полное горизонтальное меню.
+   CTA шапки скрыт <768. Touch-target ≥ 44px. Фиксированные ширины >480px
+   вне :root запрещены. Каждая страница: ≥ 2 media query (768 и 1024).
+   Мысленный тест: «360px — без горизонтального скролла». */
+:root{
+  /* Брендовые токены (утв. 2026-08) */
+  --color-primary:#3D0E6A;        /* фиолетовый — основной акцент: кнопки, ссылки */
+  --color-primary-dark:#2A0949;   /* ховер, тёмные поверхности */
+  --color-accent:#EBB81E;         /* жёлтый — дозированный акцент: бейджи, маркеры, подчёркивания */
+  --color-bg:#FFFFFF;             /* основной фон */
+  --color-text:#161519;           /* почти чёрный — основной текст */
+  --color-text-muted:#5C5866;     /* вторичный текст */
+  --color-surface:#F7F5FA;        /* подложки секций (лёгкий фиолетовый подтон) */
+  --color-border:#E4E1EA;
+  --color-success:#1E8A4C;        /* статус «Свободно» (UX §3) */
+  --color-warning:#B98900;        /* статус «Резерв» (UX §3) */
+  --color-neutral:#6B6B74;        /* статус «Занято» (UX §3) */
+  --color-primary-light:#F3EEF9;  /* светло-фиолетовая подложка блоков (CTA, выделенные секции) */
+  --color-primary-soft:#E5D9F3;   /* светлые линии/бордеры на светло-фиолетовых подложках */
+  --font-main:"Averta CY","Manrope","Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --logo-url:url("assets/mmprom-logo.png");
+  /* Типографика clamp() */
+  --fs-h1:clamp(1.75rem,1.2rem + 2.6vw,3rem);
+  --fs-h2:clamp(1.4rem,1.1rem + 1.6vw,2.125rem);
+  --fs-h3:clamp(1.15rem,1rem + 0.8vw,1.5rem);
+  --fs-body:clamp(1rem,0.95rem + 0.25vw,1.0625rem);
+  --fs-small:0.875rem;
+  /* Прочее */
+  --radius:12px;
+  --shadow:0 2px 12px rgba(22,21,25,.08);
+  --container:1280px;
+  --space-section:clamp(48px,8vw,96px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--font-main);color:var(--color-text);background:var(--color-bg);line-height:1.55;font-size:var(--fs-body)}
+img{max-width:100%;display:block}
+a{color:var(--color-primary)}
+h1,h2,h3{line-height:1.2;margin:0 0 .5em;font-weight:800}
+h1{font-size:var(--fs-h1)}
+h2{font-size:var(--fs-h2)}
+h3{font-size:var(--fs-h3)}
+p{margin:0 0 1em}
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 24;vertical-align:middle}
+/* Контейнер */
+.container{max-width:var(--container);margin:0 auto;padding:0 16px}
+@media (min-width:768px){.container{padding:0 32px}}
+@media (min-width:1024px){.container{padding:0 40px}}
+.section{padding:var(--space-section) 0}
+.section--tint{background:var(--color-surface)}
+/* Сеточные хелперы: коллапс 1 → 2 → 3/4 на брейкпоинтах 768/1024 */
+.grid{display:grid;gap:16px}
+.grid--2,.grid--3,.grid--4{grid-template-columns:1fr}
+@media (min-width:768px){
+  .grid{gap:24px}
+  .grid--2,.grid--3,.grid--4{grid-template-columns:repeat(2,1fr)}
+}
+@media (min-width:1024px){
+  .grid--3{grid-template-columns:repeat(3,1fr)}
+  .grid--4{grid-template-columns:repeat(4,1fr)}
+}
+/* Кнопки (touch-target ≥ 44px, CTA-иерархия UX §3) */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:12px 24px;border-radius:var(--radius);font-weight:700;font-size:var(--fs-body);text-decoration:none;cursor:pointer;border:2px solid transparent}
+.btn--primary{background:var(--color-primary);color:#FFFFFF}
+.btn--primary:hover{background:var(--color-primary-dark)}
+.btn--accent{background:var(--color-accent);color:var(--color-text)}
+.btn--outline{border-color:var(--color-primary);color:var(--color-primary);background:transparent}
+.btn--ghost{border-color:var(--color-border);color:var(--color-text);background:#FFFFFF}
+/* Статус-бейджи занятости (UX §3) */
+.badge{display:inline-flex;align-items:center;gap:6px;min-height:24px;padding:2px 10px;border-radius:999px;font-size:var(--fs-small);font-weight:600}
+.badge--free{background:rgba(30,138,76,.12);color:var(--color-success)}
+.badge--reserve{background:rgba(185,137,0,.14);color:var(--color-warning)}
+.badge--busy{background:rgba(107,107,116,.14);color:var(--color-neutral)}
+/* Заглушка изображения (объекты без фото) */
+.img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--color-surface);border:1px dashed var(--color-border);border-radius:var(--radius);color:var(--color-text-muted);font-size:var(--fs-small);min-height:180px;padding:16px;text-align:center}
+.img-placeholder .material-symbols-outlined{font-size:36px;color:var(--color-border)}
+</style>
+<title>Мобильное меню (аккордеон) — демо-оверлей — ММ Пром</title>
+<meta name="description" content="Демо-снимок открытого мобильного drawer-меню сайта ММ Пром: разделы, аккордеон «Услуги» с плоским списком 9 услуг и подбором по роли, «Каталог объектов» и телефон.">
+<style>
+/* ── Стили страницы «Мобильное меню» (канон не переопределяют) ────────── */
+
+/* Шапка */
+.site-header{position:sticky;top:0;z-index:40;background:var(--color-bg);border-bottom:1px solid var(--color-border)}
+.site-header__inner{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px}
+.site-header__logo{display:inline-flex;align-items:center}
+.site-header__logo img{height:40px;width:auto}
+.site-header__nav{display:none;align-items:center;gap:4px}
+.site-header__nav a{display:inline-flex;align-items:center;min-height:44px;padding:8px 12px;color:var(--color-text);text-decoration:none;font-weight:600;white-space:nowrap}
+.site-header__nav a:hover{color:var(--color-primary)}
+.site-header__actions{display:flex;align-items:center;gap:8px}
+.site-header__phone{display:none;font-weight:800;font-size:.9375rem;color:var(--color-text);text-decoration:none;white-space:nowrap}
+.site-header__phone:hover{color:var(--color-primary)}
+.site-header__cta{display:none}
+.site-header__burger{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:0;background:none;color:var(--color-text);cursor:pointer;border-radius:8px}
+.site-header__burger .material-symbols-outlined{font-size:28px}
+/* Демо: бургер визуально активен — меню открыто (иконка «закрыть», фиолетовая подложка) */
+.site-header__burger.is-active{background:rgba(61,14,106,.08);color:var(--color-primary)}
+@media (min-width:768px){
+  .site-header__cta{display:inline-flex}
+}
+/* Телефон — только от 1200px: на 1024–1199 полное меню + телефон + CTA
+   не помещаются в одну строку (фикс переполнения шапки, 2026-09) */
+@media (min-width:1200px){
+  .site-header__phone{display:inline-flex}
+}
+/* 1024–1199: компактный CTA шапки — гарантия одной строки при полном меню
+   (дополнение к фиксу переполнения шапки, 2026-09) */
+@media (min-width:1024px) and (max-width:1199.98px){
+  .site-header__cta{padding:12px 16px;white-space:nowrap}
+}
+@media (min-width:1024px){
+  .site-header__nav{display:flex}
+  /* Демо-исключение для снимка: на обычных страницах ≥1024 бургер скрыт
+     (десктоп использует мегаменю). Здесь оставлен как триггер этого оверлея. */
+  .site-header__burger{display:inline-flex}
+}
+
+/* Демо-пояснение над сценой оверлея */
+.b-demo-note{background:var(--color-surface);border-bottom:1px solid var(--color-border);padding:32px 0}
+.b-demo-note h1{margin-bottom:8px}
+.b-demo-note__lead{max-width:72ch;color:var(--color-text-muted);margin:0 0 16px}
+.mm-tags{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;padding:0;list-style:none}
+.mm-tag{display:inline-flex;align-items:center;min-height:32px;padding:4px 14px;border-radius:999px;background:rgba(61,14,106,.08);color:var(--color-primary);font-size:var(--fs-small);font-weight:600}
+.mm-demo-flag{display:flex;gap:10px;align-items:flex-start;margin:12px 0 0;padding:12px 16px;border:1px solid var(--color-border);border-left:3px solid var(--color-accent);border-radius:8px;background:#FFFFFF;font-size:var(--fs-small);color:var(--color-text-muted)}
+.mm-demo-flag .material-symbols-outlined{color:var(--color-primary);flex:0 0 auto;font-size:20px}
+.mm-demo-flag a{font-weight:600}
+/* Узкий экран: снимок статичен; на десктопе — пометка про мегаменю */
+.mm-demo-flag--desktop{display:none}
+@media (min-width:1024px){
+  .mm-demo-flag--narrow{display:none}
+  .mm-demo-flag--desktop{display:flex}
+}
+
+/* Сцена оверлея: приглушённый фон-страница + затемнение + drawer слева */
+.overlay-stage{position:relative;overflow:hidden;background:var(--color-bg);padding:0 0 40px}
+.overlay-stage__under{position:absolute;inset:0;padding:40px 0 0;opacity:.4;pointer-events:none;user-select:none}
+.overlay-stage__under-h{margin:0 0 18px;font-weight:800;color:var(--color-text-muted)}
+.mm-skel{display:block;height:16px;border-radius:8px;background:var(--color-border);margin-bottom:12px}
+.overlay-stage__dim{position:absolute;inset:0;background:rgba(22,21,25,.52)}
+.overlay-stage__holder{position:relative;z-index:2;display:flex;justify-content:flex-start}
+@media (min-width:768px){
+  .overlay-stage{padding:40px 0 72px}
+  .overlay-stage__holder{padding:0 32px}
+}
+@media (min-width:1024px){
+  .overlay-stage{padding:48px 0 88px}
+  .overlay-stage__holder{padding:0 40px}
+}
+
+/* Панель-drawer (слева, бокс-тень вправо) */
+.b-overlay-panel--mobile{position:relative;width:85%;max-width:420px;background:#FFFFFF;box-shadow:24px 0 64px rgba(22,21,25,.35);border:1px solid var(--color-border);border-left:0;overflow:hidden;min-height:72vh;display:flex;flex-direction:column}
+@media (min-width:768px){
+  /* Планшет: фиксированная разумная ширина слева (≤480px — допустимо) */
+  .b-overlay-panel--mobile{width:380px;min-height:0;height:640px;max-height:calc(100vh - 160px);overflow-y:auto;border-left:1px solid var(--color-border);border-radius:0 var(--radius) var(--radius) 0}
+}
+@media (min-width:1024px){
+  .b-overlay-panel--mobile{width:400px;height:680px}
+}
+.b-overlay-panel__bar{display:flex;justify-content:flex-end;padding:6px 8px;border-bottom:1px solid var(--color-border)}
+.b-overlay-panel__close{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:0;border-radius:8px;background:none;color:var(--color-text-muted);cursor:pointer}
+.b-overlay-panel__close:hover{background:var(--color-surface);color:var(--color-text)}
+.b-overlay-panel__close .material-symbols-outlined{font-size:26px}
+
+/* Список разделов первого уровня */
+.drawer-nav{display:flex;flex-direction:column;padding:8px 0;border-bottom:1px solid var(--color-border)}
+.drawer-nav__item{display:flex;align-items:center;gap:12px;min-height:48px;padding:10px 16px;color:var(--color-text);text-decoration:none;font-weight:600;font-size:1rem}
+.drawer-nav__item:hover{color:var(--color-primary)}
+.drawer-nav__item .material-symbols-outlined{font-size:22px;color:var(--color-primary);flex:0 0 auto}
+
+/* Аккордеон на <details> (макет без JS) */
+details.drawer-acc > summary{list-style:none;cursor:pointer}
+details.drawer-acc > summary::-webkit-details-marker{display:none}
+.drawer-acc__arrow{margin-left:auto;color:var(--color-text-muted);transition:transform .25s ease;flex:0 0 auto}
+details[open] > summary .drawer-acc__arrow{transform:rotate(180deg);color:var(--color-primary)}
+.drawer-acc__body{padding-bottom:8px}
+.drawer-acc__label{margin:0;padding:6px 16px 4px;font-size:var(--fs-small);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--color-text-muted)}
+
+/* Плоский список услуг: каждая услуга один раз (схема мегаменю) */
+.drawer-services{list-style:none;margin:0;padding:0 8px 12px;display:grid;gap:2px}
+/* П.6: пункт — контейнер; ссылка услуги — на основном блоке (иконка+текст) */
+.mm-item{padding:10px 8px;border-radius:8px}
+.mm-item__main{display:flex;align-items:flex-start;gap:12px;min-height:44px;color:var(--color-text);text-decoration:none}
+.mm-item:hover{background:var(--color-primary-light)}
+.mm-item:hover .mm-item__name{color:var(--color-primary)}
+.mm-item__icon{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:36px;height:36px;border-radius:10px;background:rgba(61,14,106,.08);color:var(--color-primary)}
+.mm-item__icon .material-symbols-outlined{font-size:20px}
+.mm-item__body{display:flex;flex-direction:column;gap:2px;min-width:0}
+.mm-item__name{font-weight:700;font-size:1rem;line-height:1.3}
+.mm-item__desc{color:var(--color-text-muted);font-size:var(--fs-small);line-height:1.4}
+
+/* Подбор по роли: компактная группа из 4 ссылок на страницы ролей после списка услуг (T8) */
+.mm-hubs{padding:4px 16px 16px}
+.mm-hubs__row{display:flex;flex-wrap:wrap;gap:8px}
+.mm-hubs__link{display:inline-flex;align-items:center;min-height:44px;padding:8px 16px;border-radius:999px;background:var(--color-primary-light);border:1px solid var(--color-primary-soft);color:var(--color-primary);font-size:var(--fs-small);font-weight:600;text-decoration:none}
+/* Тап-контекст — вместо hover достаточно :active (мобильный макет) */
+.mm-hubs__link:active,.mm-hubs__link:focus-visible{background:var(--color-primary);border-color:var(--color-primary);color:#FFFFFF}
+
+/* Подвал панели: «Каталог объектов» + телефон + политика конфиденциальности */
+.drawer-foot{margin-top:auto;display:flex;flex-direction:column;gap:4px;padding:12px 16px;border-top:1px solid var(--color-border)}
+.drawer-foot__cat{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:700;color:var(--color-text);text-decoration:none}
+.drawer-foot__cat .material-symbols-outlined{font-size:20px;color:var(--color-primary)}
+.drawer-foot__cat:hover{color:var(--color-primary)}
+.drawer-foot__phone{display:inline-flex;align-items:center;min-height:44px;font-weight:800;color:var(--color-text);text-decoration:none;white-space:nowrap}
+.drawer-foot__phone:hover{color:var(--color-primary)}
+.drawer-foot__phone .material-symbols-outlined{font-size:20px;color:var(--color-primary);margin-right:8px}
+.drawer-foot__policy{display:inline-flex;align-items:center;min-height:44px;font-size:var(--fs-small);color:var(--color-text-muted);text-decoration:underline}
+.drawer-foot__policy:hover{color:var(--color-primary)}
+/* Неактивная ссылка: документ готовится (не <a>, курсор по умолчанию) */
+.drawer-foot__policy--disabled,.drawer-foot__policy--disabled:hover{color:rgba(92,88,102,.55);text-decoration:none;cursor:default}
+@media (min-width:768px){
+  .drawer-foot{flex-direction:row;align-items:center;justify-content:space-between;gap:8px 16px;padding:12px 20px}
+}
+
+/* Подвал */
+.site-footer{background:var(--color-primary-dark);color:#FFFFFF;padding:56px 0 24px}
+.site-footer a{color:#FFFFFF;text-decoration:none}
+.site-footer a:hover{color:var(--color-accent)}
+.site-footer__inner{display:grid;gap:32px}
+.site-footer__title{margin:0 0 10px;font-size:var(--fs-small);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.site-footer__logo{display:inline-block;background:#FFFFFF;border-radius:8px;padding:8px 12px;height:44px;width:auto}
+.site-footer__brand p{margin:12px 0 0;color:rgba(255,255,255,.75);font-size:var(--fs-small);max-width:46ch}
+.site-footer__col ul{list-style:none;margin:0;padding:0}
+.site-footer__col ul a{display:inline-flex;align-items:center;min-height:44px}
+.site-footer__phone{display:inline-flex;align-items:center;min-height:44px;font-weight:800;font-size:1.25rem}
+.site-footer__addr{margin:8px 0 0;color:rgba(255,255,255,.75);font-size:var(--fs-small)}
+.site-footer__social{display:flex;gap:12px;margin-top:12px}
+.site-footer__social a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12)}
+.site-footer__social .material-symbols-outlined{font-size:22px}
+.site-footer__bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.7);font-size:var(--fs-small)}
+.site-footer__bottom p{margin:0}
+/* Неактивная ссылка: документ готовится (не <a>, курсор по умолчанию) */
+.site-footer__bottom .site-footer__link--disabled{display:inline-flex;align-items:center;min-height:44px;color:rgba(255,255,255,.45);text-decoration:none;cursor:default}
+@media (min-width:768px){
+  .site-footer__inner{grid-template-columns:repeat(2,1fr)}
+}
+@media (min-width:1024px){
+  .site-footer__inner{grid-template-columns:1.4fr 1fr 1fr 1.2fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ Шапка (бургер визуально активен — меню открыто) ═══ -->
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-header__logo" href="index.html"><img src="assets/mmprom-logo.png" alt="ММ Пром"></a>
+    <nav class="site-header__nav" aria-label="Основное меню">
+      <a href="usluga.html">Услуги</a>
+      <a href="katalog_obektov.html">Каталог</a>
+      <a href="blog.html">Публикации</a>
+      <a href="o_kompanii.html">О компании</a>
+      <a href="kontakty.html">Контакты</a>
+    </nav>
+    <div class="site-header__actions">
+      <a class="site-header__phone" href="tel:88003331010">8 800 333 10 10</a>
+      <a class="btn btn--primary site-header__cta" href="modalka_zayavki.html" data-modal-open>Оставить заявку</a>
+      <button class="site-header__burger is-active" aria-label="Закрыть меню" aria-expanded="true"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ═══ Демо-пояснение ═══ -->
+  <section id="demo-note" data-block="Демо-пометка" class="b-demo-note">
+    <div class="container">
+      <h1>Мобильное меню (аккордеон)</h1>
+      <p class="b-demo-note__lead">Демо-снимок открытого drawer-меню: панель выезжает слева (slide-in 250&nbsp;мс) по клику на гамбургер в шапке любой страницы — на брейкпоинтах ≤&nbsp;768&nbsp;/&nbsp;1024 [УТОЧНИТЬ]. Раздел «Услуги»: плоский список 9 услуг, каждая услуга — один раз; после списка — компактный подбор по роли.</p>
+      <ul class="mm-tags">
+        <li class="mm-tag">ФТ-USL-4</li>
+        <li class="mm-tag">Оверлей</li>
+        <li class="mm-tag">Открытие: slide-in 250 мс</li>
+        <li class="mm-tag">Раскрытие «Услуги»: rotate-стрелка</li>
+        <li class="mm-tag">9 услуг · подбор по роли</li>
+      </ul>
+      <p class="mm-demo-flag mm-demo-flag--narrow"><span class="material-symbols-outlined" aria-hidden="true">info</span>Демо-пометка: статичный снимок открытого состояния, без JS — аккордеоны свёрстаны на <code>&lt;details&gt;</code>, кнопка «×» и бургер показаны в активном состоянии. Touch-target всех пунктов ≥&nbsp;44&nbsp;px.</p>
+      <p class="mm-demo-flag mm-demo-flag--desktop"><span class="material-symbols-outlined" aria-hidden="true">info</span>Демо-пометка: на экранах от 1024&nbsp;px мобильное меню не используется — на десктопе открывается мегаменю. Панель ниже показана как превью мобильной версии.</p>
+    </div>
+  </section>
+
+  <!-- ═══ Сцена оверлея: приглушённый фон + затемнение + drawer ═══ -->
+  <div class="overlay-stage">
+    <div class="overlay-stage__under" aria-hidden="true">
+      <div class="container">
+        <p class="overlay-stage__under-h">Промышленная недвижимость под задачи бизнеса</p>
+        <span class="mm-skel" style="width:min(560px,80%)"></span>
+        <span class="mm-skel" style="width:min(440px,64%)"></span>
+        <span class="mm-skel" style="width:min(300px,44%)"></span>
+      </div>
+    </div>
+    <div class="overlay-stage__dim" aria-hidden="true"></div>
+    <div class="overlay-stage__holder">
+
+      <section id="mobile-menu" data-block="Панель мобильного меню" class="b-overlay-panel b-overlay-panel--mobile" role="dialog" aria-label="Мобильное меню — открытое состояние">
+        <div class="b-overlay-panel__bar">
+          <button class="b-overlay-panel__close" type="button" aria-label="Закрыть меню"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+        </div>
+
+        <!-- Список разделов первого уровня -->
+        <nav class="drawer-nav" aria-label="Меню сайта">
+          <a class="drawer-nav__item" href="index.html"><span class="material-symbols-outlined" aria-hidden="true">home</span>Главная</a>
+
+          <!-- Услуги: плоский список, каждая услуга один раз; подбор по роли — после списка -->
+          <details class="drawer-acc" open>
+            <summary class="drawer-nav__item"><span class="material-symbols-outlined" aria-hidden="true">widgets</span>Услуги<span class="material-symbols-outlined drawer-acc__arrow" aria-hidden="true">expand_more</span></summary>
+            <div class="drawer-acc__body">
+              <ul class="drawer-services">
+                <li>
+                  <div class="mm-item">
+                    <a class="mm-item__main" href="usluga_arenda.html">
+                      <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">warehouse</span></span>
+                      <span class="mm-item__body">
+                        <span class="mm-item__name">Аренда недвижимости</span>
+                        <span class="mm-item__desc">Свободные площади: производство, склады, офисы.</span>
+                      </span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div class="mm-item">
+                    <a class="mm-item__main" href="usluga_prodazha.html">
+                      <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">sell</span></span>
+                      <span class="mm-item__body">
+                        <span class="mm-item__name">Продажа недвижимости</span>
+                        <span class="mm-item__desc">Поиск арендаторов и покупателей на ваш объект.</span>
+                      </span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div class="mm-item">
+                    <a class="mm-item__main" href="usluga_stroitelstvo.html">
+                      <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">foundation</span></span>
+                      <span class="mm-item__body">
+                        <span class="mm-item__name">Строительство</span>
+                        <span class="mm-item__desc">Возведение и модернизация производственных зданий под задачу бизнеса.</span>
+                      </span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div class="mm-item">
+                    <a class="mm-item__main" href="usluga_development.html">
+                      <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">construction</span></span>
+                      <span class="mm-item__body">
+                        <span class="mm-item__name">Девелопмент под ключ</span>
+                        <span class="mm-item__desc">Реализация промышленного проекта — от участка до запуска.</span>
+                      </span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div class="mm-item">
+                    <a class="mm-item__main" href="usluga_redevelopment.html">
+                      <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">published_with_changes</span></span>
+                      <span class="mm-item__body">
+                        <span class="mm-item__name">Редевелопмент</span>
+                        <span class="mm-item__desc">Возвращение промышленных площадок и зданий в хозяйственный оборот.</span>
+                      </span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div class="mm-item">
+                    <a class="mm-item__main" href="usluga_upravlenie.html">
+                      <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">settings</span></span>
+                      <span class="mm-item__body">
+                        <span class="mm-item__name">Управление</span>
+                        <span class="mm-item__desc">Эксплуатация, арендаторы, редевелопмент, рост доходности.</span>
+                      </span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div class="mm-item">
+                    <a class="mm-item__main" href="usluga_konsalting.html">
+                      <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">insights</span></span>
+                      <span class="mm-item__body">
+                        <span class="mm-item__name">Промышленный консалтинг</span>
+                        <span class="mm-item__desc">Превращаем задачу в понятный и безопасный план: аудит, ТЗ, финмодель.</span>
+                      </span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div class="mm-item">
+                    <a class="mm-item__main" href="usluga_treyd_in.html">
+                      <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">swap_horiz</span></span>
+                      <span class="mm-item__body">
+                        <span class="mm-item__name">Трейд-ин / Срочный выкуп</span>
+                        <span class="mm-item__desc">Обмен объекта на более эффективный формат или быстрая продажа актива в сжатые сроки.</span>
+                      </span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div class="mm-item">
+                    <a class="mm-item__main" href="usluga_investicii.html">
+                      <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span></span>
+                      <span class="mm-item__body">
+                        <span class="mm-item__name">Инвестиции и финансирование</span>
+                        <span class="mm-item__desc">Инвестиции в реальные промышленные активы с понятной экономикой.</span>
+                      </span>
+                    </a>
+                  </div>
+                </li>
+              </ul>
+              <!-- Подбор по роли: после списка услуг (T8) -->
+              <div class="mm-hubs">
+                <p class="drawer-acc__label">Подобрать по роли</p>
+                <div class="mm-hubs__row">
+                  <a class="mm-hubs__link" href="rol_proizvodstva.html">Производствам</a>
+                  <a class="mm-hubs__link" href="rol_zdaniya.html">Собственникам зданий</a>
+                  <a class="mm-hubs__link" href="rol_uchastki.html">Собственникам участков</a>
+                  <a class="mm-hubs__link" href="rol_investoram.html">Инвесторам</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <a class="drawer-nav__item" href="katalog_obektov.html"><span class="material-symbols-outlined" aria-hidden="true">inventory_2</span>Каталог</a>
+          <a class="drawer-nav__item" href="blog.html"><span class="material-symbols-outlined" aria-hidden="true">article</span>Публикации</a>
+          <a class="drawer-nav__item" href="o_kompanii.html"><span class="material-symbols-outlined" aria-hidden="true">apartment</span>О компании</a>
+          <a class="drawer-nav__item" href="kontakty.html"><span class="material-symbols-outlined" aria-hidden="true">place</span>Контакты</a>
+        </nav>
+
+        <!-- Подвал панели -->
+        <div class="drawer-foot">
+          <a class="drawer-foot__cat" href="katalog_obektov.html"><span class="material-symbols-outlined" aria-hidden="true">inventory_2</span>Каталог объектов</a>
+          <a class="drawer-foot__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
+          <span class="drawer-foot__policy drawer-foot__policy--disabled" aria-disabled="true" title="Документ готовится">Политика конфиденциальности</span>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+</main>
+
+<!-- ═══ Подвал ═══ -->
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div class="site-footer__brand">
+      <img class="site-footer__logo" src="assets/mmprom-logo.png" alt="ММ Пром">
+      <p>Промышленная недвижимость Санкт-Петербурга и Ленинградской области: аренда, продажа и строительство. Работаем с 2011 года.</p>
+    </div>
+    <nav class="site-footer__col" aria-label="Услуги">
+      <p class="site-footer__title">Услуги</p>
+      <ul>
+        <li><a href="usluga_arenda.html">Аренда недвижимости</a></li>
+        <li><a href="usluga_prodazha.html">Продажа недвижимости</a></li>
+        <li><a href="usluga_stroitelstvo.html">Строительство</a></li>
+        <li><a href="usluga_development.html">Девелопмент под ключ</a></li>
+        <li><a href="usluga_redevelopment.html">Редевелопмент</a></li>
+        <li><a href="usluga_upravlenie.html">Управление</a></li>
+        <li><a href="usluga_konsalting.html">Промышленный консалтинг</a></li>
+        <li><a href="usluga_treyd_in.html">Трейд-ин / Срочный выкуп</a></li>
+        <li><a href="usluga_investicii.html">Инвестиции и финансирование</a></li>
+        <li><a href="usluga.html">Все услуги</a></li>
+      </ul>
+    </nav>
+    <nav class="site-footer__col" aria-label="Компания">
+      <p class="site-footer__title">Компания</p>
+      <ul>
+        <li><a href="o_kompanii.html">О компании</a></li>
+        <li><a href="blog.html">Публикации</a></li>
+        <li><a href="kontakty.html">Контакты</a></li>
+      </ul>
+    </nav>
+    <div class="site-footer__col">
+      <p class="site-footer__title">Контакты</p>
+      <a class="site-footer__phone" href="tel:88003331010">8 800 333 10 10</a>
+      <p class="site-footer__addr">г. Санкт-Петербург, ул. Латышских стрелков, 19</p>
+      <div class="site-footer__social">
+        <a href="https://t.me/mm_prom1" aria-label="Телеграм-канал ММ Пром"><span class="material-symbols-outlined" aria-hidden="true">send</span></a>
+        <a href="https://max.ru/se14192436_biz" aria-label="Канал ММ Пром в MAX"><span aria-hidden="true" style="font-size:.75rem;font-weight:800;letter-spacing:.02em">MAX</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="container site-footer__bottom">
+    <p>© 2011–2026 ММ Пром</p>
+    <span class="site-footer__link--disabled" aria-disabled="true" title="Документ готовится">Политика конфиденциальности</span>
+  </div>
+</footer>
+
+</body>
+</html>

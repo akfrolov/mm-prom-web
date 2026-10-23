@@ -1,0 +1,995 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Шрифты: Manrope (фолбэк Averta CY) + Inter; Material Symbols для иконок.
+     Офлайн макеты работают с деградацией на системные шрифты и текст. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+<style>
+/* ─── Канон брейкпоинтов (mobile-first, UX §3 дефолт) ──────────────────
+   Базовые стили = смартфон (360–767px).
+   @media (min-width: 768px)  → планшет (768–1023px).
+   @media (min-width: 1024px) → десктоп (≥1024px).
+   Контрольная ширина дизайна — 1366px.
+   Шапка: <1024 — бургер + оверлей меню; ≥1024 — полное горизонтальное меню.
+   CTA шапки скрыт <768. Touch-target ≥ 44px. Фиксированные ширины >480px
+   вне :root запрещены. Каждая страница: ≥ 2 media query (768 и 1024).
+   Мысленный тест: «360px — без горизонтального скролла». */
+:root{
+  /* Брендовые токены (утв. 2026-08) */
+  --color-primary:#3D0E6A;        /* фиолетовый — основной акцент: кнопки, ссылки */
+  --color-primary-dark:#2A0949;   /* ховер, тёмные поверхности */
+  --color-accent:#EBB81E;         /* жёлтый — дозированный акцент: бейджи, маркеры, подчёркивания */
+  --color-bg:#FFFFFF;             /* основной фон */
+  --color-text:#161519;           /* почти чёрный — основной текст */
+  --color-text-muted:#5C5866;     /* вторичный текст */
+  --color-surface:#F7F5FA;        /* подложки секций (лёгкий фиолетовый подтон) */
+  --color-border:#E4E1EA;
+  --color-success:#1E8A4C;        /* статус «Свободно» (UX §3) */
+  --color-warning:#B98900;        /* статус «Резерв» (UX §3) */
+  --color-neutral:#6B6B74;        /* статус «Занято» (UX §3) */
+  --font-main:"Averta CY","Manrope","Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --logo-url:url("assets/mmprom-logo.png");
+  /* Типографика clamp() */
+  --fs-h1:clamp(1.75rem,1.2rem + 2.6vw,3rem);
+  --fs-h2:clamp(1.4rem,1.1rem + 1.6vw,2.125rem);
+  --fs-h3:clamp(1.15rem,1rem + 0.8vw,1.5rem);
+  --fs-body:clamp(1rem,0.95rem + 0.25vw,1.0625rem);
+  --fs-small:0.875rem;
+  /* Прочее */
+  --radius:12px;
+  --shadow:0 2px 12px rgba(22,21,25,.08);
+  --container:1280px;
+  --space-section:clamp(48px,8vw,96px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--font-main);color:var(--color-text);background:var(--color-bg);line-height:1.55;font-size:var(--fs-body)}
+img{max-width:100%;display:block}
+a{color:var(--color-primary)}
+h1,h2,h3{line-height:1.2;margin:0 0 .5em;font-weight:800}
+h1{font-size:var(--fs-h1)}
+h2{font-size:var(--fs-h2)}
+h3{font-size:var(--fs-h3)}
+p{margin:0 0 1em}
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 24;vertical-align:middle}
+/* Контейнер */
+.container{max-width:var(--container);margin:0 auto;padding:0 16px}
+@media (min-width:768px){.container{padding:0 32px}}
+@media (min-width:1024px){.container{padding:0 40px}}
+.section{padding:var(--space-section) 0}
+.section--tint{background:var(--color-surface)}
+/* Сеточные хелперы: коллапс 1 → 2 → 3/4 на брейкпоинтах 768/1024 */
+.grid{display:grid;gap:16px}
+.grid--2,.grid--3,.grid--4{grid-template-columns:1fr}
+@media (min-width:768px){
+  .grid{gap:24px}
+  .grid--2,.grid--3,.grid--4{grid-template-columns:repeat(2,1fr)}
+}
+@media (min-width:1024px){
+  .grid--3{grid-template-columns:repeat(3,1fr)}
+  .grid--4{grid-template-columns:repeat(4,1fr)}
+}
+/* Кнопки (touch-target ≥ 44px, CTA-иерархия UX §3) */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:12px 24px;border-radius:var(--radius);font-weight:700;font-size:var(--fs-body);text-decoration:none;cursor:pointer;border:2px solid transparent}
+.btn--primary{background:var(--color-primary);color:#FFFFFF}
+.btn--primary:hover{background:var(--color-primary-dark)}
+.btn--accent{background:var(--color-accent);color:var(--color-text)}
+.btn--outline{border-color:var(--color-primary);color:var(--color-primary);background:transparent}
+.btn--ghost{border-color:var(--color-border);color:var(--color-text);background:#FFFFFF}
+/* Статус-бейджи занятости (UX §3) */
+.badge{display:inline-flex;align-items:center;gap:6px;min-height:24px;padding:2px 10px;border-radius:999px;font-size:var(--fs-small);font-weight:600}
+.badge--free{background:rgba(30,138,76,.12);color:var(--color-success)}
+.badge--reserve{background:rgba(185,137,0,.14);color:var(--color-warning)}
+.badge--busy{background:rgba(107,107,116,.14);color:var(--color-neutral)}
+/* Заглушка изображения (объекты без фото) */
+.img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--color-surface);border:1px dashed var(--color-border);border-radius:var(--radius);color:var(--color-text-muted);font-size:var(--fs-small);min-height:180px;padding:16px;text-align:center}
+.img-placeholder .material-symbols-outlined{font-size:36px;color:var(--color-border)}
+</style>
+<title>Каталог объектов — производственная недвижимость — ММ Пром</title>
+<style>
+/* ═══ Стили страницы «Каталог объектов» (поверх канона, без правки токенов и классов канона) ═══ */
+
+/* ── Шапка ── */
+.site-header{background:#fff;border-bottom:1px solid var(--color-border)}
+.site-header__inner{display:flex;align-items:center;gap:12px;min-height:64px}
+.site-header__logo{flex:0 0 auto;display:inline-flex}
+.site-header__logo img{height:40px;width:auto}
+.site-header__nav{display:none;gap:24px}
+.site-header__nav a{display:inline-flex;align-items:center;min-height:44px;color:var(--color-text);text-decoration:none;font-weight:600;white-space:nowrap}
+.site-header__nav a:hover{color:var(--color-primary)}
+.site-header__nav a[aria-current="page"]{color:var(--color-primary)}
+.site-header__nav a[data-megamenu]{border-bottom:2px dotted var(--color-primary)}
+.site-header__actions{display:flex;align-items:center;gap:12px;margin-left:auto}
+.site-header__phone{display:none;align-items:center;min-height:44px;font-weight:700;color:var(--color-text);text-decoration:none;white-space:nowrap}
+.site-header__cta{display:none}
+.site-header__burger{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;background:#fff;border:1px solid var(--color-border);border-radius:var(--radius);color:var(--color-text);font:inherit;cursor:pointer;text-decoration:none}
+.site-header__burger .material-symbols-outlined{font-size:28px}
+@media (min-width:768px){
+  .site-header__cta{display:inline-flex}
+  .site-header__logo img{height:44px}
+}
+/* Телефон — только от 1200px: на 1024–1199 полное меню + телефон + CTA
+   не помещаются в одну строку (фикс переполнения шапки, 2026-09) */
+@media (min-width:1200px){
+  .site-header__phone{display:inline-flex}
+}
+/* 1024–1199: компактный CTA шапки — гарантия одной строки при полном меню
+   (дополнение к фиксу переполнения шапки, 2026-09) */
+@media (min-width:1024px) and (max-width:1199.98px){
+  .site-header__cta{padding:12px 16px;white-space:nowrap}
+}
+@media (min-width:1024px){
+  .site-header__nav{display:flex}
+  .site-header__burger{display:none}
+  .site-header__inner{min-height:72px}
+}
+
+/* ── Хлебные крошки ── */
+.b-breadcrumbs{padding:16px 0 0}
+.b-breadcrumbs ol{display:flex;flex-wrap:wrap;gap:4px;list-style:none;margin:0;padding:0;font-size:var(--fs-small);color:var(--color-text-muted)}
+.b-breadcrumbs li{display:inline-flex;align-items:center}
+.b-breadcrumbs li+li::before{content:"/";margin:0 6px;color:var(--color-border)}
+.b-breadcrumbs a{display:inline-flex;align-items:center;min-height:44px;color:var(--color-text-muted);text-decoration:none}
+.b-breadcrumbs a:hover{color:var(--color-primary)}
+.b-breadcrumbs [aria-current="page"]{color:var(--color-text);font-weight:600}
+
+/* ── Заголовок страницы ── */
+.b-catalog-head{padding:20px 0 8px}
+.b-catalog-head h1{margin-bottom:8px}
+.b-catalog-head__lead{max-width:64ch;color:var(--color-text-muted);margin-bottom:16px}
+.b-catalog-head__lead strong{color:var(--color-text)}
+
+/* ── Каркас каталога: фильтры + выдача ── */
+.catalog-shell{margin-top:8px}
+.catalog-results{min-width:0}
+.catalog-results>section{margin:0 0 40px}
+@media (min-width:1024px){
+  .catalog-shell{display:grid;grid-template-columns:320px minmax(0,1fr);gap:40px;align-items:start}
+  .b-filters{position:sticky;top:16px;margin:0}
+}
+
+/* ── Фильтры ── */
+.b-filters{margin:0 0 32px}
+.chips-scroll{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px;border:1px solid var(--color-border);border-radius:999px;background:#fff;color:var(--color-text);font:inherit;font-size:var(--fs-small);font-weight:600;text-decoration:none;white-space:nowrap;cursor:pointer}
+.chip--active{border-color:var(--color-primary);color:var(--color-primary);background:rgba(61,14,106,.06)}
+.chip .material-symbols-outlined{font-size:20px;color:var(--color-text-muted)}
+.filters-details{border:1px solid var(--color-border);border-radius:var(--radius);background:#fff}
+.filters-summary{display:flex;align-items:center;gap:8px;min-height:52px;padding:12px 16px;font-weight:700;cursor:pointer;list-style:none}
+.filters-summary::-webkit-details-marker{display:none}
+.filters-summary>.material-symbols-outlined:first-child{color:var(--color-primary)}
+.filters-summary__chevron{display:inline-flex;margin-left:auto;color:var(--color-text-muted);transition:transform .15s}
+.filters-details[open] .filters-summary__chevron{transform:rotate(180deg)}
+.filters-body{padding:4px 16px 16px;border-top:1px solid var(--color-border)}
+.f-group{padding:16px 0;border-bottom:1px solid var(--color-border)}
+.f-group:last-of-type{border-bottom:0}
+.f-group--deal{display:flex;flex-wrap:nowrap;align-items:center;gap:8px}
+/* Компактные паддинги строки «переключатель + Карта»: одна строка в 288px
+   контента колонки фильтров 320px (правка 2026-09-30) */
+.f-group--deal .seg-toggle__btn{padding:8px 12px}
+.f-group--deal .chip{padding:8px 12px}
+.b-filters h3{font-size:var(--fs-body);font-weight:700;margin:0 0 8px}
+.f-check{display:flex;align-items:center;gap:10px;min-height:44px;font-size:var(--fs-small);cursor:pointer}
+.f-check input{width:18px;height:18px;flex:0 0 auto;accent-color:var(--color-primary)}
+.f-select{width:100%;min-height:44px;padding:10px 12px;border:1px solid var(--color-border);border-radius:var(--radius);background:#fff;font:inherit;color:var(--color-text)}
+.f-slider{display:grid;gap:4px}
+.f-slider__values{display:flex;justify-content:space-between;font-size:var(--fs-small);color:var(--color-text-muted)}
+.f-slider__track{position:relative;height:44px}
+.f-slider__track::before{content:"";position:absolute;left:0;right:0;top:50%;height:4px;transform:translateY(-50%);background:var(--color-border);border-radius:2px}
+.f-slider__fill{position:absolute;top:50%;height:4px;transform:translateY(-50%);background:var(--color-primary);border-radius:2px}
+.f-slider__handle{position:absolute;top:50%;transform:translate(-50%,-50%);width:44px;height:44px;padding:0;border:0;background:transparent;cursor:pointer}
+.f-slider__handle::after{content:"";display:block;width:20px;height:20px;margin:0 auto;border-radius:50%;background:#fff;border:3px solid var(--color-primary);box-shadow:var(--shadow)}
+.f-slider__caption{font-size:var(--fs-small);color:var(--color-text-muted)}
+.filters-actions{display:grid;gap:8px;padding-top:16px}
+.b-note{margin:16px 0 0;color:var(--color-text-muted);font-size:var(--fs-small)}
+@media (min-width:1024px){
+  .b-filters .chips-scroll{display:none}
+  .b-filters .filters-summary{display:none}
+  .b-filters .filters-body{border-top:0;padding:8px 16px 16px}
+}
+
+/* ── Сортировка ── */
+.b-sorting{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.b-sorting__count{margin:0;font-size:var(--fs-small);color:var(--color-text-muted)}
+.b-sorting__count strong{color:var(--color-text)}
+.b-sorting__pills{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px}
+.sort-pill{display:inline-flex;align-items:center;gap:4px;min-height:44px;padding:8px 14px;border:1px solid var(--color-border);border-radius:999px;background:#fff;color:var(--color-text);font:inherit;font-size:var(--fs-small);font-weight:600;white-space:nowrap;cursor:pointer}
+.sort-pill .material-symbols-outlined{font-size:18px}
+.sort-pill--active{border-color:var(--color-primary);color:var(--color-primary);background:rgba(61,14,106,.06)}
+
+/* ── Индустриальные парки (акцент выдачи) ── */
+.b-parks__head{margin-bottom:16px}
+.b-parks__head h2{margin:0 0 8px}
+.b-parks__head h2::after{content:"";display:block;width:64px;height:4px;border-radius:2px;background:var(--color-accent);margin-top:8px}
+.b-parks__head p{margin:0;max-width:64ch;color:var(--color-text-muted)}
+
+/* ── Карточки объектов ── */
+.b-objects__head{margin-bottom:16px}
+.b-objects__head h2{margin:0}
+.obj-card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--color-border);border-radius:var(--radius);overflow:hidden}
+.obj-card--featured{border-top:4px solid var(--color-accent);box-shadow:var(--shadow)}
+.obj-card .img-placeholder{border:0;border-bottom:1px solid var(--color-border);border-radius:0}
+.obj-card__body{display:flex;flex-direction:column;gap:8px;padding:16px;flex:1 1 auto}
+/* Строка бейджей: чип типа слева, ↗-ссылка на карточку справа (правка 2026-09);
+   зона клика ↗-ссылки растянута на всю карточку */
+.obj-card__badges{display:flex;align-items:center;flex-wrap:wrap;justify-content:space-between;gap:8px;min-height:24px}
+.badge--park{background:rgba(235,184,30,.18);color:var(--color-text)}
+/* Чипы типа объекта — кодирование цветом (правка 2026-09-30):
+   парк — жёлтый, здание — фиолетовый, помещение — голубой, участок — зелёный */
+.badge--building{background:rgba(61,14,106,.10);color:var(--color-primary)}
+.badge--premises{background:rgba(43,108,176,.12);color:#2B6CB0}
+.badge--land{background:rgba(30,138,76,.12);color:var(--color-success)}
+.badge--technopark{background:rgba(235,184,30,.18);color:var(--color-text)}
+.obj-card__link{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;margin:-10px -6px -10px auto;color:var(--color-primary);text-decoration:none}
+.obj-card__link .material-symbols-outlined{font-size:20px}
+.obj-card__link:hover .material-symbols-outlined{color:var(--color-primary-dark)}
+.obj-card__link::after{content:"";position:absolute;inset:0}
+.obj-card__body h3{margin:0;font-size:1.0625rem;line-height:1.3}
+.obj-card__desc{margin:0;font-size:var(--fs-small);color:var(--color-text-muted)}
+.obj-card__meta{display:grid;gap:4px;list-style:none;margin:0;padding:0;font-size:var(--fs-small);color:var(--color-text-muted)}
+.obj-card__meta li{display:flex;align-items:center;gap:8px}
+.obj-card__meta .material-symbols-outlined{font-size:18px;color:var(--color-primary)}
+.obj-card__meta strong{color:var(--color-text);font-weight:600}
+/* «Презентация» поверх изображения (правка 2026-09) */
+.obj-card__presentation{position:absolute;top:12px;left:12px;z-index:2;display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:6px 12px;border:1px solid var(--color-border);border-radius:999px;background:#FFFFFF;color:var(--color-text);font-size:var(--fs-small);font-weight:600;text-decoration:none;box-shadow:var(--shadow)}
+.obj-card__presentation .material-symbols-outlined{font-size:18px}
+.obj-card__presentation:hover{border-color:var(--color-primary);color:var(--color-primary)}
+/* ── Реальные фото с подписью и фолбэком-заглушкой (перенос канона из index.html) ── */
+.b-media{margin:0;display:flex;flex-direction:column;background:var(--color-surface)}
+.b-media img{display:block;width:100%;flex:1 1 auto;object-fit:cover}
+.b-media img.is-broken{display:none}
+.b-media figcaption{padding:8px 12px;font-size:var(--fs-small);color:var(--color-text-muted);border-top:1px solid var(--color-border)}
+.obj-card .b-media img{aspect-ratio:16/10}
+.b-pagination{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;margin-top:24px}
+.b-pagination__btn,.b-pagination__num{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:8px 14px;border:1px solid var(--color-border);border-radius:999px;background:#fff;color:var(--color-text);font:inherit;font-size:var(--fs-small);font-weight:600;cursor:pointer}
+.b-pagination__btn .material-symbols-outlined{font-size:20px}
+.b-pagination__btn:disabled{opacity:.4;cursor:default}
+.b-pagination__ellipsis{display:inline-flex;align-items:center;min-height:44px;padding:0 4px;color:var(--color-text-muted)}
+.b-pagination__num--active{border-color:var(--color-primary);background:var(--color-primary);color:#fff}
+
+/* ── Демо состояния «Пустая выдача» ── */
+.b-empty__label{margin:0 0 12px;font-size:var(--fs-small);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--color-text-muted)}
+.b-empty__panel{display:grid;justify-items:center;gap:8px;text-align:center;background:var(--color-surface);border:1px dashed var(--color-border);border-radius:var(--radius);padding:40px 16px}
+.b-empty__panel .material-symbols-outlined{font-size:40px;color:var(--color-primary)}
+.b-empty__panel h2{margin:0}
+.b-empty__panel p{margin:0 0 8px;max-width:48ch;color:var(--color-text-muted)}
+
+/* ── Подвал ── */
+.site-footer{margin-top:var(--space-section);background:var(--color-primary-dark);color:#fff}
+.site-footer a{color:#fff}
+.site-footer__grid{display:grid;gap:32px;padding:48px 0 32px}
+.site-footer__logo{height:36px;width:auto;margin-bottom:12px}
+.site-footer__brand p{margin:0;color:rgba(255,255,255,.75);font-size:var(--fs-small);max-width:40ch}
+.site-footer__title{margin:0 0 8px;font-weight:800;font-size:var(--fs-body)}
+.site-footer__col ul{list-style:none;margin:0;padding:0}
+.site-footer__col li{display:flex}
+.site-footer__col a,.site-footer__col span{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;color:rgba(255,255,255,.85);font-size:var(--fs-small)}
+.site-footer__col a:hover{color:var(--color-accent)}
+.site-footer__social{display:flex;gap:12px;margin-top:12px}
+.site-footer__social a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid rgba(255,255,255,.25);border-radius:50%;text-decoration:none}
+.site-footer__social .material-symbols-outlined{font-size:22px}
+.site-footer__bottom{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.15);padding:16px 0 28px;font-size:var(--fs-small);color:rgba(255,255,255,.65)}
+.site-footer__bottom p{margin:0}
+.site-footer__bottom a{display:inline-flex;align-items:center;min-height:44px;color:rgba(255,255,255,.85);text-decoration:none}
+.site-footer__bottom a:hover{color:var(--color-accent)}
+@media (min-width:768px){.site-footer__grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1024px){.site-footer__grid{grid-template-columns:1.4fr 1fr 1fr 1fr}}
+
+/* ── Сегментированный переключатель «Аренда | Покупка» (правка 2026-09) ── */
+.seg-toggle{display:inline-flex;flex:0 0 auto;border:1px solid var(--color-border);border-radius:999px;overflow:hidden}
+.seg-toggle__btn{min-height:44px;padding:8px 20px;border:0;background:#FFFFFF;color:var(--color-text);font:inherit;font-size:var(--fs-small);font-weight:600;cursor:pointer;white-space:nowrap}
+.seg-toggle__btn+.seg-toggle__btn{border-left:1px solid var(--color-border)}
+.seg-toggle__btn--active{background:var(--color-primary);color:#FFFFFF}
+
+/* ── Сложная форма «Подбор объекта» (правка 2026-09) ── */
+.b-podbor__head{max-width:72ch;margin:0 auto 8px}
+.b-podbor__head h2{margin:0 0 8px}
+.b-podbor__head p{margin:0;color:var(--color-text-muted)}
+.lead-form{display:grid;gap:16px;max-width:860px;margin:24px auto 0}
+.lead-form__field{display:grid;gap:6px}
+.lead-form__label{font-weight:600;font-size:var(--fs-small)}
+.lead-form__label .req{color:var(--color-primary)}
+.lead-form input[type="text"],
+.lead-form input[type="tel"],
+.lead-form input[type="email"],
+.lead-form textarea{width:100%;min-height:48px;padding:12px 14px;border:1px solid var(--color-border);border-radius:var(--radius);font:inherit;color:var(--color-text);background:#FFFFFF}
+.lead-form input:focus,
+.lead-form textarea:focus{outline:none;border-color:var(--color-primary);box-shadow:0 0 0 3px rgba(61,14,106,.12)}
+.lead-form ::placeholder{color:var(--color-text-muted);opacity:.7}
+.lead-form textarea{min-height:96px;resize:vertical}
+.lead-form__hint{margin:-2px 0 0;font-size:var(--fs-small);color:var(--color-text-muted)}
+.lead-form__consent{display:flex;align-items:flex-start;gap:10px;min-height:44px;padding:4px 0;margin:0;font-size:var(--fs-small);color:var(--color-text-muted);cursor:pointer}
+.lead-form__consent input{width:20px;height:20px;margin-top:2px;flex:0 0 auto;accent-color:var(--color-primary)}
+/* Неактивные ссылки на готовящиеся документы (правка 2026-09) */
+.privacy-link--disabled{cursor:default;text-decoration:none;color:var(--color-text-muted)}
+.site-footer__bottom .privacy-link--disabled{color:rgba(255,255,255,.65)}
+.lead-form__submit{width:100%}
+.lead-form__row{display:grid;gap:16px}
+.lead-form__chips{display:flex;flex-wrap:wrap;gap:8px}
+.lead-form__chip{position:relative;display:inline-flex}
+.lead-form__chip input{position:absolute;opacity:0;pointer-events:none}
+.lead-form__chip span{display:inline-flex;align-items:center;min-height:44px;padding:8px 16px;border:1px solid var(--color-border);border-radius:999px;background:#FFFFFF;color:var(--color-text);font-size:var(--fs-small);font-weight:600;cursor:pointer;white-space:nowrap}
+.lead-form__chip input:checked+span{border-color:var(--color-primary);background:var(--color-primary);color:#FFFFFF}
+.lead-form__chip input:focus-visible+span{outline:2px solid var(--color-primary);outline-offset:2px}
+.b-podbor__pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+/* ── Пошаговая форма «Подбор объекта»: 3 шага на скрытых radio, без JS ──
+   Радио #podbor-step-1/2/3 с общим name="podbor-step" исключают друг друга;
+   «Далее»/«Назад» — label[for], панели — sibling-блоки после радио
+   (правка 2026-09-30, образец — gejt_tz.html) */
+.lead-steps__radio{display:none}
+/* Индикатор «Шаг N из 3»: три числа, активное подсвечено */
+.lead-steps__indicator{display:flex;align-items:center;gap:12px}
+.lead-steps__dots{display:flex;gap:8px}
+.lead-steps__dot{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border:2px solid var(--color-border);border-radius:50%;background:#FFFFFF;color:var(--color-text-muted);font-size:var(--fs-small);font-weight:700}
+.lead-steps__label{margin:0;font-size:var(--fs-small);font-weight:600;color:var(--color-text-muted)}
+.lead-steps__label span{display:none}
+#podbor-step-1:checked ~ .lead-steps__indicator .lead-steps__label-1,
+#podbor-step-2:checked ~ .lead-steps__indicator .lead-steps__label-2,
+#podbor-step-3:checked ~ .lead-steps__indicator .lead-steps__label-3{display:inline}
+/* Активный шаг — залит, пройденные — контурные */
+#podbor-step-1:checked ~ .lead-steps__indicator .lead-steps__dot--1,
+#podbor-step-2:checked ~ .lead-steps__indicator .lead-steps__dot--2,
+#podbor-step-3:checked ~ .lead-steps__indicator .lead-steps__dot--3{border-color:var(--color-primary);background:var(--color-primary);color:#FFFFFF}
+#podbor-step-2:checked ~ .lead-steps__indicator .lead-steps__dot--1,
+#podbor-step-3:checked ~ .lead-steps__indicator .lead-steps__dot--1,
+#podbor-step-3:checked ~ .lead-steps__indicator .lead-steps__dot--2{border-color:var(--color-primary);background:rgba(61,14,106,.08);color:var(--color-primary)}
+/* Панели шагов: видна только активная */
+.lead-steps__panel{display:none}
+#podbor-step-1:checked ~ .lead-steps__panel--1,
+#podbor-step-2:checked ~ .lead-steps__panel--2,
+#podbor-step-3:checked ~ .lead-steps__panel--3{display:grid;gap:16px}
+.lead-steps__title{grid-column:1/-1;margin:0;font-size:var(--fs-h3)}
+.lead-steps__wide{grid-column:1/-1}
+/* Кнопки хода; сабмит живёт в панели шага 3 */
+.lead-steps__actions{display:flex;flex-direction:column;gap:12px;grid-column:1/-1}
+.lead-steps__actions .btn{width:100%}
+@media (min-width:768px){
+  .lead-steps__panel--1,.lead-steps__panel--2{grid-template-columns:repeat(2,1fr)}
+  .lead-steps__actions{flex-direction:row;align-items:center}
+  .lead-steps__actions .btn{width:auto}
+  .lead-steps__actions .btn--primary{flex:1 1 auto}
+}
+.zav-demo-flag{display:flex;gap:10px;align-items:flex-start;max-width:860px;margin:16px auto 0;padding:12px 16px;border:1px solid var(--color-border);border-left:3px solid var(--color-accent);border-radius:8px;background:#FFFFFF;font-size:var(--fs-small);color:var(--color-text-muted)}
+.zav-demo-flag .material-symbols-outlined{color:var(--color-primary);flex:0 0 auto;font-size:20px}
+@media(min-width:768px){
+  .lead-form__row--3{grid-template-columns:repeat(3,1fr)}
+  .lead-form__row--2{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-header__logo" href="index.html"><img src="assets/mmprom-logo.png" alt="ММ Пром"></a>
+    <nav class="site-header__nav" aria-label="Основное меню">
+      <a href="usluga.html" data-megamenu>Услуги</a>
+      <a href="katalog_obektov.html" aria-current="page">Каталог</a>
+      <a href="blog.html">Публикации</a>
+      <a href="o_kompanii.html">О компании</a>
+      <a href="kontakty.html">Контакты</a>
+    </nav>
+    <div class="site-header__actions">
+      <a class="site-header__phone" href="tel:88003331010">8 800 333 10 10</a>
+      <a class="btn btn--primary site-header__cta" href="modalka_zayavki.html" data-modal-open>Оставить заявку</a>
+      <button class="site-header__burger" type="button" aria-label="Открыть меню"><span class="material-symbols-outlined" aria-hidden="true">menu</span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section id="breadcrumbs" data-block="Хлебные крошки" class="b-breadcrumbs">
+    <div class="container">
+      <ol>
+        <li><a href="index.html">Главная</a></li>
+        <li><span aria-current="page">Каталог объектов</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="catalog-head" data-block="Заголовок каталога" class="b-catalog-head">
+    <div class="container">
+      <h1>Каталог объектов</h1>
+      <p class="b-catalog-head__lead">Производственная недвижимость Санкт-Петербурга и Ленобласти, включая объекты партнёров.</p>
+    </div>
+  </section>
+
+  <div class="container catalog-shell">
+
+    <section id="filters" data-block="Фильтры" class="b-filters">
+      <div class="chips-scroll" aria-label="Быстрые фильтры каталога">
+        <div class="seg-toggle" role="group" aria-label="Тип сделки">
+          <button class="seg-toggle__btn seg-toggle__btn--active" type="button" aria-pressed="true">Аренда</button>
+          <button class="seg-toggle__btn" type="button" aria-pressed="false">Покупка</button>
+        </div>
+        <a class="chip" href="katalog_karta.html"><span class="material-symbols-outlined" aria-hidden="true">map</span>Карта</a>
+        <button class="chip" type="button">Индустриальные парки</button>
+      </div>
+      <details class="filters-details" open>
+        <summary class="filters-summary">
+          <span class="material-symbols-outlined">tune</span>Все фильтры
+          <span class="material-symbols-outlined filters-summary__chevron">expand_more</span>
+        </summary>
+        <div class="filters-body">
+          <div class="f-group f-group--deal">
+            <div class="seg-toggle" role="group" aria-label="Тип сделки">
+              <button class="seg-toggle__btn seg-toggle__btn--active" type="button" aria-pressed="true">Аренда</button>
+              <button class="seg-toggle__btn" type="button" aria-pressed="false">Покупка</button>
+            </div>
+            <a class="chip" href="katalog_karta.html"><span class="material-symbols-outlined" aria-hidden="true">map</span>Карта</a>
+          </div>
+          <div class="f-group">
+            <h3>Тип объекта</h3>
+            <label class="f-check"><input type="checkbox" checked><span>Индустриально-складские объекты</span></label>
+            <label class="f-check"><input type="checkbox"><span>Земельный участок промышленного назначения</span></label>
+          </div>
+          <div class="f-group">
+            <h3>Площадь, м²</h3>
+            <div class="f-slider">
+              <div class="f-slider__values"><span>0</span><span>150 000</span></div>
+              <div class="f-slider__track">
+                <span class="f-slider__fill" style="left:8%;width:64%"></span>
+                <button class="f-slider__handle" type="button" style="left:8%" aria-label="Минимальная площадь"></button>
+                <button class="f-slider__handle" type="button" style="left:72%" aria-label="Максимальная площадь"></button>
+              </div>
+              <div class="f-slider__caption">от 12 000 до 108 000 м²</div>
+            </div>
+          </div>
+          <div class="f-group">
+            <h3>Локация</h3>
+            <select class="f-select" aria-label="Регион / район">
+                <option>Санкт-Петербург — все районы</option>
+                <option>Московский район</option>
+                <option>Колпинский район</option>
+                <option>Калининский район</option>
+                <option>Всеволожский район, ЛО</option>
+                <option>Тосненский район, ЛО</option>
+                <option>Гатчинский район, ЛО</option>
+                <option>Кировский район, ЛО</option>
+            </select>
+          </div>
+          <div class="f-group">
+            <h3>Цена</h3>
+            <div class="f-slider">
+              <div class="f-slider__values"><span>от 500 000 ₽</span><span>до 500 000 000 ₽</span></div>
+              <div class="f-slider__track">
+                <span class="f-slider__fill" style="left:4%;width:32%"></span>
+                <button class="f-slider__handle" type="button" style="left:4%" aria-label="Минимальная цена"></button>
+                <button class="f-slider__handle" type="button" style="left:36%" aria-label="Максимальная цена"></button>
+              </div>
+              <div class="f-slider__caption">от 20 000 000 до 180 000 000 ₽ — без привязки к периоду</div>
+            </div>
+          </div>
+          <div class="filters-actions">
+            <button class="btn btn--primary" type="button">Показать 128 объектов</button>
+            <button class="btn btn--ghost" type="button">Сбросить фильтры</button>
+          </div>
+        </div>
+      </details>
+      <p class="b-note">Состав фильтров согласован (правка 2026-09): сделка, тип, площадь, цена, локация</p>
+    </section>
+
+    <div class="catalog-results">
+
+      <section id="sorting" data-block="Сортировка" class="b-sorting">
+        <p class="b-sorting__count">Найдено: <strong>128</strong> объектов</p>
+        <div class="b-sorting__pills" role="group" aria-label="Сортировка выдачи">
+          <button class="sort-pill sort-pill--active" type="button" aria-pressed="true">По цене<span class="material-symbols-outlined">arrow_downward</span></button>
+          <button class="sort-pill" type="button">По площади</button>
+        </div>
+      </section>
+
+      <section id="parks" data-block="Наши объекты" class="b-parks">
+        <div class="b-parks__head">
+          <h2>Наши объекты</h2>
+          <p>Готовые площадки с коммуникациями, подъездными путями и спектром помещений — приоритетная выдача каталога.</p>
+        </div>
+        <div class="grid grid--2">
+          <article class="obj-card obj-card--featured">
+            <a class="obj-card__presentation" href="gejt_broshury.html" data-gate-open><span class="material-symbols-outlined" aria-hidden="true">description</span>Презентация</a>
+            <figure class="b-media">
+              <img src="https://mm-prom.ru/wp-content/uploads/2026/09/image-14-09-26-10-33-1-scaled-optimized.png" alt="Атлас Гаражный — индустриальный парк" loading="lazy" onerror="this.classList.add('is-broken')">
+              <figcaption>Атлас Гаражный — современный индустриальный парк</figcaption>
+            </figure>
+            <div class="obj-card__body">
+              <div class="obj-card__badges">
+                <span class="badge badge--park">Индустриальный парк</span>
+                <!-- Персональная страница на живом сайте; при запуске нового сайта заменить на локальную -->
+                <a class="obj-card__link" href="https://mm-prom.ru/atlas-garazhnyj/" target="_blank" rel="noopener" aria-label="Открыть карточку: Атлас Гаражный"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+              </div>
+              <h3>Атлас Гаражный</h3>
+              <p class="obj-card__desc">Современный индустриальный парк. Локация — промышленная зона Обухово: 14 минут до метро пешком, 5 минут до КАД. Предлагаемая площадь — 8577 м², энергетические мощности — 1 МВт с возможностью увеличения, аренда — от 1 300 м².</p>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined">bolt</span><span>Мощности: <strong>1 МВт, с возможностью увеличения</strong></span></li>
+                <li><span class="material-symbols-outlined">place</span><span>Промышленная зона Обухово, СПб</span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="obj-card obj-card--featured">
+            <a class="obj-card__presentation" href="gejt_broshury.html" data-gate-open><span class="material-symbols-outlined" aria-hidden="true">description</span>Презентация</a>
+            <figure class="b-media">
+              <img src="https://mm-prom.ru/wp-content/uploads/2026/05/garage.avif" alt="Аврора Витебский — индустриальный парк" loading="lazy" onerror="this.classList.add('is-broken')">
+              <figcaption>Аврора Витебский — индустриальный парк на Витебском проспекте</figcaption>
+            </figure>
+            <!-- [УТОЧНИТЬ: актуальное фото Авроры — есть ли отдельное] -->
+            <div class="obj-card__body">
+              <div class="obj-card__badges">
+                <span class="badge badge--park">Индустриальный парк</span>
+                <!-- Персональная страница на живом сайте; при запуске нового сайта заменить на локальную -->
+                <a class="obj-card__link" href="https://mm-prom.ru/avrora-vitebskij/" target="_blank" rel="noopener" aria-label="Открыть карточку: Аврора Витебский"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+              </div>
+              <h3>Аврора Витебский</h3>
+              <p class="obj-card__desc">Индустриальный парк площадью 38 га на Витебском проспекте: 12 минут до станции метро Купчино на транспорте, 5 минут до КАД. Возможная площадь застройки — более 200 000 м², энергетические мощности — от 1 до 25 МВт.</p>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined">bolt</span><span>Мощности: <strong>от 1 до 25 МВт</strong></span></li>
+                <li><span class="material-symbols-outlined">place</span><span>Витебский проспект, СПб</span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="obj-card obj-card--featured">
+            <div class="img-placeholder" data-img="Фото: Антарес Латышских Стрелков"><span class="material-symbols-outlined" aria-hidden="true">image</span>Антарес Латышских Стрелков</div>
+            <div class="obj-card__body">
+              <div class="obj-card__badges">
+                <span class="badge badge--technopark">Технопарк</span>
+                <a class="obj-card__link" href="kartochka_obekta.html" aria-label="Открыть карточку: Антарес Латышских Стрелков"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+              </div>
+              <h3>Антарес Латышских Стрелков</h3>
+              <p class="obj-card__desc">Готовый объект для аренды и покупки.</p>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined">place</span><span>ул. Латышских Стрелков, СПб</span></li>
+              </ul>
+            </div>
+          </article>
+          <!-- [УТОЧНИТЬ параметры] -->
+          <article class="obj-card obj-card--featured">
+            <div class="img-placeholder" data-img="Фото: Войсковицы"><span class="material-symbols-outlined" aria-hidden="true">image</span>Войсковицы</div>
+            <div class="obj-card__body">
+              <div class="obj-card__badges">
+                <span class="badge badge--park">Индустриальный парк</span>
+                <a class="obj-card__link" href="kartochka_obekta.html" aria-label="Открыть карточку: Войсковицы"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+              </div>
+              <h3>Войсковицы</h3>
+              <p class="obj-card__desc">Площадки под размещение производства и склада: подводка коммуникаций, удобный выезд на трассы, возможность строительства под задачу арендатора.</p>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined">place</span><span>Гатчинский район, ЛО</span></li>
+              </ul>
+            </div>
+          </article>
+          <!-- [УТОЧНИТЬ параметры] -->
+          <article class="obj-card obj-card--featured">
+            <div class="img-placeholder" data-img="Фото: Волхонское"><span class="material-symbols-outlined" aria-hidden="true">image</span>Волхонское</div>
+            <div class="obj-card__body">
+              <div class="obj-card__badges">
+                <span class="badge badge--park">Индустриальный парк</span>
+                <a class="obj-card__link" href="kartochka_obekta.html" aria-label="Открыть карточку: Волхонское"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+              </div>
+              <h3>Волхонское</h3>
+              <p class="obj-card__desc">Участки и готовые помещения: близость к КАД, развивающаяся инфраструктура, варианты под аренду и покупку.</p>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined">place</span><span>Всеволожский район, ЛО</span></li>
+              </ul>
+            </div>
+          </article>
+          <!-- [УТОЧНИТЬ параметры] -->
+          <article class="obj-card obj-card--featured">
+            <div class="img-placeholder" data-img="Фото: Парнас"><span class="material-symbols-outlined" aria-hidden="true">image</span>Парнас</div>
+            <div class="obj-card__body">
+              <div class="obj-card__badges">
+                <span class="badge badge--park">Индустриальный парк</span>
+                <a class="obj-card__link" href="kartochka_obekta.html" aria-label="Открыть карточку: Парнас"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+              </div>
+              <h3>Парнас</h3>
+              <p class="obj-card__desc">Готовые помещения и участки в промышленной зоне Парнас: транспортная доступность Санкт-Петербурга, размещение производства и склада.</p>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined">place</span><span>Выборгский район, СПб</span></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="objects" data-block="Все объекты" class="b-objects">
+        <div class="b-objects__head">
+          <h2>Все объекты</h2>
+        </div>
+        <div class="grid grid--3">
+          <article class="obj-card">
+            <div class="img-placeholder" data-img="Фото объекта"><span class="material-symbols-outlined">image</span>Фото объекта</div>
+            <div class="obj-card__body">
+              <div class="obj-card__badges"><span class="badge badge--premises">Помещение</span><a class="obj-card__link" href="kartochka_obekta.html" aria-label="Открыть карточку: Производственное помещение с кран-балкой"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a></div>
+              <h3>Производственное помещение с кран-балкой</h3>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined">square_foot</span><span><strong>2 400 м²</strong></span></li>
+                <li><span class="material-symbols-outlined">place</span><span>Колпинский район, СПб</span></li>
+                <li><span class="material-symbols-outlined">payments</span><span>от <strong>4 300 ₽/м²</strong></span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="obj-card">
+            <div class="img-placeholder" data-img="Фото объекта"><span class="material-symbols-outlined">image</span>Фото объекта</div>
+            <div class="obj-card__body">
+              <div class="obj-card__badges"><span class="badge badge--building">Здание</span><a class="obj-card__link" href="kartochka_obekta.html" aria-label="Открыть карточку: Складской комплекс класса «B»"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a></div>
+              <h3>Складской комплекс класса «B»</h3>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined">square_foot</span><span><strong>5 800 м²</strong></span></li>
+                <li><span class="material-symbols-outlined">place</span><span>Тосненский район, ЛО</span></li>
+                <li><span class="material-symbols-outlined">payments</span><span>от <strong>3 900 ₽/м²</strong></span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="obj-card">
+            <div class="img-placeholder" data-img="Фото объекта"><span class="material-symbols-outlined">image</span>Фото объекта</div>
+            <div class="obj-card__body">
+              <div class="obj-card__badges"><span class="badge badge--building">Здание</span><a class="obj-card__link" href="kartochka_obekta.html" aria-label="Открыть карточку: Логистический комплекс класса «А»"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a></div>
+              <h3>Логистический комплекс класса «А»</h3>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined">square_foot</span><span><strong>12 500 м²</strong></span></li>
+                <li><span class="material-symbols-outlined">place</span><span>Московский район, СПб</span></li>
+                <li><span class="material-symbols-outlined">payments</span><span>от <strong>4 700 ₽/м²</strong></span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="obj-card">
+            <div class="img-placeholder" data-img="Фото объекта"><span class="material-symbols-outlined">image</span>Фото объекта</div>
+            <div class="obj-card__body">
+              <div class="obj-card__badges"><span class="badge badge--building">Здание</span><a class="obj-card__link" href="kartochka_obekta.html" aria-label="Открыть карточку: Производственно-складское здание"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a></div>
+              <h3>Производственно-складское здание</h3>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined">square_foot</span><span><strong>1 750 м²</strong></span></li>
+                <li><span class="material-symbols-outlined">place</span><span>Гатчинский район, ЛО</span></li>
+                <li><span class="material-symbols-outlined">payments</span><span>от <strong>4 100 ₽/м²</strong></span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="obj-card">
+            <div class="img-placeholder" data-img="Фото объекта"><span class="material-symbols-outlined">image</span>Фото объекта</div>
+            <div class="obj-card__body">
+              <div class="obj-card__badges"><span class="badge badge--building">Здание</span><a class="obj-card__link" href="kartochka_obekta.html" aria-label="Открыть карточку: Тёплый склад с ж/д веткой"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a></div>
+              <h3>Тёплый склад с ж/д веткой</h3>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined">square_foot</span><span><strong>3 200 м²</strong></span></li>
+                <li><span class="material-symbols-outlined">place</span><span>Тосненский район, ЛО</span></li>
+                <li><span class="material-symbols-outlined">payments</span><span>от <strong>4 500 ₽/м²</strong></span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="obj-card">
+            <div class="img-placeholder" data-img="Фото объекта"><span class="material-symbols-outlined">image</span>Фото объекта</div>
+            <div class="obj-card__body">
+              <div class="obj-card__badges"><span class="badge badge--building">Здание</span><a class="obj-card__link" href="kartochka_obekta.html" aria-label="Открыть карточку: Офисно-производственное здание"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a></div>
+              <h3>Офисно-производственное здание</h3>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined">square_foot</span><span><strong>980 м²</strong></span></li>
+                <li><span class="material-symbols-outlined">place</span><span>Калининский район, СПб</span></li>
+                <li><span class="material-symbols-outlined">payments</span><span>от <strong>5 600 ₽/м²</strong></span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="obj-card">
+            <div class="img-placeholder" data-img="Фото объекта"><span class="material-symbols-outlined">image</span>Фото объекта</div>
+            <div class="obj-card__body">
+              <div class="obj-card__badges"><span class="badge badge--building">Здание</span><a class="obj-card__link" href="kartochka_obekta.html" aria-label="Открыть карточку: Производственный цех с мостовым краном"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a></div>
+              <h3>Производственный цех с мостовым краном</h3>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined">square_foot</span><span><strong>1 500 м²</strong></span></li>
+                <li><span class="material-symbols-outlined">place</span><span>Кировский район, ЛО</span></li>
+                <li><span class="material-symbols-outlined">payments</span><span>от <strong>4 200 ₽/м²</strong></span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="obj-card">
+            <div class="img-placeholder" data-img="Фото объекта"><span class="material-symbols-outlined">image</span>Фото объекта</div>
+            <div class="obj-card__body">
+              <div class="obj-card__badges"><span class="badge badge--land">Земельный участок</span><a class="obj-card__link" href="kartochka_obekta.html" aria-label="Открыть карточку: Открытая площадка с твёрдым покрытием"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a></div>
+              <h3>Открытая площадка с твёрдым покрытием</h3>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined">square_foot</span><span><strong>12 000 м²</strong></span></li>
+                <li><span class="material-symbols-outlined">place</span><span>Всеволожский район, ЛО</span></li>
+                <li><span class="material-symbols-outlined">payments</span><span>от <strong>1 800 ₽/м²</strong></span></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+        <nav class="b-pagination" aria-label="Страницы каталога">
+          <button class="b-pagination__btn" type="button" disabled aria-label="Предыдущая страница"><span class="material-symbols-outlined">chevron_left</span></button>
+          <button class="b-pagination__num b-pagination__num--active" type="button" aria-current="page">1</button>
+          <button class="b-pagination__num" type="button">2</button>
+          <button class="b-pagination__num" type="button">3</button>
+          <span class="b-pagination__ellipsis" aria-hidden="true">…</span>
+          <button class="b-pagination__num" type="button">16</button>
+          <button class="b-pagination__btn" type="button" aria-label="Следующая страница"><span class="material-symbols-outlined">chevron_right</span></button>
+        </nav>
+      </section>
+
+    </div>
+  </div>
+
+  <section id="empty-state" data-block="Пустая выдача" class="b-empty">
+    <div class="container">
+      <p class="b-empty__label">Демо состояния «Пустая выдача»</p>
+      <div class="b-empty__panel">
+        <span class="material-symbols-outlined">search_off</span>
+        <h2>Ничего не нашлось</h2>
+        <p>По заданным параметрам объектов не нашлось. Свяжитесь с нами — подберём индивидуально.</p>
+        <a class="btn btn--primary" href="modalka_zayavki.html" data-modal-open>Свяжитесь с нами</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="podbor" data-block="Подбор объекта" class="b-podbor section section--tint">
+    <div class="container">
+      <!-- [УТОЧНИТЬ: DESIGN.md описывает «18 параметров» запроса, в чек-листе отдела продаж фактически 17 — формулировка приводится к 17] -->
+      <div class="b-podbor__head">
+        <h2>Не нашли подходящий объект? Подберём под запрос</h2>
+        <p>Заполните три коротких шага — подберём варианты и пришлём подборку.</p>
+      </div>
+      <form class="lead-form" action="#" method="post">
+        <!-- Скрытые поля CRM-контекста -->
+        <input type="hidden" name="role" value="производственная-компания">
+        <input type="hidden" name="usluga" value="подбор-объекта">
+        <input type="hidden" name="source" value="podbor-katalog">
+        <input type="hidden" name="object" value="[демо] каталог объектов">
+        <input type="hidden" name="utm_source" value="">
+        <input type="hidden" name="utm_medium" value="">
+        <input type="hidden" name="utm_campaign" value="">
+        <input type="hidden" name="utm_content" value="">
+        <input type="hidden" name="utm_term" value="">
+
+        <!-- Шаги формы: переключение на скрытых radio, без JS.
+             Общее name="podbor-step" нужно, чтобы radio исключали друг
+             друга (значение в CRM не используется). -->
+        <input class="lead-steps__radio" type="radio" name="podbor-step" id="podbor-step-1" value="1" checked>
+        <input class="lead-steps__radio" type="radio" name="podbor-step" id="podbor-step-2" value="2">
+        <input class="lead-steps__radio" type="radio" name="podbor-step" id="podbor-step-3" value="3">
+
+        <!-- Индикатор «Шаг N из 3» -->
+        <div class="lead-steps__indicator">
+          <div class="lead-steps__dots" aria-hidden="true">
+            <span class="lead-steps__dot lead-steps__dot--1">1</span>
+            <span class="lead-steps__dot lead-steps__dot--2">2</span>
+            <span class="lead-steps__dot lead-steps__dot--3">3</span>
+          </div>
+          <p class="lead-steps__label">
+            <span class="lead-steps__label-1">Шаг 1 из 3</span>
+            <span class="lead-steps__label-2">Шаг 2 из 3 · Требования к объекту</span>
+            <span class="lead-steps__label-3">Шаг 3 из 3 · Контакты</span>
+          </p>
+        </div>
+
+        <!-- Шаг 1 -->
+        <div class="lead-steps__panel lead-steps__panel--1">
+
+          <div class="lead-form__field lead-steps__wide">
+            <span class="lead-form__label" id="podbor-deal-label">Тип сделки</span>
+            <div class="lead-form__chips" role="radiogroup" aria-labelledby="podbor-deal-label">
+              <label class="lead-form__chip"><input type="radio" name="deal-type" value="Аренда" checked><span>Аренда</span></label>
+              <label class="lead-form__chip"><input type="radio" name="deal-type" value="Покупка"><span>Покупка</span></label>
+              <label class="lead-form__chip"><input type="radio" name="deal-type" value="Аренда с выкупом"><span>Аренда с выкупом</span></label>
+              <label class="lead-form__chip"><input type="radio" name="deal-type" value="Строительство под ключ"><span>Строительство под ключ</span></label>
+              <label class="lead-form__chip"><input type="radio" name="deal-type" value="Покупка земельного участка"><span>Покупка земельного участка</span></label>
+            </div>
+          </div>
+
+          <div class="lead-form__field lead-steps__wide">
+            <span class="lead-form__label">Метраж, м²</span>
+            <div class="b-podbor__pair">
+              <input type="text" name="area-from" inputmode="numeric" placeholder="от 500" aria-label="Метраж от, м²">
+              <input type="text" name="area-to" inputmode="numeric" placeholder="до 5 000" aria-label="Метраж до, м²">
+            </div>
+          </div>
+
+          <div class="lead-form__field">
+            <label class="lead-form__label" for="podbor-location">Локация</label>
+            <input type="text" id="podbor-location" name="location" placeholder="Санкт-Петербург, Всеволожский район…">
+          </div>
+
+          <div class="lead-form__field lead-steps__wide">
+            <span class="lead-form__label" id="podbor-purpose-label">Назначение</span>
+            <div class="lead-form__chips" role="radiogroup" aria-labelledby="podbor-purpose-label">
+              <label class="lead-form__chip"><input type="radio" name="purpose" value="Склад" checked><span>Склад</span></label>
+              <label class="lead-form__chip"><input type="radio" name="purpose" value="Производство"><span>Производство</span></label>
+              <label class="lead-form__chip"><input type="radio" name="purpose" value="Иное"><span>Иное</span></label>
+            </div>
+          </div>
+
+          <div class="lead-form__field">
+            <label class="lead-form__label" for="podbor-product">Производимая продукция</label>
+            <input type="text" id="podbor-product" name="product">
+          </div>
+
+          <div class="lead-form__field">
+            <label class="lead-form__label" for="podbor-term">Срок аренды и планируемая дата переезда</label>
+            <input type="text" id="podbor-term" name="term" placeholder="от 3 лет, переезд к 01.06">
+          </div>
+
+          <div class="lead-form__field">
+            <label class="lead-form__label" for="podbor-budget">Арендная ставка / бюджет</label>
+            <input type="text" id="podbor-budget" name="budget" placeholder="до 450 ₽/м²">
+          </div>
+
+          <div class="lead-steps__actions">
+            <label class="btn btn--primary lead-steps__next" for="podbor-step-2">Далее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></label>
+          </div>
+        </div>
+
+        <!-- Шаг 2 -->
+        <div class="lead-steps__panel lead-steps__panel--2">
+          <h3 class="lead-steps__title">Требования к объекту</h3>
+
+          <div class="lead-form__field">
+            <label class="lead-form__label" for="podbor-power">Электрическая мощность</label>
+            <input type="text" id="podbor-power" name="power" placeholder="напр. 500 кВт">
+          </div>
+
+          <div class="lead-form__field">
+            <label class="lead-form__label" for="podbor-heating">Отопление</label>
+            <input type="text" id="podbor-heating" name="heating" placeholder="есть / требуется / мощность">
+          </div>
+
+          <div class="lead-form__field">
+            <label class="lead-form__label" for="podbor-crane">Грузоподъёмность / Г/П оборудование</label>
+            <input type="text" id="podbor-crane" name="crane" placeholder="напр. 5 т кран-балка">
+          </div>
+
+          <div class="lead-form__field">
+            <label class="lead-form__label" for="podbor-ceiling">Высота потолка</label>
+            <input type="text" id="podbor-ceiling" name="ceiling" placeholder="от 8 м">
+          </div>
+
+          <div class="lead-form__field">
+            <label class="lead-form__label" for="podbor-floor-level">Уровень пола от земли</label>
+            <input type="text" id="podbor-floor-level" name="floor-level" placeholder="0 м / 1,2 м">
+          </div>
+
+          <div class="lead-form__field">
+            <label class="lead-form__label" for="podbor-floor-load">Нагрузка на пол</label>
+            <input type="text" id="podbor-floor-load" name="floor-load" placeholder="напр. 5 т/м²">
+          </div>
+
+          <div class="lead-form__field">
+            <label class="lead-form__label" for="podbor-columns">Шаг колонн</label>
+            <input type="text" id="podbor-columns" name="columns" placeholder="напр. 6×12 м">
+          </div>
+
+          <div class="lead-form__field">
+            <label class="lead-form__label" for="podbor-working-height">Рабочая высота</label>
+            <input type="text" id="podbor-working-height" name="working-height" placeholder="до низа ферм">
+          </div>
+
+          <div class="lead-form__field">
+            <label class="lead-form__label" for="podbor-gates">Ворота / габариты</label>
+            <input type="text" id="podbor-gates" name="gates">
+          </div>
+
+          <div class="lead-form__field">
+            <label class="lead-form__label" for="podbor-temperature">Температурный режим</label>
+            <input type="text" id="podbor-temperature" name="temperature" placeholder="от +5 до +25 °C / холодный">
+          </div>
+
+          <div class="lead-steps__actions">
+            <label class="btn btn--ghost lead-steps__back" for="podbor-step-1">Назад</label>
+            <label class="btn btn--primary lead-steps__next" for="podbor-step-3">Далее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></label>
+          </div>
+        </div>
+
+        <!-- Шаг 3; сабмит доступен только на этом шаге -->
+        <div class="lead-steps__panel lead-steps__panel--3">
+          <h3 class="lead-steps__title">Контакты</h3>
+
+          <div class="lead-form__row lead-form__row--3">
+            <div class="lead-form__field">
+              <label class="lead-form__label" for="podbor-name">Имя <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="podbor-name" name="name" placeholder="Как к вам обращаться" required>
+            </div>
+            <div class="lead-form__field">
+              <label class="lead-form__label" for="podbor-surname">Фамилия</label>
+              <input type="text" id="podbor-surname" name="surname" placeholder="Фамилия">
+            </div>
+            <div class="lead-form__field">
+              <label class="lead-form__label" for="podbor-company">Название компании</label>
+              <input type="text" id="podbor-company" name="company" placeholder="Компания">
+            </div>
+          </div>
+          <div class="lead-form__field">
+            <span class="lead-form__label" id="podbor-way-label">Предпочтительный способ связи</span>
+            <div class="lead-form__chips" role="radiogroup" aria-labelledby="podbor-way-label">
+              <label class="lead-form__chip"><input type="radio" name="contact-way" value="Телефон" checked><span>Телефон</span></label>
+              <label class="lead-form__chip"><input type="radio" name="contact-way" value="Телеграм"><span>Телеграм</span></label>
+              <label class="lead-form__chip"><input type="radio" name="contact-way" value="MAX"><span>MAX</span></label>
+              <label class="lead-form__chip"><input type="radio" name="contact-way" value="Ватсап"><span>Ватсап</span></label>
+              <label class="lead-form__chip"><input type="radio" name="contact-way" value="Почта"><span>Почта</span></label>
+            </div>
+          </div>
+          <div class="lead-form__row lead-form__row--2">
+            <div class="lead-form__field">
+              <label class="lead-form__label" for="podbor-phone">Телефон <span class="req" aria-hidden="true">*</span></label>
+              <input type="tel" id="podbor-phone" name="phone" inputmode="tel" placeholder="+7 (___) ___-__-__" required>
+              <p class="lead-form__hint">Заполните контакт для выбранного способа связи.</p>
+            </div>
+            <div class="lead-form__field">
+              <label class="lead-form__label" for="podbor-email">Email</label>
+              <input type="email" id="podbor-email" name="email" placeholder="name@company.ru">
+            </div>
+          </div>
+
+          <div class="lead-form__field">
+            <label class="lead-form__label" for="podbor-comment">Дополнительная информация</label>
+            <textarea id="podbor-comment" name="comment"></textarea>
+          </div>
+
+          <label class="lead-form__consent" for="podbor-consent">
+            <input type="checkbox" id="podbor-consent" name="consent" required>
+            <span>Согласен на обработку персональных данных согласно <span class="privacy-link--disabled" aria-disabled="true" title="Документ готовится">Политике конфиденциальности</span>. Отправка невозможна без согласия.</span>
+          </label>
+
+          <div class="lead-steps__actions">
+            <label class="btn btn--ghost lead-steps__back" for="podbor-step-2">Назад</label>
+            <button class="btn btn--primary lead-form__submit" type="submit">Отправить заявку на подбор</button>
+          </div>
+        </div>
+      </form>
+      <p class="zav-demo-flag"><span class="material-symbols-outlined" aria-hidden="true">info</span>Демо-пометка: состав полей — по чек-листу „Параметры запроса“ отдела продаж (аренда/продажа)</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <img class="site-footer__logo" src="assets/mmprom-logo.png" alt="ММ Пром">
+        <p>Производственная недвижимость Санкт-Петербурга и Ленобласти. С 2011 года: 25+ проектов, 200 000+ м², 150+ арендаторов.</p>
+        <div class="site-footer__social">
+          <a href="https://t.me/mm_prom1" aria-label="Телеграм ММ Пром"><span class="material-symbols-outlined">send</span></a>
+          <a href="https://max.ru/se14192436_biz" aria-label="Канал ММ Пром в MAX"><span aria-hidden="true" style="font-size:.75rem;font-weight:800;letter-spacing:.02em">MAX</span></a>
+        </div>
+      </div>
+      <div class="site-footer__col">
+        <p class="site-footer__title">Услуги</p>
+        <ul>
+          <li><a href="usluga_arenda.html">Аренда недвижимости</a></li>
+          <li><a href="usluga_prodazha.html">Продажа недвижимости</a></li>
+          <li><a href="usluga_stroitelstvo.html">Строительство</a></li>
+          <li><a href="usluga_development.html">Девелопмент под ключ</a></li>
+          <li><a href="usluga_redevelopment.html">Редевелопмент</a></li>
+          <li><a href="usluga_upravlenie.html">Управление</a></li>
+          <li><a href="usluga_konsalting.html">Промышленный консалтинг</a></li>
+          <li><a href="usluga_treyd_in.html">Трейд-ин / Срочный выкуп</a></li>
+          <li><a href="usluga_investicii.html">Инвестиции и финансирование</a></li>
+          <li><a href="usluga.html">Все услуги</a></li>
+        </ul>
+      </div>
+      <div class="site-footer__col">
+        <p class="site-footer__title">Компания</p>
+        <ul>
+          <li><a href="o_kompanii.html">О компании</a></li>
+          <li><a href="katalog_obektov.html">Каталог объектов</a></li>
+          <li><a href="blog.html">Публикации</a></li>
+          <li><a href="kontakty.html">Контакты</a></li>
+        </ul>
+      </div>
+      <div class="site-footer__col">
+        <p class="site-footer__title">Контакты</p>
+        <ul>
+          <li><a href="tel:88003331010">8 800 333 10 10</a></li>
+          <li><span>info@mm-prom.ru</span></li>
+          <li><span>г. Санкт-Петербург, ул. Латышских стрелков, 19</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <p>© 2011–2026 ММ Пром</p>
+      <span class="privacy-link--disabled" aria-disabled="true" title="Документ готовится">Политика конфиденциальности</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

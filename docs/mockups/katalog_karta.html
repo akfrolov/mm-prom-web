@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Шрифты: Manrope (фолбэк Averta CY) + Inter; Material Symbols для иконок.
+     Офлайн макеты работают с деградацией на системные шрифты и текст. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+<style>
+/* ─── Канон брейкпоинтов (mobile-first, UX §3 дефолт) ──────────────────
+   Базовые стили = смартфон (360–767px).
+   @media (min-width: 768px)  → планшет (768–1023px).
+   @media (min-width: 1024px) → десктоп (≥1024px).
+   Контрольная ширина дизайна — 1366px.
+   Шапка: <1024 — бургер + оверлей меню; ≥1024 — полное горизонтальное меню.
+   CTA шапки скрыт <768. Touch-target ≥ 44px. Фиксированные ширины >480px
+   вне :root запрещены. Каждая страница: ≥ 2 media query (768 и 1024).
+   Мысленный тест: «360px — без горизонтального скролла». */
+:root{
+  /* Брендовые токены (утв. 2026-08) */
+  --color-primary:#3D0E6A;        /* фиолетовый — основной акцент: кнопки, ссылки */
+  --color-primary-dark:#2A0949;   /* ховер, тёмные поверхности */
+  --color-accent:#EBB81E;         /* жёлтый — дозированный акцент: бейджи, маркеры, подчёркивания */
+  --color-bg:#FFFFFF;             /* основной фон */
+  --color-text:#161519;           /* почти чёрный — основной текст */
+  --color-text-muted:#5C5866;     /* вторичный текст */
+  --color-surface:#F7F5FA;        /* подложки секций (лёгкий фиолетовый подтон) */
+  --color-border:#E4E1EA;
+  --color-success:#1E8A4C;        /* статус «Свободно» (UX §3) */
+  --color-warning:#B98900;        /* статус «Резерв» (UX §3) */
+  --color-neutral:#6B6B74;        /* статус «Занято» (UX §3) */
+  --font-main:"Averta CY","Manrope","Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --logo-url:url("assets/mmprom-logo.png");
+  /* Типографика clamp() */
+  --fs-h1:clamp(1.75rem,1.2rem + 2.6vw,3rem);
+  --fs-h2:clamp(1.4rem,1.1rem + 1.6vw,2.125rem);
+  --fs-h3:clamp(1.15rem,1rem + 0.8vw,1.5rem);
+  --fs-body:clamp(1rem,0.95rem + 0.25vw,1.0625rem);
+  --fs-small:0.875rem;
+  /* Прочее */
+  --radius:12px;
+  --shadow:0 2px 12px rgba(22,21,25,.08);
+  --container:1280px;
+  --space-section:clamp(48px,8vw,96px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--font-main);color:var(--color-text);background:var(--color-bg);line-height:1.55;font-size:var(--fs-body)}
+img{max-width:100%;display:block}
+a{color:var(--color-primary)}
+h1,h2,h3{line-height:1.2;margin:0 0 .5em;font-weight:800}
+h1{font-size:var(--fs-h1)}
+h2{font-size:var(--fs-h2)}
+h3{font-size:var(--fs-h3)}
+p{margin:0 0 1em}
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 24;vertical-align:middle}
+/* Контейнер */
+.container{max-width:var(--container);margin:0 auto;padding:0 16px}
+@media (min-width:768px){.container{padding:0 32px}}
+@media (min-width:1024px){.container{padding:0 40px}}
+.section{padding:var(--space-section) 0}
+.section--tint{background:var(--color-surface)}
+/* Сеточные хелперы: коллапс 1 → 2 → 3/4 на брейкпоинтах 768/1024 */
+.grid{display:grid;gap:16px}
+.grid--2,.grid--3,.grid--4{grid-template-columns:1fr}
+@media (min-width:768px){
+  .grid{gap:24px}
+  .grid--2,.grid--3,.grid--4{grid-template-columns:repeat(2,1fr)}
+}
+@media (min-width:1024px){
+  .grid--3{grid-template-columns:repeat(3,1fr)}
+  .grid--4{grid-template-columns:repeat(4,1fr)}
+}
+/* Кнопки (touch-target ≥ 44px, CTA-иерархия UX §3) */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:12px 24px;border-radius:var(--radius);font-weight:700;font-size:var(--fs-body);text-decoration:none;cursor:pointer;border:2px solid transparent}
+.btn--primary{background:var(--color-primary);color:#FFFFFF}
+.btn--primary:hover{background:var(--color-primary-dark)}
+.btn--accent{background:var(--color-accent);color:var(--color-text)}
+.btn--outline{border-color:var(--color-primary);color:var(--color-primary);background:transparent}
+.btn--ghost{border-color:var(--color-border);color:var(--color-text);background:#FFFFFF}
+/* Статус-бейджи занятости (UX §3) */
+.badge{display:inline-flex;align-items:center;gap:6px;min-height:24px;padding:2px 10px;border-radius:999px;font-size:var(--fs-small);font-weight:600}
+.badge--free{background:rgba(30,138,76,.12);color:var(--color-success)}
+.badge--reserve{background:rgba(185,137,0,.14);color:var(--color-warning)}
+.badge--busy{background:rgba(107,107,116,.14);color:var(--color-neutral)}
+/* Заглушка изображения (объекты без фото) */
+.img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--color-surface);border:1px dashed var(--color-border);border-radius:var(--radius);color:var(--color-text-muted);font-size:var(--fs-small);min-height:180px;padding:16px;text-align:center}
+.img-placeholder .material-symbols-outlined{font-size:36px;color:var(--color-border)}
+</style>
+<title>Каталог объектов — карта — производственная недвижимость — ММ Пром</title>
+<style>
+/* ═══ Стили страницы «Каталог объектов — карта» (поверх канона, без правки токенов и классов канона) ═══ */
+
+/* ── Шапка ── */
+.site-header{background:#fff;border-bottom:1px solid var(--color-border)}
+.site-header__inner{display:flex;align-items:center;gap:12px;min-height:64px}
+.site-header__logo{flex:0 0 auto;display:inline-flex}
+.site-header__logo img{height:40px;width:auto}
+.site-header__nav{display:none;gap:24px}
+.site-header__nav a{display:inline-flex;align-items:center;min-height:44px;color:var(--color-text);text-decoration:none;font-weight:600;white-space:nowrap}
+.site-header__nav a:hover{color:var(--color-primary)}
+.site-header__nav a[aria-current="page"]{color:var(--color-primary)}
+.site-header__nav a[data-megamenu]{border-bottom:2px dotted var(--color-primary)}
+.site-header__actions{display:flex;align-items:center;gap:12px;margin-left:auto}
+.site-header__phone{display:none;align-items:center;min-height:44px;font-weight:700;color:var(--color-text);text-decoration:none;white-space:nowrap}
+.site-header__cta{display:none}
+.site-header__burger{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;background:#fff;border:1px solid var(--color-border);border-radius:var(--radius);color:var(--color-text);cursor:pointer;text-decoration:none}
+.site-header__burger .material-symbols-outlined{font-size:28px}
+@media (min-width:768px){
+  .site-header__cta{display:inline-flex}
+  .site-header__logo img{height:44px}
+}
+/* Телефон — только от 1200px: на 1024–1199 полное меню + телефон + CTA
+   не помещаются в одну строку (фикс переполнения шапки, 2026-09) */
+@media (min-width:1200px){
+  .site-header__phone{display:inline-flex}
+}
+/* 1024–1199: компактный CTA шапки — гарантия одной строки при полном меню
+   (дополнение к фиксу переполнения шапки, 2026-09) */
+@media (min-width:1024px) and (max-width:1199.98px){
+  .site-header__cta{padding:12px 16px;white-space:nowrap}
+}
+@media (min-width:1024px){
+  .site-header__nav{display:flex}
+  .site-header__burger{display:none}
+  .site-header__inner{min-height:72px}
+}
+
+/* ── Хлебные крошки ── */
+.b-breadcrumbs{padding:16px 0 0}
+.b-breadcrumbs ol{display:flex;flex-wrap:wrap;gap:4px;list-style:none;margin:0;padding:0;font-size:var(--fs-small);color:var(--color-text-muted)}
+.b-breadcrumbs li{display:inline-flex;align-items:center}
+.b-breadcrumbs li+li::before{content:"/";margin:0 6px;color:var(--color-border)}
+.b-breadcrumbs a{display:inline-flex;align-items:center;min-height:44px;color:var(--color-text-muted);text-decoration:none}
+.b-breadcrumbs a:hover{color:var(--color-primary)}
+.b-breadcrumbs [aria-current="page"]{color:var(--color-text);font-weight:600}
+
+/* ── Заголовок страницы ── */
+.b-catalog-head{padding:20px 0 8px}
+.b-catalog-head h1{margin-bottom:8px}
+.b-catalog-head__lead{max-width:64ch;color:var(--color-text-muted);margin-bottom:16px}
+.b-catalog-head__lead strong{color:var(--color-text)}
+
+/* ── Сегментированный переключатель «Аренда | Покупка» ── */
+.seg-toggle{display:inline-flex;flex:0 0 auto;border:1px solid var(--color-border);border-radius:999px;overflow:hidden}
+.seg-toggle__btn{min-height:44px;padding:8px 20px;border:0;background:#FFFFFF;color:var(--color-text);font:inherit;font-size:var(--fs-small);font-weight:600;cursor:pointer;white-space:nowrap}
+.seg-toggle__btn+.seg-toggle__btn{border-left:1px solid var(--color-border)}
+.seg-toggle__btn--active{background:var(--color-primary);color:#FFFFFF}
+/* Строка «Аренда/Покупка + Список» в форме фильтров — как в каталоге */
+.f-group--deal{display:flex;flex-wrap:nowrap;align-items:center;gap:8px}
+/* Компактные паддинги: toggle + чип в одну строку в 288px контента колонки 320px */
+.f-group--deal .seg-toggle__btn{padding:8px 12px}
+.f-group--deal .chip{padding:8px 12px}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px;border:1px solid var(--color-border);border-radius:999px;background:#fff;color:var(--color-text);font:inherit;font-size:var(--fs-small);font-weight:600;text-decoration:none;white-space:nowrap;cursor:pointer}
+.chip .material-symbols-outlined{font-size:20px;color:var(--color-text-muted)}
+
+/* ── Каркас «фильтры | карта»: ≥1024 — 320px + 1fr; <1024 — details над картой (T3, 2026-09) ── */
+.map-shell{display:grid;gap:16px;margin-top:8px}
+.map-area{min-width:0}
+.b-filters{margin:0 0 16px}
+.filters-details{border:1px solid var(--color-border);border-radius:var(--radius);background:#fff}
+.filters-summary{display:flex;align-items:center;gap:8px;min-height:52px;padding:12px 16px;font-weight:700;cursor:pointer;list-style:none}
+.filters-summary::-webkit-details-marker{display:none}
+.filters-summary>.material-symbols-outlined:first-child{color:var(--color-primary)}
+.filters-summary__chevron{display:inline-flex;margin-left:auto;color:var(--color-text-muted);transition:transform .15s}
+.filters-details[open] .filters-summary__chevron{transform:rotate(180deg)}
+.filters-body{padding:4px 16px 16px;border-top:1px solid var(--color-border)}
+.f-group{padding:16px 0;border-bottom:1px solid var(--color-border)}
+.f-group:last-of-type{border-bottom:0}
+.b-filters h3{font-size:var(--fs-body);font-weight:700;margin:0 0 8px}
+.f-check{display:flex;align-items:center;gap:10px;min-height:44px;font-size:var(--fs-small);cursor:pointer}
+.f-check input{width:18px;height:18px;flex:0 0 auto;accent-color:var(--color-primary)}
+.f-select{width:100%;min-height:44px;padding:10px 12px;border:1px solid var(--color-border);border-radius:var(--radius);background:#fff;font:inherit;color:var(--color-text)}
+.f-slider{display:grid;gap:4px}
+.f-slider__values{display:flex;justify-content:space-between;font-size:var(--fs-small);color:var(--color-text-muted)}
+.f-slider__track{position:relative;height:44px}
+.f-slider__track::before{content:"";position:absolute;left:0;right:0;top:50%;height:4px;transform:translateY(-50%);background:var(--color-border);border-radius:2px}
+.f-slider__fill{position:absolute;top:50%;height:4px;transform:translateY(-50%);background:var(--color-primary);border-radius:2px}
+.f-slider__handle{position:absolute;top:50%;transform:translate(-50%,-50%);width:44px;height:44px;padding:0;border:0;background:transparent;cursor:pointer}
+.f-slider__handle::after{content:"";display:block;width:20px;height:20px;margin:0 auto;border-radius:50%;background:#fff;border:3px solid var(--color-primary);box-shadow:var(--shadow)}
+.f-slider__caption{font-size:var(--fs-small);color:var(--color-text-muted)}
+.filters-actions{display:grid;gap:8px;padding-top:16px}
+@media (min-width:1024px){
+  .map-shell{grid-template-columns:320px 1fr;gap:24px;align-items:start}
+  .b-filters{position:sticky;top:16px;margin:0}
+  .b-filters .filters-summary{display:none}
+  .b-filters .filters-body{border-top:0;padding:8px 16px 16px}
+}
+
+/* ── Карта с кластеризацией ── */
+.map-canvas{position:relative;height:clamp(480px,60vh,720px);border:1px solid var(--color-border);border-radius:var(--radius);overflow:hidden;background-color:var(--color-surface);background-image:
+  repeating-linear-gradient(0deg,rgba(228,225,234,.55) 0,rgba(228,225,234,.55) 1px,transparent 1px,transparent 44px),
+  repeating-linear-gradient(90deg,rgba(228,225,234,.55) 0,rgba(228,225,234,.55) 1px,transparent 1px,transparent 44px),
+  repeating-linear-gradient(0deg,rgba(92,88,102,.14) 0,rgba(92,88,102,.14) 2px,transparent 2px,transparent 176px),
+  repeating-linear-gradient(90deg,rgba(92,88,102,.14) 0,rgba(92,88,102,.14) 2px,transparent 2px,transparent 176px)}
+.map-marker{position:absolute;transform:translate(-50%,-50%);display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:0;border:0;border-radius:999px;background:transparent;color:#fff;font:inherit;font-size:var(--fs-small);font-weight:700;cursor:pointer}
+/* Маркеры и кластеры без статусов — нейтральный цвет (T3, 2026-09) */
+.map-marker--pin::after{content:"";display:block;width:18px;height:18px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 4px rgba(22,21,25,.35);background:var(--color-neutral)}
+.map-marker--cluster{background:var(--color-neutral);box-shadow:0 0 0 6px rgba(107,107,116,.18)}
+.map-popup{position:absolute;top:12px;left:12px;z-index:2;width:min(260px,calc(100% - 64px));display:grid;gap:6px;padding:12px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow)}
+.map-popup .img-placeholder{min-height:84px}
+.map-popup h3{margin:0;font-size:1rem;line-height:1.3}
+.map-popup h3 a{color:var(--color-text);text-decoration:none}
+.map-popup h3 a:hover{color:var(--color-primary)}
+.map-popup__meta{margin:0;font-size:var(--fs-small);color:var(--color-text-muted)}
+.map-popup__price{margin:0;font-weight:700}
+.map-zoom{position:absolute;top:12px;right:12px;z-index:2;display:grid;gap:8px}
+.map-zoom button{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:1px solid var(--color-border);border-radius:var(--radius);background:#fff;color:var(--color-text);cursor:pointer}
+.map-legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin:12px 0 0;padding:0;list-style:none;font-size:var(--fs-small);color:var(--color-text-muted)}
+.map-legend li{display:inline-flex;align-items:center;gap:8px}
+.map-legend i{display:inline-block;width:12px;height:12px;border-radius:50%}
+.map-legend .dot-cluster{background:var(--color-neutral)}
+
+/* ── Подвал ── */
+.site-footer{margin-top:var(--space-section);background:var(--color-primary-dark);color:#fff}
+.site-footer a{color:#fff}
+.site-footer__grid{display:grid;gap:32px;padding:48px 0 32px}
+.site-footer__logo{height:36px;width:auto;margin-bottom:12px}
+.site-footer__brand p{margin:0;color:rgba(255,255,255,.75);font-size:var(--fs-small);max-width:40ch}
+.site-footer__title{margin:0 0 8px;font-weight:800;font-size:var(--fs-body)}
+.site-footer__col ul{list-style:none;margin:0;padding:0}
+.site-footer__col li{display:flex}
+.site-footer__col a,.site-footer__col span{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;color:rgba(255,255,255,.85);font-size:var(--fs-small)}
+.site-footer__col a:hover{color:var(--color-accent)}
+.site-footer__social{display:flex;gap:12px;margin-top:12px}
+.site-footer__social a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid rgba(255,255,255,.25);border-radius:50%}
+.site-footer__social .material-symbols-outlined{font-size:22px}
+.site-footer__bottom{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.15);padding:16px 0 28px;font-size:var(--fs-small);color:rgba(255,255,255,.65)}
+.site-footer__bottom p{margin:0}
+.site-footer__bottom a{display:inline-flex;align-items:center;min-height:44px;color:rgba(255,255,255,.85);text-decoration:none}
+.site-footer__bottom a:hover{color:var(--color-accent)}
+/* Неактивная ссылка «Политика конфиденциальности»: документ готовится (§0) */
+.site-footer__bottom .link-disabled{display:inline-flex;align-items:center;min-height:44px;color:rgba(255,255,255,.45);cursor:default}
+@media (min-width:768px){.site-footer__grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1024px){.site-footer__grid{grid-template-columns:1.4fr 1fr 1fr 1fr}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-header__logo" href="index.html"><img src="assets/mmprom-logo.png" alt="ММ Пром"></a>
+    <nav class="site-header__nav" aria-label="Основное меню">
+      <a href="usluga.html" data-megamenu>Услуги</a>
+      <a href="katalog_obektov.html" aria-current="page">Каталог</a>
+      <a href="blog.html">Публикации</a>
+      <a href="o_kompanii.html">О компании</a>
+      <a href="kontakty.html">Контакты</a>
+    </nav>
+    <div class="site-header__actions">
+      <a class="site-header__phone" href="tel:88003331010">8 800 333 10 10</a>
+      <a class="btn btn--primary site-header__cta" href="modalka_zayavki.html" data-modal-open>Оставить заявку</a>
+      <button class="site-header__burger" type="button" aria-label="Открыть меню"><span class="material-symbols-outlined" aria-hidden="true">menu</span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section id="breadcrumbs" data-block="Хлебные крошки" class="b-breadcrumbs">
+    <div class="container">
+      <ol>
+        <li><a href="index.html">Главная</a></li>
+        <li><span aria-current="page">Каталог объектов</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="catalog-head" data-block="Заголовок каталога" class="b-catalog-head">
+    <div class="container">
+      <h1>Каталог объектов</h1>
+      <p class="b-catalog-head__lead">Производственная недвижимость Санкт-Петербурга и Ленобласти.</p>
+    </div>
+  </section>
+
+  <section id="map" data-block="Карта с кластеризацией" class="b-map">
+    <div class="container">
+      <div class="map-shell">
+
+        <section id="filters" data-block="Фильтры карты" class="b-filters">
+          <details class="filters-details" open>
+            <summary class="filters-summary">
+              <span class="material-symbols-outlined">tune</span>Все фильтры
+              <span class="material-symbols-outlined filters-summary__chevron">expand_more</span>
+            </summary>
+            <div class="filters-body">
+              <div class="f-group f-group--deal">
+                <div class="seg-toggle" role="group" aria-label="Тип сделки">
+                  <button class="seg-toggle__btn seg-toggle__btn--active" type="button" aria-pressed="true">Аренда</button>
+                  <button class="seg-toggle__btn" type="button" aria-pressed="false">Покупка</button>
+                </div>
+                <a class="chip" href="katalog_obektov.html"><span class="material-symbols-outlined" aria-hidden="true">list</span>Список</a>
+              </div>
+              <div class="f-group">
+                <h3>Тип объекта</h3>
+                <label class="f-check"><input type="checkbox" checked><span>Индустриально-складские объекты</span></label>
+                <label class="f-check"><input type="checkbox"><span>Земельный участок промышленного назначения</span></label>
+              </div>
+              <div class="f-group">
+                <h3>Площадь, м²</h3>
+                <div class="f-slider">
+                  <div class="f-slider__values"><span>0</span><span>100 000</span></div>
+                  <div class="f-slider__track">
+                    <span class="f-slider__fill" style="left:8%;width:64%"></span>
+                    <button class="f-slider__handle" type="button" style="left:8%" aria-label="Минимальная площадь"></button>
+                    <button class="f-slider__handle" type="button" style="left:72%" aria-label="Максимальная площадь"></button>
+                  </div>
+                  <div class="f-slider__caption">от 8 000 до 72 000 м²</div>
+                </div>
+              </div>
+              <div class="f-group">
+                <h3>Цена</h3>
+                <div class="f-slider">
+                  <div class="f-slider__values"><span>от 500 000 ₽</span><span>до 500 000 000 ₽</span></div>
+                  <div class="f-slider__track">
+                    <span class="f-slider__fill" style="left:4%;width:32%"></span>
+                    <button class="f-slider__handle" type="button" style="left:4%" aria-label="Минимальная цена"></button>
+                    <button class="f-slider__handle" type="button" style="left:36%" aria-label="Максимальная цена"></button>
+                  </div>
+                  <div class="f-slider__caption">до 500 000 000 ₽ — без привязки к периоду</div>
+                </div>
+              </div>
+              <div class="f-group">
+                <h3>Локация</h3>
+                <select class="f-select" aria-label="Регион / район">
+                  <option>Санкт-Петербург — все районы</option>
+                  <option>Московский район</option>
+                  <option>Колпинский район</option>
+                  <option>Калининский район</option>
+                  <option>Всеволожский район, ЛО</option>
+                  <option>Тосненский район, ЛО</option>
+                  <option>Гатчинский район, ЛО</option>
+                  <option>Кировский район, ЛО</option>
+                </select>
+              </div>
+              <div class="filters-actions">
+                <button class="btn btn--primary" type="button">Показать</button>
+                <button class="btn btn--ghost" type="button">Сбросить</button>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <div class="map-area">
+          <div class="map-canvas">
+            <button class="map-marker map-marker--pin" type="button" style="left:42%;top:80%" aria-label="Объект"></button>
+            <button class="map-marker map-marker--pin" type="button" style="left:58%;top:70%" aria-label="Объект"></button>
+            <button class="map-marker map-marker--pin" type="button" style="left:20%;top:88%" aria-label="Объект"></button>
+            <button class="map-marker map-marker--pin" type="button" style="left:90%;top:60%" aria-label="Объект"></button>
+            <button class="map-marker map-marker--pin" type="button" style="left:48%;top:92%" aria-label="Объект"></button>
+            <button class="map-marker map-marker--pin" type="button" style="left:72%;top:86%" aria-label="Объект"></button>
+            <button class="map-marker map-marker--pin" type="button" style="left:90%;top:38%" aria-label="Объект"></button>
+            <button class="map-marker map-marker--cluster" type="button" style="left:84%;top:40%" aria-label="Кластер: 8 объектов">8</button>
+            <button class="map-marker map-marker--cluster" type="button" style="left:30%;top:66%" aria-label="Кластер: 24 объекта">24</button>
+            <button class="map-marker map-marker--cluster" type="button" style="left:52%;top:58%" aria-label="Кластер: 128 объектов">128</button>
+            <div class="map-zoom">
+              <button type="button" aria-label="Приблизить карту"><span class="material-symbols-outlined">add</span></button>
+              <button type="button" aria-label="Отдалить карту"><span class="material-symbols-outlined">remove</span></button>
+            </div>
+            <div class="map-popup">
+              <div class="img-placeholder" data-img="Фото объекта"><span class="material-symbols-outlined">image</span>Фото объекта</div>
+              <h3><a href="kartochka_obekta.html">Складской комплекс «Тосно-Логистика»</a></h3>
+              <p class="map-popup__meta">5 800 м² · Тосненский район, ЛО</p>
+              <p class="map-popup__price">от 3 900 ₽/м²</p>
+            </div>
+          </div>
+          <ul class="map-legend">
+            <li><i class="dot-cluster"></i>Кластер — число объектов</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <img class="site-footer__logo" src="assets/mmprom-logo.png" alt="ММ Пром">
+        <p>Производственная недвижимость Санкт-Петербурга и Ленобласти. С 2011 года: 25+ проектов, 200 000+ м², 150+ арендаторов.</p>
+        <div class="site-footer__social">
+          <a href="https://t.me/mm_prom1" aria-label="Телеграм ММ Пром"><span class="material-symbols-outlined">send</span></a>
+          <a href="https://max.ru/se14192436_biz" aria-label="Канал ММ Пром в MAX"><span aria-hidden="true" style="font-size:.75rem;font-weight:800;letter-spacing:.02em">MAX</span></a>
+        </div>
+      </div>
+      <div class="site-footer__col">
+        <p class="site-footer__title">Услуги</p>
+        <ul>
+          <li><a href="usluga_arenda.html">Аренда недвижимости</a></li>
+          <li><a href="usluga_prodazha.html">Продажа недвижимости</a></li>
+          <li><a href="usluga_stroitelstvo.html">Строительство</a></li>
+          <li><a href="usluga_development.html">Девелопмент под ключ</a></li>
+          <li><a href="usluga_redevelopment.html">Редевелопмент</a></li>
+          <li><a href="usluga_upravlenie.html">Управление</a></li>
+          <li><a href="usluga_konsalting.html">Промышленный консалтинг</a></li>
+          <li><a href="usluga_treyd_in.html">Трейд-ин / Срочный выкуп</a></li>
+          <li><a href="usluga_investicii.html">Инвестиции и финансирование</a></li>
+          <li><a href="usluga.html">Все услуги</a></li>
+        </ul>
+      </div>
+      <div class="site-footer__col">
+        <p class="site-footer__title">Компания</p>
+        <ul>
+          <li><a href="o_kompanii.html">О компании</a></li>
+          <li><a href="katalog_obektov.html">Каталог объектов</a></li>
+          <li><a href="blog.html">Публикации</a></li>
+          <li><a href="kontakty.html">Контакты</a></li>
+        </ul>
+      </div>
+      <div class="site-footer__col">
+        <p class="site-footer__title">Контакты</p>
+        <ul>
+          <li><a href="tel:88003331010">8 800 333 10 10</a></li>
+          <li><span>info@mm-prom.ru</span></li>
+          <li><span>г. Санкт-Петербург, ул. Латышских стрелков, 19</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <p>© 2011–2026 ММ Пром</p>
+      <span class="link-disabled" aria-disabled="true" title="Документ готовится">Политика конфиденциальности</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

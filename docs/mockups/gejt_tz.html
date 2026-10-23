@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Шрифты: Manrope (фолбэк Averta CY) + Inter; Material Symbols для иконок.
+     Офлайн макеты работают с деградацией на системные шрифты и текст. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+<style>
+/* ─── Канон брейкпоинтов (mobile-first, UX §3 дефолт) ──────────────────
+   Базовые стили = смартфон (360–767px).
+   @media (min-width: 768px)  → планшет (768–1023px).
+   @media (min-width: 1024px) → десктоп (≥1024px).
+   Контрольная ширина дизайна — 1366px.
+   Шапка: <1024 — бургер + оверлей меню; ≥1024 — полное горизонтальное меню.
+   CTA шапки скрыт <768. Touch-target ≥ 44px. Фиксированные ширины >480px
+   вне :root запрещены. Каждая страница: ≥ 2 media query (768 и 1024).
+   Мысленный тест: «360px — без горизонтального скролла». */
+:root{
+  /* Брендовые токены (утв. 2026-08) */
+  --color-primary:#3D0E6A;        /* фиолетовый — основной акцент: кнопки, ссылки */
+  --color-primary-dark:#2A0949;   /* ховер, тёмные поверхности */
+  --color-accent:#EBB81E;         /* жёлтый — дозированный акцент: бейджи, маркеры, подчёркивания */
+  --color-bg:#FFFFFF;             /* основной фон */
+  --color-text:#161519;           /* почти чёрный — основной текст */
+  --color-text-muted:#5C5866;     /* вторичный текст */
+  --color-surface:#F7F5FA;        /* подложки секций (лёгкий фиолетовый подтон) */
+  --color-border:#E4E1EA;
+  --color-success:#1E8A4C;        /* статус «Свободно» (UX §3) */
+  --color-warning:#B98900;        /* статус «Резерв» (UX §3) */
+  --color-neutral:#6B6B74;        /* статус «Занято» (UX §3) */
+  --font-main:"Averta CY","Manrope","Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --logo-url:url("assets/mmprom-logo.png");
+  /* Типографика clamp() */
+  --fs-h1:clamp(1.75rem,1.2rem + 2.6vw,3rem);
+  --fs-h2:clamp(1.4rem,1.1rem + 1.6vw,2.125rem);
+  --fs-h3:clamp(1.15rem,1rem + 0.8vw,1.5rem);
+  --fs-body:clamp(1rem,0.95rem + 0.25vw,1.0625rem);
+  --fs-small:0.875rem;
+  /* Прочее */
+  --radius:12px;
+  --shadow:0 2px 12px rgba(22,21,25,.08);
+  --container:1280px;
+  --space-section:clamp(48px,8vw,96px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--font-main);color:var(--color-text);background:var(--color-bg);line-height:1.55;font-size:var(--fs-body)}
+img{max-width:100%;display:block}
+a{color:var(--color-primary)}
+h1,h2,h3{line-height:1.2;margin:0 0 .5em;font-weight:800}
+h1{font-size:var(--fs-h1)}
+h2{font-size:var(--fs-h2)}
+h3{font-size:var(--fs-h3)}
+p{margin:0 0 1em}
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 24;vertical-align:middle}
+/* Контейнер */
+.container{max-width:var(--container);margin:0 auto;padding:0 16px}
+@media (min-width:768px){.container{padding:0 32px}}
+@media (min-width:1024px){.container{padding:0 40px}}
+.section{padding:var(--space-section) 0}
+.section--tint{background:var(--color-surface)}
+/* Сеточные хелперы: коллапс 1 → 2 → 3/4 на брейкпоинтах 768/1024 */
+.grid{display:grid;gap:16px}
+.grid--2,.grid--3,.grid--4{grid-template-columns:1fr}
+@media (min-width:768px){
+  .grid{gap:24px}
+  .grid--2,.grid--3,.grid--4{grid-template-columns:repeat(2,1fr)}
+}
+@media (min-width:1024px){
+  .grid--3{grid-template-columns:repeat(3,1fr)}
+  .grid--4{grid-template-columns:repeat(4,1fr)}
+}
+/* Кнопки (touch-target ≥ 44px, CTA-иерархия UX §3) */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:12px 24px;border-radius:var(--radius);font-weight:700;font-size:var(--fs-body);text-decoration:none;cursor:pointer;border:2px solid transparent}
+.btn--primary{background:var(--color-primary);color:#FFFFFF}
+.btn--primary:hover{background:var(--color-primary-dark)}
+.btn--accent{background:var(--color-accent);color:var(--color-text)}
+.btn--outline{border-color:var(--color-primary);color:var(--color-primary);background:transparent}
+.btn--ghost{border-color:var(--color-border);color:var(--color-text);background:#FFFFFF}
+/* Статус-бейджи занятости (UX §3) */
+.badge{display:inline-flex;align-items:center;gap:6px;min-height:24px;padding:2px 10px;border-radius:999px;font-size:var(--fs-small);font-weight:600}
+.badge--free{background:rgba(30,138,76,.12);color:var(--color-success)}
+.badge--reserve{background:rgba(185,137,0,.14);color:var(--color-warning)}
+.badge--busy{background:rgba(107,107,116,.14);color:var(--color-neutral)}
+/* Заглушка изображения (объекты без фото) */
+.img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--color-surface);border:1px dashed var(--color-border);border-radius:var(--radius);color:var(--color-text-muted);font-size:var(--fs-small);min-height:180px;padding:16px;text-align:center}
+.img-placeholder .material-symbols-outlined{font-size:36px;color:var(--color-border)}
+</style>
+<title>Гейт ТЗ (лид-магнит) — демо-оверлей — ММ Пром</title>
+<meta name="description" content="Демо-снимок открытого гейта «Шаблон ТЗ» сайта ММ Пром: пошаговая форма из трёх шагов (задача, требования к объекту, контакты) с переключением на CSS без JS, поля имени, фамилии, компании, способа связи, телефона и email, согласие на обработку ПД, превью шаблона ТЗ в пропорциях А4, скрытые поля для CRM Битрикс24, состояния загрузки, успеха и ошибки.">
+<style>
+/* ── Стили страницы «Гейт ТЗ (лид-магнит)» (канон не переопределяют) ── */
+
+/* Шапка */
+.site-header{position:sticky;top:0;z-index:40;background:var(--color-bg);border-bottom:1px solid var(--color-border)}
+.site-header__inner{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px}
+.site-header__logo{display:inline-flex;align-items:center}
+.site-header__logo img{height:40px;width:auto}
+.site-header__nav{display:none;align-items:center;gap:4px}
+.site-header__nav a{display:inline-flex;align-items:center;min-height:44px;padding:8px 12px;color:var(--color-text);text-decoration:none;font-weight:600;white-space:nowrap}
+.site-header__nav a:hover{color:var(--color-primary)}
+.site-header__nav a[data-megamenu]{border-bottom:2px dotted var(--color-accent)}
+.site-header__actions{display:flex;align-items:center;gap:8px}
+.site-header__phone{display:none;font-weight:800;font-size:.9375rem;color:var(--color-text);text-decoration:none;white-space:nowrap}
+.site-header__phone:hover{color:var(--color-primary)}
+.site-header__cta{display:none}
+.site-header__burger{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:0;background:none;color:var(--color-text);text-decoration:none;cursor:pointer}
+.site-header__burger .material-symbols-outlined{font-size:28px}
+@media (min-width:768px){
+  .site-header__cta{display:inline-flex}
+}
+/* Телефон — только от 1200px: на 1024–1199 полное меню + телефон + CTA
+   не помещаются в одну строку (фикс переполнения шапки, 2026-09) */
+@media (min-width:1200px){
+  .site-header__phone{display:inline-flex}
+}
+/* 1024–1199: компактный CTA шапки — гарантия одной строки при полном меню
+   (дополнение к фиксу переполнения шапки, 2026-09) */
+@media (min-width:1024px) and (max-width:1199.98px){
+  .site-header__cta{padding:12px 16px;white-space:nowrap}
+}
+@media (min-width:1024px){
+  .site-header__nav{display:flex}
+  .site-header__burger{display:none}
+}
+
+/* Демо-пояснение над сценой оверлея */
+.b-demo-note{background:var(--color-surface);border-bottom:1px solid var(--color-border);padding:32px 0}
+.b-demo-note h1{margin-bottom:8px}
+.b-demo-note__lead{max-width:72ch;color:var(--color-text-muted);margin:0 0 16px}
+.zav-tags{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;padding:0;list-style:none}
+.zav-tag{display:inline-flex;align-items:center;min-height:32px;padding:4px 14px;border-radius:999px;background:rgba(61,14,106,.08);color:var(--color-primary);font-size:var(--fs-small);font-weight:600}
+.zav-demo-flag{display:flex;gap:10px;align-items:flex-start;margin:0;padding:12px 16px;border:1px solid var(--color-border);border-left:3px solid var(--color-accent);border-radius:8px;background:#FFFFFF;font-size:var(--fs-small);color:var(--color-text-muted)}
+.zav-demo-flag .material-symbols-outlined{color:var(--color-primary);flex:0 0 auto;font-size:20px}
+
+/* Сцена оверлея: приглушённый фон-страница + затемнение + диалог по центру */
+.overlay-stage{position:relative;overflow:hidden;padding:24px 0 48px;background:var(--color-bg)}
+.overlay-stage__under{position:absolute;inset:0;padding:40px 0 0;opacity:.35;pointer-events:none;user-select:none}
+.overlay-stage__under-h{margin:0 0 18px;font-weight:800;color:var(--color-text-muted)}
+.zav-skel{display:block;height:16px;border-radius:8px;background:var(--color-border);margin-bottom:12px}
+.zav-skel--photo{height:220px;border-radius:var(--radius);margin-bottom:16px}
+.overlay-stage__dim{position:absolute;inset:0;background:rgba(22,21,25,.55)}
+.overlay-stage__holder{position:relative;z-index:2;display:flex;justify-content:center;padding:0 16px}
+@media (min-width:768px){
+  .overlay-stage{padding:56px 0 80px}
+  .overlay-stage__holder{padding:0 32px}
+}
+@media (min-width:1024px){
+  .overlay-stage{padding:72px 0 96px}
+  .overlay-stage__holder{padding:0 40px}
+}
+
+/* Диалог гейта: смартфон — во весь экран; ≥768 — центрированный;
+   ≥1024 — превью слева, форма справа */
+.b-overlay-gate{position:relative;width:100%;background:#FFFFFF;display:flex;flex-direction:column;min-height:min(680px,calc(100vh - 140px))}
+@media (min-width:768px){
+  .b-overlay-gate{max-width:480px;min-height:0;border:1px solid var(--color-border);border-radius:var(--radius);box-shadow:0 24px 64px rgba(22,21,25,.35)}
+}
+@media (min-width:1024px){
+  .b-overlay-gate{max-width:min(100%,calc(var(--container) - 400px));display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch}
+}
+.b-overlay-gate__close{position:absolute;top:8px;right:8px;z-index:2;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:0;border-radius:8px;background:none;color:var(--color-text-muted);cursor:pointer}
+.b-overlay-gate__close:hover{background:var(--color-surface);color:var(--color-text)}
+.b-overlay-gate__close .material-symbols-outlined{font-size:26px}
+
+/* Превью шаблона ТЗ (левая колонка на ≥1024) */
+.b-overlay-gate__preview{display:flex;flex-direction:column;align-items:center;gap:10px;padding:56px 16px 12px;background:var(--color-surface)}
+@media (min-width:768px){
+  .b-overlay-gate__preview{padding:40px 32px 20px}
+}
+@media (min-width:1024px){
+  .b-overlay-gate__preview{padding:32px;border-radius:var(--radius) 0 0 var(--radius);justify-content:center}
+}
+.gate-preview{width:100%;min-height:0;aspect-ratio:1/1.414}
+@media (min-width:768px){
+  .gate-preview{max-width:260px}
+}
+@media (min-width:1024px){
+  .gate-preview{max-width:none}
+}
+.b-overlay-gate__preview-note{margin:0;font-size:var(--fs-small);color:var(--color-text-muted);text-align:center;max-width:36ch}
+
+/* Тело гейта: заголовок, описание, форма (правая колонка на ≥1024) */
+.b-overlay-gate__body{padding:16px 16px 24px;display:flex;flex-direction:column;gap:16px}
+@media (min-width:768px){
+  .b-overlay-gate__body{padding:24px 32px 28px}
+}
+.b-overlay-gate__kicker{margin:0;font-size:var(--fs-small);font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--color-text-muted)}
+.b-overlay-gate__title{margin:0}
+.b-overlay-gate__lead{margin:0;color:var(--color-text-muted)}
+/* Демо: контекст зависит от точки входа */
+.zav-context{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0;font-size:var(--fs-small);color:var(--color-text-muted)}
+.zav-context-chip{display:inline-flex;align-items:center;min-height:28px;padding:2px 10px;border-radius:999px;border:1px dashed var(--color-border);background:#FFFFFF;font-size:var(--fs-small)}
+.zav-context-chip--active{border-style:solid;border-color:var(--color-primary);background:rgba(61,14,106,.08);color:var(--color-primary);font-weight:600}
+
+/* Форма: одна колонка, поля ≥ 44px */
+.lead-form{display:grid;gap:16px;margin:0}
+.lead-form__field{display:grid;gap:6px}
+.lead-form__label{font-weight:600;font-size:var(--fs-small)}
+.lead-form__label .req{color:var(--color-primary)}
+.lead-form input[type="text"],
+.lead-form input[type="tel"],
+.lead-form input[type="email"],
+.lead-form textarea{width:100%;min-height:48px;padding:12px 14px;border:1px solid var(--color-border);border-radius:var(--radius);font:inherit;color:var(--color-text);background:#FFFFFF}
+.lead-form textarea{min-height:96px;resize:vertical}
+.lead-form input:focus,
+.lead-form textarea:focus{outline:none;border-color:var(--color-primary);box-shadow:0 0 0 3px rgba(61,14,106,.12)}
+.lead-form ::placeholder{color:var(--color-text-muted);opacity:.7}
+.lead-form__hint{margin:-2px 0 0;font-size:var(--fs-small);color:var(--color-text-muted)}
+.lead-form__consent{display:flex;align-items:flex-start;gap:10px;min-height:44px;padding:4px 0;margin:0;font-size:var(--fs-small);color:var(--color-text-muted);cursor:pointer}
+.lead-form__consent input{width:20px;height:20px;margin-top:2px;flex:0 0 auto;accent-color:var(--color-primary)}
+.lead-form__submit{width:100%}
+/* Простая форма (канон): ряды полей и чипы способа связи.
+   Ряды 2–3 колонки — только от 768px; на смартфоне всё в 1 колонку. */
+.lead-form__row{display:grid;gap:16px}
+.lead-form__chips{display:flex;flex-wrap:wrap;gap:8px}
+.lead-form__chip{position:relative;display:inline-flex}
+.lead-form__chip input{position:absolute;opacity:0;pointer-events:none}
+.lead-form__chip span{display:inline-flex;align-items:center;min-height:44px;padding:8px 16px;border:1px solid var(--color-border);border-radius:999px;background:#FFFFFF;color:var(--color-text);font-size:var(--fs-small);font-weight:600;cursor:pointer;white-space:nowrap}
+.lead-form__chip input:checked+span{border-color:var(--color-primary);background:var(--color-primary);color:#FFFFFF}
+.lead-form__chip input:focus-visible+span{outline:2px solid var(--color-primary);outline-offset:2px}
+@media(min-width:768px){
+  .lead-form__row--3{grid-template-columns:repeat(3,1fr)}
+  .lead-form__row--2{grid-template-columns:repeat(2,1fr)}
+}
+/* ── Пошаговая форма: 3 шага на скрытых radio, переключение без JS ──
+   Радио #step-1/2/3 с общим name="step" исключают друг друга;
+   «Далее»/«Назад» — label[for], панели — sibling-блоки после радио. */
+.lead-steps__radio{display:none}
+/* Индикатор «Шаг N из 3»: три числа, активное подсвечено */
+.lead-steps__indicator{display:flex;align-items:center;gap:12px}
+.lead-steps__dots{display:flex;gap:8px}
+.lead-steps__dot{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border:2px solid var(--color-border);border-radius:50%;background:#FFFFFF;color:var(--color-text-muted);font-size:var(--fs-small);font-weight:700}
+.lead-steps__label{margin:0;font-size:var(--fs-small);font-weight:600;color:var(--color-text-muted)}
+.lead-steps__label span{display:none}
+#step-1:checked ~ .lead-steps__indicator .lead-steps__label-1,
+#step-2:checked ~ .lead-steps__indicator .lead-steps__label-2,
+#step-3:checked ~ .lead-steps__indicator .lead-steps__label-3{display:inline}
+/* Активный шаг — залит, пройденные — контурные */
+#step-1:checked ~ .lead-steps__indicator .lead-steps__dot--1,
+#step-2:checked ~ .lead-steps__indicator .lead-steps__dot--2,
+#step-3:checked ~ .lead-steps__indicator .lead-steps__dot--3{border-color:var(--color-primary);background:var(--color-primary);color:#FFFFFF}
+#step-2:checked ~ .lead-steps__indicator .lead-steps__dot--1,
+#step-3:checked ~ .lead-steps__indicator .lead-steps__dot--1,
+#step-3:checked ~ .lead-steps__indicator .lead-steps__dot--2{border-color:var(--color-primary);background:rgba(61,14,106,.08);color:var(--color-primary)}
+/* Панели шагов: видна только активная */
+.lead-steps__panel{display:none}
+#step-1:checked ~ .lead-steps__panel--1,
+#step-2:checked ~ .lead-steps__panel--2,
+#step-3:checked ~ .lead-steps__panel--3{display:grid;gap:16px}
+.lead-steps__title{grid-column:1/-1;margin:0;font-size:var(--fs-h3)}
+.lead-steps__wide{grid-column:1/-1}
+/* Пара «от/до» (метраж) */
+.lead-steps__pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+/* Кнопки хода; сабмит живёт в панели шага 3 */
+.lead-steps__actions{display:flex;flex-direction:column;gap:12px;grid-column:1/-1}
+.lead-steps__actions .btn{width:100%}
+@media (min-width:768px){
+  .lead-steps__panel--1,.lead-steps__panel--2{grid-template-columns:repeat(2,1fr)}
+  .lead-steps__actions{flex-direction:row;align-items:center}
+  .lead-steps__actions .btn{width:auto}
+  .lead-steps__actions .btn--primary{flex:1 1 auto}
+}
+/* Неактивная ссылка «Политика конфиденциальности»: документ готовится */
+.link-disabled{color:var(--color-text-muted);cursor:default;text-decoration:none}
+.site-footer__bottom .link-disabled{color:rgba(255,255,255,.55)}
+
+/* Демо-пометка о скрытых полях — вне формы, мелким текстом (ФТ-КАТ-8) */
+.b-overlay-gate__hidden-note{display:flex;gap:8px;align-items:flex-start;margin:0;padding-top:12px;border-top:1px dashed var(--color-border);font-size:.75rem;line-height:1.5;color:var(--color-text-muted)}
+.b-overlay-gate__hidden-note .material-symbols-outlined{font-size:16px;color:var(--color-accent);flex:0 0 auto;margin-top:1px}
+
+/* Демо-примеры состояний (загрузка / успех / ошибка) — под сценой оверлея */
+.b-states{padding:48px 0 64px;background:var(--color-surface)}
+.b-states__lead{max-width:72ch;color:var(--color-text-muted);margin:0 0 24px}
+.b-states__grid{display:grid;gap:16px}
+@media (min-width:768px){
+  .b-states{padding:64px 0 80px}
+  .b-states__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (min-width:1024px){
+  .b-states__grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+}
+.zav-state{display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid var(--color-border);border-radius:var(--radius);padding:20px}
+.zav-state__label{margin:0;font-size:var(--fs-small);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--color-text-muted)}
+.zav-state__note{margin:0;font-size:var(--fs-small);color:var(--color-text-muted)}
+/* Загрузка: спиннер (CSS-анимация, без JS) */
+.gate-loading{display:flex;align-items:center;gap:12px;padding:16px;background:#FFFFFF;border:1px solid var(--color-border);border-radius:var(--radius);box-shadow:var(--shadow)}
+.gate-spinner{width:26px;height:26px;flex:0 0 auto;border-radius:50%;border:3px solid var(--color-border);border-top-color:var(--color-primary);animation:gate-spin 1s linear infinite}
+@keyframes gate-spin{to{transform:rotate(360deg)}}
+.gate-loading__text{margin:0;font-weight:600}
+/* Успех: подтверждение + письмо с файлом ТЗ */
+.zav-toast{display:flex;align-items:flex-start;gap:12px;padding:16px;background:#FFFFFF;border:1px solid var(--color-border);border-left:4px solid var(--color-success);border-radius:var(--radius);box-shadow:var(--shadow)}
+.zav-toast .material-symbols-outlined{color:var(--color-success);font-size:24px;flex:0 0 auto}
+.zav-toast__text{margin:0;font-weight:600}
+.zav-state__actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:auto}
+/* Ошибка CRM: сообщение + резервный канал */
+.zav-error{display:flex;align-items:flex-start;gap:12px;padding:16px;background:#FFFFFF;border:1px solid var(--color-border);border-left:4px solid var(--color-warning);border-radius:var(--radius);box-shadow:var(--shadow)}
+.zav-error .material-symbols-outlined{color:var(--color-warning);font-size:24px;flex:0 0 auto}
+.zav-error__text{margin:0}
+.zav-error__text strong{display:block;margin-bottom:2px}
+.zav-error__text a{font-weight:600}
+
+/* Подвал */
+.site-footer{background:var(--color-primary-dark);color:#FFFFFF;padding:56px 0 24px}
+.site-footer a{color:#FFFFFF;text-decoration:none}
+.site-footer a:hover{color:var(--color-accent)}
+.site-footer__inner{display:grid;gap:32px}
+.site-footer__title{margin:0 0 10px;font-size:var(--fs-small);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.site-footer__logo{display:inline-block;background:#FFFFFF;border-radius:8px;padding:8px 12px;height:44px;width:auto}
+.site-footer__brand p{margin:12px 0 0;color:rgba(255,255,255,.75);font-size:var(--fs-small);max-width:46ch}
+.site-footer__col ul{list-style:none;margin:0;padding:0}
+.site-footer__col ul a{display:inline-flex;align-items:center;min-height:44px}
+.site-footer__phone{display:inline-flex;align-items:center;min-height:44px;font-weight:800;font-size:1.25rem}
+.site-footer__addr{margin:8px 0 0;color:rgba(255,255,255,.75);font-size:var(--fs-small)}
+.site-footer__social{display:flex;gap:12px;margin-top:12px}
+.site-footer__social a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12)}
+.site-footer__social .material-symbols-outlined{font-size:22px}
+.site-footer__bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.7);font-size:var(--fs-small)}
+.site-footer__bottom p{margin:0}
+@media (min-width:768px){
+  .site-footer__inner{grid-template-columns:repeat(2,1fr)}
+}
+@media (min-width:1024px){
+  .site-footer__inner{grid-template-columns:1.4fr 1fr 1fr 1.2fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ Шапка ═══ -->
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-header__logo" href="index.html"><img src="assets/mmprom-logo.png" alt="ММ Пром"></a>
+    <nav class="site-header__nav" aria-label="Основное меню">
+      <a href="usluga.html" data-megamenu aria-haspopup="true">Услуги</a>
+      <a href="katalog_obektov.html">Каталог</a>
+      <a href="blog.html">Публикации</a>
+      <a href="o_kompanii.html">О компании</a>
+      <a href="kontakty.html">Контакты</a>
+    </nav>
+    <div class="site-header__actions">
+      <a class="site-header__phone" href="tel:88003331010">8 800 333 10 10</a>
+      <a class="btn btn--primary site-header__cta" href="modalka_zayavki.html" data-modal-open>Оставить заявку</a>
+      <button class="site-header__burger" type="button" aria-label="Открыть меню"><span class="material-symbols-outlined" aria-hidden="true">menu</span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ═══ Демо-пояснение ═══ -->
+  <section id="demo-note" data-block="Демо-пометка" class="b-demo-note">
+    <div class="container">
+      <h1>Гейт ТЗ (лид-магнит)</h1>
+      <p class="b-demo-note__lead">Демо-снимок открытого гейта: посетитель проходит форму из трёх шагов — описывает задачу (тип сделки, метраж, локация, бюджет) и требования к объекту, затем оставляет контакты: имя, фамилия, компания, предпочтительный способ связи, телефон, email — и получает файл «Шаблон технического задания» на почту, без живого разговора, если он к нему не готов. Гейт открывается из CTA «Скачать шаблон ТЗ» на главной, из промо-плитки «Шаблон ТЗ» в мегаменю и из публикации про подготовку ТЗ. Контекст (услуга или источник) уходит в CRM Битрикс24 скрытым полем; письмо со ссылкой на файл ТЗ отправляется автоматически (ФТ-ZAV-4). Шаги переключаются кнопками «Далее» и «Назад» без JS — на скрытых radio. Кнопка «×», Esc и клик по затемнению закрывают окно; ниже — затемнённый фон страницы.</p>
+      <ul class="zav-tags">
+        <li class="zav-tag">ФТ-ZAV-4</li>
+        <li class="zav-tag">ФТ-КАТ-8</li>
+        <li class="zav-tag">Форма в 3 шага: задача → требования → контакты (CSS, без JS)</li>
+        <li class="zav-tag">НФТ-INT-1: таймаут CRM 3 сек</li>
+        <li class="zav-tag">Закрытие: ×, Esc, клик по подложке</li>
+        <li class="zav-tag">Автоотправка email со ссылкой на файл ТЗ</li>
+        <li class="zav-tag">Воронка «скачал шаблон ТЗ»</li>
+      </ul>
+      <p class="zav-demo-flag"><span class="material-symbols-outlined" aria-hidden="true">info</span>Демо-пометка: показан запуск с главной — скрытое поле «source» = cta-tz-glavnaya, превью показывает заглушку первого листа шаблона ТЗ. Файл шаблона ТЗ предоставит клиент — в макете показана заглушка превью. При запуске из мегаменю или публикации поле «Услуга» и источник заполняются соответственно. Состояния «Загрузка», «Успех» и «Ошибка CRM» показаны отдельно, как статичные примеры под сценой.</p>
+    </div>
+  </section>
+
+  <!-- ═══ Сцена оверлея: приглушённый фон + затемнение + диалог ═══ -->
+  <div class="overlay-stage">
+    <div class="overlay-stage__under" aria-hidden="true">
+      <div class="container">
+        <p class="overlay-stage__under-h">Главная страница [демо] — секция услуг</p>
+        <span class="zav-skel zav-skel--photo" style="width:min(720px,92%)"></span>
+        <span class="zav-skel" style="width:min(560px,80%)"></span>
+        <span class="zav-skel" style="width:min(440px,64%)"></span>
+      </div>
+    </div>
+    <div class="overlay-stage__dim" aria-hidden="true"></div>
+    <div class="overlay-stage__holder">
+
+      <section id="gate" data-block="Гейт ТЗ (лид-магнит)" class="b-overlay-gate" role="dialog" aria-modal="true" aria-label="Форма «Скачайте пример ТЗ проекта» — открытое состояние">
+        <button class="b-overlay-gate__close" type="button" aria-label="Закрыть форму"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+
+        <div class="b-overlay-gate__preview">
+          <div class="img-placeholder gate-preview" data-img="Первый лист шаблона ТЗ">
+            <span class="material-symbols-outlined" aria-hidden="true">description</span>
+            Первый лист шаблона ТЗ
+          </div>
+          <p class="b-overlay-gate__preview-note">[Демо] Файл шаблона ТЗ предоставит клиент — в макете показана заглушка превью.</p>
+        </div>
+
+        <div class="b-overlay-gate__body">
+          <p class="b-overlay-gate__kicker">Шаблон технического задания</p>
+          <h2 class="b-overlay-gate__title">Скачайте пример ТЗ проекта</h2>
+          <p class="b-overlay-gate__lead">Заполните три коротких шага — пришлём файл и поможем с вопросами.</p>
+          <p class="zav-context">Открыт из:
+            <span class="zav-context-chip zav-context-chip--active">«Скачать шаблон ТЗ» — главная</span>
+            <span class="zav-context-chip">«Шаблон ТЗ» — мегаменю</span>
+            <span class="zav-context-chip">«Скачать шаблон ТЗ» — публикация</span>
+          </p>
+
+          <form class="lead-form" action="#" method="post">
+            <!-- Скрытые поля (ФТ-КАТ-8): «Услуга» предзаполняется по источнику
+                 открытия гейта. Демо: запуск с главной — поля «Объект» и «Услуга»
+                 пустые. Поле «source» фиксирует точку входа для CRM Битрикс24. -->
+            <input type="hidden" name="object" value="">
+            <input type="hidden" name="usluga" value="">
+            <input type="hidden" name="source" value="cta-tz-glavnaya">
+
+            <!-- Шаги формы: переключение на скрытых radio, без JS.
+                 Общее name="step" нужно, чтобы radio исключали друг друга
+                 (значение в CRM не используется). -->
+            <input class="lead-steps__radio" type="radio" name="step" id="step-1" value="1" checked>
+            <input class="lead-steps__radio" type="radio" name="step" id="step-2" value="2">
+            <input class="lead-steps__radio" type="radio" name="step" id="step-3" value="3">
+
+            <!-- Индикатор «Шаг N из 3» -->
+            <div class="lead-steps__indicator">
+              <div class="lead-steps__dots" aria-hidden="true">
+                <span class="lead-steps__dot lead-steps__dot--1">1</span>
+                <span class="lead-steps__dot lead-steps__dot--2">2</span>
+                <span class="lead-steps__dot lead-steps__dot--3">3</span>
+              </div>
+              <p class="lead-steps__label">
+                <span class="lead-steps__label-1">Шаг 1 из 3 · О задаче</span>
+                <span class="lead-steps__label-2">Шаг 2 из 3 · Требования к объекту</span>
+                <span class="lead-steps__label-3">Шаг 3 из 3 · Контакты</span>
+              </p>
+            </div>
+
+            <!-- Шаг 1 «О задаче»: поля — из «Подбора объекта» (Каталог, #podbor) -->
+            <div class="lead-steps__panel lead-steps__panel--1">
+              <h3 class="lead-steps__title">О задаче</h3>
+
+              <div class="lead-form__field lead-steps__wide">
+                <span class="lead-form__label" id="tz-deal-label">Тип сделки</span>
+                <div class="lead-form__chips" role="radiogroup" aria-labelledby="tz-deal-label">
+                  <label class="lead-form__chip"><input type="radio" name="deal-type" value="Аренда" checked><span>Аренда</span></label>
+                  <label class="lead-form__chip"><input type="radio" name="deal-type" value="Покупка"><span>Покупка</span></label>
+                  <label class="lead-form__chip"><input type="radio" name="deal-type" value="Аренда с выкупом"><span>Аренда с выкупом</span></label>
+                  <label class="lead-form__chip"><input type="radio" name="deal-type" value="Строительство под ключ"><span>Строительство под ключ</span></label>
+                  <label class="lead-form__chip"><input type="radio" name="deal-type" value="Покупка земельного участка"><span>Покупка земельного участка</span></label>
+                </div>
+              </div>
+
+              <div class="lead-form__field lead-steps__wide">
+                <span class="lead-form__label">Метраж, м²</span>
+                <div class="lead-steps__pair">
+                  <input type="text" name="area-from" inputmode="numeric" placeholder="от 500" aria-label="Метраж от, м²">
+                  <input type="text" name="area-to" inputmode="numeric" placeholder="до 5 000" aria-label="Метраж до, м²">
+                </div>
+              </div>
+
+              <div class="lead-form__field">
+                <label class="lead-form__label" for="tz-location">Локация</label>
+                <input type="text" id="tz-location" name="location" placeholder="Санкт-Петербург, Всеволожский район…">
+              </div>
+
+              <div class="lead-form__field lead-steps__wide">
+                <span class="lead-form__label" id="tz-purpose-label">Назначение</span>
+                <div class="lead-form__chips" role="radiogroup" aria-labelledby="tz-purpose-label">
+                  <label class="lead-form__chip"><input type="radio" name="purpose" value="Склад" checked><span>Склад</span></label>
+                  <label class="lead-form__chip"><input type="radio" name="purpose" value="Производство"><span>Производство</span></label>
+                  <label class="lead-form__chip"><input type="radio" name="purpose" value="Иное"><span>Иное</span></label>
+                </div>
+              </div>
+
+              <div class="lead-form__field">
+                <label class="lead-form__label" for="tz-product">Производимая продукция</label>
+                <input type="text" id="tz-product" name="product">
+              </div>
+
+              <div class="lead-form__field">
+                <label class="lead-form__label" for="tz-term">Срок аренды и дата переезда</label>
+                <input type="text" id="tz-term" name="term" placeholder="от 3 лет, переезд к 01.06">
+              </div>
+
+              <div class="lead-form__field">
+                <label class="lead-form__label" for="tz-budget">Арендная ставка / бюджет</label>
+                <input type="text" id="tz-budget" name="budget" placeholder="до 450 ₽/м²">
+              </div>
+
+              <div class="lead-steps__actions">
+                <label class="btn btn--primary lead-steps__next" for="step-2">Далее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></label>
+              </div>
+            </div>
+
+            <!-- Шаг 2 «Требования к объекту» -->
+            <div class="lead-steps__panel lead-steps__panel--2">
+              <h3 class="lead-steps__title">Требования к объекту</h3>
+
+              <div class="lead-form__field">
+                <label class="lead-form__label" for="tz-power">Электрическая мощность</label>
+                <input type="text" id="tz-power" name="power" placeholder="напр. 500 кВт">
+              </div>
+
+              <div class="lead-form__field">
+                <label class="lead-form__label" for="tz-heating">Отопление</label>
+                <input type="text" id="tz-heating" name="heating" placeholder="есть / требуется / мощность">
+              </div>
+
+              <div class="lead-form__field">
+                <label class="lead-form__label" for="tz-crane">Грузоподъёмность / Г/П оборудование</label>
+                <input type="text" id="tz-crane" name="crane" placeholder="напр. 5 т кран-балка">
+              </div>
+
+              <div class="lead-form__field">
+                <label class="lead-form__label" for="tz-ceiling">Высота потолка</label>
+                <input type="text" id="tz-ceiling" name="ceiling" placeholder="от 8 м">
+              </div>
+
+              <div class="lead-form__field">
+                <label class="lead-form__label" for="tz-floor-level">Уровень пола от земли</label>
+                <input type="text" id="tz-floor-level" name="floor-level" placeholder="0 м / 1,2 м">
+              </div>
+
+              <div class="lead-form__field">
+                <label class="lead-form__label" for="tz-floor-load">Нагрузка на пол</label>
+                <input type="text" id="tz-floor-load" name="floor-load" placeholder="напр. 5 т/м²">
+              </div>
+
+              <div class="lead-form__field">
+                <label class="lead-form__label" for="tz-columns">Шаг колонн</label>
+                <input type="text" id="tz-columns" name="columns" placeholder="напр. 6×12 м">
+              </div>
+
+              <div class="lead-form__field">
+                <label class="lead-form__label" for="tz-working-height">Рабочая высота</label>
+                <input type="text" id="tz-working-height" name="working-height" placeholder="до низа ферм">
+              </div>
+
+              <div class="lead-form__field">
+                <label class="lead-form__label" for="tz-gates">Ворота / габариты</label>
+                <input type="text" id="tz-gates" name="gates">
+              </div>
+
+              <div class="lead-form__field">
+                <label class="lead-form__label" for="tz-temperature">Температурный режим</label>
+                <input type="text" id="tz-temperature" name="temperature" placeholder="от +5 до +25 °C / холодный">
+              </div>
+
+              <div class="lead-steps__actions">
+                <label class="btn btn--ghost lead-steps__back" for="step-1">Назад</label>
+                <label class="btn btn--primary lead-steps__next" for="step-3">Далее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></label>
+              </div>
+            </div>
+
+            <!-- Шаг 3 «Контакты»; сабмит доступен только на этом шаге -->
+            <div class="lead-steps__panel lead-steps__panel--3">
+              <h3 class="lead-steps__title">Контакты</h3>
+
+              <div class="lead-form__row lead-form__row--3">
+                <div class="lead-form__field">
+                  <label class="lead-form__label" for="lead-name">Имя <span class="req" aria-hidden="true">*</span></label>
+                  <input type="text" id="lead-name" name="name" placeholder="Как к вам обращаться" required>
+                </div>
+                <div class="lead-form__field">
+                  <label class="lead-form__label" for="lead-surname">Фамилия</label>
+                  <input type="text" id="lead-surname" name="surname" placeholder="Фамилия">
+                </div>
+                <div class="lead-form__field">
+                  <label class="lead-form__label" for="lead-company">Название компании</label>
+                  <input type="text" id="lead-company" name="company" placeholder="Компания">
+                </div>
+              </div>
+
+              <div class="lead-form__field">
+                <span class="lead-form__label" id="lead-way-label">Предпочтительный способ связи</span>
+                <div class="lead-form__chips" role="radiogroup" aria-labelledby="lead-way-label">
+                  <label class="lead-form__chip"><input type="radio" name="contact-way" value="Телефон" checked><span>Телефон</span></label>
+                  <label class="lead-form__chip"><input type="radio" name="contact-way" value="Телеграм"><span>Телеграм</span></label>
+                  <label class="lead-form__chip"><input type="radio" name="contact-way" value="MAX"><span>MAX</span></label>
+                  <label class="lead-form__chip"><input type="radio" name="contact-way" value="Ватсап"><span>Ватсап</span></label>
+                  <label class="lead-form__chip"><input type="radio" name="contact-way" value="Почта"><span>Почта</span></label>
+                </div>
+              </div>
+
+              <div class="lead-form__row lead-form__row--2">
+                <div class="lead-form__field">
+                  <label class="lead-form__label" for="lead-phone">Телефон <span class="req" aria-hidden="true">*</span></label>
+                  <input type="tel" id="lead-phone" name="phone" inputmode="tel" placeholder="+7 (___) ___-__-__" required>
+                  <p class="lead-form__hint">Укажите контакт для отправки файла и связи.</p>
+                </div>
+                <div class="lead-form__field">
+                  <label class="lead-form__label" for="lead-email">Email</label>
+                  <input type="email" id="lead-email" name="email" placeholder="name@company.ru">
+                </div>
+              </div>
+
+              <div class="lead-form__field">
+                <label class="lead-form__label" for="lead-comment">Комментарий <span style="font-weight:400;color:var(--color-text-muted)">(необязательно)</span></label>
+                <textarea id="lead-comment" name="comment" placeholder="Что ещё важно учесть"></textarea>
+              </div>
+
+              <label class="lead-form__consent" for="lead-consent">
+                <input type="checkbox" id="lead-consent" name="consent" required>
+                <span>Согласен на обработку персональных данных. Отправка невозможна без согласия.</span>
+              </label>
+
+              <div class="lead-steps__actions">
+                <label class="btn btn--ghost lead-steps__back" for="step-2">Назад</label>
+                <button class="btn btn--primary lead-form__submit" type="submit">Скачать шаблон ТЗ</button>
+              </div>
+            </div>
+          </form>
+
+          <!-- Демо-пометка: скрытые поля перечислены вне формы (ФТ-КАТ-8) -->
+          <p class="b-overlay-gate__hidden-note"><span class="material-symbols-outlined" aria-hidden="true">visibility_off</span>Демо-пометка: скрытые поля «Объект» / «Услуга» не видны посетителю и предзаполняются по источнику открытия гейта — ФТ-КАТ-8. Ответ CRM дольше 3 секунд (НФТ-INT-1) показывается как «Ошибка».</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ═══ Демо-примеры состояний: загрузка, успех, ошибка CRM ═══ -->
+  <section id="states-demo" data-block="Состояния (демо)" class="b-states">
+    <div class="container">
+      <h2>Состояния гейта — статичные примеры</h2>
+      <p class="b-states__lead">В рабочей версии состояние приходит после отправки: при успехе форма заменяется подтверждением, при ошибке остаётся открытой с фокусом на проблемном поле. Здесь все три состояния показаны рядом для согласования текстов и стилей.</p>
+      <div class="b-states__grid">
+
+        <article class="zav-state">
+          <p class="zav-state__label">Состояние «Загрузка»</p>
+          <div class="gate-loading">
+            <span class="gate-spinner" aria-hidden="true"></span>
+            <p class="gate-loading__text">Отправляем заявку…</p>
+          </div>
+          <p class="zav-state__note">Кнопка блокируется на время отправки. Если CRM Битрикс24 не ответила за 3 секунды (НФТ-INT-1), показывается состояние «Ошибка CRM».</p>
+        </article>
+
+        <article class="zav-state">
+          <p class="zav-state__label">Состояние «Успех»</p>
+          <div class="zav-toast">
+            <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+            <p class="zav-toast__text">Проверьте почту — файл ТЗ уже в пути.</p>
+          </div>
+          <p class="zav-state__note">Лид уходит в CRM Битрикс24 с короткой воронкой «скачал шаблон ТЗ»; письмо со ссылкой на файл ТЗ отправляется автоматически (ФТ-ZAV-4). В Метрике фиксируется событие «отправка гейта».</p>
+          <div class="zav-state__actions">
+            <a class="btn btn--outline" href="index.html">Закрыть</a>
+          </div>
+        </article>
+
+        <article class="zav-state">
+          <p class="zav-state__label">Состояние «Ошибка CRM»</p>
+          <div class="zav-error">
+            <span class="material-symbols-outlined" aria-hidden="true">error</span>
+            <p class="zav-error__text"><strong>Не удалось отправить заявку.</strong> Позвоните нам — пришлём шаблон ТЗ напрямую: <a href="tel:88003331010">8 800 333 10 10</a> · <a href="kontakty.html">Контакты</a></p>
+          </div>
+          <p class="zav-state__note">Форма остаётся открытой, введённые данные сохраняются. Резервный канал — телефон и страница контактов.</p>
+          <div class="zav-state__actions">
+            <a class="btn btn--ghost" href="kontakty.html">Все контакты<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══ Подвал ═══ -->
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div class="site-footer__brand">
+      <img class="site-footer__logo" src="assets/mmprom-logo.png" alt="ММ Пром">
+      <p>Промышленная недвижимость Санкт-Петербурга и Ленинградской области: аренда, продажа и строительство. Работаем с 2011 года.</p>
+    </div>
+    <nav class="site-footer__col" aria-label="Услуги">
+      <p class="site-footer__title">Услуги</p>
+      <ul>
+        <li><a href="usluga_arenda.html">Аренда недвижимости</a></li>
+        <li><a href="usluga_prodazha.html">Продажа недвижимости</a></li>
+        <li><a href="usluga_stroitelstvo.html">Строительство</a></li>
+        <li><a href="usluga_development.html">Девелопмент под ключ</a></li>
+        <li><a href="usluga_redevelopment.html">Редевелопмент</a></li>
+        <li><a href="usluga_upravlenie.html">Управление</a></li>
+        <li><a href="usluga_konsalting.html">Промышленный консалтинг</a></li>
+        <li><a href="usluga_treyd_in.html">Трейд-ин / Срочный выкуп</a></li>
+        <li><a href="usluga_investicii.html">Инвестиции и финансирование</a></li>
+        <li><a href="usluga.html">Все услуги</a></li>
+      </ul>
+    </nav>
+    <nav class="site-footer__col" aria-label="Компания">
+      <p class="site-footer__title">Компания</p>
+      <ul>
+        <li><a href="o_kompanii.html">О компании</a></li>
+        <li><a href="blog.html">Публикации</a></li>
+        <li><a href="kontakty.html">Контакты</a></li>
+      </ul>
+    </nav>
+    <div class="site-footer__col">
+      <p class="site-footer__title">Контакты</p>
+      <a class="site-footer__phone" href="tel:88003331010">8 800 333 10 10</a>
+      <p class="site-footer__addr">г. Санкт-Петербург, ул. Латышских стрелков, 19</p>
+      <div class="site-footer__social">
+        <a href="https://t.me/mm_prom1" aria-label="Телеграм-канал ММ Пром"><span class="material-symbols-outlined" aria-hidden="true">send</span></a>
+        <a href="https://max.ru/se14192436_biz" aria-label="Канал ММ Пром в MAX"><span aria-hidden="true" style="font-size:.75rem;font-weight:800;letter-spacing:.02em">MAX</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="container site-footer__bottom">
+    <p>© 2011–2026 ММ Пром</p>
+    <span class="link-disabled" aria-disabled="true" title="Документ готовится">Политика конфиденциальности</span>
+  </div>
+</footer>
+
+</body>
+</html>

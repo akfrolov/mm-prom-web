@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Шрифты: Manrope (фолбэк Averta CY) + Inter; Material Symbols для иконок.
+     Офлайн макеты работают с деградацией на системные шрифты и текст. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+<style>
+/* ─── Канон брейкпоинтов (mobile-first, UX §3 дефолт) ──────────────────
+   Базовые стили = смартфон (360–767px).
+   @media (min-width: 768px)  → планшет (768–1023px).
+   @media (min-width: 1024px) → десктоп (≥1024px).
+   Контрольная ширина дизайна — 1366px.
+   Шапка: <1024 — бургер + оверлей меню; ≥1024 — полное горизонтальное меню.
+   CTA шапки скрыт <768. Touch-target ≥ 44px. Фиксированные ширины >480px
+   вне :root запрещены. Каждая страница: ≥ 2 media query (768 и 1024).
+   Мысленный тест: «360px — без горизонтального скролла». */
+:root{
+  /* Брендовые токены (утв. 2026-08) */
+  --color-primary:#3D0E6A;        /* фиолетовый — ТОЛЬКО акценты: кнопки, ссылки, линии */
+  --color-primary-dark:#2A0949;   /* ховер, подвал */
+  --color-primary-light:#F3EEF9;  /* светло-фиолетовая подложка блоков (CTA, выделенные секции) */
+  --color-primary-soft:#E5D9F3;   /* светлые линии/бордеры на светло-фиолетовых подложках */
+  --color-accent:#EBB81E;         /* жёлтый — дозированный акцент: бейджи, маркеры, подчёркивания */
+  --color-bg:#FFFFFF;             /* основной фон */
+  --color-text:#161519;           /* почти чёрный — основной текст */
+  --color-text-muted:#5C5866;     /* вторичный текст */
+  --color-surface:#F7F5FA;        /* подложки секций (лёгкий фиолетовый подтон) */
+  --color-border:#E4E1EA;
+  --color-success:#1E8A4C;        /* статус «Свободно» (UX §3) */
+  --color-warning:#B98900;        /* статус «Резерв» (UX §3) */
+  --color-neutral:#6B6B74;        /* статус «Занято» (UX §3) */
+  --font-main:"Averta CY","Manrope","Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --logo-url:url("assets/mmprom-logo.png");
+  /* Типографика clamp() */
+  --fs-h1:clamp(1.75rem,1.2rem + 2.6vw,3rem);
+  --fs-h2:clamp(1.4rem,1.1rem + 1.6vw,2.125rem);
+  --fs-h3:clamp(1.15rem,1rem + 0.8vw,1.5rem);
+  --fs-body:clamp(1rem,0.95rem + 0.25vw,1.0625rem);
+  --fs-small:0.875rem;
+  /* Прочее */
+  --radius:12px;
+  --shadow:0 2px 12px rgba(22,21,25,.08);
+  --container:1280px;
+  --space-section:clamp(48px,8vw,96px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--font-main);color:var(--color-text);background:var(--color-bg);line-height:1.55;font-size:var(--fs-body)}
+img{max-width:100%;display:block}
+a{color:var(--color-primary)}
+h1,h2,h3{line-height:1.2;margin:0 0 .5em;font-weight:800}
+h1{font-size:var(--fs-h1)}
+h2{font-size:var(--fs-h2)}
+h3{font-size:var(--fs-h3)}
+p{margin:0 0 1em}
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 24;vertical-align:middle}
+/* Контейнер */
+.container{max-width:var(--container);margin:0 auto;padding:0 16px}
+@media (min-width:768px){.container{padding:0 32px}}
+@media (min-width:1024px){.container{padding:0 40px}}
+.section{padding:var(--space-section) 0}
+.section--tint{background:var(--color-surface)}
+/* Сеточные хелперы: коллапс 1 → 2 → 3/4 на брейкпоинтах 768/1024 */
+.grid{display:grid;gap:16px}
+.grid--2,.grid--3,.grid--4{grid-template-columns:1fr}
+@media (min-width:768px){
+  .grid{gap:24px}
+  .grid--2,.grid--3,.grid--4{grid-template-columns:repeat(2,1fr)}
+}
+@media (min-width:1024px){
+  .grid--3{grid-template-columns:repeat(3,1fr)}
+  .grid--4{grid-template-columns:repeat(4,1fr)}
+}
+/* Кнопки (touch-target ≥ 44px, CTA-иерархия UX §3) */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:12px 24px;border-radius:var(--radius);font-weight:700;font-size:var(--fs-body);text-decoration:none;cursor:pointer;border:2px solid transparent}
+.btn--primary{background:var(--color-primary);color:#FFFFFF}
+.btn--primary:hover{background:var(--color-primary-dark)}
+.btn--accent{background:var(--color-accent);color:var(--color-text)}
+.btn--outline{border-color:var(--color-primary);color:var(--color-primary);background:transparent}
+.btn--ghost{border-color:var(--color-border);color:var(--color-text);background:#FFFFFF}
+/* Статус-бейджи занятости (UX §3) */
+.badge{display:inline-flex;align-items:center;gap:6px;min-height:24px;padding:2px 10px;border-radius:999px;font-size:var(--fs-small);font-weight:600}
+.badge--free{background:rgba(30,138,76,.12);color:var(--color-success)}
+.badge--reserve{background:rgba(185,137,0,.14);color:var(--color-warning)}
+.badge--busy{background:rgba(107,107,116,.14);color:var(--color-neutral)}
+/* Заглушка изображения (объекты без фото) */
+.img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--color-surface);border:1px dashed var(--color-border);border-radius:var(--radius);color:var(--color-text-muted);font-size:var(--fs-small);min-height:180px;padding:16px;text-align:center}
+.img-placeholder .material-symbols-outlined{font-size:36px;color:var(--color-border)}
+/* Шапка — канон видимости (фикс переполнения 2026-09, DESIGN.md §2):
+   базово — логотип + бургер; CTA появляется с 768; полное меню с 1024;
+   телефон — только с 1200px (на 1024–1199 полное меню + телефон + CTA
+   не помещаются в одну строку). Брейкпоинты канона 768/1024 не меняются;
+   стили страницы идут позже и могут доопределять внешний вид шапки. */
+.site-header__nav{display:none}
+.site-header__phone{display:none}
+.site-header__cta{display:none}
+.site-header__burger{display:inline-flex}
+@media (min-width:768px){.site-header__cta{display:inline-flex}}
+@media (min-width:1024px){.site-header__nav{display:flex}.site-header__burger{display:none}}
+@media (min-width:1200px){.site-header__phone{display:inline-flex}}
+/* 1024–1199: компактный CTA шапки — гарантия одной строки при полном меню */
+@media (min-width:1024px) and (max-width:1199.98px){.site-header__cta{padding:12px 16px;white-space:nowrap}}
+</style>
+<title>Услуги — ММ Пром</title>
+<style>
+/* ═══ Стили страницы «Все услуги» (хаб: селектор 9 услуг; поверх канона,
+   без правки токенов и классов канона) ═══ */
+
+/* ── Шапка (видимость — канон; здесь только внешний вид) ── */
+.site-header{background:#fff;border-bottom:1px solid var(--color-border)}
+.site-header__inner{display:flex;align-items:center;gap:12px;min-height:64px}
+.site-header__logo{flex:0 0 auto;display:inline-flex}
+.site-header__logo img{height:40px;width:auto}
+.site-header__nav{gap:24px}
+.site-header__nav a{display:inline-flex;align-items:center;min-height:44px;color:var(--color-text);text-decoration:none;font-weight:600;white-space:nowrap}
+.site-header__nav a:hover{color:var(--color-primary)}
+.site-header__nav a[aria-current="page"]{color:var(--color-primary)}
+.site-header__nav a[data-megamenu]{border-bottom:2px dotted var(--color-primary)}
+.site-header__actions{display:flex;align-items:center;gap:12px;margin-left:auto}
+.site-header__phone{align-items:center;min-height:44px;font-weight:700;color:var(--color-text);text-decoration:none;white-space:nowrap}
+.site-header__burger{align-items:center;justify-content:center;width:44px;height:44px;padding:0;background:#fff;border:1px solid var(--color-border);border-radius:var(--radius);color:var(--color-text);cursor:pointer}
+.site-header__burger .material-symbols-outlined{font-size:28px}
+@media (min-width:768px){
+  .site-header__logo img{height:44px}
+}
+@media (min-width:1024px){
+  .site-header__inner{min-height:72px}
+}
+
+/* ── Хлебные крошки ── */
+.b-breadcrumbs{padding:16px 0 0}
+.b-breadcrumbs ol{display:flex;flex-wrap:wrap;gap:4px;list-style:none;margin:0;padding:0;font-size:var(--fs-small);color:var(--color-text-muted)}
+.b-breadcrumbs li{display:inline-flex;align-items:center}
+.b-breadcrumbs li+li::before{content:"/";margin:0 6px;color:var(--color-border)}
+.b-breadcrumbs a{display:inline-flex;align-items:center;min-height:44px;color:var(--color-text-muted);text-decoration:none}
+.b-breadcrumbs a:hover{color:var(--color-primary)}
+.b-breadcrumbs [aria-current="page"]{color:var(--color-text);font-weight:600}
+
+/* ── Герой страницы «Все услуги» (белый фон — фиолетовый только акцентами) ── */
+.b-hero{background:#fff;color:var(--color-text);padding:clamp(40px,6vw,80px) 0}
+.b-hero h1{margin:0 0 12px}
+.b-hero h1::after{content:"";display:block;width:64px;height:4px;border-radius:2px;background:var(--color-accent);margin-top:14px}
+.b-hero__lead{margin:0 0 8px;max-width:64ch;font-size:clamp(1.0625rem,1rem + 0.5vw,1.25rem);color:var(--color-text)}
+.b-hero__sub{margin:0;max-width:64ch;font-size:var(--fs-body);color:var(--color-text-muted)}
+.b-hero__facts{display:flex;flex-wrap:wrap;gap:12px 28px;list-style:none;margin:24px 0 0;padding:0;font-size:var(--fs-small);color:var(--color-text-muted)}
+.b-hero__facts li{display:inline-flex;align-items:center;gap:8px}
+.b-hero__facts .material-symbols-outlined{font-size:20px;color:var(--color-primary)}
+
+/* ── Marquee-полоса метрик: бегущая строка, дублированный трек ── */
+.b-marquee{background:var(--color-primary-light);border-bottom:1px solid var(--color-primary-soft);padding:12px 0;overflow:hidden}
+.b-marquee__track{display:flex;width:max-content;animation:b-marquee-roll 30s linear infinite}
+.b-marquee__seq{display:flex;align-items:center;flex:0 0 auto}
+.b-marquee__item{display:inline-flex;align-items:center;white-space:nowrap;font-weight:700;font-size:var(--fs-small);letter-spacing:.02em;color:var(--color-text)}
+.b-marquee__item::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--color-accent);margin:0 22px}
+@keyframes b-marquee-roll{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  .b-marquee__track{animation:none;width:auto;flex-wrap:wrap;row-gap:4px}
+  .b-marquee__seq--dup{display:none}
+}
+
+/* ── Селектор услуг (radio-CSS без JS; 9 карточек + панель выбранной услуги) ── */
+.b-svc h2{margin-bottom:8px}
+.b-svc__lead{margin:0 0 24px;max-width:64ch;color:var(--color-text-muted)}
+.b-svc-picker{display:grid;grid-template-columns:1fr;gap:0;position:relative}
+.b-svc-picker > input{position:absolute;opacity:0;pointer-events:none}
+.b-svc-card{position:relative;display:flex;align-items:flex-start;gap:10px;min-height:44px;padding:8px 12px;background:#fff;border:1px solid var(--color-border);border-radius:var(--radius);cursor:pointer;transition:border-color .2s ease,background-color .2s ease}
+.b-svc-card:hover{border-color:var(--color-primary);z-index:1}
+.b-svc-card__icon{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:rgba(61,14,106,.08);color:var(--color-primary)}
+.b-svc-card__icon .material-symbols-outlined{font-size:22px}
+.b-svc-card__name{display:block;font-weight:700;font-size:var(--fs-small);line-height:1.3}
+.b-svc-card__desc{display:block;margin-top:1px;font-size:.8125rem;color:var(--color-text-muted);line-height:1.35}
+.b-svc-picker > input:checked + .b-svc-card{border-color:var(--color-primary);background:var(--color-primary-light);z-index:1}
+.b-svc-picker > input:checked + .b-svc-card .b-svc-card__icon{color:var(--color-primary)}
+.b-svc-picker > input:focus-visible + .b-svc-card{outline:2px solid var(--color-primary);outline-offset:2px}
+/* Один столбец (моб. и ≥1024): карточки склеены в общий список,
+   разделители — общие линии (двойные гасятся margin-top:-1px), крайние скруглены */
+.b-svc-picker > .b-svc-card{border-radius:0;margin-top:-1px}
+.b-svc-picker > .b-svc-card:first-of-type{border-radius:var(--radius) var(--radius) 0 0;margin-top:0}
+.b-svc-picker > .b-svc-card:last-of-type{border-radius:0 0 var(--radius) var(--radius)}
+.b-svc-panel{display:none;grid-column:1 / -1;margin-top:12px;background:#fff;border:1px solid var(--color-border);border-radius:var(--radius);padding:20px}
+#svc-arenda:checked ~ .b-svc-panel--arenda,
+#svc-prodazha:checked ~ .b-svc-panel--prodazha,
+#svc-stroitelstvo:checked ~ .b-svc-panel--stroitelstvo,
+#svc-development:checked ~ .b-svc-panel--development,
+#svc-redevelopment:checked ~ .b-svc-panel--redevelopment,
+#svc-upravlenie:checked ~ .b-svc-panel--upravlenie,
+#svc-konsalting:checked ~ .b-svc-panel--konsalting,
+#svc-treyd-in:checked ~ .b-svc-panel--treyd-in,
+#svc-investicii:checked ~ .b-svc-panel--investicii{display:block}
+.b-svc-panel h3{margin:0 0 8px;font-size:var(--fs-h3)}
+.b-svc-panel__media{min-height:180px;margin:0 0 16px}
+.b-svc-panel__lead{margin:0 0 12px;max-width:70ch;color:var(--color-text-muted)}
+.b-svc-panel__list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.b-svc-panel__list li{position:relative;padding-left:20px;color:var(--color-text-muted)}
+.b-svc-panel__list li::before{content:"";position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:50%;background:var(--color-accent)}
+.b-svc-panel__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+/* <768: компактные чипы-карточки — только название, перенос строками */
+@media (max-width:767.98px){
+  .b-svc-card__icon,.b-svc-card__desc{display:none}
+}
+@media (min-width:768px){
+  .b-svc-picker{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .b-svc-picker > .b-svc-card{border-radius:var(--radius);margin-top:0}
+  .b-svc-picker > .b-svc-card:first-of-type,
+  .b-svc-picker > .b-svc-card:last-of-type{border-radius:var(--radius)}
+  .b-svc-panel{padding:24px}
+}
+/* ≥1024: карточки в один столбец (снова склеены), панель справа.
+   Панель выше списка и растягивает строки grid — карточки заполняют
+   строки (align-self:stretch), поэтому линии прилегают друг к другу */
+@media (min-width:1024px){
+  .b-svc-picker{grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:0 32px}
+  .b-svc-picker > .b-svc-card{border-radius:0;margin-top:-1px;align-self:stretch}
+  .b-svc-picker > .b-svc-card:first-of-type{border-radius:var(--radius) var(--radius) 0 0;margin-top:0}
+  .b-svc-picker > .b-svc-card:last-of-type{border-radius:0 0 var(--radius) var(--radius)}
+  .b-svc-panel{grid-column:2;grid-row:1 / span 9;align-self:start;margin-top:0;padding:24px 28px} /* 9 строк = 9 карточек в один столбец */
+}
+
+/* ── CTA-баннер (светло-фиолетовая подложка, тёмный текст) ── */
+.b-cta{background:var(--color-primary-light);color:var(--color-text);padding:clamp(40px,6vw,72px) 0}
+.b-cta h2::after{content:"";display:block;width:64px;height:4px;border-radius:2px;background:var(--color-accent);margin-top:8px}
+.b-cta p{color:var(--color-text-muted);max-width:64ch}
+.b-cta__row{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin-top:20px}
+.b-cta__phone{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:800;font-size:1.125rem;color:var(--color-text);text-decoration:none}
+.b-cta__phone .material-symbols-outlined{color:var(--color-primary)}
+
+/* ── Подвал ── */
+.site-footer{margin-top:0;background:var(--color-primary-dark);color:#fff}
+.site-footer a{color:#fff}
+.site-footer__grid{display:grid;gap:32px;padding:48px 0 32px}
+.site-footer__logo{height:36px;width:auto;margin-bottom:12px}
+.site-footer__brand p{margin:0;color:rgba(255,255,255,.75);font-size:var(--fs-small);max-width:40ch}
+.site-footer__title{margin:0 0 8px;font-weight:800;font-size:var(--fs-body)}
+.site-footer__col ul{list-style:none;margin:0;padding:0}
+.site-footer__col li{display:flex}
+.site-footer__col a,.site-footer__col span{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;color:rgba(255,255,255,.85);font-size:var(--fs-small)}
+.site-footer__col a:hover{color:var(--color-accent)}
+.site-footer__social{display:flex;gap:12px;margin-top:12px}
+.site-footer__social a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid rgba(255,255,255,.25);border-radius:50%}
+.site-footer__social .material-symbols-outlined{font-size:22px}
+.site-footer__bottom{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.15);padding:16px 0 28px;font-size:var(--fs-small);color:rgba(255,255,255,.65)}
+.site-footer__bottom p{margin:0}
+.site-footer__bottom a{display:inline-flex;align-items:center;min-height:44px;color:rgba(255,255,255,.85);text-decoration:none}
+.site-footer__bottom a:hover{color:var(--color-accent)}
+.site-footer__bottom .site-footer__link--disabled{display:inline-flex;align-items:center;min-height:44px;color:rgba(255,255,255,.45);text-decoration:none;cursor:default}
+@media (min-width:768px){.site-footer__grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1024px){.site-footer__grid{grid-template-columns:1.4fr 1fr 1fr 1fr}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-header__logo" href="index.html"><img src="assets/mmprom-logo.png" alt="ММ Пром"></a>
+    <nav class="site-header__nav" aria-label="Основное меню">
+      <a href="megamenu.html" data-megamenu aria-current="page">Услуги</a>
+      <a href="katalog_obektov.html">Каталог</a>
+      <a href="blog.html">Публикации</a>
+      <a href="o_kompanii.html">О компании</a>
+      <a href="kontakty.html">Контакты</a>
+    </nav>
+    <div class="site-header__actions">
+      <a class="site-header__phone" href="tel:88003331010">8 800 333 10 10</a>
+      <a class="btn btn--primary site-header__cta" href="modalka_zayavki.html" data-modal-open>Оставить заявку</a>
+      <a class="site-header__burger" href="mobilnoe_menu.html" aria-label="Открыть меню"><span class="material-symbols-outlined" aria-hidden="true">menu</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section id="breadcrumbs" data-block="Хлебные крошки" class="b-breadcrumbs">
+    <div class="container">
+      <ol>
+        <li><a href="index.html">Главная</a></li>
+        <li><span aria-current="page">Услуги</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="hero" data-block="Герой" class="b-hero">
+    <div class="container">
+      <h1>Услуги ММ Пром</h1>
+      <p class="b-hero__lead">ММ Пром — компания полного цикла, специализирующаяся на развитии индустриальных объектов и сопровождении производственных проектов.</p>
+      <p class="b-hero__sub">Берём на себя весь цикл реализации производственной площадки — от поиска земли до запуска предприятия: консалтинг, инвестиции, сделки, девелопмент, управление, трейд-ин и срочный выкуп.</p>
+      <ul class="b-hero__facts">
+        <li><span class="material-symbols-outlined">apps</span>9 услуг · 4 роли</li>
+        <li><span class="material-symbols-outlined">verified</span>с 2011 года</li>
+        <li><span class="material-symbols-outlined">square_foot</span>200 000+ м²</li>
+        <li><span class="material-symbols-outlined">apartment</span>25+ проектов</li>
+        <li><span class="material-symbols-outlined">groups</span>150+ резидентов</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══ Marquee: метрики бегущей строкой (декоративная полоса) ═══ -->
+  <div class="b-marquee" role="presentation">
+    <div class="b-marquee__track">
+      <div class="b-marquee__seq">
+        <span class="b-marquee__item">200 000+ м²</span>
+        <span class="b-marquee__item">25+ проектов</span>
+        <span class="b-marquee__item">150+ резидентов</span>
+        <span class="b-marquee__item">с 2011 года</span>
+        <span class="b-marquee__item">СПб и ЛО</span>
+      </div>
+      <div class="b-marquee__seq b-marquee__seq--dup" aria-hidden="true">
+        <span class="b-marquee__item">200 000+ м²</span>
+        <span class="b-marquee__item">25+ проектов</span>
+        <span class="b-marquee__item">150+ резидентов</span>
+        <span class="b-marquee__item">с 2011 года</span>
+        <span class="b-marquee__item">СПб и ЛО</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Выберите услугу: селектор 9 услуг (radio-CSS без JS) ═══ -->
+  <section id="uslugi" data-block="Выберите услугу" class="b-svc section">
+    <div class="container">
+      <h2>Все услуги</h2>
+      <p class="b-svc__lead">Нажмите на карточку — покажем суть услуги и что вы получаете. Подробности — на странице каждой услуги.</p>
+      <div class="b-svc-picker" role="radiogroup" aria-label="Услуги ММ Пром">
+        <input type="radio" name="svc" id="svc-arenda" checked>
+        <label class="b-svc-card" for="svc-arenda" data-svc="arenda">
+          <span class="b-svc-card__icon"><span class="material-symbols-outlined" aria-hidden="true">warehouse</span></span>
+          <span>
+            <span class="b-svc-card__name">Аренда недвижимости</span>
+            <span class="b-svc-card__desc">Площади под офис, склад или производство — напрямую от собственников</span>
+          </span>
+        </label>
+        <input type="radio" name="svc" id="svc-prodazha">
+        <label class="b-svc-card" for="svc-prodazha" data-svc="prodazha">
+          <span class="b-svc-card__icon"><span class="material-symbols-outlined" aria-hidden="true">sell</span></span>
+          <span>
+            <span class="b-svc-card__name">Продажа недвижимости</span>
+            <span class="b-svc-card__desc">Участки, здания и помещения с сопровождением сделки</span>
+          </span>
+        </label>
+        <input type="radio" name="svc" id="svc-stroitelstvo">
+        <label class="b-svc-card" for="svc-stroitelstvo" data-svc="stroitelstvo">
+          <span class="b-svc-card__icon"><span class="material-symbols-outlined" aria-hidden="true">construction</span></span>
+          <span>
+            <span class="b-svc-card__name">Строительство</span>
+            <span class="b-svc-card__desc">Промышленные объекты — по нормам, в бюджете и в срок</span>
+          </span>
+        </label>
+        <input type="radio" name="svc" id="svc-development">
+        <label class="b-svc-card" for="svc-development" data-svc="development">
+          <span class="b-svc-card__icon"><span class="material-symbols-outlined" aria-hidden="true">domain</span></span>
+          <span>
+            <span class="b-svc-card__name">Девелопмент под ключ</span>
+            <span class="b-svc-card__desc">Build-to-suit: от участка и концепции до ввода в эксплуатацию</span>
+          </span>
+        </label>
+        <input type="radio" name="svc" id="svc-redevelopment">
+        <label class="b-svc-card" for="svc-redevelopment" data-svc="redevelopment">
+          <span class="b-svc-card__icon"><span class="material-symbols-outlined" aria-hidden="true">autorenew</span></span>
+          <span>
+            <span class="b-svc-card__name">Редевелопмент</span>
+            <span class="b-svc-card__desc">Реконструкция и реновация существующих зданий</span>
+          </span>
+        </label>
+        <input type="radio" name="svc" id="svc-upravlenie">
+        <label class="b-svc-card" for="svc-upravlenie" data-svc="upravlenie">
+          <span class="b-svc-card__icon"><span class="material-symbols-outlined" aria-hidden="true">settings</span></span>
+          <span>
+            <span class="b-svc-card__name">Управление</span>
+            <span class="b-svc-card__desc">Операционная рутина объекта — на нас, с прозрачными отчётами</span>
+          </span>
+        </label>
+        <input type="radio" name="svc" id="svc-konsalting">
+        <label class="b-svc-card" for="svc-konsalting" data-svc="konsalting">
+          <span class="b-svc-card__icon"><span class="material-symbols-outlined" aria-hidden="true">insights</span></span>
+          <span>
+            <span class="b-svc-card__name">Промышленный консалтинг</span>
+            <span class="b-svc-card__desc">Аналитика территорий и взвешенные решения по активам</span>
+          </span>
+        </label>
+        <input type="radio" name="svc" id="svc-treyd-in">
+        <label class="b-svc-card" for="svc-treyd-in" data-svc="treyd-in">
+          <span class="b-svc-card__icon"><span class="material-symbols-outlined" aria-hidden="true">swap_horiz</span></span>
+          <span>
+            <span class="b-svc-card__name">Трейд-ин / Срочный выкуп</span>
+            <span class="b-svc-card__desc">Зачёт стоимости актива при приобретении нового объекта</span>
+          </span>
+        </label>
+        <input type="radio" name="svc" id="svc-investicii">
+        <label class="b-svc-card" for="svc-investicii" data-svc="investicii">
+          <span class="b-svc-card__icon"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span></span>
+          <span>
+            <span class="b-svc-card__name">Инвестиции и финансирование</span>
+            <span class="b-svc-card__desc">Финансовая модель, соинвестирование и активы из портфеля</span>
+          </span>
+        </label>
+
+        <div class="b-svc-panel b-svc-panel--arenda">
+          <h3>Аренда недвижимости</h3>
+          <div class="img-placeholder b-svc-panel__media" data-img="Фото: аренда недвижимости"><span class="material-symbols-outlined" aria-hidden="true">image</span>Фото: аренда недвижимости</div>
+          <p class="b-svc-panel__lead">Профессиональная аренда производственно-складской недвижимости. Подберем площади под офис, склад или производство с учетом ваших требований к локации, инженерным мощностям и бюджету. Предлагаем объекты напрямую от собственников без скрытых комиссий. Свяжитесь с нами, чтобы получить подборку свободных лотов уже сегодня.</p>
+          <ul class="b-svc-panel__list">
+            <li>Площади под офис, склад или производство — с учётом требований к локации, инженерным мощностям и бюджету</li>
+            <li>Объекты напрямую от собственников — без скрытых комиссий</li>
+            <li>Подборку свободных лотов по вашему запросу</li>
+          </ul>
+          <div class="b-svc-panel__cta">
+            <a class="btn btn--primary" href="usluga_arenda.html">Страница услуги</a>
+            <a class="btn btn--outline" href="modalka_zayavki.html" data-modal-open>Обсудить</a>
+          </div>
+        </div>
+
+        <div class="b-svc-panel b-svc-panel--prodazha">
+          <h3>Продажа недвижимости</h3>
+          <div class="img-placeholder b-svc-panel__media" data-img="Фото: продажа недвижимости"><span class="material-symbols-outlined" aria-hidden="true">image</span>Фото: продажа недвижимости</div>
+          <p class="b-svc-panel__lead">Продажа промышленных объектов — земельных участков, промышленных зданий и помещений. Проводим комплексную предпродажную подготовку, определяем точную рыночную стоимость актива и обеспечиваем юридическое сопровождение сделки до регистрации перехода права собственности. Гарантируем конфиденциальность переговоров.</p>
+          <ul class="b-svc-panel__list">
+            <li>Земельные участки, промышленные здания и помещения</li>
+            <li>Комплексную предпродажную подготовку и определение рыночной стоимости актива</li>
+            <li>Юридическое сопровождение сделки до регистрации перехода права собственности</li>
+            <li>Конфиденциальность переговоров</li>
+          </ul>
+          <div class="b-svc-panel__cta">
+            <a class="btn btn--primary" href="usluga_prodazha.html">Страница услуги</a>
+            <a class="btn btn--outline" href="modalka_zayavki.html" data-modal-open>Обсудить</a>
+          </div>
+        </div>
+
+        <div class="b-svc-panel b-svc-panel--stroitelstvo">
+          <h3>Строительство</h3>
+          <div class="img-placeholder b-svc-panel__media" data-img="Фото: строительство"><span class="material-symbols-outlined" aria-hidden="true">image</span>Фото: строительство</div>
+          <p class="b-svc-panel__lead">Строительство промышленных объектов. Реализуем проекты любой сложности в строгом соответствии с проектной документацией, строительными нормами и утвержденным бюджетом. Контролируем качество материалов и соблюдение сроков на каждом этапе работ. Запросите смету вашего будущего объекта.</p>
+          <ul class="b-svc-panel__list">
+            <li>Проекты любой сложности — в строгом соответствии с проектной документацией и строительными нормами</li>
+            <li>Работу в рамках утвержденного бюджета</li>
+            <li>Контроль качества материалов</li>
+            <li>Соблюдение сроков на каждом этапе работ</li>
+          </ul>
+          <div class="b-svc-panel__cta">
+            <a class="btn btn--primary" href="usluga_stroitelstvo.html">Страница услуги</a>
+            <a class="btn btn--outline" href="modalka_zayavki.html" data-modal-open>Обсудить</a>
+          </div>
+        </div>
+
+        <div class="b-svc-panel b-svc-panel--development">
+          <h3>Девелопмент под ключ</h3>
+          <div class="img-placeholder b-svc-panel__media" data-img="Фото: девелопмент под ключ"><span class="material-symbols-outlined" aria-hidden="true">image</span>Фото: девелопмент под ключ</div>
+          <p class="b-svc-panel__lead">Берем на себя весь процесс Build-to-suit (BTS): от поиска земельного участка и разработки концепции до ввода здания в эксплуатацию и последующей продажи или сдачи в аренду. Вы получаете готовое пром. здание «под ключ» с прозрачной экономикой проекта.</p>
+          <ul class="b-svc-panel__list">
+            <li>Полный процесс Build-to-suit (BTS): от поиска участка и разработки концепции до ввода в эксплуатацию</li>
+            <li>Готовое промышленное здание «под ключ»</li>
+            <li>Последующую продажу или сдачу здания в аренду</li>
+            <li>Прозрачную экономику проекта</li>
+          </ul>
+          <div class="b-svc-panel__cta">
+            <a class="btn btn--primary" href="usluga_development.html">Страница услуги</a>
+            <a class="btn btn--outline" href="modalka_zayavki.html" data-modal-open>Обсудить</a>
+          </div>
+        </div>
+
+        <div class="b-svc-panel b-svc-panel--redevelopment">
+          <h3>Редевелопмент</h3>
+          <div class="img-placeholder b-svc-panel__media" data-img="Фото: редевелопмент"><span class="material-symbols-outlined" aria-hidden="true">image</span>Фото: редевелопмент</div>
+          <p class="b-svc-panel__lead">Реконструкция и реновация существующих зданий. Проводим технический аудит конструкций, разрабатываем проект модернизации и выполняем строительно-монтажные работы. Превращаем устаревшие советские заводы и административные корпуса в современные производственные зоны, технопарки и индустриальные объекты.</p>
+          <ul class="b-svc-panel__list">
+            <li>Технический аудит конструкций</li>
+            <li>Проект модернизации и строительно-монтажные работы</li>
+            <li>Превращение устаревших заводов и административных корпусов в современные производственные зоны, технопарки и индустриальные объекты</li>
+          </ul>
+          <div class="b-svc-panel__cta">
+            <a class="btn btn--primary" href="usluga_redevelopment.html">Страница услуги</a>
+            <a class="btn btn--outline" href="modalka_zayavki.html" data-modal-open>Обсудить</a>
+          </div>
+        </div>
+
+        <div class="b-svc-panel b-svc-panel--upravlenie">
+          <h3>Управление</h3>
+          <div class="img-placeholder b-svc-panel__media" data-img="Фото: управление недвижимостью"><span class="material-symbols-outlined" aria-hidden="true">image</span>Фото: управление недвижимостью</div>
+          <p class="b-svc-panel__lead">Мы берём на себя всю операционную рутину: от взаимодействия с арендаторами и контроля своевременного сбора платежей до организации технического обслуживания инженерных систем, клининга и охраны. Каждый из этих процессов выстраиваем системно — с регламентами, сроками и прозрачными отчётами, чтобы вы всегда понимали, что происходит на объекте.</p>
+          <ul class="b-svc-panel__list">
+            <li>Взаимодействие с арендаторами и контроль своевременного сбора платежей</li>
+            <li>Техническое обслуживание инженерных систем, клининг и охрану</li>
+            <li>Регламенты, сроки и прозрачные отчёты по каждому процессу</li>
+            <li>Полную картину происходящего на объекте</li>
+          </ul>
+          <div class="b-svc-panel__cta">
+            <a class="btn btn--primary" href="usluga_upravlenie.html">Страница услуги</a>
+            <a class="btn btn--outline" href="modalka_zayavki.html" data-modal-open>Обсудить</a>
+          </div>
+        </div>
+
+        <div class="b-svc-panel b-svc-panel--konsalting">
+          <h3>Промышленный консалтинг</h3>
+          <div class="img-placeholder b-svc-panel__media" data-img="Фото: промышленный консалтинг"><span class="material-symbols-outlined" aria-hidden="true">image</span>Фото: промышленный консалтинг</div>
+          <p class="b-svc-panel__lead">Промышленный консалтинг и аналитика территорий. Помогаем собственникам и инвесторам принять взвешенное решение о развитии активов. Оцениваем градостроительный потенциал земли, виды разрешенного использования (ВРИ) и финансовую эффективность различных сценариев застройки перед покупкой/продажей/сдачей в аренду или стартом стройки.</p>
+          <ul class="b-svc-panel__list">
+            <li>Аналитику территорий и градостроительный потенциал земли</li>
+            <li>Оценку видов разрешенного использования (ВРИ)</li>
+            <li>Финансовую эффективность различных сценариев застройки</li>
+            <li>Взвешенное решение перед покупкой, продажей, сдачей в аренду или стартом стройки</li>
+          </ul>
+          <div class="b-svc-panel__cta">
+            <a class="btn btn--primary" href="usluga_konsalting.html">Страница услуги</a>
+            <a class="btn btn--outline" href="modalka_zayavki.html" data-modal-open>Обсудить</a>
+          </div>
+        </div>
+
+        <div class="b-svc-panel b-svc-panel--treyd-in">
+          <h3>Трейд-ин / Срочный выкуп</h3>
+          <div class="img-placeholder b-svc-panel__media" data-img="Фото: трейд-ин"><span class="material-symbols-outlined" aria-hidden="true">image</span>Фото: трейд-ин</div>
+          <p class="b-svc-panel__lead">Принимаем ваш актив, будь то здание, земельный участок или оборудование, и зачитываем его стоимость при приобретении нового объекта. Вам не придётся тратить время на поиск покупателя, торги и согласование условий: мы берём эти задачи на себя. Варианты обмена гибкие: например, здание можно зачесть в счёт земельного участка и наоборот — мы подстроимся под ваши цели и особенности активов.</p>
+          <ul class="b-svc-panel__list">
+            <li>Зачёт стоимости вашего актива — здания, участка или оборудования — при приобретении нового объекта</li>
+            <li>Экономию времени: без поиска покупателя, торгов и согласования условий</li>
+            <li>Гибкие варианты обмена — здание в счёт участка и наоборот</li>
+            <li>Решение под ваши цели и особенности активов</li>
+          </ul>
+          <div class="b-svc-panel__cta">
+            <a class="btn btn--primary" href="usluga_treyd_in.html">Страница услуги</a>
+            <a class="btn btn--outline" href="modalka_zayavki.html" data-modal-open>Обсудить</a>
+          </div>
+        </div>
+
+        <div class="b-svc-panel b-svc-panel--investicii">
+          <h3>Инвестиции и финансирование</h3>
+          <div class="img-placeholder b-svc-panel__media" data-img="Фото: инвестиции и финансирование"><span class="material-symbols-outlined" aria-hidden="true">image</span>Фото: инвестиции и финансирование</div>
+          <p class="b-svc-panel__lead">Мы знаем, как правильно просчитать доходность, учесть все риски и выстроить финансовую модель так, чтобы вы чётко понимали, какие результаты и в какие сроки получите. Если проект перспективный и экономически обоснованный, мы готовы выступить не просто консультантами, а соинвесторами — войти в проект собственными средствами и разделить риски на старте. У нас в портфеле есть перспективные земельные участки и готовые промышленные здания: можем предложить их как часть инвестиционной структуры или как площадку под реализацию проекта.</p>
+          <ul class="b-svc-panel__list">
+            <li>Просчёт доходности и учёт всех рисков в финансовой модели</li>
+            <li>Понимание результатов и сроков до старта проекта</li>
+            <li>Готовность выступить соинвестором — войти в проект собственными средствами и разделить риски на старте</li>
+            <li>Перспективные участки и готовые промышленные здания из портфеля — как часть инвестиционной структуры или площадку под проект</li>
+          </ul>
+          <div class="b-svc-panel__cta">
+            <a class="btn btn--primary" href="usluga_investicii.html">Страница услуги</a>
+            <a class="btn btn--outline" href="modalka_zayavki.html" data-modal-open>Обсудить</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta" data-block="CTA-баннер" class="b-cta">
+    <div class="container">
+      <h2>Планируете запуск производственной площадки?</h2>
+      <p>Поможем подобрать объект, привлечь финансирование и реализовать индустриальный проект под ключ.</p>
+      <div class="b-cta__row">
+        <a class="btn btn--primary" href="modalka_zayavki.html" data-modal-open>Связаться с нами</a>
+        <a class="b-cta__phone" href="tel:88003331010"><span class="material-symbols-outlined">call</span>8 800 333 10 10</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <img class="site-footer__logo" src="assets/mmprom-logo.png" alt="ММ Пром">
+        <p>Производственная недвижимость Санкт-Петербурга и Ленобласти. С 2011 года: 25+ проектов, 200 000+ м², 150+ арендаторов.</p>
+        <div class="site-footer__social">
+          <a href="https://t.me/mm_prom1" aria-label="Телеграм-канал ММ Пром"><span class="material-symbols-outlined">send</span></a>
+          <a href="https://max.ru/se14192436_biz" aria-label="Канал ММ Пром в MAX"><span aria-hidden="true" style="font-size:.75rem;font-weight:800;letter-spacing:.02em">MAX</span></a>
+        </div>
+      </div>
+      <div class="site-footer__col">
+        <p class="site-footer__title">Услуги</p>
+        <ul>
+          <li><a href="usluga_arenda.html">Аренда недвижимости</a></li>
+          <li><a href="usluga_prodazha.html">Продажа недвижимости</a></li>
+          <li><a href="usluga_stroitelstvo.html">Строительство</a></li>
+          <li><a href="usluga_development.html">Девелопмент под ключ</a></li>
+          <li><a href="usluga_redevelopment.html">Редевелопмент</a></li>
+          <li><a href="usluga_upravlenie.html">Управление</a></li>
+          <li><a href="usluga_konsalting.html">Промышленный консалтинг</a></li>
+          <li><a href="usluga_treyd_in.html">Трейд-ин / Срочный выкуп</a></li>
+          <li><a href="usluga_investicii.html">Инвестиции и финансирование</a></li>
+          <li><a href="usluga.html">Все услуги</a></li>
+        </ul>
+      </div>
+      <div class="site-footer__col">
+        <p class="site-footer__title">Компания</p>
+        <ul>
+          <li><a href="o_kompanii.html">О компании</a></li>
+          <li><a href="katalog_obektov.html">Каталог объектов</a></li>
+          <li><a href="blog.html">Публикации</a></li>
+          <li><a href="kontakty.html">Контакты</a></li>
+        </ul>
+      </div>
+      <div class="site-footer__col">
+        <p class="site-footer__title">Контакты</p>
+        <ul>
+          <li><a href="tel:88003331010">8 800 333 10 10</a></li>
+          <li><span>E-mail — info@mm-prom.ru</span></li>
+          <li><span>г. Санкт-Петербург, ул. Латышских стрелков, 19</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <p>© 2011–2026 ММ Пром</p>
+      <span class="site-footer__link--disabled" aria-disabled="true" title="Документ готовится">Политика конфиденциальности</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

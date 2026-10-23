@@ -1,0 +1,1052 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Шрифты: Manrope (фолбэк Averta CY) + Inter; Material Symbols для иконок.
+     Офлайн макеты работают с деградацией на системные шрифты и текст. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+<style>
+/* ─── Канон брейкпоинтов (mobile-first, UX §3 дефолт) ──────────────────
+   Базовые стили = смартфон (360–767px).
+   @media (min-width: 768px)  → планшет (768–1023px).
+   @media (min-width: 1024px) → десктоп (≥1024px).
+   Контрольная ширина дизайна — 1366px.
+   Шапка: <1024 — бургер + оверлей меню; ≥1024 — полное горизонтальное меню.
+   CTA шапки скрыт <768. Touch-target ≥ 44px. Фиксированные ширины >480px
+   вне :root запрещены. Каждая страница: ≥ 2 media query (768 и 1024).
+   Мысленный тест: «360px — без горизонтального скролла». */
+:root{
+  /* Брендовые токены (утв. 2026-08) */
+  --color-primary:#3D0E6A;        /* фиолетовый — основной акцент: кнопки, ссылки */
+  --color-primary-dark:#2A0949;   /* ховер, тёмные поверхности */
+  --color-primary-light:#F3EEF9;  /* светло-фиолетовая подложка блоков (CTA, выделенные секции) */
+  --color-primary-soft:#E5D9F3;   /* светлые линии/бордеры на светло-фиолетовых подложках */
+  --color-accent:#EBB81E;         /* жёлтый — дозированный акцент: бейджи, маркеры, подчёркивания */
+  --color-bg:#FFFFFF;             /* основной фон */
+  --color-text:#161519;           /* почти чёрный — основной текст */
+  --color-text-muted:#5C5866;     /* вторичный текст */
+  --color-surface:#F7F5FA;        /* подложки секций (лёгкий фиолетовый подтон) */
+  --color-border:#E4E1EA;
+  --color-success:#1E8A4C;        /* статус «Свободно» (UX §3) */
+  --color-warning:#B98900;        /* статус «Резерв» (UX §3) */
+  --color-neutral:#6B6B74;        /* статус «Занято» (UX §3) */
+  --font-main:"Averta CY","Manrope","Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --logo-url:url("assets/mmprom-logo.png");
+  /* Типографика clamp() */
+  --fs-h1:clamp(1.75rem,1.2rem + 2.6vw,3rem);
+  --fs-h2:clamp(1.4rem,1.1rem + 1.6vw,2.125rem);
+  --fs-h3:clamp(1.15rem,1rem + 0.8vw,1.5rem);
+  --fs-body:clamp(1rem,0.95rem + 0.25vw,1.0625rem);
+  --fs-small:0.875rem;
+  /* Прочее */
+  --radius:12px;
+  --shadow:0 2px 12px rgba(22,21,25,.08);
+  --container:1280px;
+  --space-section:clamp(48px,8vw,96px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--font-main);color:var(--color-text);background:var(--color-bg);line-height:1.55;font-size:var(--fs-body)}
+img{max-width:100%;display:block}
+a{color:var(--color-primary)}
+h1,h2,h3{line-height:1.2;margin:0 0 .5em;font-weight:800}
+h1{font-size:var(--fs-h1)}
+h2{font-size:var(--fs-h2)}
+h3{font-size:var(--fs-h3)}
+p{margin:0 0 1em}
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 24;vertical-align:middle}
+/* Контейнер */
+.container{max-width:var(--container);margin:0 auto;padding:0 16px}
+@media (min-width:768px){.container{padding:0 32px}}
+@media (min-width:1024px){.container{padding:0 40px}}
+.section{padding:var(--space-section) 0}
+.section--tint{background:var(--color-surface)}
+/* Сеточные хелперы: коллапс 1 → 2 → 3/4 на брейкпоинтах 768/1024 */
+.grid{display:grid;gap:16px}
+.grid--2,.grid--3,.grid--4{grid-template-columns:1fr}
+@media (min-width:768px){
+  .grid{gap:24px}
+  .grid--2,.grid--3,.grid--4{grid-template-columns:repeat(2,1fr)}
+}
+@media (min-width:1024px){
+  .grid--3{grid-template-columns:repeat(3,1fr)}
+  .grid--4{grid-template-columns:repeat(4,1fr)}
+}
+/* Кнопки (touch-target ≥ 44px, CTA-иерархия UX §3) */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:12px 24px;border-radius:var(--radius);font-weight:700;font-size:var(--fs-body);text-decoration:none;cursor:pointer;border:2px solid transparent}
+.btn--primary{background:var(--color-primary);color:#FFFFFF}
+.btn--primary:hover{background:var(--color-primary-dark)}
+.btn--accent{background:var(--color-accent);color:var(--color-text)}
+.btn--outline{border-color:var(--color-primary);color:var(--color-primary);background:transparent}
+.btn--ghost{border-color:var(--color-border);color:var(--color-text);background:#FFFFFF}
+/* Статус-бейджи занятости (UX §3) */
+.badge{display:inline-flex;align-items:center;gap:6px;min-height:24px;padding:2px 10px;border-radius:999px;font-size:var(--fs-small);font-weight:600}
+.badge--free{background:rgba(30,138,76,.12);color:var(--color-success)}
+.badge--reserve{background:rgba(185,137,0,.14);color:var(--color-warning)}
+.badge--busy{background:rgba(107,107,116,.14);color:var(--color-neutral)}
+/* Заглушка изображения (объекты без фото) */
+.img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--color-surface);border:1px dashed var(--color-border);border-radius:var(--radius);color:var(--color-text-muted);font-size:var(--fs-small);min-height:180px;padding:16px;text-align:center}
+.img-placeholder .material-symbols-outlined{font-size:36px;color:var(--color-border)}
+</style>
+<title>Единое окно для промышленника — ММ Пром</title>
+<meta name="description" content="ММ Пром — единое окно промышленника: комплексные решения и полный цикл услуг по промышленной недвижимости — аренда, покупка, управление и строительство объектов. С 2011 года: 200 000+ м² в управлении, 25+ проектов, 150+ компаний-резидентов.">
+<style>
+/* ── Стили страницы «Главная» (канон не переопределяют) ─────────────── */
+
+/* Шапка */
+.site-header{position:sticky;top:0;z-index:40;background:var(--color-bg);border-bottom:1px solid var(--color-border)}
+.site-header__inner{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px}
+.site-header__logo{display:inline-flex;align-items:center}
+.site-header__logo img{height:40px;width:auto}
+.site-header__nav{display:none;align-items:center;gap:4px}
+.site-header__nav a{display:inline-flex;align-items:center;min-height:44px;padding:8px 12px;color:var(--color-text);text-decoration:none;font-weight:600;white-space:nowrap}
+.site-header__nav a:hover{color:var(--color-primary)}
+.site-header__nav a[data-megamenu]{border-bottom:2px dotted var(--color-accent)}
+.site-header__actions{display:flex;align-items:center;gap:8px}
+.site-header__phone{display:none;font-weight:800;font-size:.9375rem;color:var(--color-text);text-decoration:none;white-space:nowrap}
+.site-header__phone:hover{color:var(--color-primary)}
+.site-header__cta{display:none}
+.site-header__burger{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:0;background:none;color:var(--color-text);cursor:pointer}
+.site-header__burger .material-symbols-outlined{font-size:28px}
+@media (min-width:768px){
+  .site-header__cta{display:inline-flex}
+}
+/* Телефон — только от 1200px: на 1024–1199 полное меню + телефон + CTA
+   не помещаются в одну строку (фикс переполнения шапки, 2026-09) */
+@media (min-width:1200px){
+  .site-header__phone{display:inline-flex}
+}
+/* 1024–1199: компактный CTA шапки — гарантия одной строки при полном меню
+   (дополнение к фиксу переполнения шапки, 2026-09) */
+@media (min-width:1024px) and (max-width:1199.98px){
+  .site-header__cta{padding:12px 16px;white-space:nowrap}
+}
+@media (min-width:1024px){
+  .site-header__nav{display:flex}
+  .site-header__burger{display:none}
+}
+
+/* Герой — белый фон, тёмный текст (правило палитры 2026-09: фиолетовый
+   только в акцентах — кнопки фиолетовые, маркеры метрик жёлтые).
+   Высота: <768 — по контенту; ≥768 — вьюпорт минус шапка и бегущая строка,
+   чтобы строка метрик помещалась в первый экран: --header-h = 64px
+   (.site-header__inner) + 1px нижняя граница; --marquee-h = 48px
+   (min-height .b-marquee). Композиция центрируется по вертикали;
+   svh гасит прыжок адресной строки. */
+:root{--header-h:65px;--marquee-h:48px}
+.b-hero{background:var(--color-bg);color:var(--color-text);padding:clamp(48px,8vw,96px) 0}
+.b-hero__inner{display:grid;gap:32px}
+.b-hero__lead{color:var(--color-text-muted);max-width:58ch}
+.b-hero__actions{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 40px}
+.b-hero__link{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:12px 24px;border:2px solid var(--color-primary);border-radius:var(--radius);color:var(--color-primary);background:transparent;font-weight:700;text-decoration:none}
+.b-hero__link:hover{background:var(--color-primary);color:#FFFFFF}
+.b-hero__metrics{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:20px 16px}
+.b-hero__metrics li{border-top:2px solid var(--color-accent);padding-top:10px}
+.b-hero__metrics strong{display:block;font-size:clamp(1.125rem,1rem + .8vw,1.5rem);color:var(--color-primary)}
+.b-hero__metrics span{display:block;color:var(--color-text-muted);font-size:var(--fs-small)}
+/* Изображение hero с геометрическим вырезом: обёртка — акцентная кромка 2px
+   (градиент фиолетовый → жёлтый), внутренняя заглушка обрезана тем же
+   polygon(). Смартфон — упрощённый вырез (5 точек), с 768 — полный (6 точек);
+   clip-path не влияет на поток, aspect-ratio стабилен на всех ширинах.
+   Маска смягчена, чтобы титры видео не резались. */
+.b-hero__media{min-width:0}
+.b-hero__media-frame{--hero-cut:polygon(0 0,92% 0,100% 6%,100% 100%,0 100%);padding:2px;background:linear-gradient(135deg,var(--color-primary) 0%,var(--color-accent) 100%);clip-path:var(--hero-cut)}
+.b-hero__media-frame .img-placeholder{clip-path:var(--hero-cut);width:100%;aspect-ratio:4/3;border:1px dashed var(--color-primary-soft);border-radius:0;background:var(--color-surface);color:var(--color-text-muted)}
+.b-hero__media-frame .img-placeholder .material-symbols-outlined{color:var(--color-primary-soft)}
+@media (min-width:768px){
+  .b-hero{display:flex;align-items:center;min-height:calc(100vh - var(--header-h) - var(--marquee-h))}
+  @supports (min-height:100svh){.b-hero{min-height:calc(100svh - var(--header-h) - var(--marquee-h))}}
+  .b-hero__inner{flex:1 1 auto;grid-template-columns:1.15fr .85fr;gap:32px;align-items:center}
+  .b-hero__metrics{grid-template-columns:repeat(2,1fr)}
+  .b-hero__media-frame{--hero-cut:polygon(0 0,90% 0,100% 10%,100% 100%,4% 100%,0 94%)}
+  .b-hero__media-frame .img-placeholder{aspect-ratio:4/3}
+}
+@media (min-width:1024px){
+  .b-hero__inner{gap:48px}
+  .b-hero__metrics{grid-template-columns:repeat(4,1fr)}
+  .b-hero__media-frame .img-placeholder{aspect-ratio:3/2}
+}
+
+/* Преимущества */
+.b-advantages__tile{height:100%;background:#FFFFFF;border:1px solid var(--color-border);border-radius:var(--radius);padding:24px}
+.b-advantages__icon{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:10px;background:rgba(61,14,106,.08);color:var(--color-primary);margin-bottom:14px}
+.b-advantages__icon .material-symbols-outlined{font-size:26px}
+.b-advantages__tile h3{font-size:1.125rem}
+.b-advantages__tile p{margin:0;color:var(--color-text-muted);font-size:var(--fs-small)}
+.b-faq__list{display:grid;gap:12px;max-width:58ch}
+.b-faq__item{background:#FFFFFF;border:1px solid var(--color-border);border-radius:var(--radius)}
+.b-faq__item summary{display:flex;align-items:center;gap:12px;min-height:56px;padding:16px 20px;font-weight:700;cursor:pointer;list-style:none}
+.b-faq__item summary::-webkit-details-marker{display:none}
+.b-faq__item summary > span:first-child{flex:1}
+.b-faq__item summary .material-symbols-outlined{color:var(--color-accent);transition:transform .2s ease}
+.b-faq__item[open] summary .material-symbols-outlined{transform:rotate(180deg)}
+.b-faq__item p{margin:0;padding:16px 20px 0;color:var(--color-text-muted)}
+.b-faq__item p + p{padding-top:8px}
+.b-faq__item p:last-child{padding-bottom:16px}
+
+/* Заголовочная строка секций с ссылкой/кнопкой справа */
+.b-rowhead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;margin-bottom:32px}
+.b-rowhead h2{margin:0}
+.b-rowhead > p{margin:0;flex-basis:100%;color:var(--color-text-muted)}
+
+/* Метки карточек и ссылка «ещё» в заголовках секций */
+.b-more{display:inline-flex;align-items:center;gap:6px;font-weight:700;text-decoration:none}
+.b-more .material-symbols-outlined{font-size:20px}
+
+/* Фильтр каталога (чипы; на десктопе переносятся строками) */
+.b-filters{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:24px}
+.chip{flex:0 0 auto;min-height:44px;padding:8px 18px;border:1px solid var(--color-border);border-radius:999px;background:#FFFFFF;color:var(--color-text);font:inherit;font-size:var(--fs-small);font-weight:600;cursor:pointer;white-space:nowrap}
+.chip--active{background:var(--color-primary);border-color:var(--color-primary);color:#FFFFFF}
+@media (min-width:1024px){
+  .b-filters{overflow-x:visible;flex-wrap:wrap}
+}
+
+/* Карточки объектов — анатомия каталога `.obj-card` (единый паттерн с
+   katalog_obektov.html, 2026-09): строка бейджей + ↗-ссылка на всю карточку,
+   «Презентация» поверх медиа, мета-список с иконками. Реальные фото парков —
+   внутри анатомии (.b-media + figcaption), остальные — .img-placeholder.
+   `.obj-card` уже position:relative — растяжка ↗-ссылки работает. */
+.obj-card{position:relative;display:flex;flex-direction:column;height:100%;background:#fff;border:1px solid var(--color-border);border-radius:var(--radius);overflow:hidden}
+.obj-card .img-placeholder{border:0;border-bottom:1px solid var(--color-border);border-radius:0;min-height:150px;flex:1 1 auto}
+.obj-card__body{display:flex;flex-direction:column;gap:8px;padding:16px;flex:1 1 auto}
+.obj-card__badges{display:flex;align-items:center;flex-wrap:wrap;justify-content:space-between;gap:8px;min-height:24px}
+.badge--park{background:rgba(235,184,30,.18);color:var(--color-text)}
+.badge--technopark{background:rgba(235,184,30,.18);color:var(--color-text)}
+.obj-card__link{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;margin:-10px -6px -10px auto;color:var(--color-primary)}
+.obj-card__link .material-symbols-outlined{font-size:20px}
+.obj-card__link:hover .material-symbols-outlined{color:var(--color-primary-dark)}
+.obj-card__link::after{content:"";position:absolute;inset:0}
+.obj-card__body h3{margin:0;font-size:1.0625rem;line-height:1.3}
+.obj-card__desc{margin:0;font-size:var(--fs-small);color:var(--color-text-muted)}
+.obj-card__meta{display:grid;gap:4px;list-style:none;margin:0;padding:0;font-size:var(--fs-small);color:var(--color-text-muted)}
+.obj-card__meta li{display:flex;align-items:center;gap:8px}
+.obj-card__meta .material-symbols-outlined{font-size:18px;color:var(--color-primary)}
+.obj-card__meta strong{color:var(--color-text);font-weight:600}
+.obj-card__presentation{position:absolute;top:12px;left:12px;z-index:2;display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:6px 12px;border:1px solid var(--color-border);border-radius:999px;background:#FFFFFF;color:var(--color-text);font-size:var(--fs-small);font-weight:600;text-decoration:none;box-shadow:var(--shadow)}
+.obj-card__presentation .material-symbols-outlined{font-size:18px}
+.obj-card__presentation:hover{border-color:var(--color-primary);color:var(--color-primary)}
+
+/* Контакты */
+.b-contacts__inner{display:grid;gap:32px;margin-top:32px}
+.b-contacts__list{margin:0 0 24px;display:grid;grid-template-columns:auto 1fr;gap:8px 16px}
+.b-contacts__list dt{color:var(--color-text-muted);font-size:var(--fs-small)}
+.b-contacts__list dd{margin:0;font-weight:600}
+.b-contacts__list dd a{color:inherit;text-decoration:none}
+.b-contacts__list dd a:hover{color:var(--color-primary)}
+.b-contacts .img-placeholder{min-height:260px}
+
+/* Форма заявки */
+.b-form{background:#FFFFFF;border:1px solid var(--color-border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+.b-form h3{margin:0 0 16px}
+.b-form__field{display:block;margin-bottom:14px;font-size:var(--fs-small);font-weight:600}
+.b-form__field input,.b-form__field textarea{display:block;width:100%;margin-top:6px;padding:11px 14px;border:1px solid var(--color-border);border-radius:8px;background:#FFFFFF;color:var(--color-text);font:inherit;font-size:var(--fs-body);min-height:44px}
+.b-form__field textarea{min-height:110px;resize:vertical}
+.b-form__consent{display:flex;gap:10px;align-items:flex-start;margin:16px 0;font-size:var(--fs-small);font-weight:400;color:var(--color-text-muted)}
+.b-form__consent input{width:20px;height:20px;flex:0 0 auto;margin:2px 0 0}
+.b-form .btn{width:100%}
+/* Простая форма заявки (lead-form) */
+.lead-form__field{display:block;margin-bottom:14px}
+.lead-form__label{display:block;margin-bottom:6px;font-size:var(--fs-small);font-weight:600}
+.lead-form__field input,.lead-form__field textarea{display:block;width:100%;padding:11px 14px;border:1px solid var(--color-border);border-radius:8px;background:#FFFFFF;color:var(--color-text);font:inherit;font-size:var(--fs-body);min-height:44px}
+.lead-form__field textarea{min-height:110px;resize:vertical}
+.lead-form__hint{margin:6px 0 0;font-size:var(--fs-small);font-weight:400;color:var(--color-text-muted)}
+.lead-form__consent{display:flex;gap:10px;align-items:flex-start;margin:16px 0;font-size:var(--fs-small);font-weight:400;color:var(--color-text-muted)}
+.lead-form__consent input{width:20px;height:20px;flex:0 0 auto;margin:2px 0 0}
+.lead-form__row{display:grid;gap:16px}
+.lead-form__chips{display:flex;flex-wrap:wrap;gap:8px}
+.lead-form__chip{position:relative;display:inline-flex}
+.lead-form__chip input{position:absolute;opacity:0;pointer-events:none}
+.lead-form__chip span{display:inline-flex;align-items:center;min-height:44px;padding:8px 16px;border:1px solid var(--color-border);border-radius:999px;background:#FFFFFF;color:var(--color-text);font-size:var(--fs-small);font-weight:600;cursor:pointer;white-space:nowrap}
+.lead-form__chip input:checked+span{border-color:var(--color-primary);background:var(--color-primary);color:#FFFFFF}
+.lead-form__chip input:focus-visible+span{outline:2px solid var(--color-primary);outline-offset:2px}
+.req{color:var(--color-primary)}
+@media(min-width:768px){
+  .lead-form__row--3{grid-template-columns:repeat(3,1fr)}
+  .lead-form__row--2{grid-template-columns:repeat(2,1fr)}
+}
+@media (min-width:1024px){
+  .b-contacts__inner{grid-template-columns:1fr 1fr;align-items:start}
+}
+
+/* Подвал */
+.site-footer{background:var(--color-primary-dark);color:#FFFFFF;padding:56px 0 24px}
+.site-footer a{color:#FFFFFF;text-decoration:none}
+.site-footer a:hover{color:var(--color-accent)}
+.site-footer__inner{display:grid;gap:32px}
+.site-footer__title{margin:0 0 10px;font-size:var(--fs-small);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.site-footer__logo{display:inline-block;background:#FFFFFF;border-radius:8px;padding:8px 12px;height:44px;width:auto}
+.site-footer__brand p{margin:12px 0 0;color:rgba(255,255,255,.75);font-size:var(--fs-small);max-width:46ch}
+.site-footer__col ul{list-style:none;margin:0;padding:0}
+.site-footer__col ul a{display:inline-flex;align-items:center;min-height:44px}
+.site-footer__phone{display:inline-flex;align-items:center;min-height:44px;font-weight:800;font-size:1.25rem}
+.site-footer__addr{margin:8px 0 0;color:rgba(255,255,255,.75);font-size:var(--fs-small)}
+.site-footer__social{display:flex;gap:12px;margin-top:12px}
+.site-footer__social a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12)}
+.site-footer__social .material-symbols-outlined{font-size:22px}
+.site-footer__bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.7);font-size:var(--fs-small)}
+.site-footer__bottom p{margin:0}
+@media (min-width:768px){
+  .site-footer__inner{grid-template-columns:repeat(2,1fr)}
+}
+@media (min-width:1024px){
+  .site-footer__inner{grid-template-columns:1.4fr 1fr 1fr 1.2fr}
+}
+
+/* ── Оживление главной (2026-09): композиция, медиа, движение ──────────
+   Канон палитры не меняется: белый фон, фиолетовый — акценты, жёлтый —
+   дозированные маркеры. Оживление — типографика, композиция, фото, движение. */
+
+/* Подложка секций на светло-фиолетовом (чередование фонов) */
+.section--tint-light{background:var(--color-primary-light)}
+
+/* Порядковый индекс секций: жёлтая короткая линия + приглушённый номер */
+.sec-index{display:inline-flex;align-items:center;gap:10px;margin:0 0 14px;font-size:var(--fs-small);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-muted)}
+.sec-index::before{content:"";width:28px;height:3px;border-radius:2px;background:var(--color-accent)}
+
+/* Hero: видео внутри кадра с вырезом (кромка-градиент и clip-path — канон).
+   Видео абсолютно поверх заглушки с тем же вырезом; офлайн видна заглушка.
+   Размеры явные: video — replaced element, inset без width/height не тянет. */
+.b-hero__media-frame{position:relative;overflow:hidden}
+.b-hero__video{position:absolute;top:2px;left:2px;width:calc(100% - 4px);height:calc(100% - 4px);object-fit:cover;clip-path:var(--hero-cut);display:block}
+.b-hero__sound{position:absolute;right:16px;bottom:16px;z-index:2;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.45);background:rgba(22,21,25,.6);color:#FFFFFF;font:inherit;font-size:var(--fs-small);font-weight:600;cursor:pointer;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.b-hero__sound:hover{background:rgba(22,21,25,.8)}
+.b-hero__sound:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px}
+.b-hero__sound .material-symbols-outlined{font-size:20px}
+
+/* Marquee-полоса метрик: бегущая строка, дублированный трек.
+   min-height 48px + нижняя граница 1px = 49px — точная высота для
+   расчёта hero (--marquee-h) */
+.b-marquee{background:var(--color-primary-light);border-bottom:1px solid var(--color-primary-soft);padding:12px 0;min-height:48px;overflow:hidden}
+.b-marquee__track{display:flex;width:max-content;animation:b-marquee-roll 30s linear infinite}
+.b-marquee__seq{display:flex;align-items:center;flex:0 0 auto}
+.b-marquee__item{display:inline-flex;align-items:center;white-space:nowrap;font-weight:700;font-size:var(--fs-small);letter-spacing:.02em;color:var(--color-text)}
+.b-marquee__item::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--color-accent);margin:0 22px}
+@keyframes b-marquee-roll{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  .b-marquee__track{animation:none;width:auto;flex-wrap:wrap;row-gap:4px}
+  .b-marquee__seq--dup{display:none}
+}
+
+/* Комплексное сопровождение: нумерованный список 01–06 с контурными цифрами */
+.b-steps{list-style:none;margin:0;padding:0;display:grid;gap:16px;grid-template-columns:1fr}
+.b-steps__item{display:flex;background:#FFFFFF;border:1px solid var(--color-border);border-radius:var(--radius);transition:border-color .2s ease}
+.b-steps__item:hover{border-color:var(--color-primary)}
+.b-steps__link{display:flex;flex:1 1 auto;gap:16px;align-items:flex-start;height:100%;padding:24px 20px;color:inherit;text-decoration:none}
+.b-steps__link:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px}
+.b-steps__num{flex:0 0 auto;min-width:2.2ch;font-size:clamp(2.25rem,1.6rem + 2.5vw,3.25rem);line-height:1;font-weight:800;color:var(--color-primary-soft)}
+@supports (-webkit-text-stroke:1px #000){
+  .b-steps__num{color:transparent;-webkit-text-stroke:1.5px var(--color-primary-soft);transition:color .2s ease,-webkit-text-stroke-color .2s ease}
+  .b-steps__item:hover .b-steps__num{color:var(--color-accent);-webkit-text-stroke-color:transparent}
+}
+.b-steps__icon{display:block;margin-bottom:6px;color:var(--color-primary);font-size:28px}
+.b-steps__body h3{margin:0 0 4px;font-size:1.0625rem}
+.b-steps__body p{margin:0;color:var(--color-text-muted);font-size:var(--fs-small)}
+@media (min-width:768px){
+  .b-steps{grid-template-columns:repeat(2,1fr);gap:24px}
+}
+@media (min-width:1024px){
+  .b-steps{grid-template-columns:repeat(3,1fr)}
+}
+
+/* Клиенты: 4 кликабельные карточки ролей (grid--4: 1 → 2 → 4) */
+.b-clients__card{display:flex;flex-direction:column;height:100%;background:#FFFFFF;border:1px solid var(--color-border);border-radius:var(--radius);padding:24px;color:var(--color-text);text-decoration:none;transition:border-color .2s ease}
+.b-clients__card:hover{border-color:var(--color-primary)}
+.b-clients__card:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px}
+.b-clients__card .b-advantages__icon{margin-bottom:14px}
+.b-clients__card h3{margin:0 0 6px;font-size:1.125rem}
+.b-clients__card > p{margin:0;color:var(--color-text-muted);font-size:var(--fs-small)}
+.b-clients__go{display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding-top:16px;font-weight:700;color:var(--color-primary)}
+.b-clients__go .material-symbols-outlined{font-size:20px;transition:transform .2s ease}
+.b-clients__card:hover .b-clients__go .material-symbols-outlined{transform:translateX(4px)}
+
+/* Объекты: три подблока с горизонтальной прокруткой (scroll-snap);
+   карточка 320–360px, на мобиле тоже горизонтальный скролл со snap */
+.b-rail-group{margin-top:36px}
+.b-rail-group > h3{margin:0 0 16px;font-size:var(--fs-h3)}
+.b-rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:12px;scrollbar-width:thin}
+.b-rail::-webkit-scrollbar{height:6px}
+.b-rail::-webkit-scrollbar-thumb{background:var(--color-border);border-radius:3px}
+.b-rail > *{flex:0 0 84vw;max-width:360px;scroll-snap-align:start}
+.obj-card .b-media img{aspect-ratio:16/10}
+@media (min-width:768px){
+  .b-rail{gap:20px}
+  .b-rail > *{flex:0 0 340px}
+}
+
+/* Неактивные ссылки на готовящиеся документы */
+.link-disabled{color:inherit;text-decoration:none;cursor:default}
+.site-footer__bottom .site-footer__link--disabled{display:inline-flex;align-items:center;min-height:44px;color:rgba(255,255,255,.45);cursor:default}
+
+/* Реальные фото с подписью и фолбэком-заглушкой */
+.b-media{margin:0;display:flex;flex-direction:column;background:var(--color-surface)}
+.b-media img{display:block;width:100%;flex:1 1 auto;object-fit:cover}
+.b-media img.is-broken{display:none}
+.b-media figcaption{padding:8px 12px;font-size:var(--fs-small);color:var(--color-text-muted);border-top:1px solid var(--color-border)}
+
+/* Стандарты строительства: фото слева + карточки 2×2 справа одной высоты */
+.b-split{display:grid;gap:24px;align-items:stretch;margin-bottom:32px}
+.b-split__media{height:100%;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.b-split__media img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+.b-split__list{list-style:none;margin:0;padding:0;display:grid;gap:16px;grid-template-columns:1fr;grid-auto-rows:1fr;height:100%}
+.b-split__item{display:flex;flex-direction:column;gap:12px;height:100%;background:#FFFFFF;border:1px solid var(--color-border);border-radius:var(--radius);padding:20px}
+.b-split__item .b-advantages__icon{flex:0 0 auto;margin:0}
+.b-split__item h3{margin:0 0 4px;font-size:1.125rem}
+.b-split__item p{margin:0;color:var(--color-text-muted);font-size:var(--fs-small)}
+@media (min-width:768px){
+  .b-split{gap:32px}
+  .b-split__list{grid-template-columns:repeat(2,1fr)}
+}
+@media (min-width:1024px){
+  .b-split{grid-template-columns:1fr 1fr}
+}
+
+/* Баннер «Скачать шаблон ТЗ»: ниже 1024 — текст во всю ширину (фразы не
+   рвутся), кнопка отдельной строкой у правого края; ≥1024 — текст и кнопка
+   в одну строку, кнопка строго справа */
+.b-tz-banner{grid-template-columns:minmax(0,1fr);align-items:center;gap:16px}
+.b-tz-banner__cta{justify-self:end}
+@media (min-width:1024px){
+  .b-tz-banner{grid-template-columns:minmax(0,1fr) auto;gap:24px}
+}
+
+/* Reveal-анимации: активны только при наличии JS (html.js); базовое
+   состояние — видимое; prefers-reduced-motion — отключены */
+html.js .reveal{opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
+html.js .reveal.is-visible{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html.js .reveal{opacity:1;transform:none;transition:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ Шапка ═══ -->
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-header__logo" href="index.html"><img src="assets/mmprom-logo.png" alt="ММ Пром"></a>
+    <nav class="site-header__nav" aria-label="Основное меню">
+      <a href="megamenu.html" data-megamenu>Услуги</a>
+      <a href="katalog_obektov.html">Каталог</a>
+      <a href="blog.html">Публикации</a>
+      <a href="o_kompanii.html">О компании</a>
+      <a href="kontakty.html">Контакты</a>
+    </nav>
+    <div class="site-header__actions">
+      <a class="site-header__phone" href="tel:88003331010">8 800 333 10 10</a>
+      <a class="btn btn--primary site-header__cta" href="modalka_zayavki.html" data-modal-open>Оставить заявку</a>
+      <a class="site-header__burger" href="mobilnoe_menu.html" aria-label="Открыть меню"><span class="material-symbols-outlined" aria-hidden="true">menu</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ═══ Герой ═══ -->
+  <section id="hero" data-block="Герой" class="b-hero">
+    <div class="container b-hero__inner">
+      <div class="b-hero__content">
+        <h1>Единое окно промышленника</h1>
+        <p class="b-hero__lead">Комплексные решения и полный цикл услуг в сфере промышленной недвижимости: от аренды и покупки до управления и строительства объектов</p>
+        <div class="b-hero__actions">
+          <a class="btn btn--primary" href="modalka_zayavki.html" data-modal-open>Обсудить проект</a>
+          <a class="b-hero__link" href="katalog_obektov.html">Смотреть объекты</a>
+        </div>
+        <ul class="b-hero__metrics">
+          <li><strong>с 2011 года</strong><span>на рынке промышленной недвижимости</span></li>
+          <li><strong data-count="200000" data-suffix="+ м²">200 000+ м²</strong><span>в управлении</span></li>
+          <li><strong data-count="25" data-suffix="+">25+</strong><span>индустриальных проектов</span></li>
+          <li><strong data-count="150" data-suffix="+">150+</strong><span>компаний-резидентов</span></li>
+        </ul>
+      </div>
+      <div class="b-hero__media">
+        <!-- Финальная подгонка маски — после 3 адаптированных роликов (Ирина) -->
+        <div class="b-hero__media-frame">
+          <div class="img-placeholder" data-img="Видео: производственно-складской комплекс ММ Пром"><span class="material-symbols-outlined" aria-hidden="true">image</span>Видео: производственно-складской комплекс</div>
+          <video class="b-hero__video" muted autoplay loop playsinline preload="metadata" poster="https://mm-prom.ru/wp-content/uploads/2026/05/main.avif" aria-label="Видео о компании ММ Пром">
+            <source src="https://mm-prom.ru/wp-content/uploads/2026/09/mm-prom-s-ozvuchkoj-i-subtitrami-v4-1.mp4" type="video/mp4">
+          </video>
+          <button class="b-hero__sound" type="button" aria-pressed="false">
+            <span class="material-symbols-outlined" aria-hidden="true">volume_up</span><span class="b-hero__sound-label">Со звуком</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Marquee: метрики бегущей строкой (декоративная полоса) ═══ -->
+  <div class="b-marquee" role="presentation">
+    <div class="b-marquee__track">
+      <div class="b-marquee__seq">
+        <span class="b-marquee__item">200 000+ м²</span>
+        <span class="b-marquee__item">25+ проектов</span>
+        <span class="b-marquee__item">150+ компаний-резидентов</span>
+        <span class="b-marquee__item">с 2011 года</span>
+        <span class="b-marquee__item">СПб и ЛО</span>
+      </div>
+      <div class="b-marquee__seq b-marquee__seq--dup" aria-hidden="true">
+        <span class="b-marquee__item">200 000+ м²</span>
+        <span class="b-marquee__item">25+ проектов</span>
+        <span class="b-marquee__item">150+ компаний-резидентов</span>
+        <span class="b-marquee__item">с 2011 года</span>
+        <span class="b-marquee__item">СПб и ЛО</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Комплексное сопровождение ═══ -->
+  <section id="advantages" data-block="Комплексное сопровождение" class="b-advantages section">
+    <div class="container">
+      <p class="sec-index" aria-hidden="true">02</p>
+      <h2>Комплексное сопровождение промышленного проекта</h2>
+      <p class="b-advantages__lead" style="max-width:58ch;color:var(--color-text-muted)">Берём на себя весь цикл: от подбора площадки до ввода в эксплуатацию и дальнейшей работы объекта.</p>
+      <ol class="b-steps b-steps--numbered">
+        <li class="b-steps__item reveal">
+          <a class="b-steps__link" href="katalog_obektov.html">
+            <span class="b-steps__num" aria-hidden="true">01</span>
+            <div class="b-steps__body">
+              <span class="material-symbols-outlined b-steps__icon" aria-hidden="true">pin_drop</span>
+              <h3>Подбор объекта</h3>
+              <p>Индустриальные парки и земельные участки</p>
+            </div>
+          </a>
+        </li>
+        <li class="b-steps__item reveal">
+          <a class="b-steps__link" href="usluga_konsalting.html">
+            <span class="b-steps__num" aria-hidden="true">02</span>
+            <div class="b-steps__body">
+              <span class="material-symbols-outlined b-steps__icon" aria-hidden="true">insights</span>
+              <h3>Стратегия проекта</h3>
+              <p>Разработка технического задания и финансовой модели</p>
+            </div>
+          </a>
+        </li>
+        <li class="b-steps__item reveal">
+          <a class="b-steps__link" href="usluga_development.html">
+            <span class="b-steps__num" aria-hidden="true">03</span>
+            <div class="b-steps__body">
+              <span class="material-symbols-outlined b-steps__icon" aria-hidden="true">gavel</span>
+              <h3>Юридическое и техническое сопровождение</h3>
+              <p>Сопровождение сделок и контроль технической реализации проекта</p>
+            </div>
+          </a>
+        </li>
+        <li class="b-steps__item reveal">
+          <a class="b-steps__link" href="usluga_investicii.html">
+            <span class="b-steps__num" aria-hidden="true">04</span>
+            <div class="b-steps__body">
+              <span class="material-symbols-outlined b-steps__icon" aria-hidden="true">savings</span>
+              <h3>Финансирование ваших проектов</h3>
+              <p>Привлечение инвестиций и банков</p>
+            </div>
+          </a>
+        </li>
+        <li class="b-steps__item reveal">
+          <a class="b-steps__link" href="usluga_stroitelstvo.html">
+            <span class="b-steps__num" aria-hidden="true">05</span>
+            <div class="b-steps__body">
+              <span class="material-symbols-outlined b-steps__icon" aria-hidden="true">foundation</span>
+              <h3>Проектирование и строительство</h3>
+              <p>Реализация индустриального объекта</p>
+            </div>
+          </a>
+        </li>
+        <li class="b-steps__item reveal">
+          <a class="b-steps__link" href="usluga_upravlenie.html">
+            <span class="b-steps__num" aria-hidden="true">06</span>
+            <div class="b-steps__body">
+              <span class="material-symbols-outlined b-steps__icon" aria-hidden="true">settings</span>
+              <h3>Эксплуатация</h3>
+              <p>Управление и развитие площадки</p>
+            </div>
+          </a>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ═══ Клиенты: 4 роли ═══ -->
+  <section id="clients" data-block="Клиенты" class="b-clients section section--tint">
+    <div class="container">
+      <p class="sec-index" aria-hidden="true">03</p>
+      <h2>Кому и как мы помогаем</h2>
+      <p class="b-advantages__lead" style="max-width:58ch;color:var(--color-text-muted)">Каждый приходит со своей задачей: одним нужна площадка под производство, другим — выгодно продать объект, третьим — вложить средства в промышленную недвижимость. Ниже — четыре категории клиентов, с которыми мы работаем. Выберите свою — покажем услуги и сценарии.</p>
+      <div class="grid grid--4">
+        <a class="b-clients__card reveal" href="rol_proizvodstva.html">
+          <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">factory</span></span>
+          <h3>Производствам</h3>
+          <p>Помещения, стройка и финансирование для производства</p>
+          <span class="b-clients__go">Перейти<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+        </a>
+        <a class="b-clients__card reveal" href="rol_zdaniya.html">
+          <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">apartment</span></span>
+          <h3>Собственникам зданий</h3>
+          <p>Доходность, управление и продажа объектов</p>
+          <span class="b-clients__go">Перейти<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+        </a>
+        <a class="b-clients__card reveal" href="rol_uchastki.html">
+          <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">landscape</span></span>
+          <h3>Собственникам участков</h3>
+          <p>Оценка, застройка и монетизация земли</p>
+          <span class="b-clients__go">Перейти<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+        </a>
+        <a class="b-clients__card reveal" href="rol_investoram.html">
+          <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">savings</span></span>
+          <h3>Инвесторам</h3>
+          <p>Готовые инвест-продукты и управление активом</p>
+          <span class="b-clients__go">Перейти<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Объекты: три подблока с горизонтальной прокруткой (scroll-snap) ═══ -->
+  <section id="objects" data-block="Объекты" class="b-cases section section--tint">
+    <div class="container">
+      <div class="b-rowhead">
+        <p class="sec-index" aria-hidden="true">04</p>
+        <h2>Наши объекты</h2>
+        <a class="b-more" href="katalog_obektov.html">Все объекты<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        <p>Объекты для развития промышленного бизнеса — с инженерной инфраструктурой для размещения производственных и логистических проектов.</p>
+      </div>
+
+      <div class="b-rail-group">
+        <h3>Индустриальные парки</h3>
+        <div class="b-rail">
+          <article class="obj-card reveal">
+            <a class="obj-card__presentation" href="gejt_broshury.html" data-gate-open><span class="material-symbols-outlined" aria-hidden="true">description</span>Презентация</a>
+            <figure class="b-media">
+              <img src="https://mm-prom.ru/wp-content/uploads/2026/09/image-14-09-26-10-33-1-scaled-optimized.png" alt="Атлас Гаражный — индустриальный парк" loading="lazy" onerror="this.classList.add('is-broken')">
+              <figcaption>Атлас Гаражный — современный индустриальный парк</figcaption>
+            </figure>
+            <div class="obj-card__body">
+              <div class="obj-card__badges">
+                <span class="badge badge--park">Индустриальный парк</span>
+                <!-- Персональная страница на живом сайте; при запуске нового сайта заменить на локальную -->
+                <a class="obj-card__link" href="https://mm-prom.ru/atlas-garazhnyj/" target="_blank" rel="noopener" aria-label="Открыть страницу объекта: Атлас Гаражный"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+              </div>
+              <h3>Атлас Гаражный</h3>
+              <p class="obj-card__desc">Современный индустриальный парк в промышленной зоне Обухово: 14 минут до метро пешком, 5 минут до КАД.</p>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>Площадь: <strong>8577 м²</strong></span></li>
+                <li><span class="material-symbols-outlined" aria-hidden="true">bolt</span><span>Мощность: <strong>1 МВт, с возможностью увеличения</strong></span></li>
+                <li><span class="material-symbols-outlined" aria-hidden="true">payments</span><span>Аренда: <strong>от 1 300 м²</strong></span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="obj-card reveal">
+            <a class="obj-card__presentation" href="gejt_broshury.html" data-gate-open><span class="material-symbols-outlined" aria-hidden="true">description</span>Презентация</a>
+            <figure class="b-media">
+              <img src="https://mm-prom.ru/wp-content/uploads/2026/05/garage.avif" alt="Аврора Витебский — индустриальный парк" loading="lazy" onerror="this.classList.add('is-broken')">
+              <figcaption>Аврора Витебский — индустриальный парк на Витебском проспекте</figcaption>
+            </figure>
+            <!-- [УТОЧНИТЬ: актуальное фото Авроры — есть ли отдельное] -->
+            <div class="obj-card__body">
+              <div class="obj-card__badges">
+                <span class="badge badge--park">Индустриальный парк</span>
+                <!-- Персональная страница на живом сайте; при запуске нового сайта заменить на локальную -->
+                <a class="obj-card__link" href="https://mm-prom.ru/avrora-vitebskij/" target="_blank" rel="noopener" aria-label="Открыть страницу объекта: Аврора Витебский"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+              </div>
+              <h3>Аврора Витебский</h3>
+              <p class="obj-card__desc">Индустриальный парк на Витебском проспекте: 12 минут до станции метро Купчино на транспорте, 5 минут до КАД.</p>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>Территория: <strong>38 га</strong></span></li>
+                <li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>Площадь застройки: <strong>более 200 000 м²</strong></span></li>
+                <li><span class="material-symbols-outlined" aria-hidden="true">bolt</span><span>Мощность: <strong>от 1 до 25 МВт</strong></span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="obj-card reveal">
+            <figure class="b-media">
+              <img src="https://mm-prom.ru/wp-content/uploads/2026/05/cases03.avif" alt="Антарес Латышских Стрелков — готовый объект" loading="lazy" onerror="this.classList.add('is-broken')">
+              <figcaption>Антарес Латышских Стрелков — готовый объект</figcaption>
+            </figure>
+            <div class="obj-card__body">
+              <div class="obj-card__badges">
+                <span class="badge badge--technopark">Технопарк</span>
+                <a class="obj-card__link" href="kartochka_obekta.html" aria-label="Открыть карточку: Антарес Латышских Стрелков"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+              </div>
+              <h3>Антарес Латышских Стрелков</h3>
+              <p class="obj-card__desc">Готовый объект для аренды и покупки. [УТОЧНИТЬ параметры объекта]</p>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>Площадь: <strong>[УТОЧНИТЬ]</strong></span></li>
+                <li><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Локация: <strong>[УТОЧНИТЬ]</strong></span></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- [УТОЧНИТЬ: материалы готовит Ирина] -->
+      <div class="b-rail-group">
+        <h3>Производственные площади</h3>
+        <div class="b-rail">
+          <article class="obj-card reveal">
+            <div class="img-placeholder" data-img="Фото: Войсковицы"><span class="material-symbols-outlined" aria-hidden="true">image</span>Фото: Войсковицы</div>
+            <div class="obj-card__body">
+              <div class="obj-card__badges">
+                <span class="badge badge--park">Производственные площади</span>
+                <a class="obj-card__link" href="kartochka_obekta.html" aria-label="Открыть карточку: Войсковицы"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+              </div>
+              <h3>Войсковицы</h3>
+              <p class="obj-card__desc">Производственные площади для размещения производства и склада. [УТОЧНИТЬ параметры объекта]</p>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>Площадь: <strong>[УТОЧНИТЬ]</strong></span></li>
+                <li><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Локация: <strong>[УТОЧНИТЬ]</strong></span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="obj-card reveal">
+            <div class="img-placeholder" data-img="Фото: Волхонское"><span class="material-symbols-outlined" aria-hidden="true">image</span>Фото: Волхонское</div>
+            <div class="obj-card__body">
+              <div class="obj-card__badges">
+                <span class="badge badge--park">Производственные площади</span>
+                <a class="obj-card__link" href="kartochka_obekta.html" aria-label="Открыть карточку: Волхонское"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+              </div>
+              <h3>Волхонское</h3>
+              <p class="obj-card__desc">Производственные площади для размещения производства и склада. [УТОЧНИТЬ параметры объекта]</p>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>Площадь: <strong>[УТОЧНИТЬ]</strong></span></li>
+                <li><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Локация: <strong>[УТОЧНИТЬ]</strong></span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="obj-card reveal">
+            <div class="img-placeholder" data-img="Фото: Парнас"><span class="material-symbols-outlined" aria-hidden="true">image</span>Фото: Парнас</div>
+            <div class="obj-card__body">
+              <div class="obj-card__badges">
+                <span class="badge badge--park">Производственные площади</span>
+                <a class="obj-card__link" href="kartochka_obekta.html" aria-label="Открыть карточку: Парнас"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+              </div>
+              <h3>Парнас</h3>
+              <p class="obj-card__desc">Производственные площади для размещения производства и склада. [УТОЧНИТЬ параметры объекта]</p>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>Площадь: <strong>[УТОЧНИТЬ]</strong></span></li>
+                <li><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Локация: <strong>[УТОЧНИТЬ]</strong></span></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Материалы по земельным участкам готовит Ирина -->
+      <div class="b-rail-group">
+        <h3>Земельные участки</h3>
+        <div class="b-rail">
+          <article class="obj-card reveal">
+            <div class="img-placeholder" data-img="Земельный участок — материалы готовятся"><span class="material-symbols-outlined" aria-hidden="true">image</span>Материалы готовятся</div>
+            <div class="obj-card__body">
+              <div class="obj-card__badges">
+                <span class="badge badge--park">Земельный участок</span>
+                <a class="obj-card__link" href="katalog_obektov.html" aria-label="Смотреть в каталоге: Земельный участок"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+              </div>
+              <h3>Земельный участок</h3>
+              <p class="obj-card__desc">Участок под размещение производства или девелоперский проект. [УТОЧНИТЬ параметры участка]</p>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>Площадь: <strong>[УТОЧНИТЬ]</strong></span></li>
+                <li><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Локация: <strong>[УТОЧНИТЬ]</strong></span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="obj-card reveal">
+            <div class="img-placeholder" data-img="Земельный участок — материалы готовятся"><span class="material-symbols-outlined" aria-hidden="true">image</span>Материалы готовятся</div>
+            <div class="obj-card__body">
+              <div class="obj-card__badges">
+                <span class="badge badge--park">Земельный участок</span>
+                <a class="obj-card__link" href="katalog_obektov.html" aria-label="Смотреть в каталоге: Земельный участок"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+              </div>
+              <h3>Земельный участок</h3>
+              <p class="obj-card__desc">Участок под размещение производства или девелоперский проект. [УТОЧНИТЬ параметры участка]</p>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>Площадь: <strong>[УТОЧНИТЬ]</strong></span></li>
+                <li><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Локация: <strong>[УТОЧНИТЬ]</strong></span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="obj-card reveal">
+            <div class="img-placeholder" data-img="Земельный участок — материалы готовятся"><span class="material-symbols-outlined" aria-hidden="true">image</span>Материалы готовятся</div>
+            <div class="obj-card__body">
+              <div class="obj-card__badges">
+                <span class="badge badge--park">Земельный участок</span>
+                <a class="obj-card__link" href="katalog_obektov.html" aria-label="Смотреть в каталоге: Земельный участок"><span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+              </div>
+              <h3>Земельный участок</h3>
+              <p class="obj-card__desc">Участок под размещение производства или девелоперский проект. [УТОЧНИТЬ параметры участка]</p>
+              <ul class="obj-card__meta">
+                <li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>Площадь: <strong>[УТОЧНИТЬ]</strong></span></li>
+                <li><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Локация: <strong>[УТОЧНИТЬ]</strong></span></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Стандарты строительства ═══ -->
+  <section id="standards" data-block="Стандарты строительства" class="b-advantages section">
+    <div class="container">
+      <p class="sec-index" aria-hidden="true">05</p>
+      <h2>Стандарты строительства</h2>
+      <p class="b-advantages__lead" style="max-width:58ch;color:var(--color-text-muted)">Контроль качества на всех этапах строительства. Контроль качества на всех этапах реализации индустриальных проектов. Сопровождение нашей командой экспертов</p>
+      <div class="b-split">
+        <figure class="b-media b-split__media reveal">
+          <img src="https://mm-prom.ru/wp-content/uploads/2026/05/quality.avif" alt="Строительство индустриального объекта под контролем ММ Пром" loading="lazy" onerror="this.classList.add('is-broken')">
+          <figcaption>Контроль качества на всех этапах строительства</figcaption>
+        </figure>
+        <ul class="b-split__list">
+          <li class="b-split__item reveal">
+            <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">architecture</span></span>
+            <div>
+              <h3>Контроль проектирования</h3>
+              <p>Соответствие техническим требованиям и промышленным стандартам</p>
+            </div>
+          </li>
+          <li class="b-split__item reveal">
+            <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span></span>
+            <div>
+              <h3>Гарантийное обслуживание</h3>
+              <p>Сопровождение объекта после ввода в эксплуатацию</p>
+            </div>
+          </li>
+          <li class="b-split__item reveal">
+            <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">fact_check</span></span>
+            <div>
+              <h3>Контроль сроков и бюджета</h3>
+              <p>Прозрачное управление строительным процессом</p>
+            </div>
+          </li>
+          <li class="b-split__item reveal">
+            <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">engineering</span></span>
+            <div>
+              <h3>Проверенные подрядчики</h3>
+              <p>Работа с опытными строительными и инженерными компаниями</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="reveal" style="background:var(--color-primary-light);border:1px solid var(--color-primary-soft);border-radius:var(--radius);padding:24px">
+        <div class="grid grid--2 b-tz-banner">
+          <div>
+            <h3 style="margin:0 0 8px">Подготовка технического задания</h3>
+            <p style="margin:0 0 4px;font-weight:600">Не знаете, как сформировать требования к промышленному объекту?</p>
+            <p style="margin:0;color:var(--color-text-muted)">Скачайте пример технического задания проекта и используйте его как основу</p>
+          </div>
+          <a class="btn btn--primary b-tz-banner__cta" href="gejt_tz.html" data-gate-open>Скачать шаблон ТЗ</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Вопросы и ответы ═══ -->
+  <section id="faq" data-block="Вопросы и ответы" class="b-faq section section--tint-light">
+    <div class="container">
+      <p class="sec-index" aria-hidden="true">06</p>
+      <h2>Вопросы и ответы</h2>
+      <p style="max-width:58ch;color:var(--color-text-muted);margin:0 0 32px">Ответы на ключевые вопросы о запуске производственных проектов</p>
+      <div class="b-faq__list">
+        <details class="b-faq__item reveal">
+          <summary><span>Если у вас нет готового Технического задания?</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
+          <p>Мы вас консультируем и помогаем разработать</p>
+        </details>
+        <details class="b-faq__item reveal">
+          <summary><span>Как мы помогаем с финансированием?</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
+          <p>Мы работаем не только как девелопер, но и как финансовый партнёр. Помогаем клиентам получить поддержку от ФРП, банков и частных инвесторов, а также используем собственные инвестиционные инструменты.</p>
+          <p>Подберём оптимальную схему — рассрочка, лизинг, совместное участие или индивидуальное финансирование под ваш проект</p>
+        </details>
+        <details class="b-faq__item reveal">
+          <summary><span>Можно ли расширяться поэтапно?</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
+          <p>Да. Мы проектируем объекты и парки по модульному принципу: вы можете начать с первой очереди и постепенно достраивать новые корпуса без остановки бизнеса. Такой подход снижает инвестиционную нагрузку и позволяет масштабироваться органично, под реальные темпы роста компании</p>
+        </details>
+        <details class="b-faq__item reveal">
+          <summary><span>Какие гарантии качества и сроков?</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
+          <p>Мы фиксируем сроки и стандарты качества в договоре. Все работы выполняются под технический и авторский надзор, а при cтроительстве действуют штрафные санкции за нарушение сроков. Также предоставляем гарантии на строительные и инженерные работы, поэтому вы защищены и по срокам, и по качеству</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Контакты ═══ -->
+  <section id="contacts" data-block="Контакты" class="b-contacts section section--tint">
+    <div class="container">
+      <p class="sec-index" aria-hidden="true">07</p>
+      <h2>Свяжитесь с нами</h2>
+      <p style="max-width:58ch;color:var(--color-text-muted);margin:0">Выберите удобный способ — позвоните, напишите или приезжайте в наш офис.</p>
+      <div class="b-contacts__inner">
+        <div class="b-contacts__info">
+          <dl class="b-contacts__list">
+            <dt>Адрес</dt><dd>г. Санкт-Петербург, ул. Латышских стрелков, 19</dd>
+            <dt>Телефон</dt><dd><a href="tel:88003331010">8 800 333 10 10</a></dd>
+            <dt>Email</dt><dd><a href="mailto:info@mm-prom.ru">info@mm-prom.ru</a></dd>
+            <dt>Телеграм</dt><dd><a href="https://t.me/mm_prom1">t.me/mm_prom1</a></dd>
+            <dt>MAX</dt><dd><a href="https://max.ru/se14192436_biz">max.ru/se14192436_biz</a></dd>
+          </dl>
+          <div class="img-placeholder" data-img="Карта"><span class="material-symbols-outlined" aria-hidden="true">location_on</span>Карта</div>
+        </div>
+        <form class="b-form" action="#" method="post">
+          <h3>Оставить заявку</h3>
+          <div class="lead-form__row lead-form__row--2">
+            <div class="lead-form__field">
+              <label class="lead-form__label" for="lead-name">Имя <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="lead-name" name="name" placeholder="Как к вам обращаться" required>
+            </div>
+            <div class="lead-form__field">
+              <label class="lead-form__label" for="lead-surname">Фамилия</label>
+              <input type="text" id="lead-surname" name="surname" placeholder="Фамилия">
+            </div>
+          </div>
+          <div class="lead-form__field">
+            <label class="lead-form__label" for="lead-company">Название компании</label>
+            <input type="text" id="lead-company" name="company" placeholder="Компания">
+          </div>
+          <div class="lead-form__field">
+            <span class="lead-form__label" id="lead-way-label">Предпочтительный способ связи</span>
+            <div class="lead-form__chips" role="radiogroup" aria-labelledby="lead-way-label">
+              <label class="lead-form__chip"><input type="radio" name="contact-way" value="Телефон" checked><span>Телефон</span></label>
+              <label class="lead-form__chip"><input type="radio" name="contact-way" value="Телеграм"><span>Телеграм</span></label>
+              <label class="lead-form__chip"><input type="radio" name="contact-way" value="MAX"><span>MAX</span></label>
+              <label class="lead-form__chip"><input type="radio" name="contact-way" value="Ватсап"><span>Ватсап</span></label>
+              <label class="lead-form__chip"><input type="radio" name="contact-way" value="Почта"><span>Почта</span></label>
+            </div>
+          </div>
+          <div class="lead-form__row lead-form__row--2">
+            <div class="lead-form__field">
+              <label class="lead-form__label" for="lead-phone">Телефон <span class="req" aria-hidden="true">*</span></label>
+              <input type="tel" id="lead-phone" name="phone" inputmode="tel" placeholder="+7 (___) ___-__-__" required>
+            </div>
+            <div class="lead-form__field">
+              <label class="lead-form__label" for="lead-email">Email</label>
+              <input type="email" id="lead-email" name="email" placeholder="name@company.ru">
+            </div>
+          </div>
+          <div class="lead-form__field">
+            <label class="lead-form__label" for="lead-comment">Комментарий <span style="font-weight:400;color:var(--color-text-muted)">(необязательно)</span></label>
+            <textarea id="lead-comment" name="comment" placeholder="Задача, площадь, район — что уже известно"></textarea>
+          </div>
+          <label class="lead-form__consent" for="lead-consent">
+            <input type="checkbox" id="lead-consent" name="consent" required>
+            <span>Согласен на обработку персональных данных согласно <span class="link-disabled" aria-disabled="true" title="Документ готовится">Политике конфиденциальности</span>. Отправка невозможна без согласия.</span>
+          </label>
+          <button class="btn btn--primary" type="submit">Отправить</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══ Подвал ═══ -->
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div class="site-footer__brand">
+      <img class="site-footer__logo" src="assets/mmprom-logo.png" alt="ММ Пром">
+      <p>Промышленная недвижимость Санкт-Петербурга и Ленинградской области: аренда, продажа и строительство. Работаем с 2011 года.</p>
+    </div>
+    <nav class="site-footer__col" aria-label="Услуги">
+      <p class="site-footer__title">Услуги</p>
+      <ul>
+        <li><a href="usluga_arenda.html">Аренда недвижимости</a></li>
+        <li><a href="usluga_prodazha.html">Продажа недвижимости</a></li>
+        <li><a href="usluga_stroitelstvo.html">Строительство</a></li>
+        <li><a href="usluga_development.html">Девелопмент под ключ</a></li>
+        <li><a href="usluga_redevelopment.html">Редевелопмент</a></li>
+        <li><a href="usluga_upravlenie.html">Управление</a></li>
+        <li><a href="usluga_konsalting.html">Промышленный консалтинг</a></li>
+        <li><a href="usluga_treyd_in.html">Трейд-ин / Срочный выкуп</a></li>
+        <li><a href="usluga_investicii.html">Инвестиции и финансирование</a></li>
+        <li><a href="usluga.html">Все услуги</a></li>
+      </ul>
+    </nav>
+    <nav class="site-footer__col" aria-label="Компания">
+      <p class="site-footer__title">Компания</p>
+      <ul>
+        <li><a href="o_kompanii.html">О компании</a></li>
+        <li><a href="blog.html">Публикации</a></li>
+        <li><a href="kontakty.html">Контакты</a></li>
+      </ul>
+    </nav>
+    <div class="site-footer__col">
+      <p class="site-footer__title">Контакты</p>
+      <a class="site-footer__phone" href="tel:88003331010">8 800 333 10 10</a>
+      <p class="site-footer__addr">г. Санкт-Петербург, ул. Латышских стрелков, 19</p>
+      <div class="site-footer__social">
+        <a href="https://t.me/mm_prom1" aria-label="Телеграм-канал ММ Пром"><span class="material-symbols-outlined" aria-hidden="true">send</span></a>
+        <a href="https://max.ru/se14192436_biz" aria-label="Канал ММ Пром в MAX"><span aria-hidden="true" style="font-size:.75rem;font-weight:800;letter-spacing:.02em">MAX</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="container site-footer__bottom">
+    <p>© 2011–2026 ММ Пром</p>
+    <span class="site-footer__link--disabled" aria-disabled="true" title="Документ готовится">Политика конфиденциальности</span>
+  </div>
+</footer>
+
+<!-- Прогрессивные улучшения: без JS страница полностью читаема.
+     Анимации выключаются при prefers-reduced-motion: reduce. -->
+<script>
+(function(){
+  'use strict';
+  document.documentElement.classList.add('js');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Счётчики метрик: старт при появлении; без JS — статичные значения */
+  var counters = document.querySelectorAll('[data-count]');
+  if (counters.length && 'IntersectionObserver' in window && !reduce) {
+    var cio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        cio.unobserve(en.target);
+        var el = en.target;
+        var target = parseInt(el.getAttribute('data-count'), 10) || 0;
+        var suffix = el.getAttribute('data-suffix') || '';
+        var dur = 1200;
+        var t0 = performance.now();
+        var tick = function(t){
+          var p = Math.min(1, (t - t0) / dur);
+          var v = Math.round(target * (1 - Math.pow(1 - p, 3)));
+          el.textContent = v.toLocaleString('ru-RU') + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(function(el){ cio.observe(el); });
+  }
+
+  /* Reveal-анимации блоков */
+  var reveals = document.querySelectorAll('.reveal');
+  if (reveals.length && 'IntersectionObserver' in window && !reduce) {
+    var rio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        en.target.classList.add('is-visible');
+        rio.unobserve(en.target);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function(el){ rio.observe(el); });
+  } else {
+    reveals.forEach(function(el){ el.classList.add('is-visible'); });
+  }
+
+  /* Видео в hero: переключение звука */
+  var video = document.querySelector('.b-hero__video');
+  var soundBtn = document.querySelector('.b-hero__sound');
+  if (video && soundBtn) {
+    soundBtn.addEventListener('click', function(){
+      video.muted = !video.muted;
+      soundBtn.setAttribute('aria-pressed', String(!video.muted));
+      var label = soundBtn.querySelector('.b-hero__sound-label');
+      var icon = soundBtn.querySelector('.material-symbols-outlined');
+      if (label) label.textContent = video.muted ? 'Со звуком' : 'Выключить звук';
+      if (icon) icon.textContent = video.muted ? 'volume_up' : 'volume_off';
+      if (!video.muted && video.paused) { var p = video.play(); if (p && p.catch) p.catch(function(){}); }
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
