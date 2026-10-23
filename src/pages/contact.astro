@@ -510,7 +510,7 @@ import SiteButton from '../components/SiteButton.astro';
         <div class="b-hero__actions">
           <SiteButton variant="gold" href="tel:88003331010">Позвонить</SiteButton>
           <SiteButton variant="outline" href="https://t.me/mm_prom1" target="_blank">Написать в Телеграм</SiteButton>
-          <a class="b-mess" href="https://max.ru/channel_MM_PROM" target="_blank" rel="noopener" aria-label="Канал ММ Пром в MAX"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.03 2 11c0 2.6 1.24 4.94 3.22 6.55L4 22l4.6-1.5c1.06.32 2.22.5 3.4.5 5.52 0 10-4.03 10-9S17.52 2 12 2z"/></svg></a>
+          <SiteButton variant="outline" href="https://max.ru/channel_MM_PROM" target="_blank">Написать в Макс</SiteButton>
           <SiteButton variant="outline" href="/modalka-zayavki/">Оставить заявку</SiteButton>
         </div>
       </div>
@@ -590,11 +590,11 @@ import SiteButton from '../components/SiteButton.astro';
     </div>
   </section>
 
-  <CtaBand variant="plain" id="cta" secIndex="04" heading="Не нашли ответ на свой вопрос?" lede="Оставьте заявку — перезвоним, уточним задачу и предложим варианты. Или напишите нам в Телеграм, если удобнее переписка." buttons={[
+  <CtaBand variant="plain" id="cta" secIndex="04" heading="Не нашли ответ на свой вопрос?" lede="Оставьте заявку — перезвоним, уточним задачу и предложим варианты. Или напишите нам в Телеграм или Макс, если удобнее переписка." buttons={[
           { variant: "purple", href: "/modalka-zayavki/", label: "Оставить заявку" },
-          { variant: "outline", href: "https://t.me/mm_prom1", label: "Написать в Телеграм", target: "_blank" }
+          { variant: "outline", href: "https://t.me/mm_prom1", label: "Написать в Телеграм", target: "_blank" },
+          { variant: "outline", href: "https://max.ru/channel_MM_PROM", label: "Написать в Макс", target: "_blank" }
         ]}>
-    <a class="b-mess" href="https://max.ru/channel_MM_PROM" target="_blank" rel="noopener" aria-label="Канал ММ Пром в MAX"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.03 2 11c0 2.6 1.24 4.94 3.22 6.55L4 22l4.6-1.5c1.06.32 2.22.5 3.4.5 5.52 0 10-4.03 10-9S17.52 2 12 2z"/></svg></a>
   </CtaBand>
 
 </main>
