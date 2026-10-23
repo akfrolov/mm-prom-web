@@ -1,0 +1,17 @@
+{
+  "$schema": "https://app.kilo.ai/config.json",
+  "agent": {
+    "worker": {
+      "model": "ollama-cloud/deepseek-v4.1-flash:1017"
+    },
+    "general": {
+      "model": "ollama-cloud/deepseek-v4.1-flash:1017"
+    },
+    "explore": {
+      "model": "ollama-cloud/deepseek-v4.1-flash:1017"
+    },
+    "auditor": {
+      "model": "ollama-cloud/deepseek-v4.1-flash:1017"
+    }
+  }
+}
