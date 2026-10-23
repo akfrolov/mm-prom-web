@@ -82,7 +82,7 @@ const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуни
 
 <BaseLayout title={pageTitle} description={pageDescription} ogImage={ogImage}>
   <Fragment slot="head">
-    <link rel="stylesheet" href="/assets/object-card.css?v=5">
+    <link rel="stylesheet" href="/assets/object-card.css?v=6">
     <style is:inline>
     /* ═══════════════════════════════════════════════════════════════════════
        ММ ПРОМ — карточка объекта /obekt/<id>/ (SPEC object-pages, блок B1)
@@ -107,6 +107,9 @@ const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуни
     .badge--warehouse{background:rgba(14,0,40,.10);color:var(--navy)}
     .badge--land{background:#F7F5FA;border:1px solid var(--gold);color:var(--navy)}
     .badge--busy{background:rgba(14,0,40,.72);color:#fff}
+    /* Сделки — теги как в каталоге (badge--deal-* в katalog.astro) */
+    .badge--deal-rent{background:rgba(90,57,148,.92);color:#fff}
+    .badge--deal-sale{background:rgba(235,184,30,.95);color:var(--navy)}
 
     /* ── Заглушка изображения ───────────────────────────────────────────── */
     .img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius);color:var(--text-muted);font-size:var(--fs-small);min-height:180px;padding:16px;text-align:center}
@@ -179,7 +182,7 @@ const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуни
     .loc-meta li{display:flex;align-items:flex-start;gap:8px;color:var(--text-muted);font-size:var(--fs-small);line-height:1.45}
     .loc-meta li .material-symbols-outlined{font-size:18px;color:var(--purple);flex:0 0 auto;margin-top:2px}
     .loc-meta li strong{color:var(--text)}
-    @media (min-width:768px){.loc-meta{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media (min-width:768px){.loc-meta{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
     /* ── Похожие объекты ────────────────────────────────────────────────── */
     .b-similar{padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
@@ -253,10 +256,11 @@ const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуни
       <section id="object-head" class="b-object-head">
         <div class="obj-head__badges">
           <span class={`badge badge--${d.type}`}>{d.typeLabel}</span>
+          {d.deal.map((label) => <span class={`badge badge--deal-${label === 'Аренда' ? 'rent' : 'sale'}`}>{label}</span>)}
           {d.busy && <span class="badge badge--busy">Нет площадей</span>}
         </div>
         <h1>{heroTitle}</h1>
-        <p class="obj-head__meta">{d.address} · {d.deal.join(' / ')}</p>
+        <p class="obj-head__meta">{d.address}</p>
         <p class="obj-head__desc">{d.desc}</p>
       </section>
 
@@ -314,10 +318,6 @@ const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуни
             <span class="material-symbols-outlined" aria-hidden="true">location_city</span>
             <span><strong>Район:</strong> {d.district}</span>
           </li>
-          <li>
-            <span class="material-symbols-outlined" aria-hidden="true">handshake</span>
-            <span><strong>Сделки:</strong> {d.deal.join(' / ')}</span>
-          </li>
         </ul>
       </section>
 
@@ -338,7 +338,7 @@ const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуни
           <h2>{ctaTitle}</h2>
           <p class="cta-card__text">{ctaText}</p>
           <div class="cta-form">
-            <SiteButton variant="purple" b24="request">Получить консультацию</SiteButton>
+            <SiteButton variant="gold" b24="request">Получить консультацию</SiteButton>
             {d.cta?.href && d.cta?.label && (
               <a class="btn btn--outline" href={d.cta.href}>{d.cta.label}</a>
             )}
@@ -349,7 +349,7 @@ const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуни
         </div>
 
         <div class="cta-bar">
-          <SiteButton variant="purple" b24="request">Получить консультацию</SiteButton>
+          <SiteButton variant="gold" b24="request">Получить консультацию</SiteButton>
           <a class="btn btn--outline" href="tel:88003331010">Позвонить</a>
         </div>
       </section>

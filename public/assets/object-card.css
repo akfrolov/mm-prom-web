@@ -1,7 +1,7 @@
 /* Карточки объектов ММ Пром — канон .obj-card (CR-2026-001 шаг 5).
    Общие правила (ленты index/arenda/prodazha) + каталог-вариант .obj-card--cat.
    Карточка единая и полностью кликабельная: оверлей-ссылка на заголовке
-   (CR владельца 2026-10-23). Cache-busting: подключать с ?v=5 и bump при правках. */
+   (CR владельца 2026-10-23). Cache-busting: подключать с ?v=6 и bump при правках. */
 
 .obj-card{position:relative;display:flex;flex-direction:column;height:100%;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:box-shadow .2s ease,transform .2s ease}
 .obj-card:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
@@ -43,7 +43,13 @@
 .obj-card--cat .obj-card__media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,0,40,.28) 0%,rgba(14,0,40,0) 38%,rgba(14,0,40,.10) 100%);pointer-events:none}
 .obj-card--cat .obj-card__badges{position:absolute;top:12px;left:12px;right:12px;display:flex;flex-wrap:wrap;gap:6px;z-index:2;justify-content:space-between;align-items:flex-start}
 .obj-card__badges-left{display:flex;flex-wrap:wrap;gap:6px}
-.obj-card--cat .obj-card__badges .badge{backdrop-filter:blur(6px)}
+/* Чипы типа в каталоге лежат на фото: сплошная заливка вместо полупрозрачных
+   тинтов (правка 2026-10-23 — на снимках бейджи терялись). */
+.obj-card--cat .obj-card__badges .badge{box-shadow:0 2px 8px rgba(14,0,40,.24)}
+.obj-card--cat .obj-card__badges .badge--park{background:#EBB81E;color:#0E0028}
+.obj-card--cat .obj-card__badges .badge--production{background:#5A3994;color:#fff}
+.obj-card--cat .obj-card__badges .badge--warehouse{background:#0E0028;color:#fff}
+.obj-card--cat .obj-card__badges .badge--land{background:#fff;color:#0E0028}
 .obj-card--cat .obj-card__cover{color:inherit;text-decoration:none;}
 .obj-card--cat .obj-card__cover::after{content:"";position:absolute;inset:0;z-index:1}
 .obj-card--cat .obj-card__cover:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
