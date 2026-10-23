@@ -1,0 +1,68 @@
+# Staging-деплой на GitHub Pages (CR-2026-001 шаг 8).
+#
+# ВАЖНО (открытый вопрос владельца — выбор staging-домена):
+# - Сайт собирается без `base` (все ссылки/ассеты корневые), поэтому проектный
+#   URL вида https://<owner>.github.io/<repo>/ работать НЕ будет.
+# - Вариант A (кастомный домен, рекомендация): DNS-запись staging.mm-prom.ru
+#   → Pages, файл public/CNAME добавить при включении домена, переменную
+#   репозитория ASTRO_SITE_STAGING = https://staging.mm-prom.ru.
+# - Вариант B: пользовательская страница <owner>.github.io (корень домена).
+# - Переменная задатся в Settings → Secrets and variables → Actions →
+#   Variables → ASTRO_SITE_STAGING (ниже — дефолт-заглушка).
+# - Яндекс.Карты: staging-домен + localhost добавить в allowed-domains ОБОИХ
+#   ключей (ограничения применяются ~15 минут).
+
+name: Deploy staging to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+env:
+  ASTRO_SITE_STAGING: ${{ vars.ASTRO_SITE_STAGING || 'https://staging.mm-prom.ru' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Build (staging — noindex, без Метрики, robots без Sitemap)
+        run: npm run build
+        env:
+          ASTRO_SITE: ${{ env.ASTRO_SITE_STAGING }}
+          MMPROM_ENV: staging
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
