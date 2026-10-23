@@ -9,8 +9,12 @@ interface Props {
 
 const { obj, stagger, showMap = false } = Astro.props;
 const d = obj.data;
-const href = d.link || d.external || '';
-const isExternal = (d.linkExternal ?? false) || href.startsWith('http');
+const brandbookRoutes: Record<string, string> = {
+  'atlas-garazhny': '/atlas-garazhnyj/',
+  'avrora-vitebsky': '/avrora-vitebskij/',
+};
+const href = brandbookRoutes[obj.id] ?? `/obekt/${obj.id}/`;
+const isBrandbook = obj.id in brandbookRoutes;
 const searchTitle = d.searchTitle ?? d.title.toLowerCase();
 ---
 
@@ -28,7 +32,7 @@ const searchTitle = d.searchTitle ?? d.title.toLowerCase();
       {d.image && <img src={d.image} alt={d.title} loading="lazy" onerror="this.classList.add('is-broken')" />}
       <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>{d.title}</div>
       <div class="obj-card__badges">
-        <div class="obj-card__badges-left"><span class="badge badge--type">{d.typeLabel}</span></div>
+        <div class="obj-card__badges-left"><span class={`badge badge--${d.type}`}>{d.typeLabel}</span></div>
         <div class="obj-card__badges-left">
           {d.deal.map((label) => <span class={`badge badge--deal-${label === 'Аренда' ? 'rent' : 'sale'}`}>{label}</span>)}
           {d.busy && <span class="badge badge--busy">Нет площадей</span>}
@@ -46,10 +50,10 @@ const searchTitle = d.searchTitle ?? d.title.toLowerCase();
         <div class="obj-card__fact"><span>Локация</span><strong>{d.district}</strong></div>
       </div>
       <div class="obj-card__foot">
-        {d.external ? (
-          <a class="obj-card__ext" href={d.external} target="_blank" rel="noopener">На страницу объекта<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+        {isBrandbook ? (
+          <a class="obj-card__ext" href={href}>На страницу объекта<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
         ) : (
-          <button class="obj-card__more" type="button" data-open={obj.id}>Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button>
+          <a class="obj-card__more" href={href}>Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
         )}
         {d.busy && <span class="obj-card__busy"><span class="material-symbols-outlined" aria-hidden="true">info</span>Нет вакантных площадей</span>}
       </div>
@@ -65,7 +69,6 @@ const searchTitle = d.searchTitle ?? d.title.toLowerCase();
     {d.media ? (
       <figure class="b-media">
         <img src={d.media.src} alt={d.media.alt} loading="lazy" onerror="this.classList.add('is-broken')" />
-        <figcaption>{d.media.caption}</figcaption>
       </figure>
     ) : d.placeholder ? (
       <div class="img-placeholder" data-img={d.placeholder}>
@@ -74,12 +77,10 @@ const searchTitle = d.searchTitle ?? d.title.toLowerCase();
     ) : null}
     <div class="obj-card__body">
       <div class="obj-card__badges">
-        {d.badgeLabel && <span class={`badge ${d.badgeClass ?? 'badge--park'}`}>{d.badgeLabel}</span>}
-        {href && (
-          <a class="obj-card__link" href={href} aria-label={`Открыть страницу объекта: ${d.title}`} {...(isExternal ? { target: '_blank', rel: 'noopener' } : {})}>
-            <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span>
-          </a>
-        )}
+        <span class={`badge badge--${d.type}`}>{d.typeLabel}</span>
+        <a class="obj-card__link" href={href} aria-label={`Открыть страницу объекта: ${d.title}`}>
+          <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span>
+        </a>
       </div>
       <h3>{d.title}</h3>
       <p class="obj-card__desc">{d.cardDesc ?? d.desc}</p>
