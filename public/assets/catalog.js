@@ -1,7 +1,8 @@
 /* Логика каталога объектов (CR-2026-001 шаг 6; CR-2026-002 — переходы на
    страницы объектов; правка владельца 2026-10-23: две группы — «Наши объекты»
    (флайеры + PDF) и «Все объекты», единая кликабельная карточка, сброс виден
-   только с активными фильтрами, поиск без чувствительности к «ё»).
+   только с активными фильтрами, поиск без чувствительности к «ё»; правка
+   2026-10-23: площадь — диапазон с двумя ползунками и полями ввода).
    Карточки отрендерены на билде (ObjectCard); этот скрипт
    работает по data-атрибутам DOM: фильтры, сортировка, поиск, виды
    список/карта, карта.
@@ -26,10 +27,16 @@ document.addEventListener('DOMContentLoaded', function () {
       var emptyEl = document.getElementById('cat-empty');
       var mapWrap = document.getElementById('cat-map');
       var activeBox = document.getElementById('active-filters');
-      var resetBtn = document.getElementById('f-reset');
-      var state = { deal:'all', type:'all', area:'all', loc:'all', q:'', sort:'default', view:'list' };
+      var AREA_MAX = 20000;
+      var AREA_STEP = 100;
+      var state = { deal:'all', type:'all', areaMin:0, areaMax:AREA_MAX, loc:'all', q:'', sort:'default', view:'list' };
 
-      var AREA_LABEL = { s:'до 2 000 м²', m:'2 000 – 10 000 м²', l:'10 000 – 20 000 м²', xl:'от 20 000 м²' };
+      var areaMinInput = document.getElementById('f-area-min');
+      var areaMaxInput = document.getElementById('f-area-max');
+      var areaMinRange = document.getElementById('f-area-min-range');
+      var areaMaxRange = document.getElementById('f-area-max-range');
+      var areaFill = document.getElementById('f-area-fill');
+
       var LOC_LABEL = { spb:'Санкт-Петербург', lo:'Ленинградская область' };
       var TYPE_LABEL = { park:'Индустриальные парки', warehouse:'Производственно-складские', production:'Производственные', land:'Земельные участки' };
       var DEAL_LABEL = { rent:'Аренда', sale:'Продажа' };
@@ -39,14 +46,47 @@ document.addEventListener('DOMContentLoaded', function () {
         return String(s).toLowerCase().replace(/ё/g, 'е');
       }
 
-      function areaMatch(v, key){
-        if (key === 'all') return true;
+      function areaFull(){
+        return state.areaMin <= 0 && state.areaMax >= AREA_MAX;
+      }
+
+      function areaMatch(v){
+        if (areaFull()) return true;
         if (!v) return false;
-        if (key === 's') return v < 2000;
-        if (key === 'm') return v >= 2000 && v < 10000;
-        if (key === 'l') return v >= 10000 && v < 20000;
-        if (key === 'xl') return v >= 20000;
-        return true;
+        return v >= state.areaMin && v <= state.areaMax;
+      }
+
+      function fmtNum(n){
+        return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+      }
+
+      function areaLabel(){
+        if (areaFull()) return '';
+        if (state.areaMax >= AREA_MAX) return 'от ' + fmtNum(state.areaMin) + ' м²';
+        if (state.areaMin <= 0) return 'до ' + fmtNum(state.areaMax) + ' м²';
+        return fmtNum(state.areaMin) + ' – ' + fmtNum(state.areaMax) + ' м²';
+      }
+
+      function syncAreaUI(){
+        areaMinRange.value = state.areaMin;
+        areaMaxRange.value = state.areaMax;
+        areaMinInput.value = state.areaMin;
+        areaMaxInput.value = state.areaMax;
+        areaFill.style.left = (state.areaMin / AREA_MAX * 100) + '%';
+        areaFill.style.right = (100 - state.areaMax / AREA_MAX * 100) + '%';
+      }
+
+      function setAreaRange(min, max, source){
+        min = Math.max(0, Math.min(AREA_MAX, Math.round(min / AREA_STEP) * AREA_STEP));
+        max = Math.max(0, Math.min(AREA_MAX, Math.round(max / AREA_STEP) * AREA_STEP));
+        if (min > max) {
+          if (source === 'min') max = min;
+          else min = max;
+        }
+        state.areaMin = min;
+        state.areaMax = max;
+        syncAreaUI();
+        apply();
       }
 
       function visible(){
@@ -54,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
           var deals = (c.dataset.deal || '').split(' ');
           var okDeal = state.deal === 'all' || deals.indexOf(state.deal) !== -1;
           var okType = state.type === 'all' || c.dataset.type === state.type;
-          var okArea = areaMatch(parseInt(c.dataset.area, 10) || 0, state.area);
+          var okArea = areaMatch(parseInt(c.dataset.area, 10) || 0);
           var okLoc = state.loc === 'all' || c.dataset.loc === state.loc;
           var okQ = !state.q || normQ(c.dataset.title + ' ' + c.querySelector('.obj-card__addr').textContent).indexOf(state.q) !== -1;
           return okDeal && okType && okArea && okLoc && okQ;
@@ -86,12 +126,11 @@ document.addEventListener('DOMContentLoaded', function () {
         var chips = [];
         if (state.deal !== 'all') chips.push(['deal', DEAL_LABEL[state.deal]]);
         if (state.type !== 'all') chips.push(['type', TYPE_LABEL[state.type]]);
-        if (state.area !== 'all') chips.push(['area', AREA_LABEL[state.area]]);
+        if (!areaFull()) chips.push(['area', areaLabel()]);
         if (state.loc !== 'all') chips.push(['loc', LOC_LABEL[state.loc]]);
         if (state.q) chips.push(['q', '«' + state.q + '»']);
-        if (!chips.length) { activeBox.hidden = true; activeBox.innerHTML = ''; resetBtn.hidden = true; return; }
+        if (!chips.length) { activeBox.hidden = true; activeBox.innerHTML = ''; return; }
         activeBox.hidden = false;
-        resetBtn.hidden = false;
         activeBox.innerHTML = '<span class="cat-active__label">Выбрано:</span>' + chips.map(function(c){
           return '<button class="cat-active__chip" type="button" data-clear="' + c[0] + '">' + c[1] + '<span class="material-symbols-outlined" aria-hidden="true">close</span></button>';
         }).join('') + '<button class="cat-active__chip" type="button" data-clear="all">Сбросить всё<span class="material-symbols-outlined" aria-hidden="true">restart_alt</span></button>';
@@ -136,7 +175,10 @@ document.addEventListener('DOMContentLoaded', function () {
           apply();
         });
       });
-      document.getElementById('f-area').addEventListener('change', function(e){ state.area = e.target.value; apply(); });
+      areaMinRange.addEventListener('input', function(){ setAreaRange(+areaMinRange.value, state.areaMax, 'min'); });
+      areaMaxRange.addEventListener('input', function(){ setAreaRange(state.areaMin, +areaMaxRange.value, 'max'); });
+      areaMinInput.addEventListener('change', function(){ setAreaRange(parseInt(areaMinInput.value, 10) || 0, state.areaMax, 'min'); });
+      areaMaxInput.addEventListener('change', function(){ setAreaRange(state.areaMin, parseInt(areaMaxInput.value, 10) || 0, 'max'); });
       document.getElementById('f-loc').addEventListener('change', function(e){ state.loc = e.target.value; apply(); });
       document.getElementById('f-sort').addEventListener('change', function(e){ state.sort = e.target.value; apply(); });
       var search = document.getElementById('f-search');
@@ -147,26 +189,35 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
       function reset(){
-        state.deal='all'; state.type='all'; state.area='all'; state.loc='all'; state.q=''; state.sort='default';
-        search.value=''; document.getElementById('f-area').value='all'; document.getElementById('f-loc').value='all'; document.getElementById('f-sort').value='default';
+        state.deal='all'; state.type='all'; state.areaMin=0; state.areaMax=AREA_MAX; state.loc='all'; state.q=''; state.sort='default';
+        search.value=''; document.getElementById('f-loc').value='all'; document.getElementById('f-sort').value='default';
+        syncAreaUI();
         document.querySelectorAll('.seg [data-deal]').forEach(function(x){ x.setAttribute('aria-pressed', String(x.dataset.deal==='all')); });
         document.querySelectorAll('.chip-f[data-type]').forEach(function(x){ x.setAttribute('aria-pressed', String(x.dataset.type==='all')); });
         apply();
       }
-      document.getElementById('f-reset').addEventListener('click', reset);
       document.getElementById('empty-reset').addEventListener('click', reset);
 
-      activeBox.addEventListener('click', function(e){
+      function clearFilter(e){
         var b = e.target.closest('[data-clear]');
         if (!b) return;
         var k = b.getAttribute('data-clear');
         if (k === 'all') { reset(); return; }
         if (k === 'deal') { state.deal='all'; document.querySelectorAll('.seg [data-deal]').forEach(function(x){ x.setAttribute('aria-pressed', String(x.dataset.deal==='all')); }); }
         if (k === 'type') { state.type='all'; document.querySelectorAll('.chip-f[data-type]').forEach(function(x){ x.setAttribute('aria-pressed', String(x.dataset.type==='all')); }); }
-        if (k === 'area') { state.area='all'; document.getElementById('f-area').value='all'; }
+        if (k === 'area') { state.areaMin=0; state.areaMax=AREA_MAX; syncAreaUI(); }
         if (k === 'loc') { state.loc='all'; document.getElementById('f-loc').value='all'; }
         if (k === 'q') { state.q=''; search.value=''; }
         apply();
+      }
+      /* pointerdown — до blur поля ввода: иначе change перерисовывает чипы
+         и клик по «Сбросить всё» теряется; click оставлен для клавиатуры */
+      activeBox.addEventListener('pointerdown', function(e){
+        if (e.button !== 0) return;
+        if (e.pointerType === 'mouse' || e.pointerType === 'pen' || e.pointerType === 'touch') clearFilter(e);
+      });
+      activeBox.addEventListener('click', function(e){
+        if (e.detail === 0) clearFilter(e);
       });
 
       // ── Вид ───────────────────────────────────────────────────────────
@@ -240,6 +291,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (features.length) map.setBounds(om.getBounds(), { checkZoomRange: true, zoomMargin: 40 });
       }
 
+      syncAreaUI();
       apply();
     })();
 });

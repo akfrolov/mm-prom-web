@@ -26,16 +26,13 @@ const plural = (n: number, one: string, few: string, many: string) => {
   return many;
 };
 const objectsWord = plural(totalCount, 'объект', 'объекта', 'объектов');
-const parkWord = plural(typeCounts.park, 'индустриальный парк', 'индустриальных парка', 'индустриальных парков');
-const warehouseWord = plural(typeCounts.warehouse, 'производственно-складской комплекс', 'производственно-складских комплекса', 'производственно-складских комплексов');
-const landWord = plural(typeCounts.land, 'земельный участок', 'земельных участка', 'земельных участков');
 const mapObjects = objects.map(({ id, data }) => ({
   id, title: data.title, area: data.area, address: data.address, coords: data.coords,
 }));
 ---
 <BaseLayout title="Каталог объектов — ММ Пром" description="Каталог производственной недвижимости Санкт-Петербурга и Ленинградской области: индустриальные парки, производственно-складские комплексы и земельные участки. Фильтры по типу, сделке, площади и локации, интерактивная карта.">
   <Fragment slot="head">
-  <link rel="stylesheet" href="/assets/object-card.css?v=4">
+  <link rel="stylesheet" href="/assets/object-card.css?v=5">
     <style is:inline>
     /* ═══════════════════════════════════════════════════════════════════════
        ММ ПРОМ — ГЛАВНАЯ СТРАНИЦА
@@ -452,35 +449,53 @@ const mapObjects = objects.map(({ id, data }) => ({
     @media (min-width:1024px){.b-others__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
     /* ═══ Каталог объектов ═══ */
-    .cat-head{padding:clamp(28px,4vw,48px) 0 10px}
+    .cat-head{padding:clamp(28px,4vw,48px) 0 clamp(24px,3vw,32px)}
+    .cat-head__inner{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:32px;align-items:end}
     .cat-head h1{margin:0 0 10px}
     .cat-head__lead{margin:0;max-width:70ch;color:var(--text-muted);font-size:1.05rem}
-    .cat-head__stats{display:flex;flex-wrap:wrap;gap:10px 28px;margin:22px 0 0;padding:0;list-style:none}
-    .cat-head__stats li{display:inline-flex;align-items:baseline;gap:8px;color:var(--text-muted);font-size:var(--fs-small)}
-    .cat-head__stats strong{font-size:1.35rem;color:var(--purple);font-weight:800}
 
     /* ── Панель фильтров ─────────────────────────────────────────────── */
-    .cat-toolbar{position:sticky;top:72px;z-index:30;background:rgba(255,255,255,.97);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:14px 0 12px}
-    .cat-toolbar__row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-    .cat-search{position:relative;flex:1 1 260px;min-width:200px}
+    .cat-toolbar{position:sticky;top:72px;z-index:30;background:rgba(255,255,255,.97);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 0}
+    .cat-toolbar__row{display:grid;grid-template-columns:minmax(220px,.85fr) minmax(320px,1.25fr) minmax(180px,.7fr);grid-template-areas:"deal area loc";gap:12px 20px;align-items:start}
+    .cat-toolbar__row + .cat-toolbar__row{margin-top:14px}
+    .cat-toolbar__row--types{display:block}
+    .cat-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+    .cat-field--deal{grid-area:deal}
+    .cat-field--area{grid-area:area}
+    .cat-field--loc{grid-area:loc}
+    .cat-field__label{font-size:.72rem;line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);font-weight:700}
+    .cat-search{position:relative;min-width:0}
     .cat-search .material-symbols-outlined{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--text-muted);pointer-events:none}
     .cat-search input{width:100%;min-height:46px;padding:10px 14px 10px 42px;border:1px solid var(--border);border-radius:var(--radius-sm);background:#fff;font:inherit;color:var(--text)}
     .cat-search input::placeholder{color:var(--text-muted)}
     .cat-search input:focus{outline:2px solid var(--purple);outline-offset:1px;border-color:transparent}
-    .seg{display:inline-flex;padding:4px;background:var(--surface);border:1px solid var(--border);border-radius:999px}
-    .seg button{min-height:38px;padding:6px 16px;border:0;border-radius:999px;background:transparent;color:var(--text-muted);font:inherit;font-weight:600;font-size:var(--fs-small);cursor:pointer;white-space:nowrap;transition:background .18s ease,color .18s ease}
+    .seg{display:flex;width:100%;padding:4px;background:var(--surface);border:1px solid var(--border);border-radius:999px}
+    .seg button{flex:1 1 0;min-height:38px;padding:6px 16px;border:0;border-radius:999px;background:transparent;color:var(--text-muted);font:inherit;font-weight:600;font-size:var(--fs-small);cursor:pointer;white-space:nowrap;transition:background .18s ease,color .18s ease}
     .seg button[aria-pressed="true"]{background:var(--purple);color:#fff;box-shadow:0 4px 12px rgba(90,57,148,.28)}
     .seg button:hover:not([aria-pressed="true"]){color:var(--purple)}
+
+    /* Площадь: два ползунка + поля ввода */
+    .cat-area{display:flex;flex-direction:column;gap:2px;min-width:0}
+    .cat-area__head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .cat-area__inputs{display:flex;align-items:center;justify-content:flex-end;gap:6px;color:var(--text-muted);font-size:var(--fs-small)}
+    .cat-area__inputs input{width:72px;min-height:34px;padding:4px 8px;border:1px solid var(--border);border-radius:var(--radius-sm);background:#fff;color:var(--text);font:inherit;font-size:var(--fs-small);text-align:center;-moz-appearance:textfield}
+    .cat-area__inputs input::-webkit-outer-spin-button,
+    .cat-area__inputs input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+    .cat-area__inputs input:focus{outline:2px solid var(--purple);outline-offset:1px;border-color:transparent}
+    .cat-area__slider{position:relative;height:24px;margin-top:2px}
+    .cat-area__rail{position:absolute;left:0;right:0;top:50%;height:4px;transform:translateY(-50%);border-radius:2px;background:var(--border);pointer-events:none}
+    .cat-area__fill{position:absolute;left:0;right:0;top:0;bottom:0;border-radius:2px;background:var(--purple)}
+    .cat-area__slider input[type="range"]{position:absolute;left:-9px;top:0;width:calc(100% + 18px);height:24px;margin:0;background:transparent;pointer-events:none;-webkit-appearance:none;appearance:none;z-index:2}
+    .cat-area__slider input[type="range"]::-webkit-slider-runnable-track{height:4px;background:transparent;border:0}
+    .cat-area__slider input[type="range"]::-moz-range-track{height:4px;background:transparent;border:0}
+    .cat-area__slider input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;pointer-events:auto;width:18px;height:18px;margin-top:-7px;border:2px solid var(--purple);border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(11,27,51,.22);cursor:grab}
+    .cat-area__slider input[type="range"]::-moz-range-thumb{pointer-events:auto;width:14px;height:14px;border:2px solid var(--purple);border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(11,27,51,.22);cursor:grab}
+    .cat-area__slider input[type="range"]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(90,57,148,.22)}
+    .cat-area__slider input[type="range"]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px rgba(90,57,148,.22)}
+
     .cat-select{min-height:46px;padding:8px 38px 8px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A3994' stroke-width='2' fill='none'/%3E%3C/svg%3E") no-repeat right 14px center;font:inherit;font-size:var(--fs-small);color:var(--text);cursor:pointer;appearance:none}
     .cat-select:focus{outline:2px solid var(--purple);outline-offset:1px}
-    .cat-reset{display:inline-flex;align-items:center;gap:6px;min-height:46px;padding:8px 16px;border:1px solid var(--gold);border-radius:var(--radius-sm);background:var(--gold);color:var(--navy);font:inherit;font-size:var(--fs-small);font-weight:800;cursor:pointer;box-shadow:0 4px 12px rgba(235,184,30,.3);transition:filter .18s ease}
-    .cat-reset:hover{filter:brightness(1.07)}
-    .cat-reset:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
-    .cat-reset .material-symbols-outlined{font-size:18px}
-    /* Кнопка «Сбросить» появляется, только когда фильтры активны (catalog.js) */
-    .cat-reset[hidden]{display:none}
-
-    .cat-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .cat-chips{display:flex;flex-wrap:wrap;gap:8px;flex:1 1 auto}
     .chip-f{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:6px 14px;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--text-muted);font:inherit;font-size:var(--fs-small);font-weight:600;cursor:pointer;transition:background .18s ease,border-color .18s ease,color .18s ease}
     .chip-f:hover{border-color:var(--purple);color:var(--purple)}
     .chip-f[aria-pressed="true"]{background:var(--purple);border-color:var(--purple);color:#fff}
@@ -497,6 +512,7 @@ const mapObjects = objects.map(({ id, data }) => ({
     /* ── Выдача ──────────────────────────────────────────────────────── */
     .cat-results{padding:26px 0 clamp(48px,6vw,72px)}
     .cat-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+    .cat-bar__left{display:flex;flex-wrap:wrap;align-items:center;gap:16px}
     .cat-bar__count{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
     .cat-bar__count strong{color:var(--text);font-size:1.05rem}
     .view-toggle{display:inline-flex;padding:4px;background:var(--surface);border:1px solid var(--border);border-radius:999px}
@@ -525,6 +541,17 @@ const mapObjects = objects.map(({ id, data }) => ({
     .cat-grid--featured .obj-card--cat .obj-card__media{aspect-ratio:16/9}
     .cat-grid--featured .obj-card--cat .obj-card__body h3{font-size:1.2rem}
 
+    @media (max-width:1023px){
+      .cat-head__inner{grid-template-columns:1fr;gap:18px}
+      .cat-toolbar{position:static}
+      .cat-toolbar__row{grid-template-columns:1fr 1fr;grid-template-areas:"deal loc" "area area"}
+    }
+    @media (max-width:639px){
+      .cat-toolbar__row{grid-template-columns:1fr;grid-template-areas:"deal" "area" "loc";row-gap:22px}
+      .cat-head__inner{gap:14px}
+      .cat-field--area{margin-top:2px}
+    }
+
     .badge--deal-rent{background:rgba(90,57,148,.92);color:#fff}
     .badge--deal-sale{background:rgba(235,184,30,.95);color:var(--navy)}
     .badge--type{background:rgba(255,255,255,.94);color:var(--text);border:1px solid rgba(255,255,255,.6)}
@@ -548,50 +575,64 @@ const mapObjects = objects.map(({ id, data }) => ({
   <Breadcrumbs items={[{ href: "/", label: "Главная" }, { label: "Каталог объектов" }]} />
 
   <section id="catalog-head" class="cat-head">
-    <div class="container">
-      <h1>Каталог объектов</h1>
-      <p class="cat-head__lead">Производственная недвижимость Санкт-Петербурга и Ленинградской области: индустриальные парки, производственно-складские комплексы, производственные площади и земельные участки.</p>
-      <ul class="cat-head__stats">
-        <li><strong>{totalCount}</strong> {objectsWord} в каталоге</li>
-        <li><strong>{typeCounts.park}</strong> {parkWord}</li>
-        <li><strong>{typeCounts.warehouse}</strong> {warehouseWord}</li>
-        <li><strong>{typeCounts.land}</strong> {landWord}</li>
-      </ul>
+    <div class="container cat-head__inner">
+      <div>
+        <h1>Каталог объектов</h1>
+        <p class="cat-head__lead">Производственная недвижимость Санкт-Петербурга и Ленинградской области: индустриальные парки, производственно-складские комплексы, производственные площади и земельные участки.</p>
+      </div>
+      <div class="cat-search">
+        <span class="material-symbols-outlined" aria-hidden="true">search</span>
+        <input type="search" id="f-search" placeholder="Поиск по названию или адресу" aria-label="Поиск по названию или адресу">
+      </div>
     </div>
   </section>
 
   <section id="filters" class="cat-toolbar" aria-label="Фильтры каталога">
     <div class="container">
       <div class="cat-toolbar__row">
-        <div class="cat-search">
-          <span class="material-symbols-outlined" aria-hidden="true">search</span>
-          <input type="search" id="f-search" placeholder="Поиск по названию или адресу" aria-label="Поиск по названию или адресу">
+        <div class="cat-field cat-field--deal">
+          <span class="cat-field__label">Сделка</span>
+          <div class="seg" role="group" aria-label="Тип сделки">
+            <button type="button" data-deal="all" aria-pressed="true">Все</button>
+            <button type="button" data-deal="rent" aria-pressed="false">Аренда</button>
+            <button type="button" data-deal="sale" aria-pressed="false">Продажа</button>
+          </div>
         </div>
-        <div class="seg" role="group" aria-label="Тип сделки">
-          <button type="button" data-deal="all" aria-pressed="true">Все</button>
-          <button type="button" data-deal="rent" aria-pressed="false">Аренда</button>
-          <button type="button" data-deal="sale" aria-pressed="false">Продажа</button>
+        <div class="cat-field cat-field--area">
+          <div class="cat-area">
+            <div class="cat-area__head">
+              <span class="cat-field__label">Площадь, м²</span>
+              <div class="cat-area__inputs">
+                <input type="number" id="f-area-min" min="0" max="20000" step="100" value="0" inputmode="numeric" aria-label="Площадь от, м²">
+                <span aria-hidden="true">—</span>
+                <input type="number" id="f-area-max" min="0" max="20000" step="100" value="20000" inputmode="numeric" aria-label="Площадь до, м²">
+              </div>
+            </div>
+            <div class="cat-area__slider">
+              <span class="cat-area__rail" aria-hidden="true"><span class="cat-area__fill" id="f-area-fill"></span></span>
+              <input type="range" id="f-area-min-range" min="0" max="20000" step="100" value="0" aria-label="Минимальная площадь, м²">
+              <input type="range" id="f-area-max-range" min="0" max="20000" step="100" value="20000" aria-label="Максимальная площадь, м²">
+            </div>
+          </div>
         </div>
-        <select class="cat-select" id="f-area" aria-label="Площадь">
-          <option value="all">Любая площадь</option>
-          <option value="s">до 2 000 м²</option>
-          <option value="m">2 000 – 10 000 м²</option>
-          <option value="l">10 000 – 20 000 м²</option>
-          <option value="xl">от 20 000 м²</option>
-        </select>
-        <select class="cat-select" id="f-loc" aria-label="Локация">
-          <option value="all">Все локации</option>
-          <option value="spb">Санкт-Петербург</option>
-          <option value="lo">Ленинградская область</option>
-        </select>
-        <button class="cat-reset" type="button" id="f-reset" hidden><span class="material-symbols-outlined" aria-hidden="true">restart_alt</span>Сбросить</button>
+        <div class="cat-field cat-field--loc">
+          <span class="cat-field__label">Локация</span>
+          <select class="cat-select" id="f-loc" aria-label="Локация">
+            <option value="all">Все локации</option>
+            <option value="spb">Санкт-Петербург</option>
+            <option value="lo">Ленинградская область</option>
+          </select>
+        </div>
       </div>
-      <div class="cat-chips" role="group" aria-label="Тип объекта">
-        <button class="chip-f" type="button" data-type="all" aria-pressed="true">Все объекты<span class="chip-f__count">{totalCount}</span></button>
-        <button class="chip-f" type="button" data-type="park" aria-pressed="false">Индустриальные парки<span class="chip-f__count">{typeCounts.park}</span></button>
-        <button class="chip-f" type="button" data-type="warehouse" aria-pressed="false">Производственно-складские<span class="chip-f__count">{typeCounts.warehouse}</span></button>
-        <button class="chip-f" type="button" data-type="production" aria-pressed="false">Производственные<span class="chip-f__count">{typeCounts.production}</span></button>
-        <button class="chip-f" type="button" data-type="land" aria-pressed="false">Земельные участки<span class="chip-f__count">{typeCounts.land}</span></button>
+      <div class="cat-toolbar__row cat-toolbar__row--types">
+        <span class="cat-field__label">Тип объекта</span>
+        <div class="cat-chips" role="group" aria-label="Тип объекта">
+          <button class="chip-f" type="button" data-type="all" aria-pressed="true">Все объекты<span class="chip-f__count">{totalCount}</span></button>
+          <button class="chip-f" type="button" data-type="park" aria-pressed="false">Индустриальные парки<span class="chip-f__count">{typeCounts.park}</span></button>
+          <button class="chip-f" type="button" data-type="warehouse" aria-pressed="false">Производственно-складские<span class="chip-f__count">{typeCounts.warehouse}</span></button>
+          <button class="chip-f" type="button" data-type="production" aria-pressed="false">Производственные<span class="chip-f__count">{typeCounts.production}</span></button>
+          <button class="chip-f" type="button" data-type="land" aria-pressed="false">Земельные участки<span class="chip-f__count">{typeCounts.land}</span></button>
+        </div>
       </div>
       <div class="cat-active" id="active-filters" hidden></div>
     </div>
@@ -600,11 +641,13 @@ const mapObjects = objects.map(({ id, data }) => ({
   <section id="results" class="cat-results">
     <div class="container">
       <div class="cat-bar">
-        <div class="view-toggle" role="group" aria-label="Вид каталога">
-          <button type="button" id="view-list" aria-pressed="true"><span class="material-symbols-outlined" aria-hidden="true">view_list</span>Список</button>
-          <button type="button" id="view-map" aria-pressed="false"><span class="material-symbols-outlined" aria-hidden="true">map</span>Карта</button>
+        <div class="cat-bar__left">
+          <div class="view-toggle" role="group" aria-label="Вид каталога">
+            <button type="button" id="view-list" aria-pressed="true"><span class="material-symbols-outlined" aria-hidden="true">view_list</span>Список</button>
+            <button type="button" id="view-map" aria-pressed="false"><span class="material-symbols-outlined" aria-hidden="true">map</span>Карта</button>
+          </div>
+          <p class="cat-bar__count">Найдено: <strong id="res-count">{totalCount}</strong> <span id="res-count-word">{objectsWord}</span></p>
         </div>
-        <p class="cat-bar__count">Найдено: <strong id="res-count">{totalCount}</strong> <span id="res-count-word">{objectsWord}</span></p>
         <select class="cat-select" id="f-sort" aria-label="Сортировка">
           <option value="default">По умолчанию</option>
           <option value="area-desc">Площадь: по убыванию</option>
@@ -685,7 +728,7 @@ const mapObjects = objects.map(({ id, data }) => ({
     </script>
     <script is:inline src="https://api-maps.yandex.ru/2.1/?apikey=2ae53810-6967-43df-9165-4003eeb71cbf&lang=ru_RU" type="text/javascript"></script>
           <script is:inline define:vars={{ mapObjects }}>window.MMPROM_OBJECTS = mapObjects;</script>
-<script is:inline src="/assets/catalog.js?v=2" defer></script>
+<script is:inline src="/assets/catalog.js?v=4" defer></script>
 
     <script is:inline src="/assets/site-anim.js?v=1" defer></script>
   </Fragment>

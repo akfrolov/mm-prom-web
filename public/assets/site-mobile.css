@@ -21,12 +21,9 @@
     position: static;
     padding: 12px 0 10px;
   }
-  .cat-toolbar__row { gap: 8px; }
-  .cat-search { flex: 1 1 100%; }
-  .seg { flex: 1 1 100%; justify-content: space-between; }
+  .cat-toolbar__row { gap: 10px; }
   .seg button { flex: 1 1 0; min-height: 42px; }
-  .cat-select { flex: 1 1 calc(50% - 4px); min-width: 0; }
-  .cat-reset { flex: 1 1 100%; justify-content: center; min-height: 44px; }
+  .cat-select { width: 100%; min-width: 0; }
 
   /* Чипы типов — одна строка с горизонтальной прокруткой */
   .cat-chips {
@@ -42,6 +39,5 @@
 
   .cat-active { margin-top: 8px; padding-top: 10px; }
   .cat-bar { margin-bottom: 16px; }
-  .cat-bar__right { width: 100%; justify-content: space-between; }
-  .cat-bar__right .cat-select { flex: 1 1 auto; }
+  .cat-bar__left { width: 100%; justify-content: space-between; }
 }
