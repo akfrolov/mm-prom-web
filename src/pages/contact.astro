@@ -341,9 +341,9 @@ import SiteButton from '../components/SiteButton.astro';
     .b-map iframe{width:100%;height:100%;border:0;display:block;min-height:280px}
 
     /* ── Иконки мессенджеров ─────────────────────────────────────────────── */
-    .b-mess{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:var(--purple-soft);color:var(--purple);transition:background .2s ease,color .2s ease,transform .2s ease}
-    .b-mess:hover{background:var(--purple);color:#fff;transform:translateY(-2px)}
-    .b-mess svg,.b-mess img{display:block;border-radius:5px}
+    .b-mess{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;background:#fff;border:1px solid var(--border);color:var(--purple);transition:border-color .2s ease,transform .2s ease}
+    .b-mess:hover{border-color:var(--purple);transform:translateY(-2px)}
+    .b-mess svg,.b-mess img{display:block;border-radius:6px}
     .b-mess-row{display:flex;gap:12px;margin-bottom:24px}
     .b-mess--text{border-radius:999px;padding-inline:16px;width:auto;font-size:.72rem;font-weight:800;color:var(--purple);letter-spacing:.02em}
 
@@ -352,10 +352,18 @@ import SiteButton from '../components/SiteButton.astro';
     .channel-item{display:flex;align-items:center;gap:12px;min-height:64px;padding:10px 16px 10px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);color:var(--text);text-decoration:none;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
     .channel-item:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-2px)}
     .channel-item:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
-    .channel-item .b-mess{flex:0 0 auto;color:var(--purple)}
-    .channel-item:hover .b-mess{background:var(--purple);color:#fff;transform:none}
+    .channel-item .b-mess{flex:0 0 auto}
+    .channel-item:hover .b-mess{transform:none}
     .channel-item__label{font-weight:700;font-size:1.0625rem;color:var(--text)}
     @media (min-width:640px){.channel-row{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+    /* ── Шапка блока контактов с кнопкой заявки ──────────────────────────── */
+    .contacts-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:24px}
+    .contacts-head__text{max-width:70ch}
+    .contacts-head .sec-index{margin-bottom:14px}
+    .contacts-head h2{margin:0 0 8px}
+    .contacts-head__lead{margin:0;color:var(--text-muted);font-size:1.05rem;line-height:1.68}
+    @media (max-width:639px){.contacts-head .btn{width:100%}}
 
     /* ── Форма ───────────────────────────────────────────────────────────── */
     .b-form{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
@@ -456,7 +464,8 @@ import SiteButton from '../components/SiteButton.astro';
     @media (min-width:1024px){.b-others__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
     /* ═══ Контакты ═══ */
-    .contacts-hero .b-hero__inner{grid-template-columns:minmax(0,1fr)}
+    .b-hero.contacts-hero{min-height:0}
+    .contacts-hero .b-hero__inner{grid-template-columns:minmax(0,1fr);padding:clamp(32px,4vw,48px) 0}
     .contacts-hero .b-hero__lead{max-width:62ch}
 
     .contact-cards{display:grid;gap:16px;margin-top:8px;grid-template-columns:1fr}
@@ -504,23 +513,23 @@ import SiteButton from '../components/SiteButton.astro';
     <div class="b-hero__particles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
     <div class="container b-hero__inner">
       <div class="b-hero__content">
-        <p class="b-hero__eyebrow">Контакты</p>
-        <h1>Свяжитесь с нами</h1>
-        <p class="b-hero__lead">Выберите удобный способ — позвоните, напишите или приезжайте в наш офис. Покажем объекты, обсудим задачу и предложим решение.</p>
-        <div class="b-hero__actions">
-          <SiteButton variant="gold" href="tel:88003331010">Позвонить</SiteButton>
-          <SiteButton variant="outline" href="https://t.me/mm_prom1" target="_blank">Написать в Телеграм</SiteButton>
-          <SiteButton variant="outline" href="https://max.ru/channel_MM_PROM" target="_blank">Написать в Макс</SiteButton>
-          <SiteButton variant="outline" b24="request">Оставить заявку</SiteButton>
-        </div>
+        <p class="b-hero__eyebrow">ММ Пром · Санкт-Петербург</p>
+        <h1>Контакты</h1>
+        <p class="b-hero__lead">Офис на Савушкиной, телефон, почта и мессенджеры. Выберите удобный способ или оставьте заявку — перезвоним, уточним задачу и предложим решение.</p>
       </div>
     </div>
   </section>
 
   <section id="contacts" class="section section--tint">
     <div class="container">
-      <p class="sec-index" aria-hidden="true">02</p>
-      <h2>Как с нами связаться</h2>
+      <div class="contacts-head reveal">
+        <div class="contacts-head__text">
+          <p class="sec-index" aria-hidden="true">02</p>
+          <h2>Как с нами связаться</h2>
+          <p class="contacts-head__lead">Позвоните, напишите в мессенджер или оставьте заявку — ответим в рабочее время.</p>
+        </div>
+        <SiteButton variant="gold" b24="request">Оставить заявку</SiteButton>
+      </div>
       <div class="contact-cards">
         <article class="contact-card reveal">
           <span class="contact-card__icon"><span class="material-symbols-outlined" aria-hidden="true">call</span></span>
@@ -543,19 +552,19 @@ import SiteButton from '../components/SiteButton.astro';
       </div>
       <nav class="channel-row" aria-label="Каналы ММ Пром">
         <a class="channel-item" href="https://t.me/mm_prom1" target="_blank" rel="noopener" aria-label="Телеграм-канал ММ Пром">
-          <span class="b-mess" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M9.04 15.51l-.38 5.35c.54 0 .78-.23 1.06-.51l2.55-2.44 5.28 3.87c.97.53 1.66.25 1.92-.9l3.48-16.3c.31-1.43-.52-1.99-1.46-1.64L1.1 9.76c-1.39.54-1.37 1.32-.24 1.67l5.3 1.65L18.35 5.1c.57-.38 1.09-.17.66.21L9.04 15.51z"/></svg></span>
+          <span class="b-mess" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="#229ED9" aria-hidden="true"><path d="M9.04 15.51l-.38 5.35c.54 0 .78-.23 1.06-.51l2.55-2.44 5.28 3.87c.97.53 1.66.25 1.92-.9l3.48-16.3c.31-1.43-.52-1.99-1.46-1.64L1.1 9.76c-1.39.54-1.37 1.32-.24 1.67l5.3 1.65L18.35 5.1c.57-.38 1.09-.17.66.21L9.04 15.51z"/></svg></span>
           <span class="channel-item__label">Телеграм</span>
         </a>
         <a class="channel-item" href="https://max.ru/channel_MM_PROM" target="_blank" rel="noopener" aria-label="Канал ММ Пром в MAX">
-          <span class="b-mess" aria-hidden="true"><img src="/assets/max-logo.svg" width="22" height="22" alt="" aria-hidden="true" loading="lazy"></span>
+          <span class="b-mess" aria-hidden="true"><img src="/assets/max-logo.svg" width="24" height="24" alt="" aria-hidden="true" loading="lazy"></span>
           <span class="channel-item__label">Макс</span>
         </a>
-        <a class="channel-item" href="https://www.cian.ru/company/62039710" target="_blank" rel="noopener">
-          <span class="b-mess" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12 3 2 11h3v9h5v-6h4v6h5v-9h3L12 3z"/></svg></span>
+        <a class="channel-item" href="https://www.cian.ru/company/62039710" target="_blank" rel="noopener" aria-label="ЦИАН — объявления ММ Пром">
+          <span class="b-mess" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#0468FF"/><path d="M15.7 8.4a5 5 0 1 0 0 7.2" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M16.4 8.4v7.2" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span>
           <span class="channel-item__label">ЦИАН</span>
         </a>
-        <a class="channel-item" href="https://www.avito.ru/brands/mmprom/all/nedvizhimost" target="_blank" rel="noopener">
-          <span class="b-mess" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><circle cx="8" cy="8" r="3.4"/><circle cx="16" cy="8" r="3.4"/><circle cx="8" cy="16" r="3.4"/><circle cx="16" cy="16" r="3.4"/></svg></span>
+        <a class="channel-item" href="https://www.avito.ru/brands/mmprom/all/nedvizhimost" target="_blank" rel="noopener" aria-label="Авито — объявления ММ Пром">
+          <span class="b-mess" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="7.5" cy="7.5" r="3.6" fill="#FF6163"/><circle cx="16.6" cy="7.5" r="2.2" fill="#97CF26"/><circle cx="7.4" cy="16.5" r="2.2" fill="#00AAFF"/><circle cx="16.4" cy="16.4" r="3.6" fill="#A169F7"/></svg></span>
           <span class="channel-item__label">Авито</span>
         </a>
       </nav>
@@ -590,10 +599,8 @@ import SiteButton from '../components/SiteButton.astro';
     </div>
   </section>
 
-  <CtaBand variant="plain" id="cta" secIndex="04" heading="Не нашли ответ на свой вопрос?" lede="Оставьте заявку — перезвоним, уточним задачу и предложим варианты. Или напишите нам в Телеграм или Макс, если удобнее переписка." buttons={[
-          { variant: "purple", b24: "request", label: "Оставить заявку" },
-          { variant: "outline", href: "https://t.me/mm_prom1", label: "Написать в Телеграм", target: "_blank" },
-          { variant: "outline", href: "https://max.ru/channel_MM_PROM", label: "Написать в Макс", target: "_blank" }
+  <CtaBand variant="plain" id="cta" secIndex="04" heading="Удобнее, если мы позвоним?" lede="Оставьте номер — перезвоним в рабочее время, уточним задачу и подскажем, какие объекты подходят." buttons={[
+          { variant: "purple", b24: "callback", label: "Заказать обратный звонок" }
         ]}>
   </CtaBand>
 
