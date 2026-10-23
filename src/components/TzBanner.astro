@@ -1,0 +1,25 @@
+---
+import SiteButton from './SiteButton.astro';
+
+interface Props {
+  heading?: string;
+  text?: string;
+  muted?: string;
+  ctaHref?: string;
+  ctaText?: string;
+}
+
+const { heading, text, muted, ctaHref, ctaText } = Astro.props;
+---
+
+<div class="grid grid--2 b-tz-banner">
+  <div>
+    <slot name="before" />
+    {heading && <h3>{heading}</h3>}
+    {text && <p style="font-weight:600">{text}</p>}
+    {muted && <p class="muted">{muted}</p>}
+    <slot />
+  </div>
+  {ctaHref && ctaText && <SiteButton variant="gold" href={ctaHref} class="b-tz-banner__cta">{ctaText}</SiteButton>}
+  <slot name="aside" />
+</div>

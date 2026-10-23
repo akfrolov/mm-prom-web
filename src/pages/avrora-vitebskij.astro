@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import TzBanner from '../components/TzBanner.astro';
+import SiteButton from '../components/SiteButton.astro';
 ---
 <BaseLayout title="Аврора Витебский — ММ Пром" description="ММ Пром — единое окно промышленника: комплексные решения и полный цикл услуг по промышленной недвижимости — аренда, покупка, управление и строительство объектов. С 2011 года: 200 000+ м² в управлении, 25+ проектов, 150+ компаний-резидентов.">
   <Fragment slot="head">
@@ -14,21 +16,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
        • фирменный мотив — геометрические квадраты (структура, порядок).
        Стиль: деловой, современный, технологичный, премиальный.
        ═══════════════════════════════════════════════════════════════════════ */
-    .section{padding:var(--space-section) 0}
-    .section--tint{background:var(--surface)}
-
-    /* ── Фирменный мотив: геометрические квадраты ───────────────────────── */
-    .sq-grid{position:relative;overflow:hidden}
-    .sq-grid::before{content:"";position:absolute;inset:0;pointer-events:none;
-      background-image:
-        linear-gradient(rgba(61,14,106,.05) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(61,14,106,.05) 1px,transparent 1px);
-      background-size:56px 56px}
-    .sq-grid::after{content:"";position:absolute;width:120px;height:120px;right:-40px;top:-40px;border:2px solid rgba(235,184,30,.35);transform:rotate(12deg)}
-    .sq-float{position:absolute;border:2px solid rgba(235,184,30,.4);pointer-events:none}
-    .sq-float--1{width:64px;height:64px;left:6%;bottom:12%;transform:rotate(18deg)}
-    .sq-float--2{width:34px;height:34px;right:8%;top:18%;background:rgba(61,14,106,.35);transform:rotate(45deg)}
-    .sq-float--3{width:22px;height:22px;left:48%;top:10%;border-color:rgba(61,14,106,.25)}
 
     /* ── Брендбук: рассыпанные цветные квадраты (пиксельный паттерн) ─────── */
     .brand-squares{position:absolute;pointer-events:none;z-index:1}
@@ -93,18 +80,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       .b-hero__inner{gap:56px}
       .b-hero__metrics{grid-template-columns:repeat(4,1fr)}
       .b-hero__media-frame .img-placeholder{aspect-ratio:16/9}
-    }
-
-    /* ── Marquee (золотая полоса) ────────────────────────────────────────── */
-    .b-marquee{background:var(--gold);border-bottom:1px solid var(--gold-deep);padding:14px 0;overflow:hidden}
-    .b-marquee__track{display:flex;width:max-content;animation:b-marquee-roll 30s linear infinite}
-    .b-marquee__seq{display:flex;align-items:center;flex:0 0 auto}
-    .b-marquee__item{display:inline-flex;align-items:center;white-space:nowrap;font-weight:800;font-size:var(--fs-small);letter-spacing:.04em;text-transform:uppercase;color:var(--navy)}
-    .b-marquee__item::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--purple);margin:0 24px}
-    @keyframes b-marquee-roll{to{transform:translateX(-50%)}}
-    @media (prefers-reduced-motion:reduce){
-      .b-marquee__track{animation:none;width:auto;flex-wrap:wrap;row-gap:4px}
-      .b-marquee__seq--dup{display:none}
     }
 
     /* ── Заголовки секций ────────────────────────────────────────────────── */
@@ -203,12 +178,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     @media (min-width:1024px){
       .b-roles{grid-template-columns:0.85fr 1.15fr;gap:56px}
     }
-
-    /* ── Сетка ───────────────────────────────────────────────────────────── */
-    .grid{display:grid;gap:16px}
-    .grid--2,.grid--3,.grid--4{grid-template-columns:1fr}
-    @media (min-width:768px){.grid{gap:24px}.grid--2,.grid--3,.grid--4{grid-template-columns:repeat(2,1fr)}}
-    @media (min-width:1024px){.grid--3{grid-template-columns:repeat(3,1fr)}.grid--4{grid-template-columns:repeat(4,1fr)}}
 
     /* ── Объекты (горизонтальная лента) ──────────────────────────────────── */
     .b-rail-group{margin-top:40px}
@@ -347,43 +316,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .b-progress__bar{height:8px;border-radius:999px;background:var(--surface);margin-top:16px;overflow:hidden}
     .b-progress__bar span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--purple) 0%,var(--gold) 100%)}
 
-    /* ── Баннер ТЗ ───────────────────────────────────────────────────────── */
-    .b-tz-banner{grid-template-columns:minmax(0,1fr);align-items:center;gap:16px}
-    .b-tz-banner__cta{justify-self:end}
-    @media (min-width:1024px){.b-tz-banner{grid-template-columns:minmax(0,1fr) auto;gap:24px}}
     .tz-panel{background:linear-gradient(120deg,var(--purple) 0%,var(--navy) 100%);border-radius:var(--radius);padding:30px;color:#fff;position:relative;overflow:hidden;margin-top:20px}
     .tz-panel::after{content:"";position:absolute;width:90px;height:90px;right:-30px;bottom:-30px;border:2px solid rgba(235,184,30,.4);transform:rotate(15deg)}
     .tz-panel h3{margin:0 0 8px;color:#fff}
     .tz-panel p{margin:0 0 4px}
     .tz-panel p.muted{color:rgba(255,255,255,.7)}
-
-    /* ── FAQ ─────────────────────────────────────────────────────────────── */
-    .b-faq__list{display:grid;gap:12px}
-    .b-faq__item{background:#fff;border:1px solid var(--border);border-radius:var(--radius)}
-    .b-faq__item summary{display:flex;align-items:center;gap:12px;min-height:58px;padding:16px 20px;font-weight:700;cursor:pointer;list-style:none}
-    .b-faq__item summary::-webkit-details-marker{display:none}
-    .b-faq__item summary > span:first-child{flex:1}
-    .b-faq__item summary .material-symbols-outlined{color:var(--gold);transition:transform .2s ease}
-    .b-faq__item[open] summary .material-symbols-outlined{transform:rotate(180deg)}
-    .b-faq__item p{margin:0;padding:16px 20px 0;color:var(--text-muted)}
-    .b-faq__item p + p{padding-top:8px}
-    .b-faq__item p:last-child{padding-bottom:16px}
-
-    /* ── Сплит-панель вопросов (шестой блок, один экран) ─────────────────── */
-    .b-faq__panel{display:grid;gap:32px;align-items:start}
-    .b-faq__intro h2{margin-bottom:.4em}
-    .b-faq__intro > p{color:var(--text-muted);margin:0 0 26px}
-    .b-faq__help{padding:26px;border-radius:var(--radius);background:linear-gradient(135deg,var(--purple) 0%,var(--navy) 100%);color:#fff;position:relative;overflow:hidden}
-    .b-faq__help::after{content:"";position:absolute;width:70px;height:70px;right:-24px;bottom:-24px;border:2px solid rgba(235,184,30,.4);transform:rotate(15deg)}
-    .b-faq__help-title{margin:0 0 6px;font-weight:800;font-size:1.1rem}
-    .b-faq__help-sub{margin:0 0 16px;color:rgba(255,255,255,.75);font-size:var(--fs-small)}
-    .b-faq__help-phone{display:inline-block;font-size:1.35rem;font-weight:800;color:var(--gold);text-decoration:none;margin-bottom:18px}
-    @media (min-width:1024px){
-      .b-faq__panel{grid-template-columns:0.85fr 1.15fr;grid-template-areas:"intro list" "help list";gap:32px 56px}
-      .b-faq__intro{grid-area:intro}
-      .b-faq__list{grid-area:list}
-      .b-faq__help{grid-area:help}
-    }
 
     /* ── Контакты ────────────────────────────────────────────────────────── */
     .b-contacts__inner{display:grid;gap:32px;margin-top:36px}
@@ -407,7 +344,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .b-mess:hover{background:var(--purple);transform:translateY(-2px)}
     .b-mess svg{display:block}
     .b-mess-row{display:flex;gap:12px;margin-bottom:24px}
-    .b-mess--text{border-radius:999px;padding:0 16px;width:auto;font-size:.72rem;font-weight:800;color:var(--purple);letter-spacing:.02em}
+    .b-mess--text{border-radius:999px;padding-inline:16px;width:auto;font-size:.72rem;font-weight:800;color:var(--purple);letter-spacing:.02em}
 
     /* ── Форма ───────────────────────────────────────────────────────────── */
     .b-form{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
@@ -488,13 +425,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <section class="section">
   <div class="container">
     <div class="tz-panel">
-      <div class="grid grid--2 b-tz-banner">
-        <div>
-          <h3>Заинтересовал парк?</h3>
-          <p style="font-weight:600">Оставьте заявку — расскажем подробнее и подберём участок</p>
-        </div>
-        <a class="btn btn--gold b-tz-banner__cta" href="#contacts">Оставить заявку</a>
-      </div>
+      <TzBanner heading="Заинтересовал парк?" text="Оставьте заявку — расскажем подробнее и подберём участок" ctaHref="#contacts" ctaText="Оставить заявку" />
     </div>
   </div>
 </section>

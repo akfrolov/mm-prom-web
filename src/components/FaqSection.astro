@@ -1,0 +1,101 @@
+---
+import SiteButton from './SiteButton.astro';
+
+interface Item {
+  q: string;
+  a: string | string[];
+}
+
+interface Props {
+  variant: 'simple' | 'panel';
+  items: Item[];
+  id?: string;
+  class?: string;
+  secIndex?: string;
+  secIndexAriaHidden?: boolean;
+  title?: string;
+  lead?: string;
+  intro?: { secIndex?: string; title?: string; lead?: string };
+  help?: {
+    title: string;
+    sub: string;
+    phone: string;
+    ctaHref: string;
+    ctaText: string;
+  };
+}
+
+const {
+  variant,
+  items,
+  id,
+  class: extraClass,
+  secIndex = '',
+  secIndexAriaHidden = true,
+  title = '',
+  lead = '',
+  intro,
+  help,
+} = Astro.props;
+
+const sectionClass =
+  extraClass ?? (variant === 'simple' ? 'section section--tint' : 'section section--tint');
+const answers = (a: string | string[]) => (Array.isArray(a) ? a : [a]);
+---
+
+<section id={id} class={sectionClass}>
+  {variant === 'simple' ? (
+    <div class="container">
+      <div class="b-sec-head reveal">
+        <p class="sec-index" aria-hidden="true">{secIndex}</p>
+        <h2>{title}</h2>
+        <p class="b-sec-head__lead">{lead}</p>
+      </div>
+      <div class="faq">
+        {items.map((item, i) => (
+          <details class="faq__item reveal" style={`--i:${i}`}>
+            <summary class="faq__q"><span class="material-symbols-outlined" aria-hidden="true">add</span>{item.q}</summary>
+            <div class="faq__a">{answers(item.a).map((p) => <p>{p}</p>)}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  ) : intro ? (
+    <div class="container b-faq__panel">
+      <div class="b-faq__intro">
+        {intro.secIndex && <p class="sec-index" aria-hidden="true">{intro.secIndex}</p>}
+        {intro.title && <h2>{intro.title}</h2>}
+        {intro.lead && <p>{intro.lead}</p>}
+      </div>
+      <div class="b-faq__list">
+        {items.map((item) => (
+          <details class="b-faq__item reveal">
+            <summary><span>{item.q}</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
+            {answers(item.a).map((p) => <p>{p}</p>)}
+          </details>
+        ))}
+      </div>
+      {help && (
+        <div class="b-faq__help">
+          <p class="b-faq__help-title">{help.title}</p>
+          <p class="b-faq__help-sub">{help.sub}</p>
+          <a class="b-faq__help-phone" href={`tel:${help.phone}`}>{help.phone.replace(/(\d)(\d{3})(\d{3})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5')}</a>
+          <SiteButton variant="gold" href={help.ctaHref}>{help.ctaText}</SiteButton>
+        </div>
+      )}
+    </div>
+  ) : (
+    <div class="container">
+      <p class="sec-index" aria-hidden={secIndexAriaHidden ? 'true' : undefined}>{secIndex}</p>
+      <h2>{title}</h2>
+      <div class="b-faq__list">
+        {items.map((item) => (
+          <details class="b-faq__item">
+            <summary><span>{item.q}</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
+            {answers(item.a).map((p) => <p>{p}</p>)}
+          </details>
+        ))}
+      </div>
+    </div>
+  )}
+</section>

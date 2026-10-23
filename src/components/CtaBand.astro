@@ -1,0 +1,44 @@
+---
+import SiteButton from './SiteButton.astro';
+
+interface Button {
+  variant: 'gold' | 'purple' | 'outline' | 'ghost-light';
+  href: string;
+  label: string;
+  target?: string;
+}
+
+interface Props {
+  variant: 'grad' | 'plain';
+  id?: string;
+  secIndex: string;
+  heading: string;
+  lede: string;
+  buttons: Button[];
+  phone?: string;
+}
+
+const {
+  variant,
+  id = 'cta',
+  secIndex,
+  heading,
+  lede,
+  buttons,
+  phone = 'tel:88003331010',
+} = Astro.props;
+---
+
+<section id={id} class={variant === 'grad' ? 'b-cta b-cta--grad' : 'b-cta'}>
+  <div class="container">
+    <p class="sec-index" aria-hidden="true">{secIndex}</p>
+    <h2>{heading}</h2>
+    <p>{lede}</p>
+    <div class="b-cta__row">
+      {buttons.map((button) => (
+        <SiteButton variant={button.variant} href={button.href} target={button.target}>{button.label}</SiteButton>
+      ))}
+      <a class="b-cta__phone" href={phone}><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
+    </div>
+  </div>
+</section>

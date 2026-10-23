@@ -49,15 +49,12 @@ h3{font-size:var(--fs-h3)}
 p{margin:0 0 1em}
 .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 24;vertical-align:middle}
 
-/* ── Контейнер (брейкпоинты 768/1024) ──────────────────────────────────── */
-.container{max-width:var(--container);margin:0 auto;padding:0 32px}
-@media (min-width:768px){.container{padding:0 32px}}
-@media (min-width:1024px){.container{padding:0 40px}}
+/* ── Контейнер: перенесён в blocks.css (дельта W2.1) ──────────────────── */
 
 /* ── Кнопки ──────────────────────────────────────────────────────────── */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:13px 26px;border-radius:var(--radius-sm);font-family:inherit;font-weight:700;font-size:var(--fs-body);text-decoration:none;cursor:pointer;border:2px solid transparent;transition:transform .18s ease,box-shadow .18s ease,background .18s ease,color .18s ease}
 .btn:hover{transform:translateY(-2px)}
-.btn--gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 22px rgba(235,184,30,.35)}
+.btn--gold{background:var(--gold);color:var(--navy)}
 .btn--gold:hover{background:var(--gold-soft)}
 .btn--purple{background:var(--purple);color:#fff}
 .btn--purple:hover{background:var(--purple-dark)}
