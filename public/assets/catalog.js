@@ -1,7 +1,8 @@
-/* Логика каталога объектов (CR-2026-001 шаг 6).
-   Карточки отрендерены на билде (ObjectCard); этот скрипт работает по
-   data-атрибутам DOM: фильтры, сортировка, поиск, виды список/карта, модалка.
-   Данные модалки: window.MMPROM_OBJECTS (инжектится на странице до этого скрипта). */
+/* Логика каталога объектов (CR-2026-001 шаг 6; CR-2026-002 — переходы на
+   страницы объектов). Карточки отрендерены на билде (ObjectCard); этот скрипт
+   работает по data-атрибутам DOM: фильтры, сортировка, поиск, виды
+   список/карта, карта.
+   Данные карты: window.MMPROM_OBJECTS (инжектится на странице до этого скрипта). */
 document.addEventListener('DOMContentLoaded', function () {
     (function(){
       'use strict';
@@ -9,9 +10,15 @@ document.addEventListener('DOMContentLoaded', function () {
       var byId = {};
       OBJECTS.forEach(function(o){ byId[o.id] = o; });
 
+      var BRAND_URLS = { 'atlas-garazhny': '/atlas-garazhnyj/', 'avrora-vitebsky': '/avrora-vitebskij/' };
+      function objectUrl(o){
+        return o.url || BRAND_URLS[o.id] || '/obekt/' + o.id + '/';
+      }
+
       var grid = document.getElementById('cat-grid');
       var cards = Array.prototype.slice.call(grid.querySelectorAll('.obj-card'));
       var countEl = document.getElementById('res-count');
+      var countWordEl = document.getElementById('res-count-word');
       var emptyEl = document.getElementById('cat-empty');
       var mapWrap = document.getElementById('cat-map');
       var activeBox = document.getElementById('active-filters');
@@ -84,53 +91,16 @@ document.addEventListener('DOMContentLoaded', function () {
         cards.forEach(function(c){ c.hidden = true; });
         list.forEach(function(c){ c.hidden = false; grid.appendChild(c); });
         countEl.textContent = list.length;
+        if (countWordEl) {
+          var n = list.length, m10 = n % 10, m100 = n % 100;
+          countWordEl.textContent = (m10 === 1 && m100 !== 11) ? 'объект'
+            : (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) ? 'объекта'
+            : 'объектов';
+        }
         emptyEl.hidden = list.length !== 0;
         renderActive();
         if (state.view === 'map') updateMap(list);
       }
-
-      // ── Модальное окно ────────────────────────────────────────────────
-      var modal = document.getElementById('obj-modal');
-      var mTitle = document.getElementById('obj-modal-title');
-      var mAddr = document.getElementById('obj-modal-addr');
-      var mBadges = document.getElementById('obj-modal-badges');
-      var mMedia = document.getElementById('obj-modal-media');
-      var mDesc = document.getElementById('obj-modal-desc');
-      var mSpecs = document.getElementById('obj-modal-specs');
-      var mPrice = document.getElementById('obj-modal-price');
-      var mPriceVal = document.getElementById('obj-modal-price-val');
-
-      function openModal(id){
-        var o = byId[id];
-        if (!o) return;
-        mTitle.textContent = o.title;
-        mAddr.textContent = o.address;
-        var badges = '<span class="badge badge--type">' + o.typeLabel + '</span>';
-        o.deal.forEach(function(d){ badges += '<span class="badge badge--deal-' + (d === 'Аренда' ? 'rent' : 'sale') + '">' + d + '</span>'; });
-        if (o.busy) badges += '<span class="badge badge--busy">Нет свободных площадей</span>';
-        mBadges.innerHTML = badges;
-        mMedia.innerHTML = o.image
-          ? '<img src="' + o.image + '" alt="' + o.title.replace(/"/g,'&quot;') + '" onerror="this.classList.add(\'is-broken\')"><div class="obj-card__ph"><span class="material-symbols-outlined">image</span>Фото: ' + o.title + '</div>'
-          : '<div class="obj-card__ph"><span class="material-symbols-outlined">image</span>Фото: ' + o.title + '</div>';
-        mDesc.textContent = o.desc;
-        mSpecs.innerHTML = o.specs.map(function(s){
-          return '<li><span class="material-symbols-outlined" aria-hidden="true">' + s[0] + '</span><div><dt>' + s[1] + '</dt><dd>' + s[2] + '</dd></div></li>';
-        }).join('');
-        if (o.price) { mPrice.hidden = false; mPriceVal.textContent = o.price; } else { mPrice.hidden = true; }
-        if (typeof modal.showModal === 'function') modal.showModal(); else modal.setAttribute('open','');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeModal(){
-        if (typeof modal.close === 'function') modal.close(); else modal.removeAttribute('open');
-        document.body.style.overflow = '';
-      }
-      document.addEventListener('click', function(e){
-        var b = e.target.closest('[data-open]');
-        if (b) { e.preventDefault(); openModal(b.getAttribute('data-open')); }
-      });
-      document.getElementById('obj-modal-close').addEventListener('click', closeModal);
-      modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
-      modal.addEventListener('close', function(){ document.body.style.overflow = ''; });
 
       // ── Фильтры ───────────────────────────────────────────────────────
       document.querySelectorAll('.seg [data-deal]').forEach(function(b){
@@ -226,8 +196,8 @@ document.addEventListener('DOMContentLoaded', function () {
             hideIconOnBalloonOpen: false
           });
           om.objects.events.add('click', function(e){
-            var id = e.get('objectId');
-            if (id) openModal(id);
+            var o = byId[e.get('objectId')];
+            if (o) window.location.assign(objectUrl(o));
           });
           map.geoObjects.add(om);
           mapReady = true;
@@ -244,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
             type: 'Feature',
             id: o.id,
             geometry: { type: 'Point', coordinates: o.coords },
-            properties: { hintContent: o.title, balloonContentHeader: o.title, balloonContentBody: o.address + '<br>' + o.area }
+            properties: { hintContent: o.title, balloonContentHeader: o.title, balloonContentBody: o.address + '<br>' + o.area + '<br><a href="' + objectUrl(o) + '">Страница объекта</a>' }
           };
         }).filter(Boolean);
         om.removeAll();
@@ -252,20 +222,13 @@ document.addEventListener('DOMContentLoaded', function () {
         if (features.length) map.setBounds(om.getBounds(), { checkZoomRange: true, zoomMargin: 40 });
       }
 
-      function focusOnMap(id){
-        var o = byId[id];
-        if (!o) return;
-        setView('map');
-        var tryFocus = function(){
-          if (!mapReady) { setTimeout(tryFocus, 200); return; }
-          map.setCenter(o.coords, 14, { duration: 300 });
-          openModal(id);
-        };
-        tryFocus();
-      }
       document.addEventListener('click', function(e){
         var b = e.target.closest('[data-map]');
-        if (b) { e.preventDefault(); focusOnMap(b.getAttribute('data-map')); }
+        if (!b) return;
+        var o = byId[b.getAttribute('data-map')];
+        if (!o) return;
+        e.preventDefault();
+        window.location.assign(objectUrl(o));
       });
 
       apply();

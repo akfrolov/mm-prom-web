@@ -2,14 +2,24 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import SiteButton from '../components/SiteButton.astro';
 import ObjectCard from '../components/ObjectCard.astro';
 import { getCollection } from 'astro:content';
 const objects = (await getCollection('objects')).sort((a, b) => a.data.sort - b.data.sort);
-const modalObjects = objects.map(({ id, data }) => ({
-  id, title: data.title, typeLabel: data.typeLabel, deal: data.deal, area: data.area,
-  address: data.address, district: data.district, desc: data.desc, specs: data.specs,
-  price: data.price, image: data.image, external: data.external, coords: data.coords, busy: data.busy,
+const totalCount = objects.length;
+const typeCounts = { park: 0, warehouse: 0, production: 0, land: 0 };
+objects.forEach(({ data }) => { typeCounts[data.type] += 1; });
+const plural = (n: number, one: string, few: string, many: string) => {
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return one;
+  if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) return few;
+  return many;
+};
+const objectsWord = plural(totalCount, 'объект', 'объекта', 'объектов');
+const parkWord = plural(typeCounts.park, 'индустриальный парк', 'индустриальных парка', 'индустриальных парков');
+const warehouseWord = plural(typeCounts.warehouse, 'производственно-складской комплекс', 'производственно-складских комплекса', 'производственно-складских комплексов');
+const landWord = plural(typeCounts.land, 'земельный участок', 'земельных участка', 'земельных участков');
+const mapObjects = objects.map(({ id, data }) => ({
+  id, title: data.title, area: data.area, address: data.address, coords: data.coords,
 }));
 ---
 <BaseLayout title="Каталог объектов — ММ Пром" description="Каталог производственной недвижимости Санкт-Петербурга и Ленинградской области: индустриальные парки, производственно-складские комплексы и земельные участки. Фильтры по типу, сделке, площади и локации, интерактивная карта.">
@@ -500,39 +510,6 @@ const modalObjects = objects.map(({ id, data }) => ({
     .cat-empty h2{margin:12px 0 6px;font-size:var(--fs-h3)}
     .cat-empty p{margin:0 0 18px;color:var(--text-muted)}
 
-    /* ── Модальное окно ──────────────────────────────────────────────── */
-    .obj-modal{width:min(900px,calc(100vw - 32px));max-height:calc(100vh - 48px);padding:0;border:0;border-radius:var(--radius);background:#fff;color:var(--text);box-shadow:0 24px 80px rgba(11,27,51,.35);overflow:hidden}
-    .obj-modal::backdrop{background:rgba(14,0,40,.55);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
-    .obj-modal__inner{display:flex;flex-direction:column;max-height:calc(100vh - 48px)}
-    .obj-modal__head{position:relative;display:flex;flex-direction:column;gap:10px;padding:24px 64px 18px 24px;border-bottom:1px solid var(--border)}
-    .obj-modal__badges{display:flex;flex-wrap:wrap;gap:6px}
-    .obj-modal__head h2{margin:0;font-size:clamp(1.25rem,1.1rem + .6vw,1.6rem);line-height:1.25}
-    .obj-modal__addr{margin:0;color:var(--text-muted);font-size:var(--fs-small);display:flex;gap:6px;align-items:flex-start}
-    .obj-modal__addr .material-symbols-outlined{font-size:17px;color:var(--purple);flex:0 0 auto;margin-top:2px}
-    .obj-modal__close{position:absolute;top:14px;right:14px;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--border);border-radius:50%;background:#fff;color:var(--text);cursor:pointer}
-    .obj-modal__close:hover{border-color:var(--purple);color:var(--purple)}
-    .obj-modal__body{display:grid;gap:0;overflow:auto}
-    .obj-modal__media{background:var(--surface);min-height:220px;position:relative}
-    .obj-modal__media img{display:block;width:100%;height:100%;max-height:340px;object-fit:cover}
-    .obj-modal__media img.is-broken{display:none}
-    .obj-modal__content{padding:22px 24px 26px;display:flex;flex-direction:column;gap:18px}
-    .obj-modal__desc{margin:0;color:var(--text-muted);font-size:1rem;line-height:1.65}
-    .obj-modal__specs{display:grid;gap:10px;margin:0;padding:0;list-style:none}
-    .obj-modal__specs li{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;padding-bottom:10px;border-bottom:1px solid var(--border)}
-    .obj-modal__specs li:last-child{border-bottom:0;padding-bottom:0}
-    .obj-modal__specs .material-symbols-outlined{font-size:20px;color:var(--purple);margin-top:1px}
-    .obj-modal__specs dt{font-size:var(--fs-small);color:var(--text-muted);margin:0}
-    .obj-modal__specs dd{margin:2px 0 0;font-weight:600;font-size:.95rem;line-height:1.45}
-    .obj-modal__price{display:flex;align-items:baseline;gap:8px;padding:14px 16px;border-radius:var(--radius-sm);background:var(--purple-soft)}
-    .obj-modal__price span{font-size:var(--fs-small);color:var(--text-muted)}
-    .obj-modal__price strong{font-size:1.15rem;color:var(--purple)}
-    .obj-modal__actions{display:flex;flex-wrap:wrap;gap:10px}
-    @media (min-width:768px){
-      .obj-modal__body{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
-      .obj-modal__media{min-height:100%}
-      .obj-modal__media img{height:100%;max-height:none}
-    }
-    .map-cluster-label{display:flex;align-items:center;justify-content:center;width:100%;height:100%;color:#fff;font-weight:800;font-size:14px;line-height:1;text-shadow:0 1px 2px rgba(14,0,40,.35)}
     </style>
   </Fragment>
 
@@ -545,10 +522,10 @@ const modalObjects = objects.map(({ id, data }) => ({
       <h1>Каталог объектов</h1>
       <p class="cat-head__lead">Производственная недвижимость Санкт-Петербурга и Ленинградской области: индустриальные парки, производственно-складские комплексы и земельные участки — включая объекты партнёров.</p>
       <ul class="cat-head__stats">
-        <li><strong>27</strong> объектов в каталоге</li>
-        <li><strong>4</strong> индустриальных парка</li>
-        <li><strong>15</strong> производственно-складских комплексов</li>
-        <li><strong>3</strong> земельных участка</li>
+        <li><strong>{totalCount}</strong> {objectsWord} в каталоге</li>
+        <li><strong>{typeCounts.park}</strong> {parkWord}</li>
+        <li><strong>{typeCounts.warehouse}</strong> {warehouseWord}</li>
+        <li><strong>{typeCounts.land}</strong> {landWord}</li>
       </ul>
     </div>
   </section>
@@ -580,11 +557,11 @@ const modalObjects = objects.map(({ id, data }) => ({
         <button class="cat-reset" type="button" id="f-reset"><span class="material-symbols-outlined" aria-hidden="true">restart_alt</span>Сбросить</button>
       </div>
       <div class="cat-chips" role="group" aria-label="Тип объекта">
-        <button class="chip-f" type="button" data-type="all" aria-pressed="true">Все объекты<span class="chip-f__count">27</span></button>
-        <button class="chip-f" type="button" data-type="park" aria-pressed="false">Индустриальные парки<span class="chip-f__count">4</span></button>
-        <button class="chip-f" type="button" data-type="warehouse" aria-pressed="false">Производственно-складские<span class="chip-f__count">15</span></button>
-        <button class="chip-f" type="button" data-type="production" aria-pressed="false">Производственные<span class="chip-f__count">5</span></button>
-        <button class="chip-f" type="button" data-type="land" aria-pressed="false">Земельные участки<span class="chip-f__count">3</span></button>
+        <button class="chip-f" type="button" data-type="all" aria-pressed="true">Все объекты<span class="chip-f__count">{totalCount}</span></button>
+        <button class="chip-f" type="button" data-type="park" aria-pressed="false">Индустриальные парки<span class="chip-f__count">{typeCounts.park}</span></button>
+        <button class="chip-f" type="button" data-type="warehouse" aria-pressed="false">Производственно-складские<span class="chip-f__count">{typeCounts.warehouse}</span></button>
+        <button class="chip-f" type="button" data-type="production" aria-pressed="false">Производственные<span class="chip-f__count">{typeCounts.production}</span></button>
+        <button class="chip-f" type="button" data-type="land" aria-pressed="false">Земельные участки<span class="chip-f__count">{typeCounts.land}</span></button>
       </div>
       <div class="cat-active" id="active-filters" hidden></div>
     </div>
@@ -593,7 +570,7 @@ const modalObjects = objects.map(({ id, data }) => ({
   <section id="results" class="cat-results">
     <div class="container">
       <div class="cat-bar">
-        <p class="cat-bar__count">Найдено: <strong id="res-count">27</strong> объектов</p>
+        <p class="cat-bar__count">Найдено: <strong id="res-count">{totalCount}</strong> <span id="res-count-word">{objectsWord}</span></p>
         <div class="cat-bar__right">
           <select class="cat-select" id="f-sort" aria-label="Сортировка">
             <option value="default">По умолчанию</option>
@@ -615,7 +592,7 @@ const modalObjects = objects.map(({ id, data }) => ({
       <div id="cat-map" class="cat-map" hidden>
         <div class="cat-map__canvas-wrap">
           <div id="cat-map-canvas"></div>
-          <p class="cat-map__hint">Нажмите на метку, чтобы открыть карточку объекта</p>
+          <p class="cat-map__hint">Нажмите на метку, чтобы открыть страницу объекта</p>
         </div>
       </div>
 
@@ -635,29 +612,6 @@ const modalObjects = objects.map(({ id, data }) => ({
 </main>
 
   <Fragment slot="tail">
-    <dialog class="obj-modal" id="obj-modal" aria-labelledby="obj-modal-title">
-      <div class="obj-modal__inner">
-        <div class="obj-modal__head">
-          <div class="obj-modal__badges" id="obj-modal-badges"></div>
-          <h2 id="obj-modal-title"></h2>
-          <p class="obj-modal__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span id="obj-modal-addr"></span></p>
-          <button class="obj-modal__close" type="button" id="obj-modal-close" aria-label="Закрыть"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
-        </div>
-        <div class="obj-modal__body">
-          <div class="obj-modal__media" id="obj-modal-media"></div>
-          <div class="obj-modal__content">
-            <p class="obj-modal__desc" id="obj-modal-desc"></p>
-            <dl class="obj-modal__specs" id="obj-modal-specs"></dl>
-            <div class="obj-modal__price" id="obj-modal-price" hidden><span>Стоимость</span><strong id="obj-modal-price-val"></strong></div>
-            <div class="obj-modal__actions">
-              <SiteButton variant="gold" href="/modalka-zayavki/">Запросить условия</SiteButton>
-              <SiteButton variant="outline" href="tel:88003331010">Позвонить</SiteButton>
-            </div>
-          </div>
-        </div>
-      </div>
-    </dialog>
-
     <script is:inline>
     (function(){
       'use strict';
@@ -679,7 +633,7 @@ const modalObjects = objects.map(({ id, data }) => ({
     })();
     </script>
     <script is:inline src="https://api-maps.yandex.ru/2.1/?apikey=2ae53810-6967-43df-9165-4003eeb71cbf&lang=ru_RU" type="text/javascript"></script>
-          <script is:inline define:vars={{ modalObjects }}>window.MMPROM_OBJECTS = modalObjects;</script>
+          <script is:inline define:vars={{ mapObjects }}>window.MMPROM_OBJECTS = mapObjects;</script>
 <script is:inline src="/assets/catalog.js?v=1" defer></script>
 
     <script is:inline src="/assets/site-anim.js?v=1" defer></script>

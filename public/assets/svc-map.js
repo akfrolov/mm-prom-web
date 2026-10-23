@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
         om.add({ type: 'FeatureCollection', features: OBJ.map(function(o){
           return { type: 'Feature', id: o.id, geometry: { type: 'Point', coordinates: o.coords },
             properties: { hintContent: o.title, balloonContentHeader: o.title,
-              balloonContentBody: o.address + '<br>' + o.area + '<br><a href="/katalog/">Смотреть в каталоге</a>' } };
+              balloonContentBody: o.address + '<br>' + o.area + '<br><a href="' + (o.url || '/obekt/' + o.id + '/') + '">Страница объекта</a>' } };
         }) });
         map.geoObjects.add(om);
         if (om.getBounds()) map.setBounds(om.getBounds(), { checkZoomRange: true, zoomMargin: 40 });
