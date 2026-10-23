@@ -14,3 +14,4 @@
 | Спринт | Дата | Цель | Статус |
 |--------|------|------|--------|
 | sprint-astro-001 | 2026-10-23 | Миграция HTML → Astro (CR-2026-001, шаги 0–8 + 10): каркас, перенос 22 страниц, BaseLayout, коллекция объектов + ObjectCard, унификация каталога, вынос скриптов, регресс, workflow Pages | приёмка |
+| sprint-cr-2026-002 | 2026-10-23 | CR-2026-002, правки после миграции (31 пункт): site-shell, site-pages, objects-data, object-card, catalog, home, services, brandbooks, contacts, object-pages, articles — пути `docs/features/<slug>/`; план `.kilo/scripts/plans/sprint-cr-2026-002.tsv` | план |
