@@ -1,5 +1,5 @@
 {
-  "title": "Производственно-складской комплекс «Промбокс-2»",
+  "title": "Производственно-складской комплекс «Промбокс Шушары»",
   "type": "warehouse",
   "typeLabel": "Производственно-складской комплекс",
   "deal": [
@@ -11,9 +11,9 @@
     "sale"
   ],
   "area": "1 500–3 780 м²",
-  "areaNum": 1500,
+  "areaNum": 3780,
   "location": "spb",
-  "address": "ЛО, Шушары, Московское шоссе, 155 к1",
+  "address": "Санкт-Петербург, Пушкинский р-н, Московское шоссе, 155, к. 1",
   "district": "Пушкинский район",
   "desc": "Комплекс класса A: 1 711 м² без колонн, высота 9 м, нагрузка 5 т/м², возможна установка кран-балки.",
   "specs": [
@@ -54,9 +54,9 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/external/inv-47df520c-osnovnaya.jpg",
+  "image": "/assets/objects/promboks2/cover.jpg",
   "images": [
-    "/assets/external/inv-47df520c-osnovnaya.jpg"
+    "/assets/objects/promboks2/cover.jpg"
   ],
   "external": "",
   "coords": [
@@ -64,6 +64,6 @@
     30.45
   ],
   "busy": false,
-  "sort": 18,
-  "group": "partners"
+  "sort": 23,
+  "group": "prom"
 }

@@ -1,0 +1,46 @@
+{
+  "title": "Логистический комплекс «CARVILLE»",
+  "type": "warehouse",
+  "typeLabel": "Логистический комплекс",
+  "deal": [
+    "Аренда"
+  ],
+  "dealTypes": [
+    "rent"
+  ],
+  "area": "9 353 м²",
+  "areaNum": 9353,
+  "location": "lo",
+  "address": "Ленинградская обл., Тосненский р-н, ГП Красный Бор",
+  "district": "Тосненский район",
+  "desc": "Логистический комплекс в Красном Бору: 9 353 м² в аренду.",
+  "specs": [
+    [
+      "square_foot",
+      "Площадь",
+      "9 353 м²"
+    ],
+    [
+      "place",
+      "Локация",
+      "Тосненский район"
+    ],
+    [
+      "key",
+      "Форма сделки",
+      "аренда"
+    ]
+  ],
+  "price": "по запросу",
+  "image": "/assets/objects/carville/cover.jpg",
+  "images": [
+    "/assets/objects/carville/cover.jpg"
+  ],
+  "coords": [
+    59.6785,
+    30.684
+  ],
+  "busy": false,
+  "sort": 20,
+  "group": "prom"
+}

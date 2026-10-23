@@ -1,0 +1,46 @@
+{
+  "title": "Технопарк «Мебельная»",
+  "type": "park",
+  "typeLabel": "Технопарк",
+  "deal": [
+    "Аренда"
+  ],
+  "dealTypes": [
+    "rent"
+  ],
+  "area": "3 457,9 м²",
+  "areaNum": 3458,
+  "location": "spb",
+  "address": "Санкт-Петербург, Приморский р-н, ул. Мебельная, д. 5Б",
+  "district": "Приморский район",
+  "desc": "Технопарк в Приморском районе: 3 457,9 м² производственных площадей в аренду.",
+  "specs": [
+    [
+      "square_foot",
+      "Площадь",
+      "3 457,9 м²"
+    ],
+    [
+      "place",
+      "Локация",
+      "Приморский район"
+    ],
+    [
+      "key",
+      "Форма сделки",
+      "аренда"
+    ]
+  ],
+  "price": "по запросу",
+  "image": "/assets/objects/mebelnaya/cover.jpg",
+  "images": [
+    "/assets/objects/mebelnaya/cover.jpg"
+  ],
+  "coords": [
+    59.9952,
+    30.2098
+  ],
+  "busy": false,
+  "sort": 14,
+  "group": "prom"
+}

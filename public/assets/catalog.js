@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return o.url || BRAND_URLS[o.id] || '/obekt/' + o.id + '/';
       }
 
-      var grids = [document.getElementById('grid-ours'), document.getElementById('grid-partners')].filter(Boolean);
+      var grids = [document.getElementById('grid-ours'), document.getElementById('grid-prom'), document.getElementById('grid-external')].filter(Boolean);
       var cards = [];
       grids.forEach(function(g){ cards = cards.concat(Array.prototype.slice.call(g.querySelectorAll('.obj-card'))); });
       var countEl = document.getElementById('res-count');

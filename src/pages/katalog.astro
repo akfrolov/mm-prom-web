@@ -4,8 +4,12 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import ObjectCard from '../components/ObjectCard.astro';
 import { getCollection } from 'astro:content';
 const objects = (await getCollection('objects')).sort((a, b) => a.data.sort - b.data.sort);
+const typeRank: Record<string, number> = { park: 0, production: 1, warehouse: 2, land: 3 };
+const byTypeThenSort = (a: (typeof objects)[number], b: (typeof objects)[number]) =>
+  (typeRank[a.data.type] ?? 9) - (typeRank[b.data.type] ?? 9) || a.data.sort - b.data.sort;
 const ourObjects = objects.filter((o) => o.data.group === 'ours');
-const partnerObjects = objects.filter((o) => o.data.group !== 'ours');
+const promObjects = objects.filter((o) => o.data.group === 'prom').sort((a, b) => a.data.sort - b.data.sort);
+const externalObjects = objects.filter((o) => o.data.group === 'external').sort(byTypeThenSort);
 const totalCount = objects.length;
 const typeCounts = { park: 0, warehouse: 0, production: 0, land: 0 };
 objects.forEach(({ data }) => { typeCounts[data.type] += 1; });
@@ -533,7 +537,7 @@ const mapObjects = objects.map(({ id, data }) => ({
   <section id="catalog-head" class="cat-head">
     <div class="container">
       <h1>Каталог объектов</h1>
-      <p class="cat-head__lead">Производственная недвижимость Санкт-Петербурга и Ленинградской области: индустриальные парки, производственно-складские комплексы и земельные участки — включая объекты партнёров.</p>
+      <p class="cat-head__lead">Производственная недвижимость Санкт-Петербурга и Ленинградской области: наши объекты, предложения ГК Пром и сторонние площадки.</p>
       <ul class="cat-head__stats">
         <li><strong>{totalCount}</strong> {objectsWord} в каталоге</li>
         <li><strong>{typeCounts.park}</strong> {parkWord}</li>
@@ -608,13 +612,23 @@ const mapObjects = objects.map(({ id, data }) => ({
         </div>
       </section>
 
-      <section class="cat-group" id="partners">
+      <section class="cat-group" id="prom">
         <div class="cat-group__head">
-          <h2>Объекты партнёров</h2>
-          <p>Производственно-складские комплексы, производственные площади и земельные участки — остальные объекты и предложения партнёров.</p>
+          <h2>Объекты, предлагаемые ГК Пром</h2>
+          <p>Объекты партнёров из презентации ГК Пром: индустриальные парки, производственные площади и производственно-складские комплексы.</p>
         </div>
-        <div id="grid-partners" class="cat-grid">
-          {partnerObjects.map((o) => <ObjectCard obj={o} showMap />)}
+        <div id="grid-prom" class="cat-grid">
+          {promObjects.map((o) => <ObjectCard obj={o} showMap />)}
+        </div>
+      </section>
+
+      <section class="cat-group" id="external">
+        <div class="cat-group__head">
+          <h2>Сторонние объекты</h2>
+          <p>Предложения с внешних площадок — размещены в информационных целях.</p>
+        </div>
+        <div id="grid-external" class="cat-grid">
+          {externalObjects.map((o) => <ObjectCard obj={o} showMap />)}
         </div>
       </section>
 

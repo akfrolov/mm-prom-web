@@ -1,0 +1,46 @@
+{
+  "title": "Складской комплекс «Машоптторг»",
+  "type": "warehouse",
+  "typeLabel": "Складской комплекс",
+  "deal": [
+    "Аренда"
+  ],
+  "dealTypes": [
+    "rent"
+  ],
+  "area": "1 500–6 000 м²",
+  "areaNum": 6000,
+  "location": "spb",
+  "address": "Санкт-Петербург, Невский р-н, ул. Латышских Стрелков, 31",
+  "district": "Невский район",
+  "desc": "Складской комплекс на улице Латышских Стрелков: блоки от 1 500 до 6 000 м² в аренду.",
+  "specs": [
+    [
+      "square_foot",
+      "Площадь",
+      "1 500–6 000 м²"
+    ],
+    [
+      "place",
+      "Локация",
+      "Невский район"
+    ],
+    [
+      "key",
+      "Форма сделки",
+      "аренда"
+    ]
+  ],
+  "price": "по запросу",
+  "image": "/assets/objects/mashopttorg/cover.jpg",
+  "images": [
+    "/assets/objects/mashopttorg/cover.jpg"
+  ],
+  "coords": [
+    59.9329,
+    30.4468
+  ],
+  "busy": false,
+  "sort": 12,
+  "group": "prom"
+}
