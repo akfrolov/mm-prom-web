@@ -100,6 +100,7 @@ const b24Attrs = {
     .price-item dt .material-symbols-outlined{font-size:18px;color:var(--purple)}
     .price-item dd{margin:0;font-weight:800;font-size:1.0625rem;line-height:1.35}
     .b-note{margin:14px 0 0;padding:10px 14px;background:rgba(235,184,30,.12);border-left:3px solid var(--gold);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:var(--fs-small);color:var(--text-muted)}
+    @media (max-width:479px){.price-grid{grid-template-columns:1fr}}
     @media (min-width:1280px){.price-grid{grid-template-columns:repeat(3,1fr)}}
 
     /* ── Характеристики: таблица → карточки-пары на смартфоне ───────────── */
@@ -153,7 +154,7 @@ const b24Attrs = {
     <div class="object-main">
       <section id="gallery" class="b-gallery" aria-label="Фото объекта">
         <div class="gallery-media">
-          <div class="img-placeholder" aria-hidden="true">
+          <div class="img-placeholder" aria-hidden={mainImage ? 'true' : undefined}>
             <span class="material-symbols-outlined" aria-hidden="true">image</span>
             <span>{placeholderText}</span>
           </div>
