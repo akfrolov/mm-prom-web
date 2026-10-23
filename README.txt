@@ -1,49 +1,73 @@
-Сайт ММ Пром — статическая версия
-=================================
+Сайт ММ Пром — Astro (статическая сборка)
+==========================================
 
 Как открыть
 -----------
-Откройте index.html в браузере — это главная страница.
-Все страницы связаны между собой через меню и подвал. Интернет нужен
-только для шрифтов, карт Яндекс и внешних фотографий объектов.
+Node.js >= 24. Установка: `npm install`. Дев-сервер: `npm run dev`
+(http://localhost:4321). Просмотр сборки: `npm run build` → `npm run preview`.
+Интернет нужен шрифтам, картам Яндекс и внешним фотографиям объектов.
 
-Страницы
---------
-index.html           — главная
-usluga.html                    — хаб «Все услуги»
-usluga_arenda.html             — Аренда недвижимости
-usluga_prodazha.html           — Продажа недвижимости
-usluga_podbor.html             — Подбор недвижимости
-usluga_stroitelstvo.html       — Строительство
-usluga_development.html        — Девелопмент под ключ
-usluga_redevelopment.html      — Редевелопмент
-usluga_upravlenie.html         — Управление
-usluga_konsalting.html         — Промышленный консалтинг
-usluga_treyd_in.html           — Трейд-ин / Срочный выкуп
-usluga_investicii.html         — Инвестиции и финансирование
-katalog_obektov.html           — Каталог объектов: фильтры, карта, карточки
-rol_proizvodstva.html          — Роль: Производствам
-rol_zdaniya.html               — Роль: Собственникам зданий
-rol_uchastki.html              — Роль: Собственникам участков
-rol_investoram.html            — Роль: Инвесторам
-o_kompanii.html                — О компании
-kontakty.html                  — Контакты
-blog.html                      — Публикации (раздел в разработке)
-atlas-garazhnyj-brandbook.html — Атлас Гаражный
-avrora-vitebskij-brandbook.html — Аврора Витебский
+Страницы (маршруты)
+-------------------
+/                       — главная
+/uslugi/                — хаб «Все услуги»
+/arenda/                — Аренда недвижимости
+/prodazha/              — Продажа недвижимости
+/brokerage/             — Подбор недвижимости
+/stroitelstvo/          — Строительство
+/development/           — Девелопмент под ключ
+/redevelopment/         — Редевелопмент
+/upravlenie/            — Управление
+/consalting/            — Промышленный консалтинг
+/trade-in/              — Трейд-ин / Срочный выкуп
+/investcomp/            — Инвестиции и финансирование
+/katalog/               — Каталог объектов: фильтры, карта, карточки
+/proizvodstvam/         — Роль: Производствам
+/sobstvennikam-zdaniy/  — Роль: Собственникам зданий
+/sobstvennikam-uchastkov/ — Роль: Собственникам участков
+/investoram/            — Роль: Инвесторам
+/about/                 — О компании
+/contact/               — Контакты
+/blog/                  — Публикации (раздел в разработке)
+/atlas-garazhnyj/       — Атлас Гаражный
+/avrora-vitebskij/      — Аврора Витебский
 
-Файлы
------
-assets/site-anim.css           — слой анимаций
-assets/site-anim.js            — скрипт анимаций
-mmprom-logo.png                — логотип
-parnas.png, tervolovo.jpg      — локальные фото объектов
+Полная таблица «старый HTML-файл → маршрут»:
+docs/change-requests/CR-2026-001-astro-migration.md
+
+Структура
+---------
+src/layouts/BaseLayout.astro  — шапка/подвал/head (SEO, canonical, OG, Метрика)
+src/pages/<slug>.astro        — страницы (inline-стили/скрипты is:inline)
+src/components/ObjectCard.astro — карточка объекта (ленты + каталог)
+src/content/objects/<id>.json — данные 27 объектов (content collection)
+src/content.config.ts         — zod-схема коллекции
+src/pages/robots.txt.ts       — robots (env-разводка staging/prod)
+public/assets/                — общие JS/CSS (site-anim, catalog, svc-map,
+                                object-card.css)
+public/                       — логотип, локальные фото объектов
+
+Сборка окружений
+----------------
+prod (дефолт):    npm run build
+staging (noindex): MMPROM_ENV=staging ASTRO_SITE=<staging-домен> npm run build
 
 Технические заметки
 -------------------
-- Вёрстка статическая, без сборки и зависимостей.
-- Карты: Яндекс.Карты JS API, ключ встроен в страницы каталога,
-  услуг и ролей.
-- Фотографии объектов подгружаются с invest-platforma.com и mm-prom.ru
-  по прямым ссылкам.
+- Astro static, directory-формат, слэш на конце; compressHTML: false.
+- Интерактив — ванильные JS из public/assets (defer); данные на страницу —
+  window.MMPROM_* через define:vars.
+- Карты: Яндекс.Карты JS API, два ключа (страницы услуг/каталог — один,
+  брендбуки — второй); на брендбуках код карты с guard-проверкой и без
+  контейнера (мёртвый код, паритет с исходником).
+- Фотографии объектов — прямые ссылки invest-platforma.com / mm-prom.ru;
+  локальные — /parnas.png, /tervolovo.jpg.
 - Анимации отключаются при системной настройке «уменьшить движение».
+- Известные битые ссылки (до плана форм заявок): /modalka-zayavki/,
+  /kartochka-obekta/, /gejt-broshury/, /gejt-tz/.
+
+Деплой
+------
+Staging — GitHub Actions (push в main) → GitHub Pages (.github/workflows/
+deploy.yml). Prod — замена WordPress на mm-prom.ru, gated: см. DEPLOY-раздел
+AGENTS.md и CR-2026-001 (шаг 9).
