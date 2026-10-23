@@ -1,14 +1,19 @@
 /* Карточки объектов ММ Пром — канон .obj-card (CR-2026-001 шаг 5).
    Общие правила (ленты index/arenda/prodazha) + каталог-вариант .obj-card--cat.
-   Cache-busting: подключать с ?v=1 и bump при правках. */
+   Cache-busting: подключать с ?v=2 и bump при правках. */
 
 .obj-card{position:relative;display:flex;flex-direction:column;height:100%;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:box-shadow .2s ease,transform .2s ease}
 .obj-card:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
 .obj-card .img-placeholder{border:0;border-bottom:1px solid var(--border);border-radius:0;min-height:150px;flex:1 1 auto}
 .obj-card__body{display:flex;flex-direction:column;gap:8px;padding:18px;flex:1 1 auto}
 .obj-card__badges{display:flex;align-items:center;flex-wrap:wrap;justify-content:space-between;gap:8px;min-height:24px}
-.obj-card__link{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;margin:-10px -6px -10px auto;color:var(--purple)}
+.obj-card .badge--park{background:rgba(235,184,30,.18);color:#0E0028}
+.obj-card .badge--production{background:rgba(90,57,148,.12);color:#5A3994}
+.obj-card .badge--warehouse{background:rgba(14,0,40,.10);color:#0E0028}
+.obj-card .badge--land{background:#F7F5FA;border:1px solid #EBB81E;color:#0E0028}
+.obj-card__link{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;margin:-10px -6px -10px auto;color:var(--purple);text-decoration:none}
 .obj-card__link .material-symbols-outlined{font-size:20px}
+.obj-card__link:hover .material-symbols-outlined{color:var(--navy)}
 .obj-card__link::after{content:"";position:absolute;inset:0}
 .obj-card__body h3{margin:0;font-size:1.1rem;line-height:1.3}
 .obj-card__desc{margin:0;font-size:var(--fs-small);color:var(--text-muted)}
@@ -25,7 +30,6 @@
 .b-media{margin:0;display:flex;flex-direction:column;background:var(--surface)}
 .b-media img{display:block;width:100%;flex:1 1 auto;object-fit:cover}
 .b-media img.is-broken{display:none}
-.b-media figcaption{padding:8px 12px;font-size:var(--fs-small);color:var(--text-muted);border-top:1px solid var(--border)}
 
 /* Каталог-вариант (из .cat-card) */
 .obj-card--cat .obj-card__media{position:relative;aspect-ratio:16/10;background:var(--surface);overflow:hidden}
@@ -50,7 +54,7 @@
 .obj-card--cat .obj-card__fact span{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);font-weight:700}
 .obj-card--cat .obj-card__fact strong{font-size:.98rem;color:var(--text);font-weight:700;line-height:1.3}
 .obj-card--cat .obj-card__foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:12px}
-.obj-card--cat .obj-card__more{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0;border:0;background:none;color:var(--purple);font:inherit;font-weight:700;font-size:var(--fs-small);cursor:pointer}
+.obj-card--cat .obj-card__more{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0;border:0;background:none;color:var(--purple);font:inherit;font-weight:700;font-size:var(--fs-small);text-decoration:none;cursor:pointer}
 .obj-card--cat .obj-card__more .material-symbols-outlined{font-size:18px;transition:transform .2s ease}
 .obj-card--cat .obj-card__more:hover .material-symbols-outlined{transform:translateX(4px)}
 .obj-card--cat .obj-card__ext{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--purple);font-weight:700;font-size:var(--fs-small);text-decoration:none}
