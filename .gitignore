@@ -5,3 +5,6 @@
 node_modules/
 dist/
 .astro/
+
+# Локальные шаблоны (симлинк на общий vault)
+docs/templates
