@@ -46,8 +46,10 @@ Sitemap; staging (`MMPROM_ENV=staging`, `ASTRO_SITE=<staging>`) — noindex, б�
    (согласованное решение проекта).
 6. Фото объектов — прямые ссылки на invest-platforma.com / mm-prom.ru;
    локальные ассеты — в `public/` (подключение с cache-busting `?v=`).
-7. Известные битые ссылки (до плана форм заявок): `/modalka-zayavki/`,
-   `/kartochka-obekta/`, `/gejt-broshury/`, `/gejt-tz/` — не «чинить».
+7. Битых ссылок нет: CTA заявок открывают Bitrix24-попапы
+   (`src/lib/b24.ts`), бейдж «Презентация» в `ObjectCard` — форму 34
+   «Свяжитесь с нами». Целей `/modalka-zayavki/`, `/kartochka-obekta/`,
+   `/gejt-broshury/`, `/gejt-tz/` в выводе быть не должно.
 
 ## Принципы
 

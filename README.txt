@@ -65,8 +65,9 @@ staging (noindex): MMPROM_ENV=staging ASTRO_SITE=<staging-домен> npm run bu
   .jpg-двойник; BaseLayout подменяет src на .jpg при ошибке загрузки,
   og:image всегда отдаётся в .jpg/PNG).
 - Анимации отключаются при системной настройке «уменьшить движение».
-- Известные битые ссылки (до плана форм заявок): /modalka-zayavki/,
-  /kartochka-obekta/, /gejt-broshury/, /gejt-tz/.
+- Битых ссылок нет: CTA заявок и бейдж «Презентация» открывают
+  Bitrix24-попапы (src/lib/b24.ts); /modalka-zayavki/, /kartochka-obekta/,
+  /gejt-broshury/, /gejt-tz/ в выводе не используются.
 
 Деплой
 ------

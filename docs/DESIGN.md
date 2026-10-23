@@ -87,9 +87,9 @@ font-weight 700, переходы transform/shadow/background/color.
 | `btn--outline` | рамка `--purple`, фон #fff | вторичные действия, фильтры |
 | `btn--ghost-light` | рамка rgba(255,255,255,.5), текст #fff | на тёмных/градиентных фонах |
 
-Hover — подъём `translateY(-2px)` + усиление тени. Ссылочные CTA на
-`/modalka-zayavki/` — известная битая цель (см. CR-2026-001), не чинить до
-плана форм.
+Hover — подъём `translateY(-2px)` + усиление тени. CTA заявок — кнопки
+Bitrix24-попапов (`data-b24-form`, `src/lib/b24.ts`), а не ссылки на
+`/modalka-zayavki/`.
 
 ## Бейджи (`.badge`)
 

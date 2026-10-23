@@ -1,5 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { B24_FORMS } from '../lib/b24';
+import B24Loader from './B24Loader.astro';
 
 interface Props {
   obj: CollectionEntry<'objects'>;
@@ -16,6 +18,7 @@ const brandbookRoutes: Record<string, string> = {
 const href = brandbookRoutes[obj.id] ?? `/obekt/${obj.id}/`;
 const isBrandbook = obj.id in brandbookRoutes;
 const searchTitle = d.searchTitle ?? d.title.toLowerCase();
+const presentationForm = B24_FORMS.contact;
 ---
 
 {showMap ? (
@@ -62,9 +65,18 @@ const searchTitle = d.searchTitle ?? d.title.toLowerCase();
 ) : (
   <article class="obj-card reveal" style={stagger !== undefined ? `--i:${stagger}` : undefined}>
     {d.presentation && (
-      <a class="obj-card__presentation" href={d.presentation}>
-        <span class="material-symbols-outlined" aria-hidden="true">description</span>Презентация
-      </a>
+      <Fragment>
+        <B24Loader form="contact" />
+        <button
+          class="obj-card__presentation"
+          type="button"
+          aria-label={`Запросить презентацию: ${d.title}`}
+          data-b24-form={presentationForm.id}
+          data-b24-form-telemetry-sign={presentationForm.sign}
+        >
+          <span class="material-symbols-outlined" aria-hidden="true">description</span>Презентация
+        </button>
+      </Fragment>
     )}
     {d.media ? (
       <figure class="b-media">

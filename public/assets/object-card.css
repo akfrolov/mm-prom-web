@@ -22,7 +22,7 @@
 .obj-card__meta .material-symbols-outlined{font-size:18px;color:var(--purple)}
 .obj-card__meta .icon-loc{flex:0 0 auto}
 .obj-card__meta strong{color:var(--text);font-weight:600}
-.obj-card__presentation{position:absolute;top:12px;left:12px;z-index:2;display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--text);font-size:var(--fs-small);font-weight:600;text-decoration:none;box-shadow:0 4px 14px rgba(11,27,51,.12)}
+.obj-card__presentation{position:absolute;top:12px;left:12px;z-index:2;display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--text);font-family:inherit;font-size:var(--fs-small);font-weight:600;line-height:inherit;text-decoration:none;cursor:pointer;appearance:none;box-shadow:0 4px 14px rgba(11,27,51,.12)}
 .obj-card__presentation .material-symbols-outlined{font-size:18px}
 .obj-card__presentation:hover{border-color:var(--purple);color:var(--purple)}
 .obj-card .b-media img{aspect-ratio:16/10}
