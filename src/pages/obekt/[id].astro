@@ -1,0 +1,248 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+
+// Страница объекта /obekt/<id>/ (SPEC object-pages, блок B1).
+// Брендбуки /atlas-garazhnyj/ и /avrora-vitebskij/ — отдельные маршруты фичи
+// brandbooks, на /obekt/ не попадают.
+export async function getStaticPaths() {
+  const objects = await getCollection('objects');
+  const brandbookIds = new Set(['atlas-garazhny', 'avrora-vitebsky']);
+  return objects
+    .filter((entry) => !brandbookIds.has(entry.id))
+    .map((entry) => ({ params: { id: entry.id }, props: { obj: entry } }));
+}
+
+interface Props {
+  obj: CollectionEntry<'objects'>;
+}
+
+const { obj } = Astro.props;
+const d = obj.data;
+
+const heroTitle = d.hero?.title ?? d.title;
+const heroText = d.hero?.text;
+const gallery = d.images ?? [];
+const mainImage = d.hero?.image ?? (gallery.length > 0 ? gallery[0] : d.image) ?? '';
+// OG-изображение объекта — первое фото галереи, иначе фото карточки (§3.2).
+const ogImage = gallery[0] ?? d.image ?? undefined;
+const pageTitle = `${d.title} — карточка объекта — ММ Пром`;
+const pageDescription = heroText ?? d.desc;
+const keySpecs = d.specs.slice(0, 3);
+const price = d.price.trim() || 'по запросу';
+const placeholderText = d.placeholder ?? d.title;
+const singlePhoto = gallery.length <= 1;
+const caption = d.media?.caption && singlePhoto ? d.media.caption : '';
+const ctaTitle = d.cta?.title ?? 'Нужна консультация по объекту?';
+const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуникациям и срокам заезда. Покажем объект в удобное время.';
+// Механика формы №34 — click-вариант (loader_34.js подключён в хвосте BaseLayout).
+const b24Attrs = {
+  'data-b24-form': 'click/34/0ph3wy',
+  'data-b24-form-telemetry-sign':
+    'v1:34:site.b62d3cf56414758a8a11ec9af534ac54810f3b8241a479ddb796adfd2f3d5e4c',
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} ogImage={ogImage}>
+  <Fragment slot="head">
+    <style is:inline>
+    /* ═══════════════════════════════════════════════════════════════════════
+       ММ ПРОМ — карточка объекта /obekt/<id>/ (SPEC object-pages, блок B1)
+       Токены — из base.css (navy/purple/gold, Manrope+Inter).
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    /* ── Каркас: контент + sticky-колонка CTA ───────────────────────────── */
+    body{padding-bottom:72px}
+    .object-shell{margin-top:8px;padding-bottom:48px}
+    .object-main{min-width:0}
+    .object-main>section{margin:0 0 40px}
+    @media (min-width:1024px){
+      body{padding-bottom:0}
+      .object-shell{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:40px;align-items:start}
+      .object-aside{position:sticky;top:88px}
+    }
+
+    /* ── Чипы типа и статуса (канон object-card) ────────────────────────── */
+    .badge{display:inline-flex;align-items:center;gap:6px;min-height:26px;padding:3px 12px;border-radius:999px;font-size:var(--fs-small);font-weight:700}
+    .badge--park{background:rgba(235,184,30,.18);color:var(--navy)}
+    .badge--production{background:rgba(90,57,148,.12);color:var(--purple)}
+    .badge--warehouse{background:rgba(14,0,40,.10);color:var(--navy)}
+    .badge--land{background:#F7F5FA;border:1px solid var(--gold);color:var(--navy)}
+    .badge--busy{background:rgba(14,0,40,.72);color:#fff}
+
+    /* ── Заглушка изображения ───────────────────────────────────────────── */
+    .img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius);color:var(--text-muted);font-size:var(--fs-small);min-height:180px;padding:16px;text-align:center}
+    .img-placeholder .material-symbols-outlined{font-size:36px;color:var(--border)}
+
+    /* ── Первый экран: главное фото (ветки «одно фото»/«нет фото») ──────── */
+    .gallery-media{position:relative;min-height:260px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+    .gallery-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .gallery-media img.is-broken{display:none}
+    .gallery-media .img-placeholder{position:absolute;inset:0;min-height:0;border:0;border-radius:0;background:transparent}
+    .gallery-caption{margin:8px 0 0;font-size:var(--fs-small);color:var(--text-muted)}
+    @media (min-width:768px){.gallery-media{min-height:380px}}
+    @media (min-width:1024px){.gallery-media{min-height:440px}}
+
+    /* ── Заголовок объекта ──────────────────────────────────────────────── */
+    .b-object-head h1{margin:8px 0}
+    .obj-head__badges{display:flex;flex-wrap:wrap;gap:6px}
+    .obj-head__meta{margin:0 0 8px;font-size:var(--fs-small);color:var(--text-muted)}
+    .obj-head__desc{margin:0;max-width:72ch;color:var(--text-muted)}
+
+    /* ── Ключевые параметры ─────────────────────────────────────────────── */
+    .b-price{padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
+    .b-price h2{font-size:var(--fs-h3);margin:0 0 12px}
+    .price-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px 16px;margin:0}
+    .price-item{min-width:0}
+    .price-item dt{display:flex;align-items:center;gap:6px;font-size:var(--fs-small);color:var(--text-muted)}
+    .price-item dt .material-symbols-outlined{font-size:18px;color:var(--purple)}
+    .price-item dd{margin:0;font-weight:800;font-size:1.0625rem;line-height:1.35}
+    .b-note{margin:14px 0 0;padding:10px 14px;background:rgba(235,184,30,.12);border-left:3px solid var(--gold);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:var(--fs-small);color:var(--text-muted)}
+    @media (min-width:1280px){.price-grid{grid-template-columns:repeat(3,1fr)}}
+
+    /* ── Характеристики: таблица → карточки-пары на смартфоне ───────────── */
+    .b-specs h2,.b-about h2{margin:0 0 12px}
+    .table-wrap{background:#fff;border:1px solid var(--border);border-radius:var(--radius)}
+    .specs-table{width:100%;border-collapse:collapse}
+    .specs-table th,.specs-table td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+    .specs-table tr:last-child th,.specs-table tr:last-child td{border-bottom:0}
+    .specs-table th{width:44%;font-weight:600;color:var(--text-muted)}
+    @media (max-width:767px){
+      .table-wrap{background:transparent;border:0;border-radius:0}
+      .specs-table{display:block}
+      .specs-table tbody{display:grid;gap:8px}
+      .specs-table tr{display:block;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:4px 16px}
+      .specs-table th,.specs-table td{display:block;width:auto;padding:6px 0;border:0}
+      .specs-table td{font-weight:700}
+    }
+
+    /* ── Описание ───────────────────────────────────────────────────────── */
+    .b-about p{margin:0;max-width:72ch;color:var(--text-muted)}
+
+    /* ── CTA-панель: sticky справа (≥1024) / фиксированный бар снизу ────── */
+    .b-cta-panel{margin:0}
+    .cta-card{display:none;padding:20px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .cta-card h2{font-size:var(--fs-h3);margin:0 0 6px}
+    .cta-card__text{margin:0 0 12px;font-size:var(--fs-small);color:var(--text-muted)}
+    .cta-form{display:grid;gap:8px;margin:0 0 12px}
+    .cta-form .btn{width:100%}
+    .cta-card__phone{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:700;color:var(--text);text-decoration:none}
+    .cta-card__phone .material-symbols-outlined{color:var(--purple)}
+    .cta-card__phone:hover{color:var(--purple)}
+    .cta-bar{position:fixed;left:0;right:0;bottom:0;z-index:45;display:flex;gap:8px;padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));background:#fff;border-top:1px solid var(--border);box-shadow:0 -4px 16px rgba(11,27,51,.12)}
+    .cta-bar .btn{flex:1 1 auto;padding:12px 8px;font-size:0.9375rem}
+    @media (min-width:1024px){
+      .cta-card{display:block}
+      .cta-bar{display:none}
+    }
+    </style>
+  </Fragment>
+
+  <!-- Хлебные крошки: компонент Breadcrumbs (site-pages), якорь #breadcrumbs -->
+  <Breadcrumbs
+    items={[
+      { href: '/', label: 'Главная' },
+      { href: '/katalog/', label: 'Каталог' },
+      { label: d.title },
+    ]}
+  />
+
+  <div class="container object-shell">
+    <div class="object-main">
+      <section id="gallery" class="b-gallery" aria-label="Фото объекта">
+        <div class="gallery-media">
+          <div class="img-placeholder" aria-hidden="true">
+            <span class="material-symbols-outlined" aria-hidden="true">image</span>
+            <span>{placeholderText}</span>
+          </div>
+          {mainImage && (
+            <img
+              src={mainImage}
+              alt={d.title}
+              loading="eager"
+              onerror="this.classList.add('is-broken')"
+            />
+          )}
+        </div>
+        {caption && <p class="gallery-caption">{caption}</p>}
+      </section>
+
+      <section id="object-head" class="b-object-head">
+        <div class="obj-head__badges">
+          <span class={`badge badge--${d.type}`}>{d.typeLabel}</span>
+          {d.busy && <span class="badge badge--busy">Нет площадей</span>}
+        </div>
+        <h1>{heroTitle}</h1>
+        <p class="obj-head__meta">{d.address} · {d.deal.join(' / ')}</p>
+        <p class="obj-head__desc">{d.desc}</p>
+      </section>
+
+      <section id="key-params" class="b-price">
+        <h2>Ключевые параметры</h2>
+        <dl class="price-grid">
+          {keySpecs.map(([icon, label, value]) => (
+            <div class="price-item">
+              <dt><span class="material-symbols-outlined" aria-hidden="true">{icon}</span>{label}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))}
+          <div class="price-item">
+            <dt><span class="material-symbols-outlined" aria-hidden="true">square_foot</span>Площадь</dt>
+            <dd>{d.area}</dd>
+          </div>
+          <div class="price-item">
+            <dt><span class="material-symbols-outlined" aria-hidden="true">payments</span>Цена</dt>
+            <dd>{price}</dd>
+          </div>
+        </dl>
+        {d.busy && <p class="b-note">Нет свободных площадей</p>}
+      </section>
+
+      <section id="specs" class="b-specs">
+        <h2>Характеристики</h2>
+        <div class="table-wrap">
+          <table class="specs-table">
+            <tbody>
+              {d.specs.map(([, label, value]) => (
+                <tr>
+                  <th scope="row">{label}</th>
+                  <td>{value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="about" class="b-about">
+        <h2>Об объекте</h2>
+        <p>{heroText ?? d.desc}</p>
+      </section>
+    </div>
+
+    <aside class="object-aside">
+      <section id="cta" class="b-cta-panel" aria-label="Заявка по объекту">
+        <div class="cta-card">
+          <h2>{ctaTitle}</h2>
+          <p class="cta-card__text">{ctaText}</p>
+          <div class="cta-form">
+            <button class="btn btn--purple" type="button" {...b24Attrs}>Оставить заявку</button>
+            {d.cta?.href && d.cta?.label && (
+              <a class="btn btn--outline" href={d.cta.href}>{d.cta.label}</a>
+            )}
+          </div>
+          <a class="cta-card__phone" href="tel:88003331010">
+            <span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10
+          </a>
+        </div>
+
+        <div class="cta-bar">
+          <button class="btn btn--purple" type="button" {...b24Attrs}>Оставить заявку</button>
+          <a class="btn btn--outline" href="tel:88003331010">Позвонить</a>
+        </div>
+      </section>
+    </aside>
+  </div>
+</BaseLayout>
