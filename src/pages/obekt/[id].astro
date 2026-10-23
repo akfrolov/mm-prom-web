@@ -14,7 +14,7 @@ export async function getStaticPaths() {
   const brandbookIds = new Set(['atlas-garazhny', 'avrora-vitebsky']);
   const pages = objects.filter((entry) => !brandbookIds.has(entry.id));
 
-  // Похожие объекты (§8): приоритет того же типа, дозаполнение до 4 по
+  // Похожие объекты (§8): приоритет того же типа, дозаполнение до 2 по
   // минимальной разнице areaNum (записи с null — в конце), вывод — по sort
   // коллекции в пределах групп. Решение агента — на ревью владельца (§13.4).
   const bySort = (a: CollectionEntry<'objects'>, b: CollectionEntry<'objects'>) => a.data.sort - b.data.sort;
@@ -26,7 +26,7 @@ export async function getStaticPaths() {
   return pages.map((entry) => {
     const others = objects.filter((other) => other.id !== entry.id);
     const sameType = others.filter((other) => other.data.type === entry.data.type).sort(bySort);
-    const sameTypeSelected = sameType.slice(0, 4);
+    const sameTypeSelected = sameType.slice(0, 2);
     const selectedIds = new Set(sameTypeSelected.map((other) => other.id));
     const rest = others
       .filter((other) => !selectedIds.has(other.id))
@@ -36,7 +36,7 @@ export async function getStaticPaths() {
         if (da !== db) return da - db;
         return bySort(a, b);
       })
-      .slice(0, Math.max(0, 4 - sameTypeSelected.length))
+      .slice(0, Math.max(0, 2 - sameTypeSelected.length))
       .sort(bySort);
     return {
       params: { id: entry.id },
@@ -68,7 +68,10 @@ const isMultiGallery = photoList.length > 1;
 const ogImage = gallery[0] ?? d.image ?? undefined;
 const pageTitle = `${d.title} — карточка объекта — ММ Пром`;
 const pageDescription = heroText ?? d.desc;
-const keySpecs = d.specs.slice(0, 3);
+// Ключевые параметры: площадь выводится отдельной плиткой, поэтому строки
+// specs с тем же значением (обычно «Общая площадь»/«Площадь») не дублируем.
+const areaValue = d.area.trim();
+const keySpecs = d.specs.filter(([, , value]) => value.trim() !== areaValue).slice(0, 3);
 const price = d.price.trim() || 'по запросу';
 const placeholderText = d.placeholder ?? d.title;
 const singlePhoto = photoList.length === 1;
@@ -167,16 +170,16 @@ const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуни
     /* ── Описание ───────────────────────────────────────────────────────── */
     .b-about p{margin:0;max-width:72ch;color:var(--text-muted)}
 
-    /* ── Расположение: карта + мета-колонка ─────────────────────────────── */
+    /* ── Расположение: карта во всю ширину + мета-строка под ней ─────────── */
     .b-location h2,.b-similar h2{margin:0 0 12px}
-    .obj-map-canvas{position:relative;min-height:260px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-    @media (min-width:768px){.obj-map-canvas{min-height:380px}}
-    @media (min-width:1024px){.obj-map-canvas{min-height:440px;height:100%}}
-    .loc-meta{margin:0;display:grid;gap:10px;align-content:start}
+    .obj-map-canvas{position:relative;min-height:320px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+    @media (min-width:768px){.obj-map-canvas{min-height:420px}}
+    @media (min-width:1024px){.obj-map-canvas{min-height:480px}}
+    .loc-meta{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:10px 24px;align-content:start}
     .loc-meta li{display:flex;align-items:flex-start;gap:8px;color:var(--text-muted);font-size:var(--fs-small);line-height:1.45}
     .loc-meta li .material-symbols-outlined{font-size:18px;color:var(--purple);flex:0 0 auto;margin-top:2px}
     .loc-meta li strong{color:var(--text)}
-    .loc-note{margin:10px 0 0;font-size:var(--fs-small);color:var(--text-muted)}
+    @media (min-width:768px){.loc-meta{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
     /* ── Похожие объекты ────────────────────────────────────────────────── */
     .b-similar{padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
@@ -301,35 +304,26 @@ const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуни
 
       <section id="location" class="b-location">
         <h2>Расположение на карте</h2>
-        <div class="grid grid--2">
-          <div id="obj-map-canvas" class="obj-map-canvas" role="region" aria-label={`Карта: ${d.address}`}></div>
-          <div>
-            <ul class="loc-meta">
-              <li>
-                <span class="material-symbols-outlined" aria-hidden="true">place</span>
-                <span><strong>Адрес:</strong> {d.address}</span>
-              </li>
-              <li>
-                <span class="material-symbols-outlined" aria-hidden="true">location_city</span>
-                <span><strong>Район:</strong> {d.district}</span>
-              </li>
-              <li>
-                <span class="material-symbols-outlined" aria-hidden="true">square_foot</span>
-                <span><strong>Площадь:</strong> {d.area}</span>
-              </li>
-              <li>
-                <span class="material-symbols-outlined" aria-hidden="true">handshake</span>
-                <span><strong>Сделки:</strong> {d.deal.join(' / ')}</span>
-              </li>
-            </ul>
-            <p class="loc-note">Карта: {d.address}</p>
-          </div>
-        </div>
+        <div id="obj-map-canvas" class="obj-map-canvas" role="region" aria-label={`Карта: ${d.address}`}></div>
+        <ul class="loc-meta">
+          <li>
+            <span class="material-symbols-outlined" aria-hidden="true">place</span>
+            <span><strong>Адрес:</strong> {d.address}</span>
+          </li>
+          <li>
+            <span class="material-symbols-outlined" aria-hidden="true">location_city</span>
+            <span><strong>Район:</strong> {d.district}</span>
+          </li>
+          <li>
+            <span class="material-symbols-outlined" aria-hidden="true">handshake</span>
+            <span><strong>Сделки:</strong> {d.deal.join(' / ')}</span>
+          </li>
+        </ul>
       </section>
 
       <section id="similar" class="b-similar section--tint" aria-labelledby="similar-title">
         <h2 id="similar-title">Похожие объекты</h2>
-        <div class="grid grid--4 b-similar__grid">
+        <div class="grid grid--2 b-similar__grid">
           {similar.map((item) => <ObjectCard obj={item} showMap={false} />)}
         </div>
         <div class="b-similar__more">
@@ -344,7 +338,7 @@ const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуни
           <h2>{ctaTitle}</h2>
           <p class="cta-card__text">{ctaText}</p>
           <div class="cta-form">
-            <SiteButton variant="purple" b24="request">Оставить заявку</SiteButton>
+            <SiteButton variant="purple" b24="request">Получить консультацию</SiteButton>
             {d.cta?.href && d.cta?.label && (
               <a class="btn btn--outline" href={d.cta.href}>{d.cta.label}</a>
             )}
@@ -355,7 +349,7 @@ const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуни
         </div>
 
         <div class="cta-bar">
-          <SiteButton variant="purple" b24="request">Оставить заявку</SiteButton>
+          <SiteButton variant="purple" b24="request">Получить консультацию</SiteButton>
           <a class="btn btn--outline" href="tel:88003331010">Позвонить</a>
         </div>
       </section>
