@@ -1,13 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import MapSection from '../components/MapSection.astro';
 import RoleCard from '../components/RoleCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import SiteButton from '../components/SiteButton.astro';
-import { getCollection } from 'astro:content';
-const objects = (await getCollection('objects')).sort((a, b) => a.data.sort - b.data.sort);
-const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coords: data.coords, address: data.address, area: data.area }));
 ---
 <BaseLayout title="Редевелопмент — ММ Пром" description="Редевелопмент от ММ Пром: реконструкция и реновация существующих зданий. Технический аудит конструкций, проект модернизации и строительно-монтажные работы. Превращаем устаревшие советские заводы и административные корпуса в современные производственные зоны, технопарки и индустриальные объекты.">
   <Fragment slot="head">
@@ -671,12 +667,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     </div>
   </section>
 
-  <MapSection objects={mapObjects} secIndex="07" />
-
-  <script is:inline src="https://api-maps.yandex.ru/2.1/?apikey=2ae53810-6967-43df-9165-4003eeb71cbf&lang=ru_RU" type="text/javascript"></script>
-    <script is:inline src="/assets/svc-map.js?v=1" defer></script>
-
-  <CtaBand variant="grad" id="cta" secIndex="08" heading="Реконструкция или новое строительство?" lede="Оставьте заявку — проведём технический аудит объекта и подготовим технико-экономическое обоснование с расчётом ROI по обоим сценариям." buttons={[
+  <CtaBand variant="grad" id="cta" secIndex="07" heading="Реконструкция или новое строительство?" lede="Оставьте заявку — проведём технический аудит объекта и подготовим технико-экономическое обоснование с расчётом ROI по обоим сценариям." buttons={[
           { variant: "gold", href: "/modalka-zayavki/", label: "Оставить заявку" },
           { variant: "ghost-light", href: "/katalog/", label: "Смотреть объекты" }
         ]} />
@@ -684,7 +675,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
   <section id="uslugi" class="b-others section">
     <div class="container">
       <div class="b-sec-head reveal">
-        <p class="sec-index" aria-hidden="true">09</p>
+        <p class="sec-index" aria-hidden="true">08</p>
         <h2>Другие услуги</h2>
 
       </div>
