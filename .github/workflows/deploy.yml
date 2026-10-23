@@ -1,16 +1,13 @@
 # Staging-деплой на GitHub Pages (CR-2026-001 шаг 8).
 #
-# ВАЖНО (открытый вопрос владельца — выбор staging-домена):
-# - Сайт собирается без `base` (все ссылки/ассеты корневые), поэтому проектный
-#   URL вида https://<owner>.github.io/<repo>/ работать НЕ будет.
-# - Вариант A (кастомный домен, рекомендация): DNS-запись staging.mm-prom.ru
-#   → Pages, файл public/CNAME добавить при включении домена, переменную
-#   репозитория ASTRO_SITE_STAGING = https://staging.mm-prom.ru.
-# - Вариант B: пользовательская страница <owner>.github.io (корень домена).
-# - Переменная задатся в Settings → Secrets and variables → Actions →
-#   Variables → ASTRO_SITE_STAGING (ниже — дефолт-заглушка).
-# - Яндекс.Карты: staging-домен + localhost добавить в allowed-domains ОБОИХ
-#   ключей (ограничения применяются ~15 минут).
+# Домен staging — ВЫБРАН владельцем: test.mm-prom.ru (CNAME в корне репо и в
+# public/, попадает в dist/). Сайт собирается без `base` (все ссылки/ассеты
+# корневые), поэтому проектный URL вида https://<owner>.github.io/<repo>/
+# работать не будет.
+# Переменная репозитория ASTRO_SITE_STAGING (Settings → Secrets and
+# variables → Actions → Variables) переопределяет дефолт ниже.
+# Яндекс.Карты: test.mm-prom.ru + localhost добавить в allowed-domains ОБОИХ
+# ключей (ограничения применяются ~15 минут).
 
 name: Deploy staging to GitHub Pages
 
@@ -29,7 +26,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  ASTRO_SITE_STAGING: ${{ vars.ASTRO_SITE_STAGING || 'https://staging.mm-prom.ru' }}
+  ASTRO_SITE_STAGING: ${{ vars.ASTRO_SITE_STAGING || 'https://test.mm-prom.ru' }}
 
 jobs:
   build:
