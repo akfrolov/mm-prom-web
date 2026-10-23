@@ -78,8 +78,11 @@ p{margin:0 0 1em}
 
 /* ── Мегаменю «Услуги»: центрированный оверлей (≥1024, W2.1) ───────────
    До 1024px панель не активируется (там мобильный drawer). */
-.site-header__nav .nav-item--has-mega > button{display:inline-flex;align-items:center;min-height:44px;padding:8px 14px;color:var(--text);text-decoration:none;font-weight:600;white-space:nowrap;border-radius:8px;background:none;border:0;cursor:pointer;font-family:inherit;font-size:inherit;line-height:inherit}
+.site-header__nav .nav-item--has-mega > button{display:inline-flex;align-items:center;gap:2px;min-height:44px;padding:8px 14px;color:var(--text);text-decoration:none;font-weight:600;white-space:nowrap;border-radius:8px;background:none;border:0;cursor:pointer;font-family:inherit;font-size:inherit;line-height:inherit}
 .site-header__nav .nav-item--has-mega > button:hover{color:var(--purple);background:var(--purple-soft)}
+.site-header__mega-chevron{font-size:20px;transition:transform .2s var(--ease-soft, ease-out)}
+.site-header__mega-trigger[aria-expanded="true"] .site-header__mega-chevron{transform:rotate(180deg)}
+@media (prefers-reduced-motion:reduce){.site-header__mega-chevron{transition:none}}
 
 .mega-overlay{position:fixed;inset:0;z-index:70}
 .mega-overlay[hidden]{display:none}
