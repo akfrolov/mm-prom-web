@@ -1,0 +1,16 @@
+/* ── Карточка реализованного проекта: галерея + полный состав работ ── */
+
+.proj-card__media{position:relative;flex:0 0 auto;background:var(--surface);border-bottom:1px solid var(--border);overflow:hidden}
+.proj-card__track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;aspect-ratio:16/10}
+.proj-card__shot{flex:0 0 100%;margin:0;scroll-snap-align:start}
+.proj-card__shot img{display:block;width:100%;height:100%;object-fit:cover}
+.proj-card__count{position:absolute;right:12px;bottom:12px;padding:4px 10px;border-radius:999px;background:rgba(14,0,40,.78);color:#fff;font-size:var(--fs-small);font-weight:600;letter-spacing:.02em;pointer-events:none}
+.proj-card__note{margin:0;color:var(--text-muted);font-size:var(--fs-small);line-height:1.55}
+.proj-card__details{margin-top:auto;padding-top:14px;border-top:1px solid var(--border)}
+.proj-card__details summary{cursor:pointer;font-size:var(--fs-small);font-weight:700;color:var(--purple)}
+.proj-card__details summary:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+.proj-card__details-title{margin:14px 0 6px;font-size:var(--fs-small);font-weight:700;color:var(--navy)}
+.proj-card__list{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.proj-card__list li{position:relative;padding-left:16px;color:var(--text-muted);font-size:var(--fs-small);line-height:1.5}
+.proj-card__list li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.proj-card__list--specs li::before{border-radius:1px;background:var(--purple)}

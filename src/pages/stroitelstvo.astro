@@ -4,9 +4,12 @@ import RoleCard from '../components/RoleCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import SiteButton from '../components/SiteButton.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { stroitelstvoProjects } from '../data/projects';
 ---
 <BaseLayout title="Строительство — ММ Пром" description="Строительство промышленных объектов от ММ Пром: реализуем проекты любой сложности по проектной документации, строительным нормам и утверждённому бюджету. Фиксированная финальная цена, контроль качества материалов и сроков. Запросите смету вашего будущего объекта.">
   <Fragment slot="head">
+    <link rel="stylesheet" href="/assets/project-card.css?v=1">
     <style is:inline>
     /* ═══════════════════════════════════════════════════════════════════════
        ММ ПРОМ — ГЛАВНАЯ СТРАНИЦА
@@ -563,49 +566,10 @@ import SiteButton from '../components/SiteButton.astro';
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">03</p>
         <h2>Реализованные проекты</h2>
-
+        <p class="b-projects__lead">За 2019-2025 годы были реализованы следующие проекты:</p>
       </div>
       <div class="b-projects__grid">
-        <article class="proj-card reveal" style="--i:0">
-          <div class="img-placeholder" data-img="Фото: Производственный корпус"><span class="material-symbols-outlined" aria-hidden="true">image</span>Фото: Производственный корпус</div>
-          <div class="proj-card__body">
-            <div class="proj-card__badges"><span class="badge badge--type">Строительство</span></div>
-            <h3>Производственный корпус</h3>
-            <p class="proj-card__customer">Заказчик — ООО «РусТелКом»</p>
-
-            <ul class="proj-card__meta"><li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>Общая площадь: 4 008 м²</span></li><li><span class="material-symbols-outlined" aria-hidden="true">map</span><span>Участок: 10 499 м²</span></li><li><span class="material-symbols-outlined" aria-hidden="true">apartment</span><span>Этажей: 3</span></li></ul>
-          </div>
-        </article>
-        <article class="proj-card reveal" style="--i:1">
-          <div class="img-placeholder" data-img="Фото: Производственно-складское здание"><span class="material-symbols-outlined" aria-hidden="true">image</span>Фото: Производственно-складское здание</div>
-          <div class="proj-card__body">
-            <div class="proj-card__badges"><span class="badge badge--type">Строительство</span></div>
-            <h3>Производственно-складское здание</h3>
-            <p class="proj-card__customer">Заказчик — ООО «УК «Карлино»</p>
-
-            <ul class="proj-card__meta"><li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>Общая площадь: 24 224 м²</span></li><li><span class="material-symbols-outlined" aria-hidden="true">map</span><span>Участок: 48 841 м²</span></li></ul>
-          </div>
-        </article>
-        <article class="proj-card reveal" style="--i:2">
-          <div class="img-placeholder" data-img="Фото: Производственно-складской комплекс"><span class="material-symbols-outlined" aria-hidden="true">image</span>Фото: Производственно-складской комплекс</div>
-          <div class="proj-card__body">
-            <div class="proj-card__badges"><span class="badge badge--type">Строительство</span></div>
-            <h3>Производственно-складской комплекс</h3>
-            <p class="proj-card__customer">Заказчик — ООО «ДиКом»</p>
-
-            <ul class="proj-card__meta"><li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>Здание 2 этапа: 7 997 м²</span></li><li><span class="material-symbols-outlined" aria-hidden="true">map</span><span>Участок: 14 359 м²</span></li></ul>
-          </div>
-        </article>
-        <article class="proj-card reveal" style="--i:3">
-          <div class="img-placeholder" data-img="Фото: Производственный корпус Технопарка №3"><span class="material-symbols-outlined" aria-hidden="true">image</span>Фото: Производственный корпус Технопарка №3</div>
-          <div class="proj-card__body">
-            <div class="proj-card__badges"><span class="badge badge--type">Строительство</span><span class="badge badge--work">В работе</span></div>
-            <h3>Производственный корпус Технопарка №3</h3>
-            <p class="proj-card__customer">Заказчик — ООО «СПВ»</p>
-            <p class="proj-card__customer"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:16px;vertical-align:-3px">event</span> 02.2025 – настоящее время</p>
-            <ul class="proj-card__meta"><li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>Площадь: 8 772 м²</span></li></ul>
-          </div>
-        </article>
+        {stroitelstvoProjects.map((project, i) => <ProjectCard project={project} index={i} />)}
       </div>
     </div>
   </section>

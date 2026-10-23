@@ -9,10 +9,10 @@ import ObjectCard from '../components/ObjectCard.astro';
 import { getCollection } from 'astro:content';
 const objects = (await getCollection('objects')).sort((a, b) => a.data.sort - b.data.sort);
 const objById = Object.fromEntries(objects.map((o) => [o.id, o]));
-const saleObjects = ['atlas-garazhny', 'avrora-vitebsky', 'antares', 'voyskovitsy-park', 'volhonskoe', 'parnas'].map((id) => objById[id]);
+const saleObjects = ['atlas-garazhny', 'avrora-vitebsky', 'voyskovitsy-park', 'rabochaya', 'antares'].map((id) => objById[id]);
 const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coords: data.coords, address: data.address, area: data.area }));
 ---
-<BaseLayout title="Продажа недвижимости — ММ Пром" description="Продажа промышленных объектов — земельных участков, промышленных зданий и помещений. Комплексная предпродажная подготовка, точная рыночная оценка актива, юридическое сопровождение сделки до регистрации перехода права собственности. Гарантируем конфиденциальность переговоров.">
+<BaseLayout title="Продажа промышленной недвижимости — ММ Пром" description="Подберем покупателя на ваш объект или найдем площадку для развития вашего производства или инвестиций.">
   <Fragment slot="head">
   <link rel="stylesheet" href="/assets/object-card.css?v=3">
     <style is:inline>
@@ -516,8 +516,8 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     <div class="container b-hero__inner">
       <div class="b-hero__content">
         <p class="b-hero__eyebrow">Услуга · Продажа недвижимости</p>
-        <h1>Продажа <span class="accent">недвижимости</span></h1>
-        <p class="b-hero__lead">Продажа промышленных объектов — земельных участков, промышленных зданий и помещений. Проводим комплексную предпродажную подготовку, определяем рыночную стоимость актива и обеспечиваем юридическое сопровождение сделки до регистрации перехода права собственности. Гарантируем конфиденциальность переговоров.</p>
+        <h1>Продажа <span class="accent">промышленной</span> недвижимости</h1>
+        <p class="b-hero__lead">Подберем покупателя на ваш объект или найдем площадку для развития вашего производства или инвестиций.</p>
         <div class="b-hero__actions">
           <SiteButton variant="gold" href="/modalka-zayavki/">Обсудить проект</SiteButton>
           <SiteButton variant="outline" href="/katalog/">Смотреть объекты</SiteButton>
@@ -531,13 +531,13 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     <div class="container">
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">02</p>
-        <h2>Продажа под разные задачи</h2>
-        <p class="b-sec-head__lead">Услуга закрывает разные сценарии сделки — от продажи здания или участка до покупки актива под инвестиционные цели.</p>
+        <h2>С какими задачами мы работаем</h2>
       </div>
       <div class="b-tasks__grid">
-        <RoleCard icon="domain" title="Собственникам зданий" index={0} items={["Объект месяцами стоит на рынке без единого звонка", "Покупатель видит не здание, а будущий денежный поток или потенциальный цех — без донесённых преимуществ актив кажется рисковым", "Под давлением времени — продажа существенно ниже рыночной цены", "Предпродажная подготовка: документы, доходная часть, финмодель и позиционирование — конкуренция покупателей и рыночная цена, а не цена вынужденной продажи"]} />
-        <RoleCard icon="landscape" title="Собственникам участков" index={1} items={["Как оценить актив, когда рынок меняется буквально каждый месяц?", "Продавать сейчас или развивать дальше? Ошибка в оценке или векторе использования — серьёзные потери", "Нет системного подхода — упущенные возможности", "Детальная аналитика: локация, транспорт, регламенты, спрос, динамика цен — объективная оценка и сценарии от продажи до застройки"]} />
-        <RoleCard icon="trending_up" title="Инвесторам" index={2} items={["Сложно самостоятельно оценить риски, проверить юридическую чистоту объекта и спрогнозировать доходность", "Не хватает прозрачной аналитики, страх «скрытых» проблем заставляет откладывать решение", "Отложенное решение — потерянная потенциальная прибыль", "Готовый действующий бизнес, ликвидная земля, комплексы со стабильным денежным потоком — финансовая модель для решения на проверенных данных"]} />
+        <RoleCard icon="factory" title="Поиск площадки для производства" index={0} items={["Поможем найти земельный участок или готовое здание с нужной мощностью, логистикой и инфраструктурой для запуска или расширения вашего предприятия."]} />
+        <RoleCard icon="trending_up" title="Инвестиционные покупки" index={1} items={["Подберем ликвидные объекты для сохранения и приумножения капитала с расчетом доходности и сроков окупаемости."]} />
+        <RoleCard icon="landscape" title="Развитие территорий" index={2} items={["Найдем и подготовим к сделке участки для строительства объектов."]} />
+        <RoleCard icon="sell" title="Продажа вашей недвижимости" index={3} items={["Оценим рыночную стоимость объекта, подготовим презентацию, найдем целевого покупателя и обеспечим юридическую чистоту сделки."]} />
       </div>
     </div>
   </section>
@@ -582,19 +582,23 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     <div class="container">
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">04</p>
-        <h2>Наш подход</h2>
-        <p class="b-sec-head__lead">Мы выстраиваем процесс сделки так, чтобы решение принималось на данных, а не на догадках: актив должен конкурировать на рынке, а не ждать покупателя по остаточному принципу.</p>
+        <h2>Почему обращаются к нам</h2>
       </div>
       <div class="b-approach__grid">
         <article class="approach-card reveal" style="--i:0">
-          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">help</span></span>
-          <h3>Когда к нам обращаются</h3>
-          <ul><li>Поиск занимает недели, но подходящего объекта нет</li><li>Заявленные параметры не соответствуют реальному состоянию объектов</li><li>Нет уверенности в юридической чистоте сделки</li><li>Есть риск переплатить или приобрести проблемный актив</li></ul>
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">factory</span></span>
+          <h3>Отраслевая экспертиза</h3>
+          <p>Мы говорим с промышленниками на одном языке и знаем специфику производственных площадок.</p>
         </article>
         <article class="approach-card reveal" style="--i:1">
-          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">sell</span></span>
-          <h3>Готовим актив к рынку, а не к торгу</h3>
-          <ul><li>Структурируем документы и описываем доходную часть объекта</li><li>Формируем финансовую модель и обосновываем позиционирование актива</li><li>Создаём конкуренцию среди покупателей: сделка по рыночной цене, а не по цене вынужденной продажи</li></ul>
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">inventory_2</span></span>
+          <h3>Закрытая база объектов</h3>
+          <p>Доступ к предложениям, которые не выходят на открытый рынок.</p>
+        </article>
+        <article class="approach-card reveal" style="--i:2">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">handshake</span></span>
+          <h3>Полное сопровождение</h3>
+          <p>Берем на себя переговоры, проверку документов и организацию сделки.</p>
         </article>
       </div>
     </div>
@@ -636,7 +640,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
   <script is:inline src="https://api-maps.yandex.ru/2.1/?apikey=2ae53810-6967-43df-9165-4003eeb71cbf&lang=ru_RU" type="text/javascript"></script>
     <script is:inline src="/assets/svc-map.js?v=1" defer></script>
 
-  <CtaBand variant="grad" id="cta" secIndex="07" heading="Хотите продать объект по рыночной цене или найти площадку под задачи бизнеса?" lede="Оставьте заявку — обсудим ваш актив или требования и выстроим сделку до результата." buttons={[
+  <CtaBand variant="grad" id="cta" secIndex="07" heading="Обсудим вашу задачу" lede="Оставьте заявку, и мы свяжемся с вами в течение рабочего дня, чтобы обсудить вашу задачу." buttons={[
           { variant: "gold", href: "/modalka-zayavki/", label: "Оставить заявку" },
           { variant: "ghost-light", href: "/katalog/", label: "Смотреть объекты" }
         ]} />

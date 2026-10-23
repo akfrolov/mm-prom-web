@@ -9,10 +9,10 @@ import ObjectCard from '../components/ObjectCard.astro';
 import { getCollection } from 'astro:content';
 const objects = (await getCollection('objects')).sort((a, b) => a.data.sort - b.data.sort);
 const objById = Object.fromEntries(objects.map((o) => [o.id, o]));
-const rentObjects = ['atlas-garazhny', 'avrora-vitebsky', 'antares', 'voyskovitsy-park', 'volhonskoe', 'parnas'].map((id) => objById[id]);
+const rentObjects = ['atlas-garazhny', 'avrora-vitebsky', 'voyskovitsy-park', 'kolpino', 'antares', 'metallostroy', 'murino', 'rabochaya'].map((id) => objById[id]);
 const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coords: data.coords, address: data.address, area: data.area }));
 ---
-<BaseLayout title="Аренда недвижимости — ММ Пром" description="Аренда производственно-складской недвижимости от ММ Пром: подберём площади под офис, склад или производство с учётом требований к локации, инженерным мощностям и бюджету. Объекты напрямую от собственников, без скрытых комиссий.">
+<BaseLayout title="Аренда промышленной недвижимости — ММ Пром" description="Сдадим ваш объект надежным арендаторам или найдем готовую площадку для запуска вашего предприятия.">
   <Fragment slot="head">
   <link rel="stylesheet" href="/assets/object-card.css?v=3">
     <style is:inline>
@@ -516,8 +516,9 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     <div class="container b-hero__inner">
       <div class="b-hero__content">
         <p class="b-hero__eyebrow">Услуга · Аренда недвижимости</p>
-        <h1>Аренда <span class="accent">недвижимости</span></h1>
-        <p class="b-hero__lead">Профессиональная аренда производственно-складской недвижимости. Подберём площади под офис, склад или производство с учётом ваших требований к локации, инженерным мощностям и бюджету. Предлагаем объекты напрямую от собственников — без скрытых комиссий.</p>
+        <h1>Аренда <span class="accent">промышленной</span> недвижимости</h1>
+        <p class="b-hero__lead">Сдадим ваш объект надежным арендаторам или найдем готовую площадку для запуска вашего предприятия.</p>
+        <p class="b-hero__lead">ГК «ММ ПРОМ» сопровождает сделки аренды промышленной недвижимости. Мы знаем, что для владельца важно сохранить актив и получать стабильный доход, а для арендатора — быстро запустить процессы без риска внезапного расторжения договора.</p>
         <div class="b-hero__actions">
           <SiteButton variant="gold" href="/modalka-zayavki/">Обсудить проект</SiteButton>
           <SiteButton variant="outline" href="/katalog/">Смотреть объекты</SiteButton>
@@ -531,14 +532,12 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     <div class="container">
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">02</p>
-        <h2>Аренда под разные задачи</h2>
-        <p class="b-sec-head__lead">Работаем с обеими сторонами: кому-то сдаём наши помещения, а чьи-то объекты сдаём от имени собственника.</p>
+        <h2>С какими задачами мы работаем</h2>
       </div>
       <div class="b-tasks__grid">
-        <RoleCard icon="factory" title="Производствам" index={0} items={["Поиск здания под производство сложен: энерговооружённость, высота потолков, подъезд фур, складирование и логистика", "Риск внезапного повышения ставки или расторжения договора перед запуском линии — вложенное в подготовку помещения потеряно", "Решение: проверенные площадки с прозрачными условиями долгосрочной аренды — подбор под мощности и логистику"]} />
-        <RoleCard icon="apartment" title="Собственникам зданий" index={1} items={["Простой помещений, задержки платежей и проблемные арендаторы снижают доходность объекта", "Арендаторы диктуют условия — снижение ставки, затянутая оплата; управление договорами — постоянные конфликты", "Решение: аудит коммерческого потенциала — покажем, где теряются деньги; надёжные арендаторы, сбор платежей, дебиторка под контроль"]} />
-        <RoleCard icon="landscape" title="Собственникам участков" index={2} items={["Оценка участка и перспектив его использования", "Строительство или девелопмент на вашем участке", "Аренда помещений на ваших площадях"]} />
-        <RoleCard icon="trending_up" title="Инвесторам" index={3} items={["Аренда как инструмент доходной недвижимости", "Управление арендным потоком", "Готовые здания и площадки из портфеля"]} />
+        <RoleCard icon="factory" title="Поиск площадки для производства или склада" index={0} items={["Подберем объекты с нужной мощностью, высотой потолков, нагрузкой на пол и удобной транспортной логистикой. Поможем согласовать долгосрочный договор с нерасторжимым периодом."]} />
+        <RoleCard icon="trending_up" title="Инвестиционная аренда" index={1} items={["Поможем инвесторам найти арендаторов на вакантные площади."]} />
+        <RoleCard icon="sell" title="Сдача вашей недвижимости в аренду" index={2} items={["Проведем оценку рыночной ставки, найдем профильного арендатора, проверим его надежность и подготовим договор, защищающий интересы собственника."]} />
       </div>
     </div>
   </section>
@@ -583,19 +582,28 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     <div class="container">
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">04</p>
-        <h2>Наш подход</h2>
-        <p class="b-sec-head__lead">Работаем так, чтобы вы получили помещение, готовое принять оборудование и людей, и не отвлекались на подбор, проверку площадок и переговоры об условиях.</p>
+        <h2>Почему обращаются к нам</h2>
       </div>
       <div class="b-approach__grid">
         <article class="approach-card reveal" style="--i:0">
-          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">handshake</span></span>
-          <h3>Проверенные площадки и прозрачные условия</h3>
-          <ul><li>Только проверенные площадки</li><li>Прозрачные условия долгосрочной аренды и понятная структура договора</li><li>Объекты напрямую от собственников — без скрытых комиссий</li></ul>
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">factory</span></span>
+          <h3>Отраслевая экспертиза</h3>
+          <p>Подбираем площадки под конкретные технологические процессы, а не просто квадратные метры.</p>
         </article>
         <article class="approach-card reveal" style="--i:1">
-          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">commute</span></span>
-          <h3>Закрываем недостающую инфраструктуру</h3>
-          <ul><li>Общежитие для сотрудников</li><li>Развозка и доставка персонала</li><li>Решение сопутствующих задач</li></ul>
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span></span>
+          <h3>Проверка контрагентов</h3>
+          <p>Проверяем финансовую устойчивость и репутацию арендаторов, чтобы защитить вас от простоев и дебиторской задолженности.</p>
+        </article>
+        <article class="approach-card reveal" style="--i:2">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">event_available</span></span>
+          <h3>Долгосрочные контракты</h3>
+          <p>Помогаем зафиксировать условия на несколько лет вперед, минимизируя риски обеих сторон.</p>
+        </article>
+        <article class="approach-card reveal" style="--i:3">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">handshake</span></span>
+          <h3>Полное сопровождение</h3>
+          <p>От первичного показа до регистрации договора и контроля за своевременностью оплат.</p>
         </article>
       </div>
     </div>
@@ -637,8 +645,8 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
   <script is:inline src="https://api-maps.yandex.ru/2.1/?apikey=2ae53810-6967-43df-9165-4003eeb71cbf&lang=ru_RU" type="text/javascript"></script>
     <script is:inline src="/assets/svc-map.js?v=1" defer></script>
 
-  <CtaBand variant="grad" id="cta" secIndex="07" heading="Ищете помещение под производство, склад или офис?" lede="Оставьте заявку — подберём площади под ваши требования и пришлём подборку свободных лотов уже сегодня." buttons={[
-          { variant: "gold", href: "/modalka-zayavki/", label: "Оставить заявку" },
+  <CtaBand variant="grad" id="cta" secIndex="07" heading="Связаться с экспертом" lede="Оставьте заявку, и мы свяжемся с вами в течение рабочего дня, чтобы подобрать площадку или найти арендатора на ваш объект." buttons={[
+          { variant: "gold", href: "/modalka-zayavki/", label: "Связаться с экспертом" },
           { variant: "ghost-light", href: "/katalog/", label: "Смотреть объекты" }
         ]} />
 

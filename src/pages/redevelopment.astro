@@ -4,9 +4,12 @@ import RoleCard from '../components/RoleCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import SiteButton from '../components/SiteButton.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { redevelopmentProjects } from '../data/projects';
 ---
 <BaseLayout title="Редевелопмент — ММ Пром" description="Редевелопмент от ММ Пром: реконструкция и реновация существующих зданий. Технический аудит конструкций, проект модернизации и строительно-монтажные работы. Превращаем устаревшие советские заводы и административные корпуса в современные производственные зоны, технопарки и индустриальные объекты.">
   <Fragment slot="head">
+    <link rel="stylesheet" href="/assets/project-card.css?v=1">
     <style is:inline>
     /* ═══════════════════════════════════════════════════════════════════════
        ММ ПРОМ — ГЛАВНАЯ СТРАНИЦА
@@ -564,29 +567,10 @@ import SiteButton from '../components/SiteButton.astro';
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">03</p>
         <h2>Реализованные проекты</h2>
-
+        <p class="b-projects__lead">За 2019-2025 годы были реализованы следующие проекты:</p>
       </div>
       <div class="b-projects__grid">
-        <article class="proj-card reveal" style="--i:0">
-          <div class="img-placeholder" data-img="Фото: «Дом просветительных учреждений в память 19 февраля 1861 года»"><span class="material-symbols-outlined" aria-hidden="true">image</span>Фото: «Дом просветительных учреждений в память 19 февраля 1861 года»</div>
-          <div class="proj-card__body">
-            <div class="proj-card__badges"><span class="badge badge--type">Реконструкция</span></div>
-            <h3>«Дом просветительных учреждений в память 19 февраля 1861 года»</h3>
-            <p class="proj-card__customer"></p>
-
-            <ul class="proj-card__meta"><li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>Заказчик — ООО «ОЛДА»</span></li><li><span class="material-symbols-outlined" aria-hidden="true">event</span><span>Срок — 02.2023 – 09.2025</span></li><li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>Общая площадь здания — 4 119 м²</span></li><li><span class="material-symbols-outlined" aria-hidden="true">apartment</span><span>Количество этажей — 6, в том числе подземных — 1</span></li></ul>
-          </div>
-        </article>
-        <article class="proj-card reveal" style="--i:1">
-          <div class="img-placeholder" data-img="Фото: «Цех металлических конструкций»"><span class="material-symbols-outlined" aria-hidden="true">image</span>Фото: «Цех металлических конструкций»</div>
-          <div class="proj-card__body">
-            <div class="proj-card__badges"><span class="badge badge--type">Реконструкция</span></div>
-            <h3>«Цех металлических конструкций»</h3>
-            <p class="proj-card__customer"></p>
-
-            <ul class="proj-card__meta"><li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>Заказчик — ООО «СПВ»</span></li><li><span class="material-symbols-outlined" aria-hidden="true">event</span><span>Срок — 02.2024 – настоящее время</span></li><li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>Площадь основного здания — 10 537 м²</span></li><li><span class="material-symbols-outlined" aria-hidden="true">apartment</span><span>Количество этажей — 4, с дополнительным техническим этажом</span></li></ul>
-          </div>
-        </article>
+        {redevelopmentProjects.map((project, i) => <ProjectCard project={project} index={i} />)}
       </div>
     </div>
   </section>
@@ -610,6 +594,7 @@ import SiteButton from '../components/SiteButton.astro';
           <p>Строительно-монтажные работы</p>
         </div>
       </div>
+      <p class="b-scope__lead">ГК ММ ПРОМ проводит полный комплекс работ от проектирования архитектурно-строительных чертежей и разработки инженерных решений, до проведения согласований во всех заинтересованных и экспертных организациях во время и по завершении строительства для сохранения спокойствия, времени и средств своих клиентов.</p>
 
     </div>
   </section>
@@ -648,19 +633,19 @@ import SiteButton from '../components/SiteButton.astro';
         <ol class="b-flow2__list">
           <li class="b-flow2__step reveal" style="--i:1">
             <span class="b-flow2__dot" aria-hidden="true">1</span>
-            <div class="b-flow2__body"><p>Подготовка технического заданияФормулировка целей, объемов и требований заказчика.</p></div>
+            <div class="b-flow2__body"><p>Подготовка технического задания. Формулировка целей, объемов и требований заказчика.</p></div>
           </li>          <li class="b-flow2__step reveal" style="--i:2">
             <span class="b-flow2__dot" aria-hidden="true">2</span>
-            <div class="b-flow2__body"><p>Разработка проектной документацииСоздание архитектурных решений, чертежей и инженерных схем.</p></div>
+            <div class="b-flow2__body"><p>Разработка проектной документации. Создание архитектурных решений, чертежей и инженерных схем.</p></div>
           </li>          <li class="b-flow2__step reveal" style="--i:3">
             <span class="b-flow2__dot" aria-hidden="true">3</span>
-            <div class="b-flow2__body"><p>Финансовое моделирование проектаРасчет сметы, поиск инвесторов, оценка сроков окупаемости.</p></div>
+            <div class="b-flow2__body"><p>Финансовое моделирование проекта. Расчет сметы, поиск инвесторов, оценка сроков окупаемости.</p></div>
           </li>          <li class="b-flow2__step reveal" style="--i:4">
             <span class="b-flow2__dot" aria-hidden="true">4</span>
-            <div class="b-flow2__body"><p>Строительно-монтажные работыНепосредственная реконструкция здания.</p></div>
+            <div class="b-flow2__body"><p>Строительно-монтажные работы. Непосредственная реконструкция здания.</p></div>
           </li>          <li class="b-flow2__step reveal" style="--i:5">
             <span class="b-flow2__dot" aria-hidden="true">5</span>
-            <div class="b-flow2__body"><p>Управление готовым объектомЗапуск в эксплуатацию, техническое обслуживание и коммерческое использование.</p></div>
+            <div class="b-flow2__body"><p>Управление готовым объектом. Запуск в эксплуатацию, техническое обслуживание и коммерческое использование.</p></div>
           </li>
         </ol>
       </div>

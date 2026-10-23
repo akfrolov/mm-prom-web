@@ -1,0 +1,64 @@
+---
+import type { ProjectData } from '../data/projects';
+
+interface Props {
+  project: ProjectData;
+  index?: number;
+}
+
+const { project, index = 0 } = Astro.props;
+---
+
+<article class="proj-card reveal" style={`--i:${index}`}>
+  <div class="proj-card__media">
+    <div class="proj-card__track" role="group" aria-label={`Фотографии проекта: ${project.title}`}>
+      {project.images.map((src, i) => (
+        <figure class="proj-card__shot">
+          <img
+            src={src}
+            alt={`${project.title} — фотография ${i + 1}`}
+            loading="lazy"
+            decoding="async"
+            width="800"
+            height="600"
+          />
+        </figure>
+      ))}
+    </div>
+    {project.images.length > 1 && <span class="proj-card__count">{project.images.length} фото</span>}
+  </div>
+  <div class="proj-card__body">
+    <div class="proj-card__badges">
+      <span class="badge badge--type">{project.type}</span>
+      {project.inProgress && <span class="badge badge--work">В работе</span>}
+    </div>
+    <h3>{project.title}</h3>
+    <p class="proj-card__customer">Заказчик — {project.customer}</p>
+    {project.note && <p class="proj-card__note">{project.note}</p>}
+    <p class="proj-card__customer">
+      <span class="material-symbols-outlined" aria-hidden="true" style="font-size:16px;vertical-align:-3px">event</span>
+      {project.period}
+    </p>
+    <ul class="proj-card__meta">
+      {project.highlights.map((item) => (
+        <li>
+          <span class="material-symbols-outlined" aria-hidden="true">
+            {item.startsWith('Участок') ? 'map' : item.startsWith('Этаж') ? 'apartment' : 'square_foot'}
+          </span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+    <details class="proj-card__details">
+      <summary>Состав работ и показатели</summary>
+      <p class="proj-card__details-title">Состав реализованных задач по проекту</p>
+      <ul class="proj-card__list">
+        {project.tasks.map((task) => <li>{task}</li>)}
+      </ul>
+      <p class="proj-card__details-title">{project.specsTitle}</p>
+      <ul class="proj-card__list proj-card__list--specs">
+        {project.specs.map((spec) => <li>{spec}</li>)}
+      </ul>
+    </details>
+  </div>
+</article>
