@@ -239,8 +239,10 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
     /* ── Иконки мессенджеров ─────────────────────────────────────────────── */
     .b-mess{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:var(--purple-soft);transition:background .2s ease,transform .2s ease}
     .b-mess:hover{background:var(--purple);transform:translateY(-2px)}
-    .b-mess svg,.b-mess img{display:block;border-radius:5px}
-    .b-mess-row{display:flex;gap:12px;margin-bottom:24px}
+    .b-mess svg,.b-mess img{display:block;border-radius:5px;flex:0 0 auto}
+    .b-mess--label{width:auto;min-height:44px;gap:9px;padding:0 16px 0 10px;border-radius:999px;font-weight:700;font-size:.9375rem;color:var(--purple);text-decoration:none}
+    .b-mess--label:hover{color:#fff}
+    .b-mess-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:24px}
 
     /* ── Форма ───────────────────────────────────────────────────────────── */
     .b-form{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
@@ -593,10 +595,10 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
           <dt>Email</dt><dd><a href="mailto:info@mm-prom.ru">info@mm-prom.ru</a></dd>
         </dl>
         <div class="b-mess-row">
-          <a class="b-mess" href="https://t.me/mm_prom1" aria-label="Телеграм-канал ММ Пром"><svg viewBox="0 0 24 24" width="22" height="22" fill="#229ED9" aria-hidden="true"><path d="M9.04 15.51l-.38 5.35c.54 0 .78-.23 1.06-.51l2.55-2.44 5.28 3.87c.97.53 1.66.25 1.92-.9l3.48-16.3c.31-1.43-.52-1.99-1.46-1.64L1.1 9.76c-1.39.54-1.37 1.32-.24 1.67l5.3 1.65L18.35 5.1c.57-.38 1.09-.17.66.21L9.04 15.51z"/></svg></a>
-          <a class="b-mess" href="https://max.ru/channel_MM_PROM" aria-label="Канал ММ Пром в MAX"><img src="/assets/max-logo.svg" width="22" height="22" alt="" aria-hidden="true" loading="lazy"></a>
-          <a class="b-mess" href="https://www.avito.ru/brands/mmprom/all/nedvizhimost" aria-label="Авито — объявления ММ Пром"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="7.5" cy="7.5" r="3.6" fill="#FF6163"/><circle cx="16.6" cy="7.5" r="2.2" fill="#97CF26"/><circle cx="7.4" cy="16.5" r="2.2" fill="#00AAFF"/><circle cx="16.4" cy="16.4" r="3.6" fill="#A169F7"/></svg></a>
-          <a class="b-mess" href="https://www.cian.ru/company/62039710" aria-label="ЦИАН — объявления ММ Пром"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#0468FF"/><path d="M15.6 7.5a5.4 5.4 0 1 0 0 9" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/><path d="M16.5 8v8" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/></svg></a>
+          <a class="b-mess b-mess--label" href="https://t.me/mm_prom1" aria-label="Телеграм-канал ММ Пром"><svg viewBox="0 0 24 24" width="22" height="22" fill="#229ED9" aria-hidden="true"><path d="M9.04 15.51l-.38 5.35c.54 0 .78-.23 1.06-.51l2.55-2.44 5.28 3.87c.97.53 1.66.25 1.92-.9l3.48-16.3c.31-1.43-.52-1.99-1.46-1.64L1.1 9.76c-1.39.54-1.37 1.32-.24 1.67l5.3 1.65L18.35 5.1c.57-.38 1.09-.17.66.21L9.04 15.51z"/></svg><span>Телеграм</span></a>
+          <a class="b-mess b-mess--label" href="https://max.ru/channel_MM_PROM" aria-label="Канал ММ Пром в MAX"><img src="/assets/max-logo.svg" width="22" height="22" alt="" aria-hidden="true" loading="lazy"><span>Макс</span></a>
+          <a class="b-mess b-mess--label" href="https://www.avito.ru/brands/mmprom/all/nedvizhimost" aria-label="Авито — объявления ММ Пром"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="7.03" cy="7.03" r="3.79" fill="#00AAFF"/><circle cx="16.03" cy="7.03" r="3" fill="#FF6062"/><circle cx="6.95" cy="15.95" r="2.13" fill="#A069F7"/><circle cx="16.03" cy="16.03" r="4.74" fill="#96CF25"/></svg><span>Авито</span></a>
+          <a class="b-mess b-mess--label" href="https://www.cian.ru/company/62039710" aria-label="ЦИАН — объявления ММ Пром"><img src="/assets/cian-logo.png?v=1" width="22" height="22" alt="" aria-hidden="true" loading="lazy"><span>ЦИАН</span></a>
         </div>
         <div class="b-map">
           <iframe src="https://yandex.ru/map-widget/v1/?ll=30.221877%2C59.989112&z=15&pt=30.221877,59.989112,pm2vvm" title="Карта: офис ММ Пром" loading="lazy" allowfullscreen></iframe>
