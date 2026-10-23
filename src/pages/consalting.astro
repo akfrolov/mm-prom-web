@@ -385,6 +385,15 @@ import SiteButton from '../components/SiteButton.astro';
     .b-hero--service .b-hero__inner{grid-template-columns:minmax(0,1fr);gap:0}
     .b-hero--service .b-hero__lead{max-width:70ch}
     .b-hero--service .b-hero__metrics{margin-top:8px}
+    /* Консалтинг — единственный hero услуги с фото: на широких экранах
+       ставим его рядом с текстом, а не простынёй под метриками */
+    @media (min-width:1024px){
+      .consalting-hero .b-hero__inner{grid-template-columns:minmax(0,1fr) minmax(0,.92fr);gap:56px;align-items:center}
+    }
+    @media (max-width:1023.98px){
+      .consalting-hero .b-hero__inner{gap:32px}
+      .consalting-hero .b-hero__media-frame img{max-height:360px;object-fit:cover}
+    }
 
     .b-tasks__lead,.b-scope__lead,.b-approach__lead,.b-projects__lead{margin:12px 0 0;max-width:70ch;color:var(--text-muted)}
 
@@ -524,7 +533,7 @@ import SiteButton from '../components/SiteButton.astro';
 
   <Breadcrumbs items={[{ href: "/", label: "Главная" }, { href: "/uslugi/", label: "Услуги" }, { label: "Промышленный консалтинг" }]} />
 
-  <section id="hero" class="b-hero b-hero--service">
+  <section id="hero" class="b-hero b-hero--service consalting-hero">
     <div class="b-hero__glow b-hero__glow--purple"></div>
     <div class="b-hero__glow b-hero__glow--gold"></div>
     <div class="b-hero__particles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
