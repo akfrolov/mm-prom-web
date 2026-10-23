@@ -1,5 +1,8 @@
 /* Логика каталога объектов (CR-2026-001 шаг 6; CR-2026-002 — переходы на
-   страницы объектов). Карточки отрендерены на билде (ObjectCard); этот скрипт
+   страницы объектов; правка владельца 2026-10-23: две группы — «Наши объекты»
+   (флайеры + PDF) и «Все объекты», единая кликабельная карточка, сброс виден
+   только с активными фильтрами, поиск без чувствительности к «ё»).
+   Карточки отрендерены на билде (ObjectCard); этот скрипт
    работает по data-атрибутам DOM: фильтры, сортировка, поиск, виды
    список/карта, карта.
    Данные карты: window.MMPROM_OBJECTS (инжектится на странице до этого скрипта). */
@@ -15,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return o.url || BRAND_URLS[o.id] || '/obekt/' + o.id + '/';
       }
 
-      var grids = [document.getElementById('grid-ours'), document.getElementById('grid-prom'), document.getElementById('grid-external')].filter(Boolean);
+      var grids = [document.getElementById('grid-ours'), document.getElementById('grid-external')].filter(Boolean);
       var cards = [];
       grids.forEach(function(g){ cards = cards.concat(Array.prototype.slice.call(g.querySelectorAll('.obj-card'))); });
       var countEl = document.getElementById('res-count');
@@ -23,12 +26,18 @@ document.addEventListener('DOMContentLoaded', function () {
       var emptyEl = document.getElementById('cat-empty');
       var mapWrap = document.getElementById('cat-map');
       var activeBox = document.getElementById('active-filters');
+      var resetBtn = document.getElementById('f-reset');
       var state = { deal:'all', type:'all', area:'all', loc:'all', q:'', sort:'default', view:'list' };
 
       var AREA_LABEL = { s:'до 2 000 м²', m:'2 000 – 10 000 м²', l:'10 000 – 20 000 м²', xl:'от 20 000 м²' };
       var LOC_LABEL = { spb:'Санкт-Петербург', lo:'Ленинградская область' };
       var TYPE_LABEL = { park:'Индустриальные парки', warehouse:'Производственно-складские', production:'Производственные', land:'Земельные участки' };
       var DEAL_LABEL = { rent:'Аренда', sale:'Продажа' };
+
+      /* «ё» в поиске не должна ломать совпадение («заозерная» ↔ «Заозёрная») */
+      function normQ(s){
+        return String(s).toLowerCase().replace(/ё/g, 'е');
+      }
 
       function areaMatch(v, key){
         if (key === 'all') return true;
@@ -47,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
           var okType = state.type === 'all' || c.dataset.type === state.type;
           var okArea = areaMatch(parseInt(c.dataset.area, 10) || 0, state.area);
           var okLoc = state.loc === 'all' || c.dataset.loc === state.loc;
-          var okQ = !state.q || (c.dataset.title + ' ' + c.querySelector('.obj-card__addr').textContent.toLowerCase()).indexOf(state.q) !== -1;
+          var okQ = !state.q || normQ(c.dataset.title + ' ' + c.querySelector('.obj-card__addr').textContent).indexOf(state.q) !== -1;
           return okDeal && okType && okArea && okLoc && okQ;
         });
       }
@@ -80,8 +89,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (state.area !== 'all') chips.push(['area', AREA_LABEL[state.area]]);
         if (state.loc !== 'all') chips.push(['loc', LOC_LABEL[state.loc]]);
         if (state.q) chips.push(['q', '«' + state.q + '»']);
-        if (!chips.length) { activeBox.hidden = true; activeBox.innerHTML = ''; return; }
+        if (!chips.length) { activeBox.hidden = true; activeBox.innerHTML = ''; resetBtn.hidden = true; return; }
         activeBox.hidden = false;
+        resetBtn.hidden = false;
         activeBox.innerHTML = '<span class="cat-active__label">Выбрано:</span>' + chips.map(function(c){
           return '<button class="cat-active__chip" type="button" data-clear="' + c[0] + '">' + c[1] + '<span class="material-symbols-outlined" aria-hidden="true">close</span></button>';
         }).join('') + '<button class="cat-active__chip" type="button" data-clear="all">Сбросить всё<span class="material-symbols-outlined" aria-hidden="true">restart_alt</span></button>';
@@ -133,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var t;
       search.addEventListener('input', function(){
         clearTimeout(t);
-        t = setTimeout(function(){ state.q = search.value.trim().toLowerCase(); apply(); }, 160);
+        t = setTimeout(function(){ state.q = normQ(search.value.trim()); apply(); }, 160);
       });
 
       function reset(){
@@ -229,15 +239,6 @@ document.addEventListener('DOMContentLoaded', function () {
         om.add({ type: 'FeatureCollection', features: features });
         if (features.length) map.setBounds(om.getBounds(), { checkZoomRange: true, zoomMargin: 40 });
       }
-
-      document.addEventListener('click', function(e){
-        var b = e.target.closest('[data-map]');
-        if (!b) return;
-        var o = byId[b.getAttribute('data-map')];
-        if (!o) return;
-        e.preventDefault();
-        window.location.assign(objectUrl(o));
-      });
 
       apply();
     })();

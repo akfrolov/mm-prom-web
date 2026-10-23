@@ -16,7 +16,6 @@ const brandbookRoutes: Record<string, string> = {
   'avrora-vitebsky': '/avrora-vitebskij/',
 };
 const href = brandbookRoutes[obj.id] ?? `/obekt/${obj.id}/`;
-const isBrandbook = obj.id in brandbookRoutes;
 const searchTitle = d.searchTitle ?? d.title.toLowerCase();
 const presentationForm = B24_FORMS.contact;
 const cardMedia = d.media ?? (d.image ? { src: d.image, alt: d.title, caption: '' } : null);
@@ -42,25 +41,19 @@ const cardMedia = d.media ?? (d.image ? { src: d.image, alt: d.title, caption: '
           {d.busy && <span class="badge badge--busy">Нет площадей</span>}
         </div>
       </div>
-      <button class="obj-card__map" type="button" data-map={obj.id} aria-label={`Показать на карте: ${d.title}`}>
-        <span class="material-symbols-outlined" aria-hidden="true">map</span>
-      </button>
     </div>
     <div class="obj-card__body">
-      <h3>{d.title}</h3>
+      <h3><a class="obj-card__cover" href={href} aria-label={`Открыть страницу объекта: ${d.title}`}>{d.title}</a></h3>
       <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>{d.address}</span></p>
       <div class="obj-card__facts">
         <div class="obj-card__fact"><span>Площадь</span><strong>{d.area}</strong></div>
         <div class="obj-card__fact"><span>Локация</span><strong>{d.district}</strong></div>
       </div>
-      <div class="obj-card__foot">
-        {isBrandbook ? (
-          <a class="obj-card__ext" href={href}>На страницу объекта<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
-        ) : (
-          <a class="obj-card__more" href={href}>Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
-        )}
-        {d.busy && <span class="obj-card__busy"><span class="material-symbols-outlined" aria-hidden="true">info</span>Нет вакантных площадей</span>}
-      </div>
+      {d.busy && (
+        <div class="obj-card__foot">
+          <span class="obj-card__busy"><span class="material-symbols-outlined" aria-hidden="true">info</span>Нет вакантных площадей</span>
+        </div>
+      )}
     </div>
   </article>
 ) : (

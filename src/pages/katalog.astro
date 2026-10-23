@@ -8,8 +8,13 @@ const objects = (await getCollection('objects')).sort((a, b) => a.data.sort - b.
 const typeRank: Record<string, number> = { park: 0, production: 1, warehouse: 2, land: 3 };
 const byTypeThenSort = (a: (typeof objects)[number], b: (typeof objects)[number]) =>
   (typeRank[a.data.type] ?? 9) - (typeRank[b.data.type] ?? 9) || a.data.sort - b.data.sort;
-const ourObjects = objects.filter((o) => o.data.group === 'ours');
-const promObjects = objects.filter((o) => o.data.group === 'prom').sort((a, b) => a.data.sort - b.data.sort);
+// Градация каталога (решение владельца 2026-10-23): «Наши объекты» — флайеры
+// (Атлас, Аврора, Латышских Стрелков, Войсковицы — sort 0–3), далее остальные,
+// затем объекты из PDF (бывшая группа prom, sort 12–25); «Все объекты» — внешняя
+// подборка (group external).
+const ourObjects = objects
+  .filter((o) => o.data.group === 'ours' || o.data.group === 'prom')
+  .sort((a, b) => a.data.sort - b.data.sort);
 const externalObjects = objects.filter((o) => o.data.group === 'external').sort(byTypeThenSort);
 const totalCount = objects.length;
 const typeCounts = { park: 0, warehouse: 0, production: 0, land: 0 };
@@ -468,9 +473,12 @@ const mapObjects = objects.map(({ id, data }) => ({
     .seg button:hover:not([aria-pressed="true"]){color:var(--purple)}
     .cat-select{min-height:46px;padding:8px 38px 8px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A3994' stroke-width='2' fill='none'/%3E%3C/svg%3E") no-repeat right 14px center;font:inherit;font-size:var(--fs-small);color:var(--text);cursor:pointer;appearance:none}
     .cat-select:focus{outline:2px solid var(--purple);outline-offset:1px}
-    .cat-reset{display:inline-flex;align-items:center;gap:6px;min-height:46px;padding:8px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);background:#fff;color:var(--text-muted);font:inherit;font-size:var(--fs-small);font-weight:600;cursor:pointer;transition:border-color .18s ease,color .18s ease}
-    .cat-reset:hover{border-color:var(--purple);color:var(--purple)}
+    .cat-reset{display:inline-flex;align-items:center;gap:6px;min-height:46px;padding:8px 16px;border:1px solid var(--gold);border-radius:var(--radius-sm);background:var(--gold);color:var(--navy);font:inherit;font-size:var(--fs-small);font-weight:800;cursor:pointer;box-shadow:0 4px 12px rgba(235,184,30,.3);transition:filter .18s ease}
+    .cat-reset:hover{filter:brightness(1.07)}
+    .cat-reset:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
     .cat-reset .material-symbols-outlined{font-size:18px}
+    /* Кнопка «Сбросить» появляется, только когда фильтры активны (catalog.js) */
+    .cat-reset[hidden]{display:none}
 
     .cat-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
     .chip-f{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:6px 14px;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--text-muted);font:inherit;font-size:var(--fs-small);font-weight:600;cursor:pointer;transition:background .18s ease,border-color .18s ease,color .18s ease}
@@ -491,11 +499,15 @@ const mapObjects = objects.map(({ id, data }) => ({
     .cat-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
     .cat-bar__count{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
     .cat-bar__count strong{color:var(--text);font-size:1.05rem}
-    .cat-bar__right{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
     .view-toggle{display:inline-flex;padding:4px;background:var(--surface);border:1px solid var(--border);border-radius:999px}
     .view-toggle button{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:6px 14px;border:0;border-radius:999px;background:transparent;color:var(--text-muted);font:inherit;font-size:var(--fs-small);font-weight:600;cursor:pointer}
     .view-toggle button[aria-pressed="true"]{background:#fff;color:var(--purple);box-shadow:0 2px 8px rgba(11,27,51,.12)}
     .view-toggle .material-symbols-outlined{font-size:18px}
+
+    /* У авторских display карточки/сетки перекрывают UA-правило для [hidden] —
+       без этого фильтры и поиск не скрывают карточки */
+    .obj-card[hidden]{display:none}
+    .cat-grid[hidden]{display:none}
 
     .cat-grid{display:grid;gap:22px;grid-template-columns:1fr}
     @media (min-width:640px){.cat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -538,7 +550,7 @@ const mapObjects = objects.map(({ id, data }) => ({
   <section id="catalog-head" class="cat-head">
     <div class="container">
       <h1>Каталог объектов</h1>
-      <p class="cat-head__lead">Производственная недвижимость Санкт-Петербурга и Ленинградской области: наши объекты, предложения ГК Пром и сторонние площадки.</p>
+      <p class="cat-head__lead">Производственная недвижимость Санкт-Петербурга и Ленинградской области: индустриальные парки, производственно-складские комплексы, производственные площади и земельные участки.</p>
       <ul class="cat-head__stats">
         <li><strong>{totalCount}</strong> {objectsWord} в каталоге</li>
         <li><strong>{typeCounts.park}</strong> {parkWord}</li>
@@ -572,7 +584,7 @@ const mapObjects = objects.map(({ id, data }) => ({
           <option value="spb">Санкт-Петербург</option>
           <option value="lo">Ленинградская область</option>
         </select>
-        <button class="cat-reset" type="button" id="f-reset"><span class="material-symbols-outlined" aria-hidden="true">restart_alt</span>Сбросить</button>
+        <button class="cat-reset" type="button" id="f-reset" hidden><span class="material-symbols-outlined" aria-hidden="true">restart_alt</span>Сбросить</button>
       </div>
       <div class="cat-chips" role="group" aria-label="Тип объекта">
         <button class="chip-f" type="button" data-type="all" aria-pressed="true">Все объекты<span class="chip-f__count">{totalCount}</span></button>
@@ -588,45 +600,32 @@ const mapObjects = objects.map(({ id, data }) => ({
   <section id="results" class="cat-results">
     <div class="container">
       <div class="cat-bar">
-        <p class="cat-bar__count">Найдено: <strong id="res-count">{totalCount}</strong> <span id="res-count-word">{objectsWord}</span></p>
-        <div class="cat-bar__right">
-          <select class="cat-select" id="f-sort" aria-label="Сортировка">
-            <option value="default">По умолчанию</option>
-            <option value="area-desc">Площадь: по убыванию</option>
-            <option value="area-asc">Площадь: по возрастанию</option>
-            <option value="name">По названию</option>
-          </select>
-          <div class="view-toggle" role="group" aria-label="Вид каталога">
-            <button type="button" id="view-list" aria-pressed="true"><span class="material-symbols-outlined" aria-hidden="true">view_list</span>Список</button>
-            <button type="button" id="view-map" aria-pressed="false"><span class="material-symbols-outlined" aria-hidden="true">map</span>Карта</button>
-          </div>
+        <div class="view-toggle" role="group" aria-label="Вид каталога">
+          <button type="button" id="view-list" aria-pressed="true"><span class="material-symbols-outlined" aria-hidden="true">view_list</span>Список</button>
+          <button type="button" id="view-map" aria-pressed="false"><span class="material-symbols-outlined" aria-hidden="true">map</span>Карта</button>
         </div>
+        <p class="cat-bar__count">Найдено: <strong id="res-count">{totalCount}</strong> <span id="res-count-word">{objectsWord}</span></p>
+        <select class="cat-select" id="f-sort" aria-label="Сортировка">
+          <option value="default">По умолчанию</option>
+          <option value="area-desc">Площадь: по убыванию</option>
+          <option value="area-asc">Площадь: по возрастанию</option>
+          <option value="name">По названию</option>
+        </select>
       </div>
 
       <section class="cat-group" id="ours">
         <div class="cat-group__head">
           <h2>Наши объекты</h2>
-          <p>Готовые площадки с коммуникациями, подъездными путями и спектром помещений — приоритетная выдача каталога.</p>
+          <p>Готовые площадки с коммуникациями, подъездными путями и спектром помещений.</p>
         </div>
         <div id="grid-ours" class="cat-grid cat-grid--featured">
           {ourObjects.map((o) => <ObjectCard obj={o} showMap />)}
         </div>
       </section>
 
-      <section class="cat-group" id="prom">
-        <div class="cat-group__head">
-          <h2>Объекты, предлагаемые ГК Пром</h2>
-          <p>Объекты партнёров из презентации ГК Пром: индустриальные парки, производственные площади и производственно-складские комплексы.</p>
-        </div>
-        <div id="grid-prom" class="cat-grid">
-          {promObjects.map((o) => <ObjectCard obj={o} showMap />)}
-        </div>
-      </section>
-
       <section class="cat-group" id="external">
         <div class="cat-group__head">
-          <h2>Сторонние объекты</h2>
-          <p>Предложения с внешних площадок — размещены в информационных целях.</p>
+          <h2>Все объекты</h2>
         </div>
         <div id="grid-external" class="cat-grid">
           {externalObjects.map((o) => <ObjectCard obj={o} showMap />)}
@@ -686,7 +685,7 @@ const mapObjects = objects.map(({ id, data }) => ({
     </script>
     <script is:inline src="https://api-maps.yandex.ru/2.1/?apikey=2ae53810-6967-43df-9165-4003eeb71cbf&lang=ru_RU" type="text/javascript"></script>
           <script is:inline define:vars={{ mapObjects }}>window.MMPROM_OBJECTS = mapObjects;</script>
-<script is:inline src="/assets/catalog.js?v=1" defer></script>
+<script is:inline src="/assets/catalog.js?v=2" defer></script>
 
     <script is:inline src="/assets/site-anim.js?v=1" defer></script>
   </Fragment>
