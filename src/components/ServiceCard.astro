@@ -1,0 +1,28 @@
+---
+interface Props {
+  variant: 'card' | 'tile';
+  href: string;
+  icon: string;
+  title: string;
+  text: string;
+  index?: number;
+}
+
+const { variant, href, icon, title, text, index = 0 } = Astro.props;
+---
+
+{variant === 'card' ? (
+  <a class="svc-card reveal" href={href}>
+    <span class="svc-card__icon"><span class="material-symbols-outlined" aria-hidden="true">{icon}</span></span>
+    <h3>{title}</h3>
+    <p>{text}</p>
+    <span class="svc-card__go">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+  </a>
+) : (
+  <article class="svc-tile reveal" style={`--i:${index}`}>
+    <span class="svc-tile__icon"><span class="material-symbols-outlined" aria-hidden="true">{icon}</span></span>
+    <h3>{title}</h3>
+    <p>{text}</p>
+    <a class="svc-tile__link" href={href}>Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+  </article>
+)}

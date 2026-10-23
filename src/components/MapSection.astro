@@ -1,0 +1,36 @@
+---
+import SiteButton from './SiteButton.astro';
+
+interface Props {
+  objects: any[];
+  secIndex: string;
+  heading?: string;
+  link?: string;
+}
+
+const {
+  objects,
+  secIndex,
+  heading = 'Объекты на карте',
+  link = '/katalog/',
+} = Astro.props;
+---
+
+<section id="map" class="b-map-sec section">
+  <div class="container">
+    <p class="sec-index" aria-hidden="true">{secIndex}</p>
+    <div class="b-rowhead">
+      <h2>{heading}</h2>
+      <a class="b-more" href={link}>Весь каталог<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+    </div>
+    <p class="b-map-sec__lead">27 объектов в Санкт-Петербурге и Ленинградской области: индустриальные парки, производственно-складские комплексы и земельные участки.</p>
+    <div class="b-map-sec__wrap">
+      <div id="svc-map" class="b-map-sec__canvas" role="application" aria-label="Карта объектов ММ Пром"></div>
+      <div class="b-map-sec__bar">
+        <span class="b-map-sec__hint"><span class="material-symbols-outlined" aria-hidden="true">ads_click</span>Нажмите на метку — откроется карточка объекта</span>
+        <SiteButton variant="outline" href="/katalog/">Смотреть каталог</SiteButton>
+      </div>
+    </div>
+  </div>
+</section>
+<script is:inline define:vars={{ mapObjects: objects }}>window.MMPROM_MAP_OBJECTS = mapObjects;</script>

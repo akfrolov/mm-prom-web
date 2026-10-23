@@ -1,0 +1,16 @@
+---
+interface Props {
+  icon: string;
+  title: string;
+  items: string[];
+  index?: number;
+}
+
+const { icon, title, items, index = 0 } = Astro.props;
+---
+
+<article class="role-card reveal" style={`--i:${index}`}>
+  <span class="role-card__icon"><span class="material-symbols-outlined" aria-hidden="true">{icon}</span></span>
+  <h3>{title}</h3>
+  <ul class="role-card__list">{items.map((item) => <li>{item}</li>)}</ul>
+</article>

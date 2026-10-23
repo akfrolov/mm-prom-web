@@ -1,5 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import MapSection from '../components/MapSection.astro';
+import RoleCard from '../components/RoleCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import SiteButton from '../components/SiteButton.astro';
 import { getCollection } from 'astro:content';
 const objects = (await getCollection('objects')).sort((a, b) => a.data.sort - b.data.sort);
 const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coords: data.coords, address: data.address, area: data.area }));
@@ -17,21 +22,6 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
        • фирменный мотив — геометрические квадраты (структура, порядок).
        Стиль: деловой, современный, технологичный, премиальный.
        ═══════════════════════════════════════════════════════════════════════ */
-    .section{padding:var(--space-section) 0}
-    .section--tint{background:var(--surface)}
-
-    /* ── Фирменный мотив: геометрические квадраты ───────────────────────── */
-    .sq-grid{position:relative;overflow:hidden}
-    .sq-grid::before{content:"";position:absolute;inset:0;pointer-events:none;
-      background-image:
-        linear-gradient(rgba(61,14,106,.05) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(61,14,106,.05) 1px,transparent 1px);
-      background-size:56px 56px}
-    .sq-grid::after{content:"";position:absolute;width:120px;height:120px;right:-40px;top:-40px;border:2px solid rgba(235,184,30,.35);transform:rotate(12deg)}
-    .sq-float{position:absolute;border:2px solid rgba(235,184,30,.4);pointer-events:none}
-    .sq-float--1{width:64px;height:64px;left:6%;bottom:12%;transform:rotate(18deg)}
-    .sq-float--2{width:34px;height:34px;right:8%;top:18%;background:rgba(61,14,106,.35);transform:rotate(45deg)}
-    .sq-float--3{width:22px;height:22px;left:48%;top:10%;border-color:rgba(61,14,106,.25)}
 
     /* ── Брендбук: рассыпанные цветные квадраты (пиксельный паттерн) ─────── */
     .brand-squares{position:absolute;pointer-events:none;z-index:1}
@@ -96,18 +86,6 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
       .b-hero__inner{gap:56px}
       .b-hero__metrics{grid-template-columns:repeat(4,1fr)}
       .b-hero__media-frame .img-placeholder{aspect-ratio:16/9}
-    }
-
-    /* ── Marquee (золотая полоса) ────────────────────────────────────────── */
-    .b-marquee{background:var(--gold);border-bottom:1px solid var(--gold-deep);padding:14px 0;overflow:hidden}
-    .b-marquee__track{display:flex;width:max-content;animation:b-marquee-roll 30s linear infinite}
-    .b-marquee__seq{display:flex;align-items:center;flex:0 0 auto}
-    .b-marquee__item{display:inline-flex;align-items:center;white-space:nowrap;font-weight:800;font-size:var(--fs-small);letter-spacing:.04em;text-transform:uppercase;color:var(--navy)}
-    .b-marquee__item::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--purple);margin:0 24px}
-    @keyframes b-marquee-roll{to{transform:translateX(-50%)}}
-    @media (prefers-reduced-motion:reduce){
-      .b-marquee__track{animation:none;width:auto;flex-wrap:wrap;row-gap:4px}
-      .b-marquee__seq--dup{display:none}
     }
 
     /* ── Заголовки секций ────────────────────────────────────────────────── */
@@ -206,12 +184,6 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     @media (min-width:1024px){
       .b-roles{grid-template-columns:0.85fr 1.15fr;gap:56px}
     }
-
-    /* ── Сетка ───────────────────────────────────────────────────────────── */
-    .grid{display:grid;gap:16px}
-    .grid--2,.grid--3,.grid--4{grid-template-columns:1fr}
-    @media (min-width:768px){.grid{gap:24px}.grid--2,.grid--3,.grid--4{grid-template-columns:repeat(2,1fr)}}
-    @media (min-width:1024px){.grid--3{grid-template-columns:repeat(3,1fr)}.grid--4{grid-template-columns:repeat(4,1fr)}}
 
     /* ── Объекты (горизонтальная лента) ──────────────────────────────────── */
     .b-rail-group{margin-top:40px}
@@ -350,43 +322,11 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     .b-progress__bar{height:8px;border-radius:999px;background:var(--surface);margin-top:16px;overflow:hidden}
     .b-progress__bar span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--purple) 0%,var(--gold) 100%)}
 
-    /* ── Баннер ТЗ ───────────────────────────────────────────────────────── */
-    .b-tz-banner{grid-template-columns:minmax(0,1fr);align-items:center;gap:16px}
-    .b-tz-banner__cta{justify-self:end}
-    @media (min-width:1024px){.b-tz-banner{grid-template-columns:minmax(0,1fr) auto;gap:24px}}
     .tz-panel{background:linear-gradient(120deg,var(--purple) 0%,var(--navy) 100%);border-radius:var(--radius);padding:30px;color:#fff;position:relative;overflow:hidden;margin-top:20px}
     .tz-panel::after{content:"";position:absolute;width:90px;height:90px;right:-30px;bottom:-30px;border:2px solid rgba(235,184,30,.4);transform:rotate(15deg)}
     .tz-panel h3{margin:0 0 8px;color:#fff}
     .tz-panel p{margin:0 0 4px}
     .tz-panel p.muted{color:rgba(255,255,255,.7)}
-
-    /* ── FAQ ─────────────────────────────────────────────────────────────── */
-    .b-faq__list{display:grid;gap:12px}
-    .b-faq__item{background:#fff;border:1px solid var(--border);border-radius:var(--radius)}
-    .b-faq__item summary{display:flex;align-items:center;gap:12px;min-height:58px;padding:16px 20px;font-weight:700;cursor:pointer;list-style:none}
-    .b-faq__item summary::-webkit-details-marker{display:none}
-    .b-faq__item summary > span:first-child{flex:1}
-    .b-faq__item summary .material-symbols-outlined{color:var(--gold);transition:transform .2s ease}
-    .b-faq__item[open] summary .material-symbols-outlined{transform:rotate(180deg)}
-    .b-faq__item p{margin:0;padding:16px 20px 0;color:var(--text-muted)}
-    .b-faq__item p + p{padding-top:8px}
-    .b-faq__item p:last-child{padding-bottom:16px}
-
-    /* ── Сплит-панель вопросов (шестой блок, один экран) ─────────────────── */
-    .b-faq__panel{display:grid;gap:32px;align-items:start}
-    .b-faq__intro h2{margin-bottom:.4em}
-    .b-faq__intro > p{color:var(--text-muted);margin:0 0 26px}
-    .b-faq__help{padding:26px;border-radius:var(--radius);background:linear-gradient(135deg,var(--purple) 0%,var(--navy) 100%);color:#fff;position:relative;overflow:hidden}
-    .b-faq__help::after{content:"";position:absolute;width:70px;height:70px;right:-24px;bottom:-24px;border:2px solid rgba(235,184,30,.4);transform:rotate(15deg)}
-    .b-faq__help-title{margin:0 0 6px;font-weight:800;font-size:1.1rem}
-    .b-faq__help-sub{margin:0 0 16px;color:rgba(255,255,255,.75);font-size:var(--fs-small)}
-    .b-faq__help-phone{display:inline-block;font-size:1.35rem;font-weight:800;color:var(--gold);text-decoration:none;margin-bottom:18px}
-    @media (min-width:1024px){
-      .b-faq__panel{grid-template-columns:0.85fr 1.15fr;grid-template-areas:"intro list" "help list";gap:32px 56px}
-      .b-faq__intro{grid-area:intro}
-      .b-faq__list{grid-area:list}
-      .b-faq__help{grid-area:help}
-    }
 
     /* ── Контакты ────────────────────────────────────────────────────────── */
     .b-contacts__inner{display:grid;gap:32px;margin-top:36px}
@@ -410,7 +350,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     .b-mess:hover{background:var(--purple);transform:translateY(-2px)}
     .b-mess svg{display:block}
     .b-mess-row{display:flex;gap:12px;margin-bottom:24px}
-    .b-mess--text{border-radius:999px;padding:0 16px;width:auto;font-size:.72rem;font-weight:800;color:var(--purple);letter-spacing:.02em}
+    .b-mess--text{border-radius:999px;padding-inline:16px;width:auto;font-size:.72rem;font-weight:800;color:var(--purple);letter-spacing:.02em}
 
     /* ── Форма ───────────────────────────────────────────────────────────── */
     .b-form{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
@@ -447,33 +387,11 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
       html.js .reveal{opacity:1;transform:none;transition:none}
     }
 
-    /* ═══ Страницы услуг: компоненты поверх канона главной ═══ */
-    .b-breadcrumbs{padding:18px 0 0}
-    .b-breadcrumbs ol{display:flex;flex-wrap:wrap;gap:4px;list-style:none;margin:0;padding:0;font-size:var(--fs-small);color:var(--text-muted)}
-    .b-breadcrumbs li{display:inline-flex;align-items:center}
-    .b-breadcrumbs li+li::before{content:"/";margin:0 8px;color:var(--border)}
-    .b-breadcrumbs a{display:inline-flex;align-items:center;min-height:44px;color:var(--text-muted);text-decoration:none}
-    .b-breadcrumbs a:hover{color:var(--purple)}
-    .b-breadcrumbs [aria-current="page"]{color:var(--text);font-weight:600}
-
     .b-hero--service .b-hero__inner{grid-template-columns:minmax(0,1fr);gap:0}
     .b-hero--service .b-hero__lead{max-width:70ch}
     .b-hero--service .b-hero__metrics{margin-top:8px}
 
     .b-tasks__lead,.b-scope__lead,.b-approach__lead,.b-projects__lead{margin:12px 0 0;max-width:70ch;color:var(--text-muted)}
-    .b-tasks__grid{display:grid;gap:16px;margin-top:32px;grid-template-columns:1fr}
-    .role-card{display:flex;flex-direction:column;gap:12px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:26px;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
-    .role-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
-    .role-card h3{margin:0;display:flex;align-items:center;gap:10px;font-size:1.15rem}
-    .role-card h3 .material-symbols-outlined{font-size:26px;color:var(--purple)}
-    .role-card__list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-    .role-card__list li{position:relative;padding-left:22px;font-weight:500;font-size:1rem;color:var(--text-muted)}
-    .role-card__list li::before{content:"";position:absolute;left:0;top:.6em;width:8px;height:8px;border-radius:50%;background:var(--gold)}
-    .role-card__more{display:inline-flex;align-items:center;gap:6px;margin-top:auto;min-height:44px;font-weight:700;color:var(--purple);text-decoration:none}
-    .role-card__more .material-symbols-outlined{font-size:20px;transition:transform .2s ease}
-    .role-card__more:hover .material-symbols-outlined{transform:translateX(4px)}
-    @media (min-width:768px){.b-tasks__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}}
-    @media (min-width:1024px){.b-tasks__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
     .b-projects__grid{display:grid;gap:20px;margin-top:32px;grid-template-columns:1fr}
     .proj-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
@@ -518,13 +436,6 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     .step__text{margin:0;font-weight:500;font-size:1rem}
     @media (min-width:1024px){.b-steps-sec .b-steps{grid-template-columns:repeat(var(--n,5),minmax(0,1fr))}}
 
-    .b-cta{background:var(--purple-soft);color:var(--text);padding:clamp(40px,6vw,72px) 0}
-    .b-cta h2{margin:0 0 8px}
-    .b-cta p{color:var(--text-muted);max-width:70ch}
-    .b-cta__row{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin-top:20px}
-    .b-cta__phone{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:800;font-size:1.125rem;color:var(--text);text-decoration:none}
-    .b-cta__phone .material-symbols-outlined{color:var(--purple)}
-
     .b-others__grid{display:grid;gap:16px;margin-top:32px;grid-template-columns:1fr}
     .other-card{position:relative;display:flex;flex-direction:column;gap:10px;min-height:100%;padding:22px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);text-decoration:none;color:var(--text);transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
     .other-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
@@ -538,28 +449,6 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     .other-card:hover .other-card__arrow{background:var(--purple);color:#fff}
     @media (min-width:768px){.b-others__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}}
     @media (min-width:1024px){.b-others__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-
-    /* Хаб «Все услуги» */
-    .svc-grid{display:grid;gap:16px;margin-top:32px;grid-template-columns:1fr}
-    .svc-card{position:relative;display:flex;flex-direction:column;gap:10px;padding:26px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);text-decoration:none;color:var(--text);transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
-    .svc-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
-    .svc-card__icon{display:inline-flex;align-items:center;justify-content:center;width:50px;height:50px;border-radius:12px;background:var(--purple-soft);color:var(--purple)}
-    .svc-card__icon .material-symbols-outlined{font-size:26px}
-    .svc-card h3{margin:0;font-size:1.15rem}
-    .svc-card p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
-    .svc-card__go{display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding-top:14px;font-weight:700;color:var(--purple)}
-    .svc-card__go .material-symbols-outlined{font-size:20px;transition:transform .2s ease}
-    .svc-card:hover .svc-card__go .material-symbols-outlined{transform:translateX(4px)}
-    @media (min-width:768px){.svc-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}}
-    @media (min-width:1024px){.svc-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-
-    /* ── Карта объектов на странице услуги ───────────────────────────── */
-    .b-map-sec__lead{margin:12px 0 0;max-width:70ch;color:var(--text-muted)}
-    .b-map-sec__wrap{margin-top:28px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
-    .b-map-sec__canvas{width:100%;height:clamp(420px,55vh,620px);background:var(--surface)}
-    .b-map-sec__bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-top:1px solid var(--border);background:#fff}
-    .b-map-sec__hint{display:inline-flex;align-items:center;gap:8px;color:var(--text-muted);font-size:var(--fs-small)}
-    .b-map-sec__hint .material-symbols-outlined{font-size:18px;color:var(--purple)}
 
     /* ═══ Дизайн-проход по страницам услуг ═══════════════════════════════ */
 
@@ -576,16 +465,6 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     .b-hero--service .b-hero__lead{font-size:1.1rem;line-height:1.7}
     .b-hero__metrics li{display:flex;flex-direction:column;gap:6px}
     .b-hero__metrics li .material-symbols-outlined{font-size:20px;color:var(--purple)}
-
-    /* Карточки ролей */
-    .role-card{position:relative;padding:28px;gap:14px;overflow:hidden}
-    .role-card::before{content:"";position:absolute;left:0;top:0;height:3px;width:0;background:var(--gold);transition:width .35s ease}
-    .role-card:hover::before{width:100%}
-    .role-card__icon{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:14px;background:var(--purple-soft);color:var(--purple);transition:background .22s ease,color .22s ease,transform .22s ease}
-    .role-card:hover .role-card__icon{background:var(--purple);color:#fff;transform:translateY(-2px)}
-    .role-card__icon .material-symbols-outlined{font-size:26px}
-    .role-card h3{font-size:1.12rem;line-height:1.35}
-    .role-card__list li{line-height:1.55}
 
     /* Что входит: нумерованные карточки */
     .scope-card{position:relative;padding:24px;gap:18px;overflow:hidden}
@@ -614,15 +493,6 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     .b-flow2__body{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;min-height:104px;transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease}
     .b-flow2__step:hover .b-flow2__body{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
     .b-flow2__body p{margin:0;font-weight:500;font-size:.98rem;line-height:1.5}
-
-    /* CTA: градиент брендбука */
-    .b-cta--grad{background:linear-gradient(120deg,var(--purple) 0%,var(--navy) 100%);color:#fff;position:relative;overflow:hidden}
-    .b-cta--grad::after{content:"";position:absolute;width:140px;height:140px;right:-40px;bottom:-40px;border:2px solid rgba(235,184,30,.4);transform:rotate(15deg)}
-    .b-cta--grad h2{color:#fff}
-    .b-cta--grad p{color:rgba(255,255,255,.82)}
-    .b-cta--grad .sec-index{color:rgba(255,255,255,.6)}
-    .b-cta--grad .b-cta__phone{color:#fff}
-    .b-cta--grad .b-cta__phone .material-symbols-outlined{color:var(--gold)}
     .btn--ghost-light{border-color:rgba(255,255,255,.55);color:#fff;background:transparent}
     .btn--ghost-light:hover{background:#fff;color:var(--purple);border-color:#fff}
 
@@ -638,7 +508,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     @media (max-width:767px){
       .b-sec-head{margin-bottom:26px}
       .b-sec-head__lead{font-size:1rem}
-      .role-card,.scope-card,.approach-card,.other-card{padding:20px}
+      .scope-card, .approach-card, .other-card{padding:20px}
       .b-flow2__track{left:21px;right:auto;top:0;bottom:0;width:2px;height:auto}
       .b-flow2__fill{width:100%;height:0;transition:height 1.4s cubic-bezier(.22,.61,.36,1)}
       .b-flow2.is-filled .b-flow2__fill{height:100%}
@@ -646,7 +516,6 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
       .b-flow2__step{flex-direction:row;gap:14px;align-items:flex-start}
       .b-flow2__dot{flex:0 0 auto;box-shadow:0 0 0 5px var(--surface)}
       .b-flow2__body{min-height:0;flex:1 1 auto;padding:14px 16px}
-      .b-cta--grad .b-cta__row{gap:10px}
     }
 
     .b-scope__obj-title{margin:44px 0 0;font-size:var(--fs-h3);display:flex;align-items:center;gap:10px}
@@ -658,21 +527,11 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
 
 <main>
 
-  <section id="breadcrumbs" class="b-breadcrumbs">
-    <div class="container">
-      <ol>
-        <li><a href="/">Главная</a></li>
-        <li><a href="/uslugi/">Услуги</a></li>
-        <li><span aria-current="page">Подбор недвижимости</span></li>
-      </ol>
-    </div>
-  </section>
+  <Breadcrumbs items={[{ href: "/", label: "Главная" }, { href: "/uslugi/", label: "Услуги" }, { label: "Подбор недвижимости" }]} />
 
   <section id="hero" class="b-hero b-hero--service">
     <div class="b-hero__glow b-hero__glow--purple"></div>
     <div class="b-hero__glow b-hero__glow--gold"></div>
-    <span class="sq-float sq-float--1" aria-hidden="true"></span>
-    <span class="sq-float sq-float--3" aria-hidden="true"></span>
     <div class="b-hero__particles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
     <div class="container b-hero__inner">
       <div class="b-hero__content">
@@ -680,8 +539,8 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
         <h1>Подбор <span class="accent">недвижимости</span></h1>
         <p class="b-hero__lead">Подбираем объект под задачи бизнеса и сопровождаем сделку до результата: от анализа требований и подбора вариантов по всему рынку до юридического аудита, переговоров и передачи объекта.</p>
         <div class="b-hero__actions">
-          <a class="btn btn--gold" href="/modalka-zayavki/">Обсудить проект</a>
-          <a class="btn btn--outline" href="/katalog/">Смотреть объекты</a>
+          <SiteButton variant="gold" href="/modalka-zayavki/">Обсудить проект</SiteButton>
+          <SiteButton variant="outline" href="/katalog/">Смотреть объекты</SiteButton>
         </div>
         <ul class="b-hero__metrics"><li><span class="material-symbols-outlined" aria-hidden="true">verified</span><span>с 2011 года</span></li><li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>200 000+ м²</span></li><li><span class="material-symbols-outlined" aria-hidden="true">apartment</span><span>25+ проектов</span></li><li><span class="material-symbols-outlined" aria-hidden="true">groups</span><span>150+ резидентов</span></li></ul>
       </div>
@@ -696,24 +555,9 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
         <p class="b-sec-head__lead">Работаем с производственными компаниями, собственниками объектов и инвесторами — у каждого своя задача и свой набор критериев.</p>
       </div>
       <div class="b-tasks__grid">
-        <article class="role-card reveal" style="--i:0">
-          <span class="role-card__icon"><span class="material-symbols-outlined" aria-hidden="true">factory</span></span>
-          <h3>Производственным компаниям</h3>
-          <ul class="role-card__list"><li>Запуск и развитие производственных площадок</li><li>От аренды небольших помещений до строительства крупных объектов</li><li>Подбор под требования к инженерии, нагрузке и логистике</li></ul>
-          
-        </article>
-        <article class="role-card reveal" style="--i:1">
-          <span class="role-card__icon"><span class="material-symbols-outlined" aria-hidden="true">domain</span></span>
-          <h3>Собственникам объектов</h3>
-          <ul class="role-card__list"><li>Поиск арендаторов и покупателей на ваш объект</li><li>Оценка рыночных условий и конкурентного окружения</li><li>Сопровождение переговоров и сделки</li></ul>
-          
-        </article>
-        <article class="role-card reveal" style="--i:2">
-          <span class="role-card__icon"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span></span>
-          <h3>Инвесторам</h3>
-          <ul class="role-card__list"><li>Готовые решения с различным объёмом капитала</li><li>Промышленная недвижимость как стабильный и прогнозируемый актив</li><li>Сравнение аренды и покупки в одном расчёте</li></ul>
-          
-        </article>
+        <RoleCard icon="factory" title="Производственным компаниям" index={0} items={["Запуск и развитие производственных площадок", "От аренды небольших помещений до строительства крупных объектов", "Подбор под требования к инженерии, нагрузке и логистике"]} />
+        <RoleCard icon="domain" title="Собственникам объектов" index={1} items={["Поиск арендаторов и покупателей на ваш объект", "Оценка рыночных условий и конкурентного окружения", "Сопровождение переговоров и сделки"]} />
+        <RoleCard icon="trending_up" title="Инвесторам" index={2} items={["Готовые решения с различным объёмом капитала", "Промышленная недвижимость как стабильный и прогнозируемый актив", "Сравнение аренды и покупки в одном расчёте"]} />
       </div>
     </div>
   </section>
@@ -787,7 +631,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">05</p>
         <h2>Как мы работаем</h2>
-        
+
       </div>
       <div class="b-flow2" data-count="5">
         <div class="b-flow2__track" aria-hidden="true"><span class="b-flow2__fill"></span></div>
@@ -813,47 +657,22 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     </div>
   </section>
 
-  <section id="map" class="b-map-sec section">
-    <div class="container">
-      <p class="sec-index" aria-hidden="true">06</p>
-      <div class="b-rowhead">
-        <h2>Объекты на карте</h2>
-        <a class="b-more" href="/katalog/">Весь каталог<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
-      </div>
-      <p class="b-map-sec__lead">27 объектов в Санкт-Петербурге и Ленинградской области: индустриальные парки, производственно-складские комплексы и земельные участки.</p>
-      <div class="b-map-sec__wrap">
-        <div id="svc-map" class="b-map-sec__canvas" role="application" aria-label="Карта объектов ММ Пром"></div>
-        <div class="b-map-sec__bar">
-          <span class="b-map-sec__hint"><span class="material-symbols-outlined" aria-hidden="true">ads_click</span>Нажмите на метку — откроется карточка объекта</span>
-          <a class="btn btn--outline" href="/katalog/">Смотреть каталог</a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <MapSection objects={mapObjects} secIndex="06" />
 
   <script is:inline src="https://api-maps.yandex.ru/2.1/?apikey=2ae53810-6967-43df-9165-4003eeb71cbf&lang=ru_RU" type="text/javascript"></script>
-      <script is:inline define:vars={{ mapObjects }}>window.MMPROM_MAP_OBJECTS = mapObjects;</script>
     <script is:inline src="/assets/svc-map.js?v=1" defer></script>
 
-  <section id="cta" class="b-cta b-cta--grad">
-    <div class="container">
-      <p class="sec-index" aria-hidden="true">07</p>
-      <h2>Нужен объект для бизнеса?</h2>
-      <p>Оставьте заявку — и уже через 30 дней у вас будет готовое решение: где разместить производство или склад.</p>
-      <div class="b-cta__row">
-        <a class="btn btn--gold" href="/modalka-zayavki/">Оставить заявку</a>
-        <a class="btn btn--ghost-light" href="/katalog/">Смотреть объекты</a>
-        <a class="b-cta__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
-      </div>
-    </div>
-  </section>
+  <CtaBand variant="grad" id="cta" secIndex="07" heading="Нужен объект для бизнеса?" lede="Оставьте заявку — и уже через 30 дней у вас будет готовое решение: где разместить производство или склад." buttons={[
+          { variant: "gold", href: "/modalka-zayavki/", label: "Оставить заявку" },
+          { variant: "ghost-light", href: "/katalog/", label: "Смотреть объекты" }
+        ]} />
 
   <section id="uslugi" class="b-others section">
     <div class="container">
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">08</p>
         <h2>Другие услуги</h2>
-        
+
       </div>
       <div class="b-others__grid">
         <a class="other-card reveal" href="/arenda/" style="--i:0">
