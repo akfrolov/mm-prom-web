@@ -3,29 +3,66 @@ import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ObjectCard from '../../components/ObjectCard.astro';
 
-// Страница объекта /obekt/<id>/ (SPEC object-pages, блок B1).
+// Страница объекта /obekt/<id>/ (SPEC object-pages, блоки B1/B2).
 // Брендбуки /atlas-garazhnyj/ и /avrora-vitebskij/ — отдельные маршруты фичи
 // brandbooks, на /obekt/ не попадают.
 export async function getStaticPaths() {
   const objects = await getCollection('objects');
   const brandbookIds = new Set(['atlas-garazhny', 'avrora-vitebsky']);
-  return objects
-    .filter((entry) => !brandbookIds.has(entry.id))
-    .map((entry) => ({ params: { id: entry.id }, props: { obj: entry } }));
+  const pages = objects.filter((entry) => !brandbookIds.has(entry.id));
+
+  // Похожие объекты (§8): приоритет того же типа, дозаполнение до 4 по
+  // минимальной разнице areaNum (записи с null — в конце), вывод — по sort
+  // коллекции в пределах групп. Решение агента — на ревью владельца (§13.4).
+  const bySort = (a: CollectionEntry<'objects'>, b: CollectionEntry<'objects'>) => a.data.sort - b.data.sort;
+  const areaDistance = (target: CollectionEntry<'objects'>, other: CollectionEntry<'objects'>) => {
+    if (target.data.areaNum === null || other.data.areaNum === null) return Number.POSITIVE_INFINITY;
+    return Math.abs(other.data.areaNum - target.data.areaNum);
+  };
+
+  return pages.map((entry) => {
+    const others = objects.filter((other) => other.id !== entry.id);
+    const sameType = others.filter((other) => other.data.type === entry.data.type).sort(bySort);
+    const sameTypeSelected = sameType.slice(0, 4);
+    const selectedIds = new Set(sameTypeSelected.map((other) => other.id));
+    const rest = others
+      .filter((other) => !selectedIds.has(other.id))
+      .sort((a, b) => {
+        const da = areaDistance(entry, a);
+        const db = areaDistance(entry, b);
+        if (da !== db) return da - db;
+        return bySort(a, b);
+      })
+      .slice(0, Math.max(0, 4 - sameTypeSelected.length))
+      .sort(bySort);
+    return {
+      params: { id: entry.id },
+      props: { obj: entry, similar: [...sameTypeSelected, ...rest] },
+    };
+  });
 }
 
 interface Props {
   obj: CollectionEntry<'objects'>;
+  similar: CollectionEntry<'objects'>[];
 }
 
-const { obj } = Astro.props;
+const { obj, similar } = Astro.props;
 const d = obj.data;
 
 const heroTitle = d.hero?.title ?? d.title;
 const heroText = d.hero?.text;
+// Фото галереи (§6): images; hero.image — главное фото, если заполнено.
 const gallery = d.images ?? [];
-const mainImage = d.hero?.image ?? (gallery.length > 0 ? gallery[0] : d.image) ?? '';
+const photos = [
+  ...(d.hero?.image ? [d.hero.image] : []),
+  ...gallery.filter((src) => src !== d.hero?.image),
+];
+const photoList = photos.length > 0 ? photos : d.image ? [d.image] : [];
+const mainImage = photoList[0] ?? '';
+const isMultiGallery = photoList.length > 1;
 // OG-изображение объекта — первое фото галереи, иначе фото карточки (§3.2).
 const ogImage = gallery[0] ?? d.image ?? undefined;
 const pageTitle = `${d.title} — карточка объекта — ММ Пром`;
@@ -33,7 +70,7 @@ const pageDescription = heroText ?? d.desc;
 const keySpecs = d.specs.slice(0, 3);
 const price = d.price.trim() || 'по запросу';
 const placeholderText = d.placeholder ?? d.title;
-const singlePhoto = gallery.length <= 1;
+const singlePhoto = photoList.length === 1;
 const caption = d.media?.caption && singlePhoto ? d.media.caption : '';
 const ctaTitle = d.cta?.title ?? 'Нужна консультация по объекту?';
 const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуникациям и срокам заезда. Покажем объект в удобное время.';
@@ -47,6 +84,7 @@ const b24Attrs = {
 
 <BaseLayout title={pageTitle} description={pageDescription} ogImage={ogImage}>
   <Fragment slot="head">
+    <link rel="stylesheet" href="/assets/object-card.css?v=2">
     <style is:inline>
     /* ═══════════════════════════════════════════════════════════════════════
        ММ ПРОМ — карточка объекта /obekt/<id>/ (SPEC object-pages, блок B1)
@@ -85,6 +123,18 @@ const b24Attrs = {
     @media (min-width:768px){.gallery-media{min-height:380px}}
     @media (min-width:1024px){.gallery-media{min-height:440px}}
 
+    /* ── Галерея: лента превью (ветка «мульти-галерея») ─────────────────── */
+    .gallery-thumbs{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px}
+    .gallery-thumb{display:block;padding:0;background:#fff;border:2px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;cursor:pointer;transition:border-color .18s ease}
+    .gallery-thumb img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
+    .gallery-thumb:hover{border-color:var(--purple)}
+    .gallery-thumb[aria-pressed="true"]{border-color:var(--purple)}
+    .gallery-thumb:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+    @media (min-width:768px){.gallery-thumbs{grid-template-columns:repeat(5,1fr)}}
+    @media (prefers-reduced-motion:reduce){
+      .gallery-thumb,.b-similar .obj-card,.b-similar .obj-card *{transition:none}
+    }
+
     /* ── Заголовок объекта ──────────────────────────────────────────────── */
     .b-object-head h1{margin:8px 0}
     .obj-head__badges{display:flex;flex-wrap:wrap;gap:6px}
@@ -121,6 +171,23 @@ const b24Attrs = {
 
     /* ── Описание ───────────────────────────────────────────────────────── */
     .b-about p{margin:0;max-width:72ch;color:var(--text-muted)}
+
+    /* ── Расположение: карта + мета-колонка ─────────────────────────────── */
+    .b-location h2,.b-similar h2{margin:0 0 12px}
+    .obj-map-canvas{position:relative;min-height:260px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+    @media (min-width:768px){.obj-map-canvas{min-height:380px}}
+    @media (min-width:1024px){.obj-map-canvas{min-height:440px;height:100%}}
+    .loc-meta{margin:0;display:grid;gap:10px;align-content:start}
+    .loc-meta li{display:flex;align-items:flex-start;gap:8px;color:var(--text-muted);font-size:var(--fs-small);line-height:1.45}
+    .loc-meta li .material-symbols-outlined{font-size:18px;color:var(--purple);flex:0 0 auto;margin-top:2px}
+    .loc-meta li strong{color:var(--text)}
+    .loc-note{margin:10px 0 0;font-size:var(--fs-small);color:var(--text-muted)}
+
+    /* ── Похожие объекты ────────────────────────────────────────────────── */
+    .b-similar{padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
+    .b-similar__grid{margin:0}
+    .b-similar__more{margin-top:20px}
+    @media (max-width:767px){.b-similar{padding:16px}}
 
     /* ── CTA-панель: sticky справа (≥1024) / фиксированный бар снизу ────── */
     .b-cta-panel{margin:0}
@@ -163,10 +230,25 @@ const b24Attrs = {
               src={mainImage}
               alt={d.title}
               loading="eager"
-              onerror="this.classList.add('is-broken')"
+              onerror="this.classList.add('is-broken');var ph=this.parentNode.querySelector('.img-placeholder');if(ph){ph.removeAttribute('aria-hidden');}"
             />
           )}
         </div>
+        {isMultiGallery && (
+          <div class="gallery-thumbs" role="group" aria-label="Превью галереи">
+            {photoList.map((_, i) => (
+              <button
+                class="gallery-thumb"
+                type="button"
+                aria-pressed={i === 0 ? 'true' : 'false'}
+                aria-label={`${d.title} — фото ${i + 1}`}
+                data-index={i}
+              >
+                <img src={photoList[i]} alt="" loading="lazy" />
+              </button>
+            ))}
+          </div>
+        )}
         {caption && <p class="gallery-caption">{caption}</p>}
       </section>
 
@@ -221,6 +303,44 @@ const b24Attrs = {
         <h2>Об объекте</h2>
         <p>{heroText ?? d.desc}</p>
       </section>
+
+      <section id="location" class="b-location">
+        <h2>Расположение на карте</h2>
+        <div class="grid grid--2">
+          <div id="obj-map-canvas" class="obj-map-canvas" role="region" aria-label={`Карта: ${d.address}`}></div>
+          <div>
+            <ul class="loc-meta">
+              <li>
+                <span class="material-symbols-outlined" aria-hidden="true">place</span>
+                <span><strong>Адрес:</strong> {d.address}</span>
+              </li>
+              <li>
+                <span class="material-symbols-outlined" aria-hidden="true">location_city</span>
+                <span><strong>Район:</strong> {d.district}</span>
+              </li>
+              <li>
+                <span class="material-symbols-outlined" aria-hidden="true">square_foot</span>
+                <span><strong>Площадь:</strong> {d.area}</span>
+              </li>
+              <li>
+                <span class="material-symbols-outlined" aria-hidden="true">handshake</span>
+                <span><strong>Сделки:</strong> {d.deal.join(' / ')}</span>
+              </li>
+            </ul>
+            <p class="loc-note">Карта: {d.address}</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="similar" class="b-similar section--tint" aria-labelledby="similar-title">
+        <h2 id="similar-title">Похожие объекты</h2>
+        <div class="grid grid--4 b-similar__grid">
+          {similar.map((item) => <ObjectCard obj={item} showMap={false} />)}
+        </div>
+        <div class="b-similar__more">
+          <a class="btn btn--outline" href="/katalog/">Смотреть все объекты</a>
+        </div>
+      </section>
     </div>
 
     <aside class="object-aside">
@@ -246,4 +366,83 @@ const b24Attrs = {
       </section>
     </aside>
   </div>
+
+  <Fragment slot="tail">
+    <script is:inline src="https://api-maps.yandex.ru/2.1/?apikey=2ae53810-6967-43df-9165-4003eeb71cbf&amp;lang=ru_RU&amp;ver=2.1.0"></script>
+    <script is:inline define:vars={{ galleryPhotos: photoList }}>
+      (function () {
+        var photos = galleryPhotos || [];
+        document.addEventListener('DOMContentLoaded', function () {
+          var section = document.getElementById('gallery');
+          if (!section) return;
+          var main = section.querySelector('.gallery-media img');
+          var thumbs = section.querySelectorAll('.gallery-thumb');
+          if (!main || !thumbs.length) return;
+          Array.prototype.forEach.call(thumbs, function (btn) {
+            btn.addEventListener('click', function () {
+              var src = photos[Number(btn.getAttribute('data-index'))];
+              if (!src) return;
+              main.classList.remove('is-broken');
+              main.src = src;
+              Array.prototype.forEach.call(thumbs, function (other) {
+                other.setAttribute('aria-pressed', other === btn ? 'true' : 'false');
+              });
+            });
+          });
+        });
+      })();
+    </script>
+    <script is:inline define:vars={{ coords: d.coords, mapTitle: d.title, mapAddress: d.address }}>
+      (function () {
+        var el = document.getElementById('obj-map-canvas');
+        if (!el) return;
+        var PIN = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="36" height="44" viewBox="0 0 36 44"><path d="M18 1C9.2 1 2 8.1 2 16.9 2 28 18 43 18 43s16-15 16-26.1C34 8.1 26.8 1 18 1z" fill="#5A3994" stroke="#ffffff" stroke-width="2"/><circle cx="18" cy="17" r="6" fill="#EBB81E"/></svg>');
+        var visible = !('IntersectionObserver' in window);
+        var started = false;
+        function start() {
+          if (!visible || started || !window.ymaps) return;
+          started = true;
+          ymaps.ready(function () {
+            var center = [coords[0], coords[1]];
+            var map = new ymaps.Map('obj-map-canvas', {
+              center: center,
+              zoom: 14,
+              controls: ['zoomControl', 'fullscreenControl']
+            }, { suppressMapOpenBlock: true });
+            var placemark = new ymaps.Placemark(center, {
+              hintContent: mapTitle,
+              balloonContent: mapTitle + '<br>' + mapAddress
+            }, {
+              iconLayout: 'default#image',
+              iconImageHref: PIN,
+              iconImageSize: [36, 44],
+              iconImageOffset: [-18, -44]
+            });
+            map.geoObjects.add(placemark);
+          });
+        }
+        if ('IntersectionObserver' in window) {
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                visible = true;
+                start();
+                io.disconnect();
+              }
+            });
+          }, { rootMargin: '250px' });
+          io.observe(el);
+        }
+        var attempts = 0;
+        var poll = setInterval(function () {
+          attempts += 1;
+          if (window.ymaps) {
+            clearInterval(poll);
+            start();
+          } else if (attempts >= 100) {
+            clearInterval(poll);
+          }
+        }, 200);      })();
+    </script>
+  </Fragment>
 </BaseLayout>
