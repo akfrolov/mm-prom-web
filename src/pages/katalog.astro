@@ -1,8 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ObjectCard from '../components/ObjectCard.astro';
+import { getCollection } from 'astro:content';
+const objects = (await getCollection('objects')).sort((a, b) => a.data.sort - b.data.sort);
+const modalObjects = objects.map(({ id, data }) => ({
+  id, title: data.title, typeLabel: data.typeLabel, deal: data.deal, area: data.area,
+  address: data.address, district: data.district, desc: data.desc, specs: data.specs,
+  price: data.price, image: data.image, external: data.external, coords: data.coords, busy: data.busy,
+}));
 ---
 <BaseLayout title="Каталог объектов — ММ Пром" description="Каталог производственной недвижимости Санкт-Петербурга и Ленинградской области: индустриальные парки, производственно-складские комплексы и земельные участки. Фильтры по типу, сделке, площади и локации, интерактивная карта.">
   <Fragment slot="head">
+  <link rel="stylesheet" href="/assets/object-card.css?v=1">
     <style is:inline>
     /* ═══════════════════════════════════════════════════════════════════════
        ММ ПРОМ — ГЛАВНАЯ СТРАНИЦА
@@ -345,30 +354,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .b-rail::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
     .b-rail > *{flex:0 0 84vw;max-width:360px;scroll-snap-align:start}
     @media (min-width:768px){.b-rail{gap:20px}.b-rail > *{flex:0 0 340px}}
-
-    .obj-card{position:relative;display:flex;flex-direction:column;height:100%;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:box-shadow .2s ease,transform .2s ease}
-    .obj-card:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
-    .obj-card .img-placeholder{border:0;border-bottom:1px solid var(--border);border-radius:0;min-height:150px;flex:1 1 auto}
-    .obj-card__body{display:flex;flex-direction:column;gap:8px;padding:18px;flex:1 1 auto}
-    .obj-card__badges{display:flex;align-items:center;flex-wrap:wrap;justify-content:space-between;gap:8px;min-height:24px}
-    .obj-card__link{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;margin:-10px -6px -10px auto;color:var(--purple)}
-    .obj-card__link .material-symbols-outlined{font-size:20px}
-    .obj-card__link::after{content:"";position:absolute;inset:0}
-    .obj-card__body h3{margin:0;font-size:1.1rem;line-height:1.3}
-    .obj-card__desc{margin:0;font-size:var(--fs-small);color:var(--text-muted)}
-    .obj-card__meta{display:grid;gap:4px;list-style:none;margin:0;padding:0;font-size:var(--fs-small);color:var(--text-muted)}
-    .obj-card__meta li{display:flex;align-items:center;gap:8px}
-    .obj-card__meta .material-symbols-outlined{font-size:18px;color:var(--purple)}
-    .obj-card__meta .icon-loc{flex:0 0 auto}
-    .obj-card__meta strong{color:var(--text);font-weight:600}
-    .obj-card__presentation{position:absolute;top:12px;left:12px;z-index:2;display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--text);font-size:var(--fs-small);font-weight:600;text-decoration:none;box-shadow:0 4px 14px rgba(11,27,51,.12)}
-    .obj-card__presentation .material-symbols-outlined{font-size:18px}
-    .obj-card__presentation:hover{border-color:var(--purple);color:var(--purple)}
-    .b-media{margin:0;display:flex;flex-direction:column;background:var(--surface)}
-    .b-media img{display:block;width:100%;flex:1 1 auto;object-fit:cover}
-    .b-media img.is-broken{display:none}
-    .b-media figcaption{padding:8px 12px;font-size:var(--fs-small);color:var(--text-muted);border-top:1px solid var(--border)}
-    .obj-card .b-media img{aspect-ratio:16/10}
 
 
     /* ── Бейджи ──────────────────────────────────────────────────────────── */
@@ -773,40 +758,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     @media (min-width:640px){.cat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media (min-width:1024px){.cat-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
-    /* ── Карточка объекта ────────────────────────────────────────────── */
-    .cat-card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease}
-    .cat-card:hover{border-color:var(--purple);box-shadow:0 18px 40px rgba(11,27,51,.14);transform:translateY(-4px)}
-    .cat-card__media{position:relative;aspect-ratio:16/10;background:var(--surface);overflow:hidden}
-    .cat-card__media img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
-    .cat-card:hover .cat-card__media img{transform:scale(1.05)}
-    .cat-card__media img.is-broken{display:none}
-    .cat-card__ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--text-muted);font-size:var(--fs-small);text-align:center;padding:16px}
-    .cat-card__ph .material-symbols-outlined{font-size:34px;color:var(--border)}
-    .cat-card__media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,0,40,.28) 0%,rgba(14,0,40,0) 38%,rgba(14,0,40,.10) 100%);pointer-events:none}
-    .cat-card__badges{position:absolute;top:12px;left:12px;right:12px;display:flex;flex-wrap:wrap;gap:6px;z-index:2;justify-content:space-between;align-items:flex-start}
-    .cat-card__badges-left{display:flex;flex-wrap:wrap;gap:6px}
-    .cat-card__badges .badge{backdrop-filter:blur(6px)}
-    .cat-card__map{position:absolute;right:12px;bottom:12px;z-index:2;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:0;border-radius:50%;background:rgba(255,255,255,.94);color:var(--purple);cursor:pointer;box-shadow:0 4px 14px rgba(11,27,51,.18);transition:background .18s ease,color .18s ease,transform .18s ease}
-    .cat-card__map:hover{background:var(--purple);color:#fff;transform:scale(1.06)}
-    .cat-card__map .material-symbols-outlined{font-size:20px}
-    .cat-card__body{display:flex;flex-direction:column;gap:10px;padding:18px 18px 16px;flex:1 1 auto}
-    .cat-card__body h3{margin:0;font-size:1.06rem;line-height:1.35}
-    .cat-card__addr{margin:0;color:var(--text-muted);font-size:var(--fs-small);display:flex;gap:6px;align-items:flex-start;line-height:1.45}
-    .cat-card__addr .material-symbols-outlined{font-size:16px;color:var(--purple);flex:0 0 auto;margin-top:2px}
-    .cat-card__facts{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:2px;padding-top:12px;border-top:1px solid var(--border)}
-    .cat-card__fact{display:flex;flex-direction:column;gap:2px;min-width:0}
-    .cat-card__fact span{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);font-weight:700}
-    .cat-card__fact strong{font-size:.98rem;color:var(--text);font-weight:700;line-height:1.3}
-    .cat-card__foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:12px}
-    .cat-card__more{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0;border:0;background:none;color:var(--purple);font:inherit;font-weight:700;font-size:var(--fs-small);cursor:pointer}
-    .cat-card__more .material-symbols-outlined{font-size:18px;transition:transform .2s ease}
-    .cat-card__more:hover .material-symbols-outlined{transform:translateX(4px)}
-    .cat-card__ext{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--purple);font-weight:700;font-size:var(--fs-small);text-decoration:none}
-    .cat-card__ext .material-symbols-outlined{font-size:18px}
-    .cat-card__busy{display:inline-flex;align-items:center;gap:4px;color:var(--text-muted);font-size:var(--fs-small)}
-    .cat-card__busy .material-symbols-outlined{font-size:16px}
-    .cat-card--busy .cat-card__media img{filter:grayscale(.35);opacity:.9}
-
     .badge--deal-rent{background:rgba(90,57,148,.92);color:#fff}
     .badge--deal-sale{background:rgba(235,184,30,.95);color:var(--navy)}
     .badge--type{background:rgba(255,255,255,.94);color:var(--text);border:1px solid rgba(255,255,255,.6)}
@@ -837,7 +788,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .obj-modal__media{background:var(--surface);min-height:220px;position:relative}
     .obj-modal__media img{display:block;width:100%;height:100%;max-height:340px;object-fit:cover}
     .obj-modal__media img.is-broken{display:none}
-    .obj-modal__media .cat-card__ph{position:relative;min-height:220px}
     .obj-modal__content{padding:22px 24px 26px;display:flex;flex-direction:column;gap:18px}
     .obj-modal__desc{margin:0;color:var(--text-muted);font-size:1rem;line-height:1.65}
     .obj-modal__specs{display:grid;gap:10px;margin:0;padding:0;list-style:none}
@@ -940,546 +890,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
 
       <div id="cat-grid" class="cat-grid">
-        <article class="cat-card reveal" data-id="atlas-garazhny" data-type="park" data-deal="rent" data-area="8577" data-loc="spb" data-title="атлас гаражный">
-          <div class="cat-card__media">
-            <img src="https://mm-prom.ru/wp-content/uploads/2026/09/image-14-09-26-10-33-1-scaled-optimized.png" alt="Атлас Гаражный" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Атлас Гаражный</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Индустриальный парк</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-rent">Аренда</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="atlas-garazhny" aria-label="Показать на карте: Атлас Гаражный"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Атлас Гаражный</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, промышленная зона Обухово</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>8 577 м²</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Промышленная зона Обухово</strong></div>
-            </div>
-            <div class="cat-card__foot"><a class="cat-card__ext" href="https://mm-prom.ru/atlas-garazhnyj/" target="_blank" rel="noopener">На страницу объекта<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="avrora-vitebsky" data-type="park" data-deal="rent" data-area="200000" data-loc="spb" data-title="аврора витебский">
-          <div class="cat-card__media">
-            <img src="https://mm-prom.ru/wp-content/uploads/2026/05/garage.avif" alt="Аврора Витебский" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Аврора Витебский</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Индустриальный парк</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-rent">Аренда</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="avrora-vitebsky" aria-label="Показать на карте: Аврора Витебский"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Аврора Витебский</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, Витебский проспект</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>38 га · 200 000+ м²</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Витебский проспект</strong></div>
-            </div>
-            <div class="cat-card__foot"><a class="cat-card__ext" href="https://mm-prom.ru/avrora-vitebskij/" target="_blank" rel="noopener">На страницу объекта<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="light-industrial-razmetelevo" data-type="park" data-deal="sale" data-area="16000" data-loc="lo" data-title="light industrial разметелево">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/cms/thumbs/4e2bd3e3ed9891b87566d6f275d8f919925d2ad8/osnovnaya_585_403_jpg_5_80.jpg" alt="Light Industrial Разметелево" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Light Industrial Разметелево</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Индустриальный парк</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-sale">Продажа</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="light-industrial-razmetelevo" aria-label="Показать на карте: Light Industrial Разметелево"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Light Industrial Разметелево</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>дер. Разметелево, Колтушское г.п., Всеволожский р-н, Ленинградская обл.</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>16 000 м²</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Всеволожский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="light-industrial-razmetelevo">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="land-volosovo" data-type="land" data-deal="sale" data-area="180000" data-loc="lo" data-title="земельный участок в волосовском районе">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/obekty/indastrial/prodazha/volosovo/vid_sverhu.jpg" alt="Земельный участок в Волосовском районе" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Земельный участок в Волосовском районе</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Земельный участок</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-sale">Продажа</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="land-volosovo" aria-label="Показать на карте: Земельный участок в Волосовском районе"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Земельный участок в Волосовском районе</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Ленинградская обл., Волосовский р-н, Калитинское с/п</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>18 га</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Волосовский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="land-volosovo">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="land-koltushi" data-type="land" data-deal="sale" data-area="18000" data-loc="lo" data-title="земельный участок в колтушах">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/obekty/indastrial/prodazha/koltushi-2ga/zu_koltushi.png" alt="Земельный участок в Колтушах" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Земельный участок в Колтушах</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Земельный участок</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-sale">Продажа</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="land-koltushi" aria-label="Показать на карте: Земельный участок в Колтушах"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Земельный участок в Колтушах</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Ленинградская обл., Всеволожский р-н, Колтушское с/п</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>1,8 га</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Всеволожский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="land-koltushi">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="land-tervolovo" data-type="land" data-deal="sale" data-area="36000" data-loc="lo" data-title="земельный участок в терволово">
-          <div class="cat-card__media">
-            <img src="/tervolovo.jpg" alt="Земельный участок в Терволово" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Земельный участок в Терволово</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Земельный участок</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-sale">Продажа</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="land-tervolovo" aria-label="Показать на карте: Земельный участок в Терволово"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Земельный участок в Терволово</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>ЛО, Гатчинский м.о., п. Терволово</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>3,6 га</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Гатчинский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="land-tervolovo">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="volhov" data-type="warehouse" data-deal="rent" data-area="14000" data-loc="lo" data-title="производственно-складской комплекс волхов">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/obekty/indastrial/arenda/volhov/fasad.jpg" alt="Производственно-складской комплекс Волхов" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс Волхов</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственно-складской комплекс</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-rent">Аренда</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="volhov" aria-label="Показать на карте: Производственно-складской комплекс Волхов"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Производственно-складской комплекс Волхов</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Ленинградская обл., г. Волхов, Порожский проезд, 5А</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>14 000 м²</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>г. Волхов</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="volhov">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="varshavskaya" data-type="production" data-deal="sale" data-area="11732" data-loc="spb" data-title="производственное здание на варшавской, 11">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/cms/thumbs/f5a4b2aae9b8eb4eca6273290655ca77911e6850/pomewenie2_278_191_jpg_5_80.jpg" alt="Производственное здание на Варшавской, 11" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственное здание на Варшавской, 11</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственный комплекс</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-sale">Продажа</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="varshavskaya" aria-label="Показать на карте: Производственное здание на Варшавской, 11"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Производственное здание на Варшавской, 11</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, Московский р-н, ул. Варшавская, д. 11А</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>11 732 м²</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Московский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="varshavskaya">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="voyskovitsy" data-type="production" data-deal="sale" data-area="22882" data-loc="lo" data-title="производственный комплекс в войсковицах">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/cms/thumbs/ae2e004318d552a38fd9d68b1233f3cf3980cc5a/osnovnaya_585_403_png_5_80.png" alt="Производственный комплекс в Войсковицах" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственный комплекс в Войсковицах</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственный комплекс</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-sale">Продажа</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="voyskovitsy" aria-label="Показать на карте: Производственный комплекс в Войсковицах"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Производственный комплекс в Войсковицах</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>ЛО, Гатчинский м.о., пос. Войсковицы, квартал Промзона № 1</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>22 882 м²</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Гатчинский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="voyskovitsy">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="salova" data-type="warehouse" data-deal="rent" data-area="9124" data-loc="spb" data-title="производственно-складской комплекс на салова, 56">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/obekty/indastrial/arenda/salova-56/fasad.jpeg" alt="Производственно-складской комплекс на Салова, 56" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс на Салова, 56</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственно-складской комплекс</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-rent">Аренда</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="salova" aria-label="Показать на карте: Производственно-складской комплекс на Салова, 56"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Производственно-складской комплекс на Салова, 56</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, ул. Салова, 56, лит. О</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>9 124 м²</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Фрунзенский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="salova">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card cat-card--busy reveal" data-id="arsenal" data-type="warehouse" data-deal="rent" data-area="0" data-loc="spb" data-title="производственно-складской комплекс арсенал">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/obekty/indastrial/arenda/arsenal/fasad.jpg" alt="Производственно-складской комплекс Арсенал" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс Арсенал</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственно-складской комплекс</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-rent">Аренда</span><span class="badge badge--busy">Нет площадей</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="arsenal" aria-label="Показать на карте: Производственно-складской комплекс Арсенал"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Производственно-складской комплекс Арсенал</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, ул. Комсомола, 1-3АГ</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>по запросу</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Калининский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="arsenal">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button><span class="cat-card__busy"><span class="material-symbols-outlined" aria-hidden="true">info</span>Нет вакантных площадей</span></div>
-          </div>
-        </article>
-        <article class="cat-card cat-card--busy reveal" data-id="pushkin" data-type="warehouse" data-deal="rent" data-area="0" data-loc="spb" data-title="производственно-складской комплекс в пушкине">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/obekty/indastrial/arenda/pushkin/osnovnaya.jpg" alt="Производственно-складской комплекс в Пушкине" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс в Пушкине</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственно-складской комплекс</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-rent">Аренда</span><span class="badge badge--busy">Нет площадей</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="pushkin" aria-label="Показать на карте: Производственно-складской комплекс в Пушкине"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Производственно-складской комплекс в Пушкине</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>г. Пушкин, ул. Сетевая, д. 14</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>по запросу</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Пушкинский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="pushkin">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button><span class="cat-card__busy"><span class="material-symbols-outlined" aria-hidden="true">info</span>Нет вакантных площадей</span></div>
-          </div>
-        </article>
-        <article class="cat-card cat-card--busy reveal" data-id="yanino" data-type="warehouse" data-deal="sale" data-area="0" data-loc="lo" data-title="производственно-складской комплекс янино-1">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/obekty/indastrial/prodazha/yanino-1/sklad.jpg" alt="Производственно-складской комплекс Янино-1" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс Янино-1</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственно-складской комплекс</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-sale">Продажа</span><span class="badge badge--busy">Нет площадей</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="yanino" aria-label="Показать на карте: Производственно-складской комплекс Янино-1"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Производственно-складской комплекс Янино-1</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>ЛО, Всеволожский р-н, гп. Янино-1, ул. Новая, участок № 17</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>по запросу</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Всеволожский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="yanino">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button><span class="cat-card__busy"><span class="material-symbols-outlined" aria-hidden="true">info</span>Нет вакантных площадей</span></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="lagolovo" data-type="warehouse" data-deal="rent" data-area="14480" data-loc="lo" data-title="производственно-складской комплекс lagolovo trend">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/obekty/indastrial/arenda/lagolovo-trend/fasad.jpg" alt="Производственно-складской комплекс Lagolovo Trend" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс Lagolovo Trend</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственно-складской комплекс</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-rent">Аренда</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="lagolovo" aria-label="Показать на карте: Производственно-складской комплекс Lagolovo Trend"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Производственно-складской комплекс Lagolovo Trend</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Ломоносовский р-н, Лаголовское с/п, промзона Восточная, 1</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>14 480 м²</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Ломоносовский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="lagolovo">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="gorigo" data-type="warehouse" data-deal="rent" data-area="13352" data-loc="lo" data-title="производственно-складской комплекс gorigo">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/obekty/indastrial/arenda/gorigo/vid-sverhu2.jpeg" alt="Производственно-складской комплекс Gorigo" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс Gorigo</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственно-складской комплекс</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-rent">Аренда</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="gorigo" aria-label="Показать на карте: Производственно-складской комплекс Gorigo"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Производственно-складской комплекс Gorigo</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>ЛО, Ломоносовский р-н, Волхонское шоссе, 3к2</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>13 352 м²</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Ломоносовский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="gorigo">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card cat-card--busy reveal" data-id="zaozernaya" data-type="warehouse" data-deal="rent" data-area="15700" data-loc="spb" data-title="производственно-складской комплекс на заозёрной">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/obekty/indastrial/arenda/zaozerniy/osnovnaya.jpg" alt="Производственно-складской комплекс на Заозёрной" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс на Заозёрной</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственно-складской комплекс</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-rent">Аренда</span><span class="badge badge--busy">Нет площадей</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="zaozernaya" aria-label="Показать на карте: Производственно-складской комплекс на Заозёрной"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Производственно-складской комплекс на Заозёрной</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, ул. Заозёрная, 8</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>15 700 м²</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Фрунзенский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="zaozernaya">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button><span class="cat-card__busy"><span class="material-symbols-outlined" aria-hidden="true">info</span>Нет вакантных площадей</span></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="novotroitsky" data-type="warehouse" data-deal="rent" data-area="15000" data-loc="spb" data-title="производственно-складской комплекс «новотроицкий»">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/obekty/indastrial/arenda/novotroickiy/osnovnaya.jpg" alt="Производственно-складской комплекс «Новотроицкий»" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс «Новотроицкий»</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственно-складской комплекс</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-rent">Аренда</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="novotroitsky" aria-label="Показать на карте: Производственно-складской комплекс «Новотроицкий»"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Производственно-складской комплекс «Новотроицкий»</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, пр. Обуховской обороны, 120Б</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>15 000 м²</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Невский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="novotroitsky">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="razbegaevo" data-type="warehouse" data-deal="rent" data-area="1450" data-loc="lo" data-title="производственно-складской комплекс в разбегаево">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/obekty/indastrial/arenda/razbegaevo-ropshinskoe-shosse/osnovnaya.png" alt="Производственно-складской комплекс в Разбегаево" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс в Разбегаево</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственно-складской комплекс</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-rent">Аренда</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="razbegaevo" aria-label="Показать на карте: Производственно-складской комплекс в Разбегаево"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Производственно-складской комплекс в Разбегаево</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Ропшинское шоссе, 19, дер. Велигонты, Ломоносовский р-н</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>1 450 м²</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Ломоносовский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="razbegaevo">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="promboks2" data-type="warehouse" data-deal="rent" data-area="1711" data-loc="lo" data-title="производственно-складской комплекс «промбокс-2»">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/obekty/indastrial/arenda/prombox-2/osnovnaya.jpg" alt="Производственно-складской комплекс «Промбокс-2»" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс «Промбокс-2»</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственно-складской комплекс</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-rent">Аренда</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="promboks2" aria-label="Показать на карте: Производственно-складской комплекс «Промбокс-2»"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Производственно-складской комплекс «Промбокс-2»</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>ЛО, Шушары, Московское шоссе, 155 к1</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>1 711 м²</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Пушкинский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="promboks2">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="predportovy" data-type="warehouse" data-deal="rent" data-area="1460" data-loc="spb" data-title="производственно-складской комплекс на предпортовом проезде">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/obekty/indastrial/arenda/4-predportoviy-5l/fasad.png" alt="Производственно-складской комплекс на Предпортовом проезде" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс на Предпортовом проезде</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственно-складской комплекс</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-rent">Аренда</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="predportovy" aria-label="Показать на карте: Производственно-складской комплекс на Предпортовом проезде"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Производственно-складской комплекс на Предпортовом проезде</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, 4-й Предпортовый проезд, 5Л</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>1 460 м²</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Московский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="predportovy">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="business-park-113" data-type="warehouse" data-deal="rent" data-area="8000" data-loc="spb" data-title="производственно-складской комплекс «бизнес парк 113»">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/obekty/indastrial/arenda/biznes-park-113/osnovnaya.jpg" alt="Производственно-складской комплекс «Бизнес Парк 113»" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс «Бизнес Парк 113»</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственно-складской комплекс</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-rent">Аренда</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="business-park-113" aria-label="Показать на карте: Производственно-складской комплекс «Бизнес Парк 113»"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Производственно-складской комплекс «Бизнес Парк 113»</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Московское шоссе, 113, корп. 2</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>8 000 м²</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Московский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="business-park-113">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="fedorovskoe" data-type="warehouse" data-deal="sale" data-area="3500" data-loc="lo" data-title="производственно-складской комплекс в фёдоровском">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/obekty/indastrial/prodazha/fedorovskoe/osnovnaya.jpg" alt="Производственно-складской комплекс в Фёдоровском" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс в Фёдоровском</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственно-складской комплекс</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-sale">Продажа</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="fedorovskoe" aria-label="Показать на карте: Производственно-складской комплекс в Фёдоровском"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Производственно-складской комплекс в Фёдоровском</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>ЛО, Тосненский р-н, гп. Фёдоровское, 1-й Восточный пр., 13к1</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>3 500 м²</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Тосненский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="fedorovskoe">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="luch" data-type="warehouse" data-deal="rent" data-area="2615" data-loc="spb" data-title="производственно-складской комплекс «луч»">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/obekty/indastrial/arenda/luch/osnovnaya.jpg" alt="Производственно-складской комплекс «Луч»" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс «Луч»</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственно-складской комплекс</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-rent">Аренда</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="luch" aria-label="Показать на карте: Производственно-складской комплекс «Луч»"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Производственно-складской комплекс «Луч»</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, пр. Металлистов, д. 7</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>2 615 м²</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Красногвардейский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="luch">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="antares" data-type="park" data-deal="rent sale" data-area="0" data-loc="spb" data-title="антарес латышских стрелков">
-          <div class="cat-card__media">
-            <img src="https://mm-prom.ru/wp-content/uploads/2026/05/cases03.avif" alt="Антарес Латышских Стрелков" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Антарес Латышских Стрелков</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Технопарк</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-rent">Аренда</span><span class="badge badge--deal-sale">Продажа</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="antares" aria-label="Показать на карте: Антарес Латышских Стрелков"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Антарес Латышских Стрелков</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, ул. Латышских Стрелков</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>по запросу</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Красногвардейский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="antares">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="voyskovitsy-park" data-type="production" data-deal="sale" data-area="0" data-loc="lo" data-title="войсковицы">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/cms/thumbs/ae2e004318d552a38fd9d68b1233f3cf3980cc5a/osnovnaya_585_403_png_5_80.png" alt="Войсковицы" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Войсковицы</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственные площади</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-sale">Продажа</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="voyskovitsy-park" aria-label="Показать на карте: Войсковицы"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Войсковицы</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>ЛО, Гатчинский р-н, пос. Войсковицы</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>участки 1,2–2,4 га</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Гатчинский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="voyskovitsy-park">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="volhonskoe" data-type="production" data-deal="rent" data-area="0" data-loc="lo" data-title="волхонское">
-          <div class="cat-card__media">
-            <img src="https://invest-platforma.com/images/obekty/indastrial/arenda/gorigo/vid-sverhu2.jpeg" alt="Волхонское" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Волхонское</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственные площади</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-rent">Аренда</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="volhonskoe" aria-label="Показать на карте: Волхонское"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Волхонское</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>ЛО, Ломоносовский р-н, Волхонское шоссе, 2</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>по запросу</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Ломоносовский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="volhonskoe">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
-        <article class="cat-card reveal" data-id="parnas" data-type="production" data-deal="rent" data-area="0" data-loc="lo" data-title="парнас">
-          <div class="cat-card__media">
-            <img src="/parnas.png" alt="Парнас" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="cat-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Парнас</div>
-            <div class="cat-card__badges">
-              <div class="cat-card__badges-left"><span class="badge badge--type">Производственные площади</span></div>
-              <div class="cat-card__badges-left"><span class="badge badge--deal-rent">Аренда</span></div>
-            </div>
-            <button class="cat-card__map" type="button" data-map="parnas" aria-label="Показать на карте: Парнас"><span class="material-symbols-outlined" aria-hidden="true">map</span></button>
-          </div>
-          <div class="cat-card__body">
-            <h3>Парнас</h3>
-            <p class="cat-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>ЛО, Всеволожский р-н, Бугровское г.п., дер. Порошкино</span></p>
-            <div class="cat-card__facts">
-              <div class="cat-card__fact"><span>Площадь</span><strong>по запросу</strong></div>
-              <div class="cat-card__fact"><span>Локация</span><strong>Всеволожский район</strong></div>
-            </div>
-            <div class="cat-card__foot"><button class="cat-card__more" type="button" data-open="parnas">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
-          </div>
-        </article>
+        {objects.map((o) => <ObjectCard obj={o} showMap />)}
       </div>
 
       <div id="cat-map" class="cat-map" hidden>
@@ -1596,15 +1007,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     })();
     </script>
     <script is:inline src="https://api-maps.yandex.ru/2.1/?apikey=2ae53810-6967-43df-9165-4003eeb71cbf&lang=ru_RU" type="text/javascript"></script>
-    <script is:inline>
+          <script is:inline define:vars={{ modalObjects }}>window.MMPROM_OBJECTS = modalObjects;</script>
+<script is:inline>
     (function(){
       'use strict';
-      var OBJECTS = [{"id": "atlas-garazhny", "title": "Атлас Гаражный", "type": "park", "typeLabel": "Индустриальный парк", "deal": ["Аренда"], "area": "8 577 м²", "address": "Санкт-Петербург, промышленная зона Обухово", "district": "Промышленная зона Обухово", "desc": "Современный индустриальный парк в промышленной зоне Обухово: 14 минут до метро пешком, 5 минут до КАД.", "specs": [["bolt", "Электрическая мощность", "1 МВт, с возможностью увеличения"], ["square_foot", "Предлагаемая площадь", "8 577 м², аренда от 1 300 м²"], ["place", "Локация", "Промышленная зона Обухово, Санкт-Петербург"]], "price": "", "image": "https://mm-prom.ru/wp-content/uploads/2026/09/image-14-09-26-10-33-1-scaled-optimized.png", "external": "https://mm-prom.ru/atlas-garazhnyj/", "coords": [59.85, 30.45], "busy": false}, {"id": "avrora-vitebsky", "title": "Аврора Витебский", "type": "park", "typeLabel": "Индустриальный парк", "deal": ["Аренда"], "area": "38 га · 200 000+ м²", "address": "Санкт-Петербург, Витебский проспект", "district": "Витебский проспект", "desc": "Индустриальный парк площадью 38 га на Витебском проспекте: 12 минут до метро Купчино на транспорте, 5 минут до КАД.", "specs": [["bolt", "Электрическая мощность", "от 1 до 25 МВт"], ["square_foot", "Площадь застройки", "более 200 000 м²"], ["place", "Локация", "Витебский проспект, Санкт-Петербург"]], "price": "", "image": "https://mm-prom.ru/wp-content/uploads/2026/05/garage.avif", "external": "https://mm-prom.ru/avrora-vitebskij/", "coords": [59.82, 30.35], "busy": false}, {"id": "light-industrial-razmetelevo", "title": "Light Industrial Разметелево", "type": "park", "typeLabel": "Индустриальный парк", "deal": ["Продажа"], "area": "16 000 м²", "address": "дер. Разметелево, Колтушское г.п., Всеволожский р-н, Ленинградская обл.", "district": "Всеволожский район", "desc": "Индустриальный парк формата Light Industrial: помещения от 877 до 16 000 м², первая очередь — III квартал 2025 года, 10 км до КАД.", "specs": [["square_foot", "Общая площадь", "16 000 м², вакантно от 877 м²"], ["height", "Высота потолков", "9 м"], ["grid", "Шаг колонн", "12 × 24 м"], ["weight", "Нагрузка на пол", "7 т"], ["bolt", "Электрическая мощность", "по проекту"], ["local_shipping", "Ворота", "4 × 4,5 м"], ["ac_unit", "Инженерия", "приточно-вытяжная вентиляция, центральное тепло- и водоснабжение, спринклерное пожаротушение"], ["shield", "Безопасность", "охрана 24/7, видеонаблюдение, СКУД, парковка"]], "price": "120 000 ₽/м²", "image": "https://invest-platforma.com/images/cms/thumbs/4e2bd3e3ed9891b87566d6f275d8f919925d2ad8/osnovnaya_585_403_jpg_5_80.jpg", "external": "", "coords": [59.905, 30.66], "busy": false}, {"id": "land-volosovo", "title": "Земельный участок в Волосовском районе", "type": "land", "typeLabel": "Земельный участок", "deal": ["Продажа"], "area": "18 га", "address": "Ленинградская обл., Волосовский р-н, Калитинское с/п", "district": "Волосовский район", "desc": "Участок 18 га с производственными строениями и собственной инфраструктурой, в 70 км от Санкт-Петербурга.", "specs": [["square_foot", "Площадь участка", "18 га, здания — 6 085 м²"], ["description", "Состав", "участки 127 233 м² и 29 171 м² в собственности, 26 681 м² в аренде"], ["factory", "Строения", "производственное здание 2 086 м², котельная 909 м², ангары 3 090 м²"], ["bolt", "Инфраструктура", "газовая котельная, 1 МВт, ж/д путь 4 355 м"], ["place", "Расположение", "70 км от Санкт-Петербурга"]], "price": "150 000 000 ₽", "image": "https://invest-platforma.com/images/obekty/indastrial/prodazha/volosovo/vid_sverhu.jpg", "external": "", "coords": [59.455, 29.64], "busy": false}, {"id": "land-koltushi", "title": "Земельный участок в Колтушах", "type": "land", "typeLabel": "Земельный участок", "deal": ["Продажа"], "area": "1,8 га", "address": "Ленинградская обл., Всеволожский р-н, Колтушское с/п", "district": "Всеволожский район", "desc": "Участок промышленного назначения 1,8 га с оплаченными техническими условиями и проектом завода металлоконструкций.", "specs": [["square_foot", "Площадь", "1,8 га"], ["description", "Кадастровый номер", "47:07:1047002:2717, земли промышленности"], ["bolt", "Технические условия", "электричество 1 МВт, газ, вода — оплачены"], ["assignment", "Разрешение на строительство", "в процессе получения, есть экспертиза проекта завода 6 500 м²"]], "price": "100 000 000 ₽", "image": "https://invest-platforma.com/images/obekty/indastrial/prodazha/koltushi-2ga/zu_koltushi.png", "external": "", "coords": [59.93, 30.64], "busy": false}, {"id": "land-tervolovo", "title": "Земельный участок в Терволово", "type": "land", "typeLabel": "Земельный участок", "deal": ["Продажа"], "area": "3,6 га", "address": "ЛО, Гатчинский м.о., п. Терволово", "district": "Гатчинский район", "desc": "Продажа земельного участка — земли сельскохозяйственного назначения.", "specs": [["square_foot", "Площадь", "3,6 га"], ["place", "Локация", "Гатчинский муниципальный округ, п. Терволово"]], "price": "", "image": "tervolovo.jpg", "external": "", "coords": [59.43, 29.95], "busy": false}, {"id": "volhov", "title": "Производственно-складской комплекс Волхов", "type": "warehouse", "typeLabel": "Производственно-складской комплекс", "deal": ["Аренда"], "area": "14 000 м²", "address": "Ленинградская обл., г. Волхов, Порожский проезд, 5А", "district": "г. Волхов", "desc": "Комплекс 14 000 м² с делением от 5 000 м²: высота 8 м, нагрузка на пол 10 т/м², 8 роллетных ворот.", "specs": [["square_foot", "Общая площадь", "14 000 м², возможно деление от 5 000 м²"], ["height", "Высота потолков", "8 м"], ["grid", "Шаг колонн", "12 × 24 м"], ["weight", "Нагрузка на пол", "10 т/м²"], ["local_shipping", "Ворота", "8 роллетных, 3,5 × 4,5 м"], ["bolt", "Электрическая мощность", "1,5 МВт"], ["ac_unit", "Инженерия", "автономное отопление, водоснабжение и водоотведение, пожарная сигнализация"], ["shield", "Безопасность", "охраняемая территория, видеонаблюдение, СКУД, парковка"]], "price": "", "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/volhov/fasad.jpg", "external": "", "coords": [59.925, 32.3], "busy": false}, {"id": "varshavskaya", "title": "Производственное здание на Варшавской, 11", "type": "production", "typeLabel": "Производственный комплекс", "deal": ["Продажа"], "area": "11 732 м²", "address": "Санкт-Петербург, Московский р-н, ул. Варшавская, д. 11А", "district": "Московский район", "desc": "Производственное здание 11 732 м² в 0,8 км от метро «Электросила»: четыре этажа, два лифта, 750 кВт.", "specs": [["square_foot", "Общая площадь", "11 732 м²"], ["layers", "Этажность", "4 этажа"], ["bolt", "Электрическая мощность", "750 кВт, возможно увеличение"], ["elevator", "Лифты", "2"], ["ac_unit", "Инженерия", "центральное отопление, водоснабжение и водоотведение"], ["subway", "Метро", "«Электросила» — 0,8 км"], ["shield", "Безопасность", "охраняемая территория, видеонаблюдение, СКУД, парковка"]], "price": "", "image": "https://invest-platforma.com/images/cms/thumbs/f5a4b2aae9b8eb4eca6273290655ca77911e6850/pomewenie2_278_191_jpg_5_80.jpg", "external": "", "coords": [59.855, 30.32], "busy": false}, {"id": "voyskovitsy", "title": "Производственный комплекс в Войсковицах", "type": "production", "typeLabel": "Производственный комплекс", "deal": ["Продажа"], "area": "22 882 м²", "address": "ЛО, Гатчинский м.о., пос. Войсковицы, квартал Промзона № 1", "district": "Гатчинский район", "desc": "Комплекс 22 882 м²: четыре цеха с кран-балками, офисный блок, подстанция 6,4 МВт, газовая котельная и действующий ж/д тупик.", "specs": [["square_foot", "Общая площадь", "22 882 м²"], ["factory", "Цеха", "2 582 м², 3 400 м², 9 100 м², 4 200 м²"], ["precision_manufacturing", "Кран-балки", "от 5 до 20 т, 6 единиц в цехе 9 100 м²"], ["bolt", "Электрическая мощность", "распределительная подстанция 6,4 МВт"], ["train", "Ж/д", "действующий тупик 4 000 м, ветка в цехе 2 582 м²"], ["description", "Состав", "офис 1 200 м², АТП на 11 боксов, общежитие 2 400 м², участки 7 200 и 9 000 м²"]], "price": "", "image": "https://invest-platforma.com/images/cms/thumbs/ae2e004318d552a38fd9d68b1233f3cf3980cc5a/osnovnaya_585_403_png_5_80.png", "external": "", "coords": [59.53, 29.98], "busy": false}, {"id": "salova", "title": "Производственно-складской комплекс на Салова, 56", "type": "warehouse", "typeLabel": "Производственно-складской комплекс", "deal": ["Аренда"], "area": "9 124 м²", "address": "Санкт-Петербург, ул. Салова, 56, лит. О", "district": "Фрунзенский район", "desc": "Комплекс 9 124 м²: вакантно 7 995 м² склада и 1 129 м² офисов, высота 8 м, нагрузка на пол 2 т/м².", "specs": [["square_foot", "Общая площадь", "9 124 м²: склад 7 995 м², офисы 1 129 м²"], ["height", "Высота потолков", "8 м"], ["weight", "Нагрузка на пол", "2 т/м²"], ["bolt", "Электрическая мощность", "450 кВт"], ["ac_unit", "Инженерия", "автономное отопление, центральное водоснабжение, гидранты и датчики"], ["shield", "Безопасность", "видеонаблюдение, СКУД, парковка"]], "price": "", "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/salova-56/fasad.jpeg", "external": "", "coords": [59.87, 30.36], "busy": false}, {"id": "arsenal", "title": "Производственно-складской комплекс Арсенал", "type": "warehouse", "typeLabel": "Производственно-складской комплекс", "deal": ["Аренда"], "area": "по запросу", "address": "Санкт-Петербург, ул. Комсомола, 1-3АГ", "district": "Калининский район", "desc": "Комплекс на улице Комсомола: высота 8 м, нагрузка на пол 2 т/м², 450 кВт. Свободных площадей сейчас нет.", "specs": [["height", "Высота потолков", "8 м"], ["weight", "Нагрузка на пол", "2 т/м²"], ["bolt", "Электрическая мощность", "450 кВт"], ["ac_unit", "Инженерия", "автономное отопление, центральное водоснабжение, гидранты и датчики"], ["place", "До КАД", "10 км"], ["shield", "Безопасность", "видеонаблюдение, СКУД, парковка"]], "price": "", "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/arsenal/fasad.jpg", "external": "", "coords": [59.955, 30.36], "busy": true}, {"id": "pushkin", "title": "Производственно-складской комплекс в Пушкине", "type": "warehouse", "typeLabel": "Производственно-складской комплекс", "deal": ["Аренда"], "area": "по запросу", "address": "г. Пушкин, ул. Сетевая, д. 14", "district": "Пушкинский район", "desc": "Комплекс с высотой потолка 9,2 м, нагрузкой 5 т/м² и газовой котельной. Свободных площадей сейчас нет.", "specs": [["height", "Высота потолков", "9,2 м"], ["weight", "Нагрузка на пол", "5 т/м²"], ["local_shipping", "Ворота", "4 ворот: 4 × 3 и 4 × 5 м"], ["bolt", "Электрическая мощность", "700 кВт"], ["ac_unit", "Инженерия", "автономное отопление, газовая котельная, порошковое пожаротушение"], ["place", "До трасс", "М-11 — 8 км, КАД — 15 км"]], "price": "", "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/pushkin/osnovnaya.jpg", "external": "", "coords": [59.72, 30.42], "busy": true}, {"id": "yanino", "title": "Производственно-складской комплекс Янино-1", "type": "warehouse", "typeLabel": "Производственно-складской комплекс", "deal": ["Продажа"], "area": "по запросу", "address": "ЛО, Всеволожский р-н, гп. Янино-1, ул. Новая, участок № 17", "district": "Всеволожский район", "desc": "Комплекс в 2,9 км от КАД: высота 7 м, 4 ворот, 250 кВт, газовая котельная. Свободных площадей сейчас нет.", "specs": [["height", "Высота потолков", "7 м"], ["local_shipping", "Ворота", "4 ворот, по 2 в здании"], ["bolt", "Электрическая мощность", "250 кВт, возможно увеличение"], ["ac_unit", "Инженерия", "автономное отопление, газовая котельная, центральное водоснабжение, септик"], ["place", "До КАД", "2,9 км"], ["shield", "Безопасность", "пожарная сигнализация, видеонаблюдение, парковка"]], "price": "", "image": "https://invest-platforma.com/images/obekty/indastrial/prodazha/yanino-1/sklad.jpg", "external": "", "coords": [59.945, 30.55], "busy": true}, {"id": "lagolovo", "title": "Производственно-складской комплекс Lagolovo Trend", "type": "warehouse", "typeLabel": "Производственно-складской комплекс", "deal": ["Аренда"], "area": "14 480 м²", "address": "Ломоносовский р-н, Лаголовское с/п, промзона Восточная, 1", "district": "Ломоносовский район", "desc": "Комплекс 14 480 м²: склад 9 980 м², мультитемпературный склад 2 100 м², мезонин 2 400 м², высота 11,4 м.", "specs": [["square_foot", "Общая площадь", "14 480 м²"], ["height", "Высота потолков", "11,4 м"], ["grid", "Шаг колонн", "12 × 18 м"], ["bolt", "Электрическая мощность", "1,3 МВт, 3 категория"], ["local_shipping", "Доки и ворота", "6 доков под фуру, 3 ворот 4 × 4,2 м"], ["ac_unit", "Инженерия", "газовая котельная 1 МВт, спринклерное пожаротушение, приточно-вытяжная вентиляция"], ["shield", "Безопасность", "охраняемая территория, видеонаблюдение, СКУД, парковка"]], "price": "", "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/lagolovo-trend/fasad.jpg", "external": "", "coords": [59.72, 30.2], "busy": false}, {"id": "gorigo", "title": "Производственно-складской комплекс Gorigo", "type": "warehouse", "typeLabel": "Производственно-складской комплекс", "deal": ["Аренда"], "area": "13 352 м²", "address": "ЛО, Ломоносовский р-н, Волхонское шоссе, 3к2", "district": "Ломоносовский район", "desc": "Два блока 4 285 и 9 067 м²: высота 11 м, нагрузка 6 т/м², шаг колонн 12 × 30 м, 4,7 км до КАД.", "specs": [["square_foot", "Общая площадь", "13 352 м²: блоки 4 285 и 9 067 м²"], ["height", "Высота потолков", "11 м"], ["weight", "Нагрузка на пол", "6 т/м²"], ["grid", "Шаг колонн", "12 × 30 м"], ["bolt", "Электрическая мощность", "200 кВт"], ["ac_unit", "Инженерия", "газовая котельная, водоснабжение и водоотведение, спринклерное пожаротушение"], ["place", "До КАД", "4,7 км"]], "price": "", "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/gorigo/vid-sverhu2.jpeg", "external": "", "coords": [59.75, 30.2], "busy": false}, {"id": "zaozernaya", "title": "Производственно-складской комплекс на Заозёрной", "type": "warehouse", "typeLabel": "Производственно-складской комплекс", "deal": ["Аренда"], "area": "15 700 м²", "address": "Санкт-Петербург, ул. Заозёрная, 8", "district": "Фрунзенский район", "desc": "Комплекс 15 700 м² в 0,6 км от метро «Фрунзенская»: пожарная сигнализация, круглосуточная охрана, парковка.", "specs": [["square_foot", "Общая площадь", "15 700 м²"], ["subway", "Метро", "«Фрунзенская» — 0,6 км"], ["shield", "Безопасность", "круглосуточная охрана, пожарная сигнализация"], ["local_parking", "Парковка", "для легкового и грузового транспорта"]], "price": "", "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/zaozerniy/osnovnaya.jpg", "external": "", "coords": [59.87, 30.32], "busy": true}, {"id": "novotroitsky", "title": "Производственно-складской комплекс «Новотроицкий»", "type": "warehouse", "typeLabel": "Производственно-складской комплекс", "deal": ["Аренда"], "area": "15 000 м²", "address": "Санкт-Петербург, пр. Обуховской обороны, 120Б", "district": "Невский район", "desc": "Комплекс 15 000 м² с делением от 5 000 м²: высота 16 м до ферм и 24 м в коньке, нагрузка 5 т/м².", "specs": [["square_foot", "Общая площадь", "15 000 м², деление от 5 000 м²"], ["height", "Высота", "16 м до ферм, 24 м в коньке"], ["grid", "Шаг колонн", "12 × 24 м"], ["weight", "Нагрузка на пол", "5 т/м²"], ["bolt", "Электрическая мощность", "400 кВт"], ["ac_unit", "Инженерия", "центральное отопление, водоснабжение, дымоудаление, гидранты"], ["shield", "Безопасность", "круглосуточная охрана"]], "price": "", "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/novotroickiy/osnovnaya.jpg", "external": "", "coords": [59.89, 30.43], "busy": false}, {"id": "razbegaevo", "title": "Производственно-складской комплекс в Разбегаево", "type": "warehouse", "typeLabel": "Производственно-складской комплекс", "deal": ["Аренда"], "area": "1 450 м²", "address": "Ропшинское шоссе, 19, дер. Велигонты, Ломоносовский р-н", "district": "Ломоносовский район", "desc": "Комплекс класса B площадью 1 450 м²: высота 6 м, нагрузка 7 т/м², 2 ворот, 4,5 км до КАД.", "specs": [["square_foot", "Общая площадь", "1 450 м²"], ["height", "Высота потолков", "6 м"], ["weight", "Нагрузка на пол", "7 т/м²"], ["local_shipping", "Ворота", "2 ворот 4 × 4,5 м"], ["bolt", "Электрическая мощность", "15 кВт"], ["ac_unit", "Инженерия", "воздушно-вентиляционная установка отопления, чистовая отделка"], ["place", "До КАД", "4,5 км"]], "price": "", "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/razbegaevo-ropshinskoe-shosse/osnovnaya.png", "external": "", "coords": [59.78, 29.95], "busy": false}, {"id": "promboks2", "title": "Производственно-складской комплекс «Промбокс-2»", "type": "warehouse", "typeLabel": "Производственно-складской комплекс", "deal": ["Аренда"], "area": "1 711 м²", "address": "ЛО, Шушары, Московское шоссе, 155 к1", "district": "Пушкинский район", "desc": "Комплекс класса A: 1 711 м² без колонн, высота 9 м, нагрузка 5 т/м², возможна установка кран-балки.", "specs": [["square_foot", "Общая площадь", "1 711 м²: производство 1 430 м², АБК 85 м², мезонин 196 м²"], ["height", "Высота потолков", "9 м"], ["weight", "Нагрузка на пол", "5 т/м²"], ["local_shipping", "Ворота", "2 ворот 3,5 × 5 м"], ["bolt", "Электрическая мощность", "85 кВт"], ["ac_unit", "Инженерия", "собственная газовая котельная, центральное водоснабжение"], ["place", "До КАД", "6,5 км"]], "price": "", "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/prombox-2/osnovnaya.jpg", "external": "", "coords": [59.75, 30.45], "busy": false}, {"id": "predportovy", "title": "Производственно-складской комплекс на Предпортовом проезде", "type": "warehouse", "typeLabel": "Производственно-складской комплекс", "deal": ["Аренда"], "area": "1 460 м²", "address": "Санкт-Петербург, 4-й Предпортовый проезд, 5Л", "district": "Московский район", "desc": "Помещение под пищевое производство 1 460 м²: высота 4 м, 5 ворот, 300 кВт, 3,5 км до КАД.", "specs": [["square_foot", "Общая площадь", "1 460 м², аренда от 720 м²"], ["height", "Высота потолков", "4 м"], ["local_shipping", "Ворота", "5 ворот 3 × 3 м"], ["weight", "Нагрузка на пол", "5 т/м²"], ["bolt", "Электрическая мощность", "300 кВт, возможно увеличение"], ["description", "Назначение", "пищевое производство"], ["place", "До КАД", "3,5 км"]], "price": "", "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/4-predportoviy-5l/fasad.png", "external": "", "coords": [59.83, 30.3], "busy": false}, {"id": "business-park-113", "title": "Производственно-складской комплекс «Бизнес Парк 113»", "type": "warehouse", "typeLabel": "Производственно-складской комплекс", "deal": ["Аренда"], "area": "8 000 м²", "address": "Московское шоссе, 113, корп. 2", "district": "Московский район", "desc": "Четыре здания по 2 000 м² со смежными помещениями: рабочая высота 8 м, нагрузка 6 т/м², 6,5 км до КАД.", "specs": [["square_foot", "Общая площадь", "8 000 м²: 4 здания по 2 000 м²"], ["height", "Высота", "рабочая 8 м у стены, 5 м под вторым этажом"], ["weight", "Нагрузка на пол", "6 т/м², мезонин 500 кг/м²"], ["local_shipping", "Ворота", "2 ворот на здание, 4 × 4,5 м"], ["bolt", "Электрическая мощность", "150 кВт на здание, возможно +150 кВт"], ["ac_unit", "Инженерия", "собственная газовая котельная, пожарные гидранты"], ["place", "До КАД", "6,5 км"]], "price": "", "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/biznes-park-113/osnovnaya.jpg", "external": "", "coords": [59.8, 30.4], "busy": false}, {"id": "fedorovskoe", "title": "Производственно-складской комплекс в Фёдоровском", "type": "warehouse", "typeLabel": "Производственно-складской комплекс", "deal": ["Продажа"], "area": "3 500 м²", "address": "ЛО, Тосненский р-н, гп. Фёдоровское, 1-й Восточный пр., 13к1", "district": "Тосненский район", "desc": "Комплекс 3 500 м² на участке 1 га: производственный корпус, АБК, мойка и гостиница, 15 км до ЗСД.", "specs": [["square_foot", "Общая площадь", "3 500 м², участок 1 га"], ["height", "Высота потолков", "6–9 м"], ["weight", "Нагрузка на перекрытия", "5 т/м²"], ["bolt", "Электрическая мощность", "250 кВт, возможен монтаж ГПУ до 1,5 МВт"], ["ac_unit", "Инженерия", "газовая котельная, скважина, ЛОС"], ["description", "Состав", "производственный корпус, АБК, мойка, гостиница"], ["place", "До ЗСД", "15 км"]], "price": "300 000 000 ₽", "image": "https://invest-platforma.com/images/obekty/indastrial/prodazha/fedorovskoe/osnovnaya.jpg", "external": "", "coords": [59.55, 30.55], "busy": false}, {"id": "luch", "title": "Производственно-складской комплекс «Луч»", "type": "warehouse", "typeLabel": "Производственно-складской комплекс", "deal": ["Аренда"], "area": "2 615 м²", "address": "Санкт-Петербург, пр. Металлистов, д. 7", "district": "Красногвардейский район", "desc": "Комплекс 2 615 м²: вакантно 1 355 м² на 3 этаже и 1 260 м² на 4 этаже, высота от 3,2 до 6,5 м.", "specs": [["square_foot", "Общая площадь", "2 615 м², вакантно 1 355 и 1 260 м²"], ["height", "Высота потолков", "от 3,2 до 6,5 м"], ["weight", "Нагрузка на перекрытия", "до 500 кг/м²"], ["bolt", "Электрическая мощность", "от 100 кВт на 1 000 м², резерв 1 МВт"], ["elevator", "Грузовой подъёмник", "3 т"], ["subway", "Метро", "«Новочеркасская» — 2,8 км"], ["shield", "Безопасность", "охраняемая территория, видеонаблюдение, СКУД, парковка"]], "price": "", "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/luch/osnovnaya.jpg", "external": "", "coords": [59.96, 30.42], "busy": false}, {"id": "antares", "title": "Антарес Латышских Стрелков", "type": "park", "typeLabel": "Индустриальный парк", "deal": ["Аренда", "Продажа"], "area": "по запросу", "address": "Санкт-Петербург, ул. Латышских Стрелков", "district": "Красногвардейский район", "desc": "Готовый объект для аренды и покупки в составе технопарка.", "specs": [["place", "Локация", "ул. Латышских Стрелков, Санкт-Петербург"], ["description", "Формат", "технопарк, готовые помещения"]], "price": "", "image": "https://mm-prom.ru/wp-content/uploads/2026/05/cases03.avif", "external": "", "coords": [59.93, 30.47], "busy": false}, {"id": "voyskovitsy-park", "title": "Войсковицы", "type": "production", "typeLabel": "Производственный комплекс", "deal": ["Продажа"], "area": "участки 1,2–2,4 га", "address": "ЛО, Гатчинский р-н, пос. Войсковицы", "district": "Гатчинский район", "desc": "Производственный комплекс в Гатчинском районе: площадки под производство и склад с подводкой коммуникаций.", "specs": [["square_foot", "Земельные участки", "1,2 / 1,2 / 2,4 / 0,25 / 0,42 га"], ["place", "Локация", "ЛО, Гатчинский р-н, пос. Войсковицы"]], "price": "", "image": "https://invest-platforma.com/images/cms/thumbs/ae2e004318d552a38fd9d68b1233f3cf3980cc5a/osnovnaya_585_403_png_5_80.png", "external": "", "coords": [59.532, 29.985], "busy": false}, {"id": "volhonskoe", "title": "Волхонское", "type": "production", "typeLabel": "Производственный комплекс", "deal": ["Аренда"], "area": "по запросу", "address": "ЛО, Ломоносовский р-н, Волхонское шоссе, 2", "district": "Ломоносовский район", "desc": "Промышленный парк: участки и готовые помещения рядом с КАД, варианты под аренду и покупку.", "specs": [["place", "Локация", "ЛО, Ломоносовский р-н, Волхонское шоссе, 2"], ["description", "Формат", "промышленный парк, участки и готовые помещения"]], "price": "", "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/gorigo/vid-sverhu2.jpeg", "external": "", "coords": [59.748, 30.195], "busy": false}, {"id": "parnas", "title": "Парнас", "type": "production", "typeLabel": "Производственный комплекс", "deal": ["Аренда"], "area": "по запросу", "address": "ЛО, Всеволожский р-н, Бугровское г.п., дер. Порошкино", "district": "Всеволожский район", "desc": "Производственные площади в промышленной зоне Парнас: транспортная доступность города, размещение производства и склада.", "specs": [["place", "Локация", "ЛО, Всеволожский р-н, Бурговское г.п., дер. Порошкино"], ["description", "Формат", "производственные площади"]], "price": "", "image": "parnas.png", "external": "", "coords": [60.07, 30.35], "busy": false}];
+      var OBJECTS = window.MMPROM_OBJECTS || [];
       var byId = {};
       OBJECTS.forEach(function(o){ byId[o.id] = o; });
 
       var grid = document.getElementById('cat-grid');
-      var cards = Array.prototype.slice.call(grid.querySelectorAll('.cat-card'));
+      var cards = Array.prototype.slice.call(grid.querySelectorAll('.obj-card'));
       var countEl = document.getElementById('res-count');
       var emptyEl = document.getElementById('cat-empty');
       var mapWrap = document.getElementById('cat-map');
@@ -1633,7 +1045,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           var okType = state.type === 'all' || c.dataset.type === state.type;
           var okArea = areaMatch(parseInt(c.dataset.area, 10) || 0, state.area);
           var okLoc = state.loc === 'all' || c.dataset.loc === state.loc;
-          var okQ = !state.q || (c.dataset.title + ' ' + c.querySelector('.cat-card__addr').textContent.toLowerCase()).indexOf(state.q) !== -1;
+          var okQ = !state.q || (c.dataset.title + ' ' + c.querySelector('.obj-card__addr').textContent.toLowerCase()).indexOf(state.q) !== -1;
           return okDeal && okType && okArea && okLoc && okQ;
         });
       }
@@ -1704,8 +1116,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         if (o.busy) badges += '<span class="badge badge--busy">Нет свободных площадей</span>';
         mBadges.innerHTML = badges;
         mMedia.innerHTML = o.image
-          ? '<img src="' + o.image + '" alt="' + o.title.replace(/"/g,'&quot;') + '" onerror="this.classList.add(\'is-broken\')"><div class="cat-card__ph"><span class="material-symbols-outlined">image</span>Фото: ' + o.title + '</div>'
-          : '<div class="cat-card__ph"><span class="material-symbols-outlined">image</span>Фото: ' + o.title + '</div>';
+          ? '<img src="' + o.image + '" alt="' + o.title.replace(/"/g,'&quot;') + '" onerror="this.classList.add(\'is-broken\')"><div class="obj-card__ph"><span class="material-symbols-outlined">image</span>Фото: ' + o.title + '</div>'
+          : '<div class="obj-card__ph"><span class="material-symbols-outlined">image</span>Фото: ' + o.title + '</div>';
         mDesc.textContent = o.desc;
         mSpecs.innerHTML = o.specs.map(function(s){
           return '<li><span class="material-symbols-outlined" aria-hidden="true">' + s[0] + '</span><div><dt>' + s[1] + '</dt><dd>' + s[2] + '</dd></div></li>';

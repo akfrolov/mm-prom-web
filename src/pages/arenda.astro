@@ -9,6 +9,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
 ---
 <BaseLayout title="Аренда недвижимости — ММ Пром" description="Аренда производственно-складской недвижимости от ММ Пром: подберём площади под офис, склад или производство с учётом требований к локации, инженерным мощностям и бюджету. Объекты напрямую от собственников, без скрытых комиссий.">
   <Fragment slot="head">
+  <link rel="stylesheet" href="/assets/object-card.css?v=1">
     <style is:inline>
     /* ═══════════════════════════════════════════════════════════════════════
        ММ ПРОМ — ГЛАВНАЯ СТРАНИЦА
@@ -351,30 +352,6 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     .b-rail::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
     .b-rail > *{flex:0 0 84vw;max-width:360px;scroll-snap-align:start}
     @media (min-width:768px){.b-rail{gap:20px}.b-rail > *{flex:0 0 340px}}
-
-    .obj-card{position:relative;display:flex;flex-direction:column;height:100%;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:box-shadow .2s ease,transform .2s ease}
-    .obj-card:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
-    .obj-card .img-placeholder{border:0;border-bottom:1px solid var(--border);border-radius:0;min-height:150px;flex:1 1 auto}
-    .obj-card__body{display:flex;flex-direction:column;gap:8px;padding:18px;flex:1 1 auto}
-    .obj-card__badges{display:flex;align-items:center;flex-wrap:wrap;justify-content:space-between;gap:8px;min-height:24px}
-    .obj-card__link{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;margin:-10px -6px -10px auto;color:var(--purple)}
-    .obj-card__link .material-symbols-outlined{font-size:20px}
-    .obj-card__link::after{content:"";position:absolute;inset:0}
-    .obj-card__body h3{margin:0;font-size:1.1rem;line-height:1.3}
-    .obj-card__desc{margin:0;font-size:var(--fs-small);color:var(--text-muted)}
-    .obj-card__meta{display:grid;gap:4px;list-style:none;margin:0;padding:0;font-size:var(--fs-small);color:var(--text-muted)}
-    .obj-card__meta li{display:flex;align-items:center;gap:8px}
-    .obj-card__meta .material-symbols-outlined{font-size:18px;color:var(--purple)}
-    .obj-card__meta .icon-loc{flex:0 0 auto}
-    .obj-card__meta strong{color:var(--text);font-weight:600}
-    .obj-card__presentation{position:absolute;top:12px;left:12px;z-index:2;display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--text);font-size:var(--fs-small);font-weight:600;text-decoration:none;box-shadow:0 4px 14px rgba(11,27,51,.12)}
-    .obj-card__presentation .material-symbols-outlined{font-size:18px}
-    .obj-card__presentation:hover{border-color:var(--purple);color:var(--purple)}
-    .b-media{margin:0;display:flex;flex-direction:column;background:var(--surface)}
-    .b-media img{display:block;width:100%;flex:1 1 auto;object-fit:cover}
-    .b-media img.is-broken{display:none}
-    .b-media figcaption{padding:8px 12px;font-size:var(--fs-small);color:var(--text-muted);border-top:1px solid var(--border)}
-    .obj-card .b-media img{aspect-ratio:16/10}
 
 
     /* ── Бейджи ──────────────────────────────────────────────────────────── */
