@@ -1,0 +1,43 @@
+{
+  "title": "IP Разметелево",
+  "type": "park",
+  "typeLabel": "Индустриальный парк",
+  "deal": [
+    "Аренда",
+    "Продажа"
+  ],
+  "dealTypes": [
+    "rent",
+    "sale"
+  ],
+  "area": "10 106 м²",
+  "areaNum": 10106,
+  "location": "lo",
+  "address": "Ленинградская обл., Колтушское с/п, коммунально-складская зона «Разметелево», 2-й проезд",
+  "district": "Всеволожский район",
+  "desc": "Индустриальный парк в коммунально-складской зоне «Разметелево»: 10 106 м² в аренду или продажу.",
+  "specs": [
+    [
+      "square_foot",
+      "Площадь",
+      "10 106 м²"
+    ],
+    [
+      "handshake",
+      "Форма сделки",
+      "аренда / продажа"
+    ]
+  ],
+  "price": "по запросу",
+  "image": "/assets/objects/ip-razmetelevo/cover.jpg",
+  "images": [
+    "/assets/objects/ip-razmetelevo/cover.jpg"
+  ],
+  "external": "",
+  "coords": [
+    59.9,
+    30.65
+  ],
+  "busy": false,
+  "sort": 32
+}

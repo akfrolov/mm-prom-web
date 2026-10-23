@@ -3,14 +3,16 @@
   "type": "warehouse",
   "typeLabel": "Производственно-складской комплекс",
   "deal": [
-    "Аренда"
+    "Аренда",
+    "Продажа"
   ],
   "dealTypes": [
-    "rent"
+    "rent",
+    "sale"
   ],
-  "area": "1 711 м²",
-  "areaNum": 1711,
-  "location": "lo",
+  "area": "1 500–3 780 м²",
+  "areaNum": 1500,
+  "location": "spb",
   "address": "ЛО, Шушары, Московское шоссе, 155 к1",
   "district": "Пушкинский район",
   "desc": "Комплекс класса A: 1 711 м² без колонн, высота 9 м, нагрузка 5 т/м², возможна установка кран-балки.",
@@ -51,8 +53,11 @@
       "6,5 км"
     ]
   ],
-  "price": "",
-  "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/prombox-2/osnovnaya.jpg",
+  "price": "по запросу",
+  "image": "/assets/external/inv-47df520c-osnovnaya.jpg",
+  "images": [
+    "/assets/external/inv-47df520c-osnovnaya.jpg"
+  ],
   "external": "",
   "coords": [
     59.75,

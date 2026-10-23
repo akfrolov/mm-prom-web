@@ -10,7 +10,7 @@
   ],
   "area": "по запросу",
   "areaNum": null,
-  "location": "lo",
+  "location": "spb",
   "address": "ЛО, Всеволожский р-н, гп. Янино-1, ул. Новая, участок № 17",
   "district": "Всеволожский район",
   "desc": "Комплекс в 2,9 км от КАД: высота 7 м, 4 ворот, 250 кВт, газовая котельная. Свободных площадей сейчас нет.",
@@ -46,13 +46,16 @@
       "пожарная сигнализация, видеонаблюдение, парковка"
     ]
   ],
-  "price": "",
-  "image": "https://invest-platforma.com/images/obekty/indastrial/prodazha/yanino-1/sklad.jpg",
+  "price": "по запросу",
+  "image": "/assets/external/inv-c06fa3ec-sklad.jpg",
+  "images": [
+    "/assets/external/inv-c06fa3ec-sklad.jpg"
+  ],
   "external": "",
   "coords": [
     59.945,
     30.55
   ],
-  "busy": true,
+  "busy": false,
   "sort": 12
 }

@@ -9,8 +9,8 @@
     "rent"
   ],
   "area": "13 352 м²",
-  "areaNum": 13352,
-  "location": "lo",
+  "areaNum": null,
+  "location": "spb",
   "address": "ЛО, Ломоносовский р-н, Волхонское шоссе, 3к2",
   "district": "Ломоносовский район",
   "desc": "Два блока 4 285 и 9 067 м²: высота 11 м, нагрузка 6 т/м², шаг колонн 12 × 30 м, 4,7 км до КАД.",
@@ -51,8 +51,11 @@
       "4,7 км"
     ]
   ],
-  "price": "",
-  "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/gorigo/vid-sverhu2.jpeg",
+  "price": "по запросу",
+  "image": "/assets/external/inv-a458d379-vid-sverhu2.jpeg",
+  "images": [
+    "/assets/external/inv-a458d379-vid-sverhu2.jpeg"
+  ],
   "external": "",
   "coords": [
     59.75,

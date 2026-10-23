@@ -9,7 +9,7 @@
     "rent"
   ],
   "area": "1 460 м²",
-  "areaNum": 1460,
+  "areaNum": null,
   "location": "spb",
   "address": "Санкт-Петербург, 4-й Предпортовый проезд, 5Л",
   "district": "Московский район",
@@ -51,8 +51,11 @@
       "3,5 км"
     ]
   ],
-  "price": "",
-  "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/4-predportoviy-5l/fasad.png",
+  "price": "по запросу",
+  "image": "/assets/external/inv-f0867148-fasad.png",
+  "images": [
+    "/assets/external/inv-f0867148-fasad.png"
+  ],
   "external": "",
   "coords": [
     59.83,

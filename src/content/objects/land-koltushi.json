@@ -9,8 +9,8 @@
     "sale"
   ],
   "area": "1,8 га",
-  "areaNum": 18000,
-  "location": "lo",
+  "areaNum": null,
+  "location": "spb",
   "address": "Ленинградская обл., Всеволожский р-н, Колтушское с/п",
   "district": "Всеволожский район",
   "desc": "Участок промышленного назначения 1,8 га с оплаченными техническими условиями и проектом завода металлоконструкций.",
@@ -36,8 +36,11 @@
       "в процессе получения, есть экспертиза проекта завода 6 500 м²"
     ]
   ],
-  "price": "100 000 000 ₽",
-  "image": "https://invest-platforma.com/images/obekty/indastrial/prodazha/koltushi-2ga/zu_koltushi.png",
+  "price": "по запросу",
+  "image": "/assets/external/inv-eed837bf-zu_koltushi.png",
+  "images": [
+    "/assets/external/inv-eed837bf-zu_koltushi.png"
+  ],
   "external": "",
   "coords": [
     59.93,
@@ -47,10 +50,8 @@
   "sort": 4,
   "badgeLabel": "Земельный участок",
   "badgeClass": "badge--park",
-  "link": "https://invest-platforma.com/nedvizhimost/zemelnye-uchastki/promyshlennye/zemelniy-uchastok-koltushi/",
-  "linkExternal": true,
   "media": {
-    "src": "https://invest-platforma.com/images/cms/thumbs/9da232089252239060403f11bb82cd755797e165/zu_koltushi_277_191_png_5_80.png",
+    "src": "/assets/external/2e4cd858-zu_koltushi_277_191_png_5_80.png",
     "alt": "Земельный участок в Колтушах",
     "caption": "Земельный участок в Колтушах"
   },

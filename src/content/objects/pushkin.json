@@ -46,13 +46,16 @@
       "М-11 — 8 км, КАД — 15 км"
     ]
   ],
-  "price": "",
-  "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/pushkin/osnovnaya.jpg",
+  "price": "по запросу",
+  "image": "/assets/external/inv-bdb7e424-osnovnaya.jpg",
+  "images": [
+    "/assets/external/inv-bdb7e424-osnovnaya.jpg"
+  ],
   "external": "",
   "coords": [
     59.72,
     30.42
   ],
-  "busy": true,
+  "busy": false,
   "sort": 11
 }

@@ -1,7 +1,7 @@
 {
   "title": "Антарес Латышских Стрелков",
   "type": "park",
-  "typeLabel": "Индустриальный парк",
+  "typeLabel": "Технопарк",
   "deal": [
     "Аренда",
     "Продажа"
@@ -10,26 +10,47 @@
     "rent",
     "sale"
   ],
-  "area": "по запросу",
+  "area": "14 000 м²",
   "areaNum": null,
   "location": "spb",
-  "address": "Санкт-Петербург, ул. Латышских Стрелков",
+  "address": "Санкт-Петербург, ул. Латышских Стрелков, 19",
   "district": "Красногвардейский район",
-  "desc": "Готовый объект для аренды и покупки в составе технопарка.",
+  "desc": "Новый технопарк рядом с метро: производственный комплекс 14 000 м², 4 этажа, кран-балки 2 × 5 т.",
   "specs": [
     [
-      "place",
-      "Локация",
-      "ул. Латышских Стрелков, Санкт-Петербург"
+      "square_foot",
+      "Общая площадь",
+      "14 000 м²"
     ],
     [
-      "description",
-      "Формат",
-      "технопарк, готовые помещения"
+      "layers",
+      "Этажность",
+      "4 этажа"
+    ],
+    [
+      "precision_manufacturing",
+      "Кран-балки",
+      "2 шт. по 5 т"
+    ],
+    [
+      "bolt",
+      "Электрическая мощность",
+      "5 МВт, возможно размещение ЦОД"
+    ],
+    [
+      "subway",
+      "Локация",
+      "рядом с метро, близость к будущей развязке ШМСД"
     ]
   ],
-  "price": "",
-  "image": "https://mm-prom.ru/wp-content/uploads/2026/05/cases03.avif",
+  "price": "по запросу",
+  "image": "/assets/objects/antares/cover.jpg",
+  "images": [
+    "/assets/objects/antares/cover.jpg",
+    "/assets/objects/antares/2.jpg",
+    "/assets/objects/antares/3.jpg",
+    "/assets/objects/antares/4.jpg"
+  ],
   "external": "",
   "coords": [
     59.93,
@@ -39,9 +60,8 @@
   "sort": 23,
   "badgeLabel": "Технопарк",
   "badgeClass": "badge--technopark",
-  "link": "/kartochka-obekta/",
   "media": {
-    "src": "https://mm-prom.ru/wp-content/uploads/2026/05/cases03.avif",
+    "src": "/assets/external/9d4c4a14-cases03.avif",
     "alt": "Антарес Латышских Стрелков — готовый объект",
     "caption": "Антарес Латышских Стрелков — готовый объект"
   },

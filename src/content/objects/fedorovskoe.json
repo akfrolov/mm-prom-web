@@ -9,8 +9,8 @@
     "sale"
   ],
   "area": "3 500 м²",
-  "areaNum": 3500,
-  "location": "lo",
+  "areaNum": null,
+  "location": "spb",
   "address": "ЛО, Тосненский р-н, гп. Фёдоровское, 1-й Восточный пр., 13к1",
   "district": "Тосненский район",
   "desc": "Комплекс 3 500 м² на участке 1 га: производственный корпус, АБК, мойка и гостиница, 15 км до ЗСД.",
@@ -51,8 +51,11 @@
       "15 км"
     ]
   ],
-  "price": "300 000 000 ₽",
-  "image": "https://invest-platforma.com/images/obekty/indastrial/prodazha/fedorovskoe/osnovnaya.jpg",
+  "price": "по запросу",
+  "image": "/assets/external/inv-35e22499-osnovnaya.jpg",
+  "images": [
+    "/assets/external/inv-35e22499-osnovnaya.jpg"
+  ],
   "external": "",
   "coords": [
     59.55,

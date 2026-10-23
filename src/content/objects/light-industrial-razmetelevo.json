@@ -9,8 +9,8 @@
     "sale"
   ],
   "area": "16 000 м²",
-  "areaNum": 16000,
-  "location": "lo",
+  "areaNum": null,
+  "location": "spb",
   "address": "дер. Разметелево, Колтушское г.п., Всеволожский р-н, Ленинградская обл.",
   "district": "Всеволожский район",
   "desc": "Индустриальный парк формата Light Industrial: помещения от 877 до 16 000 м², первая очередь — III квартал 2025 года, 10 км до КАД.",
@@ -36,11 +36,6 @@
       "7 т"
     ],
     [
-      "bolt",
-      "Электрическая мощность",
-      "по проекту"
-    ],
-    [
       "local_shipping",
       "Ворота",
       "4 × 4,5 м"
@@ -54,10 +49,23 @@
       "shield",
       "Безопасность",
       "охрана 24/7, видеонаблюдение, СКУД, парковка"
+    ],
+    [
+      "event_available",
+      "Готовность",
+      "I очередь — III квартал 2025"
+    ],
+    [
+      "place",
+      "До КАД",
+      "10 км"
     ]
   ],
-  "price": "120 000 ₽/м²",
-  "image": "https://invest-platforma.com/images/cms/thumbs/4e2bd3e3ed9891b87566d6f275d8f919925d2ad8/osnovnaya_585_403_jpg_5_80.jpg",
+  "price": "по запросу",
+  "image": "/assets/external/inv-21667830-osnovnaya_585_403_jpg_5_80.jpg",
+  "images": [
+    "/assets/external/inv-21667830-osnovnaya_585_403_jpg_5_80.jpg"
+  ],
   "external": "",
   "coords": [
     59.905,

@@ -3,37 +3,63 @@
   "type": "park",
   "typeLabel": "Индустриальный парк",
   "deal": [
-    "Аренда"
+    "Продажа"
   ],
   "dealTypes": [
-    "rent"
+    "sale"
   ],
-  "area": "38 га · 200 000+ м²",
-  "areaNum": 200000,
+  "area": "38 га",
+  "areaNum": null,
   "location": "spb",
-  "address": "Санкт-Петербург, Витебский проспект",
+  "address": "Санкт-Петербург, Витебский проспект, первая линия",
   "district": "Витебский проспект",
-  "desc": "Индустриальный парк площадью 38 га на Витебском проспекте: 12 минут до метро Купчино на транспорте, 5 минут до КАД.",
+  "desc": "Индустриальный парк на первой линии Витебского проспекта: 38 га с инженерной подготовкой, участки от 0,3 до 5 га, BTS-проекты от 1 500 до 20 000 м².",
   "specs": [
+    [
+      "square_foot",
+      "Территория",
+      "38 га с инженерной подготовкой"
+    ],
+    [
+      "sell",
+      "Участки в покупку",
+      "0,3 / 1 / 2 / 3 / 5 га"
+    ],
+    [
+      "description",
+      "Категория земель",
+      "земли промышленности"
+    ],
+    [
+      "checklist",
+      "Виды разрешённого использования",
+      "производственная деятельность, тяжёлая и лёгкая промышленность, фармацевтика, пищевая, связь, склад, научно-производственная"
+    ],
+    [
+      "construction",
+      "BTS-проекты",
+      "производственно-складские здания от 1 500 до 20 000 м²"
+    ],
     [
       "bolt",
       "Электрическая мощность",
       "от 1 до 25 МВт"
     ],
     [
-      "square_foot",
-      "Площадь застройки",
-      "более 200 000 м²"
-    ],
-    [
       "place",
-      "Локация",
-      "Витебский проспект, Санкт-Петербург"
+      "До КАД",
+      "5 минут"
     ]
   ],
-  "price": "",
-  "image": "https://mm-prom.ru/wp-content/uploads/2026/05/garage.avif",
-  "external": "https://mm-prom.ru/avrora-vitebskij/",
+  "price": "по запросу",
+  "image": "/assets/objects/avrora-vitebsky/cover.jpg",
+  "images": [
+    "/assets/objects/avrora-vitebsky/cover.jpg",
+    "/assets/objects/avrora-vitebsky/2.jpg",
+    "/assets/objects/avrora-vitebsky/3.jpg",
+    "/assets/objects/avrora-vitebsky/4.jpg"
+  ],
+  "external": "/avrora-vitebskij/",
   "coords": [
     59.82,
     30.35
@@ -45,7 +71,7 @@
   "link": "/avrora-vitebskij/",
   "presentation": "/gejt-broshury/",
   "media": {
-    "src": "https://mm-prom.ru/wp-content/uploads/2026/05/garage.avif",
+    "src": "/assets/external/7da0587c-garage.avif",
     "alt": "Аврора Витебский — индустриальный парк",
     "caption": "Аврора Витебский — индустриальный парк на Витебском проспекте"
   },

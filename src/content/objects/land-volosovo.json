@@ -9,8 +9,8 @@
     "sale"
   ],
   "area": "18 га",
-  "areaNum": 180000,
-  "location": "lo",
+  "areaNum": null,
+  "location": "spb",
   "address": "Ленинградская обл., Волосовский р-н, Калитинское с/п",
   "district": "Волосовский район",
   "desc": "Участок 18 га с производственными строениями и собственной инфраструктурой, в 70 км от Санкт-Петербурга.",
@@ -41,8 +41,11 @@
       "70 км от Санкт-Петербурга"
     ]
   ],
-  "price": "150 000 000 ₽",
-  "image": "https://invest-platforma.com/images/obekty/indastrial/prodazha/volosovo/vid_sverhu.jpg",
+  "price": "по запросу",
+  "image": "/assets/external/inv-64570d3c-vid_sverhu.jpg",
+  "images": [
+    "/assets/external/inv-64570d3c-vid_sverhu.jpg"
+  ],
   "external": "",
   "coords": [
     59.455,
@@ -52,10 +55,8 @@
   "sort": 3,
   "badgeLabel": "Земельный участок",
   "badgeClass": "badge--park",
-  "link": "https://invest-platforma.com/nedvizhimost/zemelnye-uchastki/promyshlennye/zemelniy-uchastok-volosovskiy-rayon/",
-  "linkExternal": true,
   "media": {
-    "src": "https://invest-platforma.com/images/cms/thumbs/81456c67b957e0342b34ded43074cc5a8f87c29e/vid_sverhu_277_191_jpg_5_80.jpg",
+    "src": "/assets/external/097ecd19-vid_sverhu_277_191_jpg_5_80.jpg",
     "alt": "Земельный участок в Волосовском районе",
     "caption": "Земельный участок в Волосовском районе"
   },
