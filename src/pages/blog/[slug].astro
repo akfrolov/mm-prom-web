@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import SiteButton from '../../components/SiteButton.astro';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { formatArticleDate, readingMinutes } from '../../lib/articles';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+const { title: articleTitle, lead, date, source, cover } = article.data;
+const pageTitle = `${articleTitle} — публикации ММ Пром`;
+const minutes = readingMinutes(article.body);
+---
+
+<BaseLayout title={pageTitle} description={lead} ogType="article" ogImage={cover}>
+  <Fragment slot="head">
+    <style is:inline>
+    /* ═══ Страница статьи (/blog/<slug>/): шапка, обложка, тело,
+       первоисточник (по макету docs/mockups/statya_ili_keys.html).
+       Общие блоки (container, b-cta, кнопки, крошки) — base.css/blocks.css. ═══ */
+
+    /* ── Шапка статьи: h1, лид, мета (дата, время чтения) ──────────────── */
+    .b-article-head{padding:clamp(16px,3vw,32px) 0 0}
+    .article-head__inner{max-width:76ch}
+    .article-head__inner h1{margin:0 0 12px}
+    .article-lead{margin:0 0 20px;font-size:1.0625rem;color:var(--text-muted)}
+    .article-meta{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding:16px 0;margin:0 0 24px;border-top:1px solid var(--border)}
+    .article-meta__item{display:inline-flex;align-items:center;gap:8px;font-size:var(--fs-small);color:var(--text-muted)}
+    .article-meta__item .material-symbols-outlined{font-size:18px;color:var(--purple)}
+
+    /* ── Обложка: 16:9, на десктопе 21:9 (по макету) ───────────────────── */
+    .article-cover{margin:0 0 clamp(20px,3vw,32px);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+    .article-cover img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+    @media (min-width:1024px){
+      .article-cover img{aspect-ratio:21/9}
+    }
+
+    /* ── Тело статьи: максимум 76ch ────────────────────────────────────── */
+    .b-article{padding:clamp(28px,4vw,48px) 0 clamp(16px,2vw,24px)}
+    .article-body{max-width:76ch;margin:0 auto}
+    .article-body p{margin:0 0 1.15em}
+    .article-body ul{margin:0 0 1.15em;padding-left:20px}
+    .article-body li{margin:.35em 0}
+    .article-body li::marker{color:var(--purple)}
+    .article-body h2{margin:1.6em 0 .5em;font-size:var(--fs-h3)}
+    .article-body h2::after{content:"";display:block;width:48px;height:4px;border-radius:2px;background:var(--gold);margin-top:8px}
+    .article-body strong{color:var(--navy)}
+
+    /* ── Первоисточник (стиль article-note макета) ─────────────────────── */
+    .article-note{display:flex;align-items:flex-start;gap:8px;margin:28px 0 0;padding:12px 16px;background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius);font-size:var(--fs-small);color:var(--text-muted)}
+    .article-note .material-symbols-outlined{flex:0 0 auto;font-size:18px;color:var(--purple)}
+    .article-note a{display:inline-flex;align-items:center;gap:2px;min-height:44px;color:var(--purple);font-weight:700;text-decoration:none}
+    .article-note a:hover{text-decoration:underline}
+    .article-note a .material-symbols-outlined{font-size:16px}
+
+    /* ── Полоса «Наш Телеграм-канал» (b-cta--telegram макета) ──────────── */
+    .b-cta--telegram{background:var(--white,#fff);border-top:1px solid var(--border)}
+    </style>
+  </Fragment>
+
+  <main>
+
+    <Breadcrumbs items={[
+      { href: '/', label: 'Главная' },
+      { href: '/blog/', label: 'Публикации' },
+      { label: articleTitle },
+    ]} />
+
+    <section id="article-head" class="b-article-head">
+      <div class="container">
+        <div class="article-head__inner">
+          <h1>{articleTitle}</h1>
+          <p class="article-lead">{lead}</p>
+          <div class="article-meta">
+            {date && (
+              <span class="article-meta__item"><span class="material-symbols-outlined" aria-hidden="true">calendar_today</span>{formatArticleDate(date)}</span>
+            )}
+            <span class="article-meta__item"><span class="material-symbols-outlined" aria-hidden="true">schedule</span>{minutes} мин чтения</span>
+          </div>
+        </div>
+        <figure class="article-cover">
+          <img src={`${cover}?v=1`} alt={`Обложка: ${articleTitle}`} decoding="async" fetchpriority="high">
+        </figure>
+      </div>
+    </section>
+
+    <section id="article-body" class="b-article">
+      <div class="container">
+        <div class="article-body">
+          <Content />
+
+          <p class="article-note">
+            <span class="material-symbols-outlined" aria-hidden="true">info</span>
+            <span>Подробнее: <a href={source.url} target="_blank" rel="noopener">{source.label}<span class="material-symbols-outlined" aria-hidden="true">open_in_new</span></a></span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="cta" class="b-cta">
+      <div class="container">
+        <h2>Обсудить похожий проект</h2>
+        <p>Расскажите о задаче — подберём помещение под ваши требования и сроки заезда.</p>
+        <div class="b-cta__row">
+          <SiteButton variant="gold" href="/modalka-zayavki/">Обсудить похожий проект</SiteButton>
+          <a class="b-cta__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="telegram" class="b-cta b-cta--telegram">
+      <div class="container">
+        <h2>Наш Телеграм-канал</h2>
+        <p>Новые объекты, кейсы и разборы рынка индустриальной недвижимости — раньше, чем в публикациях.</p>
+        <div class="b-cta__row">
+          <SiteButton variant="purple" href="https://t.me/mm_prom1" target="_blank">Подписаться на канал</SiteButton>
+          <SiteButton variant="outline" href="https://max.ru/channel_MM_PROM" target="_blank">Канал в MAX</SiteButton>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

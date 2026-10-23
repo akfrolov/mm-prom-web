@@ -3,14 +3,18 @@ interface Props {
   title: string;
   description: string;
   noindex?: boolean;
+  /** OG-изображение страницы: относительный или абсолютный URL. Дефолт — логотип. */
+  ogImage?: string;
+  /** OG-тип страницы. Дефолт — website; статьи передают article. */
+  ogType?: string;
 }
 
-const { title, description, noindex = false } = Astro.props;
+const { title, description, noindex = false, ogImage: ogImageProp, ogType = 'website' } = Astro.props;
 const isProd = process.env.MMPROM_ENV !== 'staging';
 const site = Astro.site ?? new URL('https://mm-prom.ru');
 const canonical = new URL(Astro.url.pathname, site).href;
 const robots = !isProd || noindex ? 'noindex, follow' : 'index, follow';
-const ogImage = new URL('/mmprom-logo.png', site).href;
+const ogImage = ogImageProp ? new URL(ogImageProp, site).href : new URL('/mmprom-logo.png', site).href;
 const metrika = `<script>
 (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
 m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
@@ -29,7 +33,7 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
     <meta name="robots" content={robots}>
     <link rel="icon" type="image/png" href="/mm-logo.png">
     <link rel="canonical" href={canonical}>
-    <meta property="og:type" content="website">
+    <meta property="og:type" content={ogType}>
     <meta property="og:site_name" content="ММ Пром">
     <meta property="og:title" content={title}>
     <meta property="og:description" content={description}>

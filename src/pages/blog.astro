@@ -3,24 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import SiteButton from '../components/SiteButton.astro';
 import { getCollection } from 'astro:content';
-
-const MONTHS = [
-  'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
-  'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря',
-];
-
-// «14 июля 2026» — день без ведущего нуля (спека, §2.4 п. 4).
-function formatDate(iso: string): string {
-  const [year, month, day] = iso.split('-').map(Number);
-  return `${day} ${MONTHS[month - 1]} ${year}`;
-}
-
-// Время чтения по объёму тела: max(1, ceil(слов / 200)) (спека, §2.5 п. 10).
-function readingMinutes(body: string | undefined): number {
-  const plain = (body ?? '').replace(/[#*_>`~\-]/g, ' ');
-  const words = plain.split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.ceil(words / 200));
-}
+import { formatArticleDate, readingMinutes } from '../lib/articles';
 
 const articles = (await getCollection('articles'))
   .map((entry) => ({
@@ -101,7 +84,7 @@ const articles = (await getCollection('articles'))
               <p class="post-card__excerpt">{article.lead}</p>
               <div class="post-card__meta">
                 {article.date && (
-                  <span><span class="material-symbols-outlined" aria-hidden="true">calendar_today</span>{formatDate(article.date)}</span>
+                  <span><span class="material-symbols-outlined" aria-hidden="true">calendar_today</span>{formatArticleDate(article.date)}</span>
                 )}
                 <span><span class="material-symbols-outlined" aria-hidden="true">schedule</span>{article.minutes} мин чтения</span>
               </div>
