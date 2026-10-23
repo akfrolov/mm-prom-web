@@ -1,9 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import TzBanner from '../components/TzBanner.astro';
-import SiteButton from '../components/SiteButton.astro';
 ---
-<BaseLayout title="Аврора Витебский — ММ Пром" description="ММ Пром — единое окно промышленника: комплексные решения и полный цикл услуг по промышленной недвижимости — аренда, покупка, управление и строительство объектов. С 2011 года: 200 000+ м² в управлении, 25+ проектов, 150+ компаний-резидентов.">
+<BaseLayout title="Аврора Витебский — индустриальный парк на Витебском проспекте | ММ Пром" description="Аврора Витебский — новый индустриальный парк на Витебском проспекте: 38 га, участки от 1 га, мощности 1–25 МВт, строительство под ключ.">
   <Fragment slot="head">
     <style is:inline>
     /* ═══════════════════════════════════════════════════════════════════════
@@ -388,50 +386,585 @@ import SiteButton from '../components/SiteButton.astro';
     .obj-deal h3{margin:0 0 4px;font-size:1.05rem}
     .obj-deal p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
     .obj-lead__list{margin:16px 0;padding-left:20px;color:rgba(255,255,255,.85)}
+
+
+/* ═══ Страницы услуг: компоненты поверх канона главной ═══ */
+.b-breadcrumbs{padding:18px 0 0}
+.b-breadcrumbs ol{display:flex;flex-wrap:wrap;gap:4px;list-style:none;margin:0;padding:0;font-size:var(--fs-small);color:var(--text-muted)}
+.b-breadcrumbs li{display:inline-flex;align-items:center}
+.b-breadcrumbs li+li::before{content:"/";margin:0 8px;color:var(--border)}
+.b-breadcrumbs a{display:inline-flex;align-items:center;min-height:44px;color:var(--text-muted);text-decoration:none}
+.b-breadcrumbs a:hover{color:var(--purple)}
+.b-breadcrumbs [aria-current="page"]{color:var(--text);font-weight:600}
+
+.b-hero--service .b-hero__inner{grid-template-columns:minmax(0,1fr);gap:0}
+.b-hero--service .b-hero__lead{max-width:70ch}
+.b-hero--service .b-hero__metrics{margin-top:8px}
+
+.b-approach__grid{display:grid;gap:16px;margin-top:32px;grid-template-columns:1fr}
+.approach-card{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:26px;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+.approach-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
+.approach-card > .material-symbols-outlined{font-size:28px;color:var(--purple)}
+.approach-card h3{margin:0;font-size:1.15rem}
+.approach-card p{margin:0;color:var(--text-muted);font-weight:500;font-size:1rem}
+.approach-card ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.approach-card li{position:relative;padding-left:20px;color:var(--text-muted);font-weight:500;font-size:1rem}
+.approach-card li::before{content:"";position:absolute;left:0;top:.6em;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+@media (min-width:768px){.b-approach__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}}
+
+.b-cta{background:var(--purple-soft);color:var(--text);padding:clamp(40px,6vw,72px) 0}
+.b-cta h2{margin:0 0 8px}
+.b-cta p{color:var(--text-muted);max-width:70ch}
+.b-cta__row{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin-top:20px}
+.b-cta__phone{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:800;font-size:1.125rem;color:var(--text);text-decoration:none}
+.b-cta__phone .material-symbols-outlined{color:var(--purple)}
+
+/* ── Карта объектов на странице услуги ───────────────────────────── */
+.b-map-sec__lead{margin:12px 0 0;max-width:70ch;color:var(--text-muted)}
+.b-map-sec__wrap{margin-top:28px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+.b-map-sec__canvas{width:100%;height:clamp(420px,55vh,620px);background:var(--surface)}
+.b-map-sec__bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-top:1px solid var(--border);background:#fff}
+.b-map-sec__hint{display:inline-flex;align-items:center;gap:8px;color:var(--text-muted);font-size:var(--fs-small)}
+.b-map-sec__hint .material-symbols-outlined{font-size:18px;color:var(--purple)}
+.b-map-sec__bar .btn{min-height:42px;padding:9px 18px}
+
+/* ═══ Дизайн-проход по страницам услуг ═══════════════════════════════ */
+
+.b-sec-head{margin:0 0 38px;max-width:860px}
+.b-sec-head .sec-index{margin-bottom:14px}
+.b-sec-head h2{margin:0 0 12px;text-wrap:balance}
+.b-sec-head__lead{margin:0;color:var(--text-muted);font-size:1.05rem;line-height:1.68;max-width:68ch}
+
+/* Герой: акцент в заголовке и метрики */
+.b-hero--service h1{text-wrap:balance}
+.b-hero--service h1 .accent{color:var(--purple)}
+.b-hero--service .b-hero__lead{font-size:1.1rem;line-height:1.7}
+.b-hero__metrics li{display:flex;flex-direction:column;gap:6px}
+.b-hero__metrics li .material-symbols-outlined{font-size:20px;color:var(--purple)}
+
+/* Подход */
+.approach-card{padding:26px;gap:12px}
+.approach-card__icon{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:14px;background:var(--purple-soft);color:var(--purple);transition:background .22s ease,color .22s ease,transform .22s ease}
+.approach-card:hover .approach-card__icon{background:var(--purple);color:#fff;transform:translateY(-2px)}
+.approach-card__icon .material-symbols-outlined{font-size:26px}
+.approach-card h3{font-size:1.08rem;line-height:1.4}
+.approach-card p,.approach-card li{line-height:1.6}
+
+/* Этапы: конвейер с золотой линией */
+.b-flow2{position:relative;margin-top:6px}
+.b-flow2__track{position:absolute;left:22px;right:22px;top:22px;height:2px;background:var(--border);border-radius:2px;overflow:hidden}
+.b-flow2__fill{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--purple) 0%,var(--gold) 100%);transition:width 1.4s cubic-bezier(.22,.61,.36,1)}
+.b-flow2.is-filled .b-flow2__fill{width:100%}
+.b-flow2__list{position:relative;display:grid;grid-template-columns:repeat(var(--n,5),minmax(0,1fr));gap:20px;list-style:none;margin:0;padding:0}
+.b-flow2__step{display:flex;flex-direction:column;gap:16px;min-width:0}
+.b-flow2__dot{position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid var(--purple);color:var(--purple);font-weight:800;font-size:.95rem;box-shadow:0 0 0 6px var(--surface);transition:background .22s ease,color .22s ease,transform .22s ease}
+.b-flow2__step:hover .b-flow2__dot{background:var(--purple);color:#fff;transform:scale(1.06)}
+.b-flow2__body{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;min-height:104px;transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease}
+.b-flow2__step:hover .b-flow2__body{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
+.b-flow2__body p{margin:0;font-weight:500;font-size:.98rem;line-height:1.5}
+
+/* CTA: градиент брендбука */
+.b-cta--grad{background:linear-gradient(120deg,var(--purple) 0%,var(--navy) 100%);color:#fff;position:relative;overflow:hidden}
+.b-cta--grad::after{content:"";position:absolute;width:140px;height:140px;right:-40px;bottom:-40px;border:2px solid rgba(235,184,30,.4);transform:rotate(15deg)}
+.b-cta--grad h2{color:#fff}
+.b-cta--grad p{color:rgba(255,255,255,.82)}
+.b-cta--grad .sec-index{color:rgba(255,255,255,.6)}
+.b-cta--grad .b-cta__phone{color:#fff}
+.b-cta--grad .b-cta__phone .material-symbols-outlined{color:var(--gold)}
+.btn--ghost-light{border-color:rgba(255,255,255,.55);color:#fff;background:transparent}
+.btn--ghost-light:hover{background:#fff;color:var(--purple);border-color:#fff}
+
+/* Каскадное появление карточек */
+html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
+
+/* Мобильная версия */
+@media (max-width:767px){
+  .b-sec-head{margin-bottom:26px}
+  .b-sec-head__lead{font-size:1rem}
+  .approach-card{padding:20px}
+  .b-flow2__track{left:21px;right:auto;top:0;bottom:0;width:2px;height:auto}
+  .b-flow2__fill{width:100%;height:0;transition:height 1.4s cubic-bezier(.22,.61,.36,1)}
+  .b-flow2.is-filled .b-flow2__fill{height:100%}
+  .b-flow2__list{grid-template-columns:1fr;gap:14px}
+  .b-flow2__step{flex-direction:row;gap:14px;align-items:flex-start}
+  .b-flow2__dot{flex:0 0 auto;box-shadow:0 0 0 5px var(--surface)}
+  .b-flow2__body{min-height:0;flex:1 1 auto;padding:14px 16px}
+  .b-cta--grad .b-cta__row{gap:10px}
+  .b-cta--grad .btn{width:100%;justify-content:center}
+}
+
+.b-scope__obj-title{margin:44px 0 0;font-size:var(--fs-h3);display:flex;align-items:center;gap:10px}
+.b-scope__obj-title::before{content:"";width:12px;height:12px;background:var(--gold);transform:rotate(45deg);flex:0 0 auto}
+.b-scope__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+    </style>
+    <style is:inline>
+
+/* ═══ Страницы объектов: компоненты в каноне сайта ═══ */
+.obj-hero .b-hero__inner{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:48px;align-items:center}
+.obj-hero__media{margin:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);background:var(--surface)}
+.obj-hero__media img{display:block;width:100%;height:100%;max-height:480px;object-fit:cover}
+@media (max-width:1023px){.obj-hero .b-hero__inner{grid-template-columns:1fr;gap:32px}.obj-hero__media img{max-height:360px}}
+
+.obj-figure{margin:28px 0 0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:#fff}
+.obj-figure img{display:block;width:100%;height:auto}
+.obj-figure figcaption{padding:12px 16px;border-top:1px solid var(--border);color:var(--text-muted);font-size:var(--fs-small)}
+
+.obj-legend{display:grid;gap:10px;margin:20px 0 0;padding:0;list-style:none;grid-template-columns:1fr}
+.obj-legend li{display:flex;align-items:flex-start;gap:10px;color:var(--text-muted);font-size:var(--fs-small);line-height:1.5}
+.obj-legend i{flex:0 0 auto;width:16px;height:16px;margin-top:3px;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(14,0,40,.08)}
+@media (min-width:640px){.obj-legend{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1024px){.obj-legend{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+.obj-cols{display:grid;gap:20px;margin-top:28px;grid-template-columns:1fr}
+.obj-detail{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:26px}
+.obj-detail h3{margin:0 0 6px;font-size:1.1rem}
+.obj-detail__note{margin:0 0 14px;color:var(--text-muted);font-size:var(--fs-small)}
+.obj-detail ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.obj-detail li{display:flex;justify-content:space-between;gap:12px;padding-bottom:8px;border-bottom:1px dashed var(--border);font-size:.95rem}
+.obj-detail li:last-child{border-bottom:0;padding-bottom:0}
+.obj-detail li span:last-child{font-weight:700;white-space:nowrap}
+@media (min-width:768px){.obj-cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.obj-table-wrap{margin-top:28px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:#fff}
+.obj-table{width:100%;border-collapse:collapse;font-size:.95rem}
+.obj-table th,.obj-table td{padding:16px 18px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+.obj-table th{background:var(--surface);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted)}
+.obj-table tr:last-child td{border-bottom:0}
+.obj-table td strong{display:block;font-size:1rem}
+.obj-table a{color:var(--purple);font-weight:700;text-decoration:none;white-space:nowrap}
+.obj-table a:hover{text-decoration:underline}
+@media (max-width:767px){
+  .obj-table thead{display:none}
+  .obj-table tr{display:block;border-bottom:1px solid var(--border)}
+  .obj-table td{display:flex;justify-content:space-between;gap:12px;border:0;padding:10px 16px}
+  .obj-table td::before{content:attr(data-label);color:var(--text-muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em}
+}
+
+.obj-floors{display:grid;gap:14px;margin-top:28px;grid-template-columns:1fr}
+.obj-floor{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;border-top:3px solid var(--gold)}
+.obj-floor span{display:block;color:var(--text-muted);font-size:var(--fs-small)}
+.obj-floor strong{display:block;margin-top:4px;font-size:1.6rem;color:var(--purple)}
+@media (min-width:640px){.obj-floors{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+.obj-tags{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;padding:0;list-style:none}
+.obj-tags li{padding:8px 14px;border-radius:999px;background:var(--purple-soft);color:var(--purple);font-weight:600;font-size:var(--fs-small)}
+
+.obj-contact{display:grid;gap:28px;grid-template-columns:1fr;align-items:center}
+.obj-contact__media{margin:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);background:var(--surface)}
+.obj-contact__media img{display:block;width:100%;height:100%;max-height:440px;object-fit:cover}
+.obj-contact__body h2{margin:0 0 10px}
+.obj-contact__body p{color:var(--text-muted);max-width:56ch}
+.obj-contact__links{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+@media (min-width:1024px){.obj-contact{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px}}
+
+.obj-next{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;padding:32px;border:1px solid var(--border);border-radius:var(--radius);background:#fff}
+.obj-next h2{margin:0 0 6px;font-size:var(--fs-h3)}
+.obj-next p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
+
+/* ── Мастер-план: масштабирование ─────────────────────────────────── */
+.mp{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:#fff;margin-top:28px}
+.mp__stage{position:relative;overflow:hidden;background:var(--surface);cursor:grab;touch-action:none;height:clamp(320px,52vh,560px);display:flex;align-items:center;justify-content:center}
+.mp__stage.is-dragging{cursor:grabbing}
+.mp__img{max-width:100%;max-height:100%;width:auto;height:auto;transform-origin:center center;will-change:transform;user-select:none;-webkit-user-drag:none}
+.mp__bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-top:1px solid var(--border);background:#fff}
+.mp__hint{display:inline-flex;align-items:center;gap:8px;margin:0;color:var(--text-muted);font-size:var(--fs-small)}
+.mp__hint .material-symbols-outlined{font-size:18px;color:var(--purple)}
+.mp__controls{display:flex;align-items:center;gap:6px}
+.mp__btn{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;padding:0 12px;border:1px solid var(--border);border-radius:8px;background:#fff;color:var(--text);font:inherit;font-weight:700;cursor:pointer;transition:border-color .2s ease,color .2s ease,background .2s ease}
+.mp__btn:hover{border-color:var(--purple);color:var(--purple)}
+.mp__btn--reset{font-size:var(--fs-small);font-weight:600}
+.mp__scale{min-width:52px;text-align:center;font-size:var(--fs-small);font-weight:700;color:var(--text-muted);font-variant-numeric:tabular-nums}
+
+.mp-lightbox{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:24px}
+.mp-lightbox.is-open{display:flex}
+.mp-lightbox__overlay{position:absolute;inset:0;background:rgba(14,0,40,.82);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.mp-lightbox__content{position:relative;z-index:1;width:min(1200px,96vw);height:min(88vh,900px);display:flex;flex-direction:column;background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.4)}
+.mp-lightbox__close{position:absolute;top:10px;right:10px;z-index:3;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.92);color:var(--text);font-size:1.6rem;line-height:1;cursor:pointer}
+.mp-lightbox__close:hover{background:var(--purple);color:#fff}
+.mp-lightbox__toolbar{display:flex;align-items:center;gap:6px;padding:10px 14px;border-bottom:1px solid var(--border);background:#fff}
+.mp-lightbox__stage{position:relative;flex:1 1 auto;overflow:hidden;background:var(--surface);cursor:grab;touch-action:none;display:flex;align-items:center;justify-content:center}
+.mp-lightbox__stage.is-dragging{cursor:grabbing}
+.mp-lightbox__img{max-width:100%;max-height:100%;width:auto;height:auto;transform-origin:center center;will-change:transform;user-select:none;-webkit-user-drag:none}
+
+/* ── Карта: подписи точек ─────────────────────────────────────────── */
+.ymap-label{position:relative;display:flex;align-items:center;gap:8px;transform:translate(-9px,-9px);white-space:nowrap;cursor:pointer}
+.ymap-label__dot{width:18px;height:18px;border-radius:50%;background:var(--purple);border:3px solid #fff;box-shadow:0 2px 8px rgba(14,0,40,.35);flex:0 0 auto}
+.ymap-label__body{display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:8px;padding:6px 10px;box-shadow:0 6px 18px rgba(14,0,40,.14);font-size:.8rem;line-height:1.25}
+.ymap-label__body b{font-weight:700;color:var(--text)}
+.ymap-label__body i{font-style:normal;color:var(--text-muted);font-size:.72rem}
+.ymap-label--main .ymap-label__dot{width:22px;height:22px;background:var(--gold);border-color:var(--purple)}
+.ymap-label--main .ymap-label__body{border-color:var(--purple);background:var(--purple);color:#fff}
+.ymap-label--main .ymap-label__body b{color:#fff}
+.ymap-label--main .ymap-label__body i{color:rgba(255,255,255,.75)}
+
     </style>
   </Fragment>
-<!-- ═══ Шапка ═══ -->
-<!-- ═══ Аврора Витебский: герой ═══ -->
-<section class="obj-hero">
-  <div class="container">
-    <p class="sec-index">Объект</p>
-    <h1>Аврора Витебский</h1>
-    <p class="obj-hero__lead">Новый индустриальный парк на Витебском проспекте</p>
-    <div class="obj-hero__facts">
-      <div class="obj-hero__fact"><span class="obj-hero__num">01</span><strong>5 минут до КАД</strong></div>
-      <div class="obj-hero__fact"><span class="obj-hero__num">02</span><strong>10 минут до метро «Купчино»</strong></div>
-      <div class="obj-hero__fact"><span class="obj-hero__num">03</span><strong>30 минут до центра Петербурга</strong></div>
-    </div>
-  </div>
-</section>
+<!-- ═══ Аврора Витебский ═══ -->
 
-<!-- ═══ Характеристики ═══ -->
-<section class="section section--tint">
-  <div class="container">
-    <p class="sec-index">Характеристики</p>
-    <h2>Параметры парка</h2>
-    <div class="obj-specs">
-      <div class="obj-spec"><span class="obj-spec__icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 8v2h20V8L12 2zM4 12v8h2v-8H4zm4 0v8h2v-8H8zm4 0v8h2v-8h-2zm4 0v8h2v-8h-2zm4 0v8h2v-8h-2z"/></svg></span><h3>Территория</h3><p>38 га</p></div>
-      <div class="obj-spec"><span class="obj-spec__icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 8v2h20V8L12 2zM4 12v8h2v-8H4zm4 0v8h2v-8H8zm4 0v8h2v-8h-2zm4 0v8h2v-8h-2zm4 0v8h2v-8h-2z"/></svg></span><h3>Площадь застройки</h3><p>более 200 000 м²</p></div>
-      <div class="obj-spec"><span class="obj-spec__icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><h3>Мощности</h3><p>от 1 до 25 МВт</p></div>
-      <div class="obj-spec"><span class="obj-spec__icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span><h3>Локация</h3><p>Санкт-Петербург, Витебский проспект, первая линия</p></div>
-      <div class="obj-spec"><span class="obj-spec__icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M19.83 7.5l-2.27-2.27c.07-.42.1-.86.1-1.23 0-1.38-.62-2.5-1.66-2.5-1.11 0-1.66.92-1.66 2.5 0 .37.03.81.1 1.23l-2.27 2.27c-1.34.34-2.5 1.02-3.42 1.92L4.5 8.5c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h1.5l1.5 3h5l1.5-1.5c.5-.5 1.5-1 2.5-1.5h3.5c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1h-1.17zM6 13.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></span><h3>Форма сделки</h3><p>Покупка земельных участков</p></div>
-      <div class="obj-spec"><span class="obj-spec__icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span><h3>Участки в покупку</h3><p>0,3 / 1 / 2 / 3 / 5 га</p></div>
+  <section id="breadcrumbs" class="b-breadcrumbs">
+    <div class="container">
+      <ol>
+        <li><a href="/">Главная</a></li>
+        <li><a href="/katalog/">Каталог объектов</a></li>
+        <li><span aria-current="page">Аврора Витебский</span></li>
+      </ol>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ═══ CTA ═══ -->
-<section class="section">
-  <div class="container">
-    <div class="tz-panel">
-      <TzBanner heading="Заинтересовал парк?" text="Оставьте заявку — расскажем подробнее и подберём участок" ctaHref="#contacts" ctaText="Оставить заявку" />
+  <section id="hero" class="b-hero b-hero--service obj-hero">
+    <div class="b-hero__glow b-hero__glow--purple"></div>
+    <div class="b-hero__glow b-hero__glow--gold"></div>
+    <div class="b-hero__particles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="container b-hero__inner">
+      <div class="b-hero__content">
+        <p class="b-hero__eyebrow">Объект · Индустриальный парк</p>
+        <h1>Аврора <span class="accent">Витебский</span></h1>
+        <p class="b-hero__lead">Новый индустриальный парк на Витебском проспекте: 38 га с инженерной подготовкой и строительством под ключ для производств любого профиля.</p>
+        <p class="b-hero__note">Участки от 1 га, мощности от 1 до 25 МВт и первая видовая линия вдоль Витебского проспекта. Пять минут до КАД, десять минут до метро «Купчино» и тридцать минут до центра Петербурга.</p>
+        <div class="b-hero__actions"><a class="btn btn--gold" href="#cta">Обсудить проект</a><a class="btn btn--outline" href="/katalog/">Смотреть каталог</a></div>
+        <ul class="b-hero__metrics"><li><strong>38 га</strong><span>территория парка</span></li><li><strong>200 000+ м²</strong><span>возможная застройка</span></li><li><strong>1–25 МВт</strong><span>энергетические мощности</span></li><li><strong>10 минут</strong><span>до метро «Купчино»</span></li></ul>
+      </div>
+      <figure class="obj-hero__media">
+        <img src="/assets/external/8cc2b044-1-optimized.png" alt="Аврора Витебский — индустриальный парк на Витебском проспекте" loading="eager">
+      </figure>
+    </div>
+  </section>
+
+  <section id="location" class="b-map-sec section section--tint">
+    <div class="container">
+      <div class="b-sec-head reveal">
+        <p class="sec-index" aria-hidden="true">02</p>
+        <h2>Локация и география</h2>
+        <p class="b-sec-head__lead">Индустриальный парк на Витебском проспекте — 38 га с инженерной подготовкой. На карте отмечены парк, метро, остановки транспорта и Витебский проспект.</p>
+      </div>
+      <div class="b-map-sec__wrap">
+        <div id="avr-map-canvas" class="b-map-sec__canvas" role="application" aria-label="Карта: Санкт-Петербург, Витебский проспект"></div>
+        <div class="b-map-sec__bar">
+          <span class="b-map-sec__hint"><span class="material-symbols-outlined" aria-hidden="true">place</span>Санкт-Петербург, Витебский проспект</span>
+          <a class="btn btn--outline" href="https://yandex.ru/maps/?text=Санкт-Петербург,%20Витебский%20проспект" target="_blank" rel="noopener">Построить маршрут</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="specs" class="section section--tint">
+    <div class="container">
+      <div class="b-sec-head reveal">
+        <p class="sec-index" aria-hidden="true">03</p>
+        <h2>Характеристики парка</h2>
+        <p class="b-sec-head__lead">Инженерные ресурсы, разрешённое использование и параметры участка. Участки в покупку — 0,3 / 1 / 2 / 3 / 5 га; форма сделки — покупка земельных участков.</p>
+      </div>
+      <div class="b-approach__grid">
+        <article class="approach-card reveal" style="--i:0">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">bolt</span></span>
+          <h3>Энергетические мощности</h3>
+          <p>Объём: от 1 до 25 МВт (II–III категория)<br>Прямое подключение к сетям Ленэнерго<br>Стадия: получение технических условий</p>
+        </article>
+        <article class="approach-card reveal" style="--i:1">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">water_drop</span></span>
+          <h3>Водоснабжение</h3>
+          <p>Объём: 1 449,51 м³/сут.<br>Прямое подключение к сетям водоканала<br>Стадия: получены технические условия</p>
+        </article>
+        <article class="approach-card reveal" style="--i:2">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">water</span></span>
+          <h3>Водоотведение</h3>
+          <p>Объём: 1 183,75 м³/сут.<br>Прямое подключение к РСО «Агентство Шушары»<br>Стадия: получены технические условия</p>
+        </article>
+        <article class="approach-card reveal" style="--i:3">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">warning</span></span>
+          <h3>Классы опасности</h3>
+          <p>III–V классы</p>
+        </article>
+        <article class="approach-card reveal" style="--i:4">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">local_fire_department</span></span>
+          <h3>Газоснабжение</h3>
+          <p>Объём: 2 500 м³/час<br>Прямое подключение к сетям «Петербурггаз» и «Парк Шушары»<br>Стадия: получение технических условий</p>
+        </article>
+        <article class="approach-card reveal" style="--i:5">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">assignment</span></span>
+          <h3>Виды разрешённого использования</h3>
+          <p>6.0. Производственная деятельность<br>6.2. Тяжёлая промышленность<br>6.3. Лёгкая промышленность<br>6.3.1. Фармацевтическая промышленность<br>6.4. Пищевая промышленность<br>6.8. Связь<br>6.9. Склад<br>6.12. Научно-производственная деятельность<br>— и другие</p>
+        </article>
+        <article class="approach-card reveal" style="--i:6">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">square_foot</span></span>
+          <h3>Размер участка</h3>
+          <p>Общая возможная площадь застройки: более 200 000 м²<br>Территория: 38 га</p>
+        </article>
+        <article class="approach-card reveal" style="--i:7">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">pin_drop</span></span>
+          <h3>Кадастровые номера</h3>
+          <p>78:42:0015105:60<br>78:42:0015105:3113</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="masterplan" class="section">
+    <div class="container">
+      <div class="b-sec-head reveal">
+        <p class="sec-index" aria-hidden="true">04</p>
+        <h2>Мастер-план</h2>
+        <p class="b-sec-head__lead">Участки от 1 га с инженерной подготовкой. План можно приблизить колесом мыши или кнопками.</p>
+      </div>
+      <div class="mp" data-mp>
+        <div class="mp__stage" data-mp-stage>
+          <img class="mp__img" src="/assets/external/0390291a-masterplan_no_legend.png" alt="Мастер-план индустриального парка Аврора Витебский" data-mp-img loading="lazy">
+        </div>
+        <div class="mp__bar">
+          <p class="mp__hint"><span class="material-symbols-outlined" aria-hidden="true">zoom_in</span>Колесо мыши — масштаб, перетаскивание — перемещение</p>
+          <div class="mp__controls">
+            <button type="button" class="mp__btn" data-mp-out aria-label="Уменьшить">−</button>
+            <span class="mp__scale" data-mp-scale>100%</span>
+            <button type="button" class="mp__btn" data-mp-in aria-label="Увеличить">+</button>
+            <button type="button" class="mp__btn mp__btn--reset" data-mp-reset>Сброс</button>
+            <button type="button" class="mp__btn" data-mp-expand aria-label="На весь экран"><span class="material-symbols-outlined">fullscreen</span></button>
+          </div>
+        </div>
+      </div>
+      <h3 class="b-scope__obj-title">Условные обозначения</h3>
+      <ul class="obj-legend">
+        <li><i style="background:#5A3994"></i>Продажа земельных участков от 1 га</li>
+        <li><i style="background:#EBB81E"></i>Зона возможной застройки</li>
+        <li><i style="background:#C9B8E8"></i>Проектируемые проезды</li>
+        <li><i style="background:#B9B9B9"></i>Проезды, площадки</li>
+        <li><i style="background:#7FA86B"></i>Обозначение въезда/выезда; зона установки шлагбаума</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="deals" class="section">
+    <div class="container">
+      <div class="b-sec-head reveal">
+        <p class="sec-index" aria-hidden="true">05</p>
+        <h2>Формы сделки</h2>
+        <p class="b-sec-head__lead">Возможные формы сделок при строительстве под ключ.</p>
+      </div>
+      <div class="b-approach__grid">
+        <article class="approach-card reveal" style="--i:0">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">key</span></span>
+          <h3>Аренда</h3>
+          <p>Быстрый старт для промышленного бизнеса</p>
+        </article>
+        <article class="approach-card reveal" style="--i:1">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">sell</span></span>
+          <h3>Покупка</h3>
+          <p>Собственный актив и полный контроль</p>
+        </article>
+        <article class="approach-card reveal" style="--i:2">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">handshake</span></span>
+          <h3>Аренда с выкупом</h3>
+          <p>Арендуете — постепенно становитесь собственником</p>
+        </article>
+        <article class="approach-card reveal" style="--i:3">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">swap_horiz</span></span>
+          <h3>Trade-In</h3>
+          <p>Обмен старого актива на новый</p>
+        </article>
+        <article class="approach-card reveal" style="--i:4">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">savings</span></span>
+          <h3>Финансовые инструменты</h3>
+          <p>Гибкие схемы для разного бюджета</p>
+        </article>
+        <article class="approach-card reveal" style="--i:5">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">foundation</span></span>
+          <h3>Строительство под ключ</h3>
+          <p>Возьмём реализацию проекта на себя</p>
+        </article>
+      </div>
+      <figure class="obj-figure">
+        <img src="/assets/external/7059d919-10-scaled-e1789043660933-optimized.png" alt="Формы сделки" loading="lazy">
+      </figure>
+    </div>
+  </section>
+
+  <section id="advantages" class="section section--tint">
+    <div class="container">
+      <div class="b-sec-head reveal">
+        <p class="sec-index" aria-hidden="true">06</p>
+        <h2>Преимущества</h2>
+        <p class="b-sec-head__lead">Три причины разместить производство в парке.</p>
+      </div>
+      <div class="b-approach__grid">
+        <article class="approach-card reveal" style="--i:0">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">engineering</span></span>
+          <h3>Инженерная инфраструктура</h3>
+          <p>Центральные инженерные сети<br>Возможность увеличения мощностей под задачи резидента</p>
+        </article>
+        <article class="approach-card reveal" style="--i:1">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">location_on</span></span>
+          <h3>Локация вдоль Витебского проспекта</h3>
+          <p>Первая видовая линия<br>Удобная транспортная доступность</p>
+        </article>
+        <article class="approach-card reveal" style="--i:2">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">factory</span></span>
+          <h3>Разные конфигурации производств</h3>
+          <p>Подходит для размещения производств любого профиля, включая пищевые и фармацевтические<br>Размещение производств 3–4–5 классов опасности</p>
+        </article>
+      </div>
+      <figure class="obj-figure">
+        <img src="/assets/external/ecd455b5-11-optimized.png" alt="Преимущества индустриального парка" loading="lazy">
+      </figure>
+    </div>
+  </section>
+
+  <section id="approach" class="section">
+    <div class="container">
+      <div class="b-sec-head reveal">
+        <p class="sec-index" aria-hidden="true">07</p>
+        <h2>Наш подход</h2>
+        <p class="b-sec-head__lead">Гибкий девелоперский подход позволяет формировать решения под задачи резидентов — от конфигурации производства и условий сделки до инженерной и инвестиционной модели проекта.</p>
+      </div>
+      <div class="b-approach__grid">
+        <article class="approach-card reveal" style="--i:0">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">handshake</span></span>
+          <h3>Гибкие условия сделки</h3>
+          <p>Долгосрочная аренда или выкуп<br>Индивидуальные решения под задачи бизнеса<br>Различные финансовые инструменты</p>
+        </article>
+        <article class="approach-card reveal" style="--i:1">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">construction</span></span>
+          <h3>Формат строительства под ключ</h3>
+          <p>Полный цикл: от технического задания до управления и ввода в эксплуатацию объектом</p>
+        </article>
+        <article class="approach-card reveal" style="--i:2">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span></span>
+          <h3>Инвестиционная привлекательность</h3>
+          <p>Рост стоимости земли и объектов<br>Высокая ликвидность промышленной недвижимости<br>Возможности для частных и институциональных инвесторов</p>
+        </article>
+        <article class="approach-card reveal" style="--i:3">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">precision_manufacturing</span></span>
+          <h3>Производство под задачи резидента</h3>
+          <p>Адаптируем здание под вашу технологию<br>Строим объекты для производства любой сложности</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="roadmap" class="section section--tint">
+    <div class="container">
+      <div class="b-sec-head reveal">
+        <p class="sec-index" aria-hidden="true">08</p>
+        <h2>Дорожная карта реализации проекта</h2>
+        <p class="b-sec-head__lead">Этапы реализации проекта командой ММ Пром.</p>
+      </div>
+      <div class="b-flow2" style="--n:7">
+        <div class="b-flow2__track" aria-hidden="true"><span class="b-flow2__fill"></span></div>
+        <ol class="b-flow2__list">
+          <li class="b-flow2__step"><span class="b-flow2__dot" aria-hidden="true">01</span><div class="b-flow2__body"><p>Согласование ТЗ</p></div></li>
+          <li class="b-flow2__step"><span class="b-flow2__dot" aria-hidden="true">02</span><div class="b-flow2__body"><p>Выбор лота и межевание</p></div></li>
+          <li class="b-flow2__step"><span class="b-flow2__dot" aria-hidden="true">03</span><div class="b-flow2__body"><p>Формирование дорожной карты проекта</p></div></li>
+          <li class="b-flow2__step"><span class="b-flow2__dot" aria-hidden="true">04</span><div class="b-flow2__body"><p>Заключение договора</p></div></li>
+          <li class="b-flow2__step"><span class="b-flow2__dot" aria-hidden="true">05</span><div class="b-flow2__body"><p>Проектирование</p></div></li>
+          <li class="b-flow2__step"><span class="b-flow2__dot" aria-hidden="true">06</span><div class="b-flow2__body"><p>Строительство, ввод в эксплуатацию и передача объекта заказчику</p></div></li>
+          <li class="b-flow2__step"><span class="b-flow2__dot" aria-hidden="true">07</span><div class="b-flow2__body"><p>Управление индустриальным объектом нашей командой</p></div></li>
+        </ol>
+      </div>
+      <p style="margin:18px 0 0;color:var(--text-muted);font-size:var(--fs-small);max-width:80ch">Сроки каждого этапа фиксируем в дорожной карте после оценки ТЗ. Эксплуатация нашей управляющей компанией — по согласованию.</p>
+    </div>
+  </section>
+
+  <section id="cta" class="b-cta b-cta--grad">
+    <div class="container">
+      <p class="sec-index sec-index--light" aria-hidden="true">09</p>
+      <h2>Получите предварительную оценку вашего проекта</h2>
+      <p>Расскажите о производстве. Оценим возможность размещения, инженерную модель и дальнейшие шаги.</p>
+      <div class="b-cta__row">
+        <a class="btn btn--gold" href="#contacts">Оставить заявку</a>
+        <a class="btn btn--ghost-light" href="/katalog/">Смотреть каталог</a>
+        <a class="b-cta__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="section section--tint">
+    <div class="container">
+      <div class="b-sec-head reveal">
+        <p class="sec-index" aria-hidden="true">10</p>
+        <h2>Важное до решения</h2>
+        <p class="b-sec-head__lead">Ответы на вопросы, которые задают перед стартом проекта.</p>
+      </div>
+      <div class="b-faq__list">
+        <details class="b-faq__item">
+          <summary><span>Есть ли готовые помещения?</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
+          <p>Нет, специфика данного индустриального парка в том, что объекты строятся под ключ, основываясь на требованиях заказчика.</p>
+        </details>
+        <details class="b-faq__item">
+          <summary><span>Что входит в строительство под ключ?</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
+          <p>Полный цикл: от технического задания до управления и ввода объекта в эксплуатацию. Согласование ТЗ → выбор лота и межевание → формирование дорожной карты → договор → проектирование (опционально) → строительство и ввод → передача заказчику → при необходимости управление объектом командой ММ Пром.</p>
+        </details>
+        <details class="b-faq__item">
+          <summary><span>Какой минимальный участок?</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
+          <p>От 1 га с инженерной подготовкой.</p>
+        </details>
+        <details class="b-faq__item">
+          <summary><span>Какие производства можно разместить?</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
+          <p>Достаточно широкий спектр. Разрешённые виды использования включают производственную деятельность, лёгкую, фармацевтическую, фарфоро-фаянсовую, пищевую промышленность, складскую деятельность и другие виды. Размещение производств III–V классов опасности и возможность строительства объектов для производства любой сложности.</p>
+        </details>
+        <details class="b-faq__item">
+          <summary><span>Коммуникации уже подключены?</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
+          <p>Есть центральные инженерные сети и предусмотрена возможность увеличения мощностей. Электроэнергия — 1–25 МВт, прямое подключение к сетям Ленэнерго, стадия получения ТУ. Водоснабжение — 1 449,51 м³/сут., ТУ получены. Водоотведение — 1 183,75 м³/сут., ТУ получены. Газ — 2 500 м³/ч, стадия получения ТУ.</p>
+        </details>
+        <details class="b-faq__item">
+          <summary><span>Какие финансовые модели доступны?</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
+          <p>Аренда, покупка, аренда с выкупом, Trade-In. Также предусмотрены гибкие финансовые схемы для разного бюджета.</p>
+        </details>
+        <details class="b-faq__item">
+          <summary><span>Что нужно для предварительной оценки?</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
+          <p>Работа начинается с согласования ТЗ, а решение формируется с учётом конфигурации производства, условий сделки, инженерной и инвестиционной модели проекта. То есть для предварительной оценки как минимум нужно понимать задачи производства и требуемую конфигурацию объекта.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacts" class="section section--tint">
+    <div class="container">
+      <div class="obj-contact">
+        <figure class="obj-contact__media">
+          <img src="/assets/external/b929d920-contacts-photo-new.png" alt="Контакты ММ Пром" loading="lazy">
+        </figure>
+        <div class="obj-contact__body">
+          <p class="sec-index" aria-hidden="true">11</p>
+          <h2>Свяжитесь с нами и станьте резидентом индустриального парка</h2>
+          <p>Покажем парк, ответим на вопросы по инженерии и условиям, подготовим предварительную оценку проекта.</p>
+          <div class="obj-contact__links">
+            <a class="btn btn--gold" href="tel:88003331010">8 800 333 10 10</a>
+            <a class="btn btn--outline" href="mailto:info@mm-prom.ru">info@mm-prom.ru</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="other-object" class="section">
+    <div class="container">
+      <div class="obj-next">
+        <div>
+          <p class="sec-index" aria-hidden="true" style="margin-bottom:8px">12</p>
+          <h2>Нужно готовое помещение без ожидания строительства?</h2>
+          <p>Атлас Гаражный — аренда и продажа от 1 300 м² в Обухово.</p>
+        </div>
+        <a class="btn btn--purple" href="/atlas-garazhnyj/">Смотреть Атлас Гаражный<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+      </div>
+    </div>
+  </section>
+
+<div class="mp-lightbox" data-mp-lightbox aria-hidden="true">
+  <div class="mp-lightbox__overlay" data-mp-close></div>
+  <div class="mp-lightbox__content">
+    <button class="mp-lightbox__close" type="button" data-mp-close aria-label="Закрыть">&times;</button>
+    <div class="mp-lightbox__toolbar">
+      <button class="mp__btn" type="button" data-mp-lb-out aria-label="Уменьшить">−</button>
+      <span class="mp__scale" data-mp-lb-scale>100%</span>
+      <button class="mp__btn" type="button" data-mp-lb-in aria-label="Увеличить">+</button>
+      <button class="mp__btn mp__btn--reset" type="button" data-mp-lb-reset>Сброс</button>
+    </div>
+    <div class="mp-lightbox__stage" data-mp-lb-stage>
+      <img class="mp-lightbox__img" src="/assets/external/0390291a-masterplan_no_legend.png" alt="Мастер-план индустриального парка Аврора Витебский" data-mp-lb-img>
     </div>
   </div>
-</section>
+</div>
 
   <Fragment slot="tail">
-    <script is:inline id="mmprom-yamap-api-js" src="https://api-maps.yandex.ru/2.1/?apikey=5971e07b-34fb-45e3-9d72-1be19c9ef821&amp;lang=ru_RU&amp;ver=2.1.0"></script>
+    <script is:inline id="mmprom-yamap-api-js" src="https://api-maps.yandex.ru/2.1/?apikey=2ae53810-6967-43df-9165-4003eeb71cbf&amp;lang=ru_RU&amp;ver=2.1.0"></script>
     <script is:inline>
     (function(){
       'use strict';
@@ -475,6 +1008,22 @@ import SiteButton from '../components/SiteButton.astro';
         reveals.forEach(function(el){ el.classList.add('is-visible'); });
       }
 
+  var flows = document.querySelectorAll('.b-flow2');
+  if (flows.length) {
+    if ('IntersectionObserver' in window && !reduce) {
+      var fio = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if (!en.isIntersecting) return;
+          en.target.classList.add('is-filled');
+          fio.unobserve(en.target);
+        });
+      }, { threshold: 0.25 });
+      flows.forEach(function(f){ fio.observe(f); });
+    } else {
+      flows.forEach(function(f){ f.classList.add('is-filled'); });
+    }
+  }
+
       var video = document.querySelector('.b-hero__video');
       var soundBtn = document.querySelector('.b-hero__sound');
       if (video && soundBtn) {
@@ -513,30 +1062,147 @@ import SiteButton from '../components/SiteButton.astro';
         requestAnimationFrame(tick);
       }
 
-      /* Яндекс.Карта: офис с фирменным маркером */
-      var officeMapCanvas = document.getElementById('office-map');
-      if (officeMapCanvas && typeof ymaps !== 'undefined' && ymaps.Map) {
-        ymaps.ready(function(){
-          var map = new ymaps.Map(officeMapCanvas, {
-            center: [59.989112, 30.221877],
-            zoom: 15,
-            controls: ['zoomControl', 'fullscreenControl']
-          });
-          map.behaviors.enable('scrollZoom');
-          var pinSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="60" viewBox="0 0 48 60"><path d="M24 0C10.7 0 0 10.7 0 24c0 18 24 36 24 36s24-18 24-36C48 10.7 37.3 0 24 0z" fill="#5A3994" stroke="#EBB81E" stroke-width="2.5"/><circle cx="24" cy="24" r="11" fill="#fff"/><circle cx="24" cy="24" r="5" fill="#EBB81E"/></svg>';
-          var placemark = new ymaps.Placemark([59.989112, 30.221877], {
-            hintContent: 'Офис ММ Пром'
-          }, {
-            iconLayout: 'default#image',
-            iconImageHref: 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(pinSvg),
-            iconImageSize: [48, 60],
-            iconImageOffset: [-24, -60]
-          });
-          map.geoObjects.add(placemark);
-        });
-      }
-
     })();
+    </script>
+
+    <script is:inline>
+(function(){
+  var el = document.getElementById('avr-map-canvas');
+  if (!el) return;
+  var started = false;
+  var PINS = [{"coords": [59.794179, 30.389874], "title": "Аврора Витебский", "sub": "Витебский проспект", "main": true}, {"coords": [59.795073, 30.393287], "title": "Остановки трамвая «Славянка»", "sub": ""}, {"coords": [59.829444, 30.375556], "title": "Метро «Купчино»", "sub": "10 минут от парка"}, {"coords": [59.812367, 30.384533], "title": "Витебский проспект", "sub": ""}];
+  function labelLayout(pin){
+    var cls = pin.main ? 'ymap-label ymap-label--main' : 'ymap-label';
+    var html = '<div class="'+cls+'"><span class="ymap-label__dot"></span><span class="ymap-label__body"><b>'+pin.title+'</b>'+(pin.sub?'<i>'+pin.sub+'</i>':'')+'</span></div>';
+    return ymaps.templateLayoutFactory.createClass(html);
+  }
+  function start(){
+    if (started) return;
+    if (!window.ymaps) { setTimeout(start, 250); return; }
+    started = true;
+    ymaps.ready(function(){
+      var map = new ymaps.Map('avr-map-canvas', {
+        center: [59.812, 30.385], zoom: 13, controls: ['zoomControl','fullscreenControl']
+      }, { suppressMapOpenBlock: true });
+      map.behaviors.enable('scrollZoom');
+      PINS.forEach(function(pin){
+        var pm = new ymaps.Placemark(pin.coords, {
+          hintContent: pin.title,
+          balloonContentHeader: pin.title,
+          balloonContentBody: pin.sub || ''
+        }, {
+          iconLayout: labelLayout(pin),
+          iconShape: { type: 'Rectangle', coordinates: [[-10,-10],[10,10]] }
+        });
+        map.geoObjects.add(pm);
+      });
+      if (PINS.length > 1) {
+        var bounds = ymaps.geoQuery(map.geoObjects).getBounds();
+        if (bounds) map.setBounds(bounds, { checkZoomRange: true, zoomMargin: 60 });
+      }
+    });
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) { start(); io.disconnect(); } }); }, { rootMargin: '250px' });
+    io.observe(el);
+  } else { start(); }
+})();
+
+
+(function(){
+  function makeZoom(stage, img, scaleEl, minS, maxS){
+    var scale = 1, tx = 0, ty = 0, dragging = false, sx = 0, sy = 0, stx = 0, sty = 0;
+    function apply(){
+      img.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')';
+      if (scaleEl) scaleEl.textContent = Math.round(scale * 100) + '%';
+    }
+    function clamp(){
+      var vw = stage.clientWidth, vh = stage.clientHeight;
+      var iw = img.clientWidth * scale, ih = img.clientHeight * scale;
+      var mx = Math.max(0, (iw - vw) / 2), my = Math.max(0, (ih - vh) / 2);
+      tx = Math.min(mx, Math.max(-mx, tx));
+      ty = Math.min(my, Math.max(-my, ty));
+    }
+    function zoomAt(factor, cx, cy){
+      var r = stage.getBoundingClientRect();
+      var px = (cx === undefined ? r.width / 2 : cx - r.left);
+      var py = (cy === undefined ? r.height / 2 : cy - r.top);
+      var ns = Math.min(maxS, Math.max(minS, scale * factor));
+      if (ns === scale) return;
+      var ratio = ns / scale;
+      tx = px - (px - tx) * ratio;
+      ty = py - (py - ty) * ratio;
+      scale = ns;
+      clamp(); apply();
+    }
+    function reset(){ scale = 1; tx = 0; ty = 0; apply(); }
+    stage.addEventListener('wheel', function(e){
+      e.preventDefault();
+      zoomAt(e.deltaY < 0 ? 1.15 : 1/1.15, e.clientX, e.clientY);
+    }, { passive: false });
+    stage.addEventListener('mousedown', function(e){
+      if (scale <= 1.001) return;
+      dragging = true; sx = e.clientX; sy = e.clientY; stx = tx; sty = ty;
+      stage.classList.add('is-dragging'); e.preventDefault();
+    });
+    window.addEventListener('mousemove', function(e){
+      if (!dragging) return;
+      tx = stx + (e.clientX - sx); ty = sty + (e.clientY - sy);
+      clamp(); apply();
+    });
+    window.addEventListener('mouseup', function(){
+      if (!dragging) return;
+      dragging = false; stage.classList.remove('is-dragging');
+    });
+    var touch = null;
+    stage.addEventListener('touchstart', function(e){
+      if (e.touches.length === 1) touch = { x: e.touches[0].clientX, y: e.touches[0].clientY, tx: tx, ty: ty };
+    }, { passive: true });
+    stage.addEventListener('touchmove', function(e){
+      if (e.touches.length === 1 && touch) {
+        tx = touch.tx + (e.touches[0].clientX - touch.x);
+        ty = touch.ty + (e.touches[0].clientY - touch.y);
+        clamp(); apply();
+      }
+    }, { passive: true });
+    stage.addEventListener('touchend', function(){ touch = null; }, { passive: true });
+    return { zoomIn: function(){ zoomAt(1.25); }, zoomOut: function(){ zoomAt(1/1.25); }, reset: reset };
+  }
+
+  var mp = document.querySelector('[data-mp]');
+  if (mp) {
+    var stage = mp.querySelector('[data-mp-stage]');
+    var img = mp.querySelector('[data-mp-img]');
+    var scaleEl = mp.querySelector('[data-mp-scale]');
+    var z = makeZoom(stage, img, scaleEl, 1, 6);
+    mp.querySelector('[data-mp-in]').addEventListener('click', z.zoomIn);
+    mp.querySelector('[data-mp-out]').addEventListener('click', z.zoomOut);
+    mp.querySelector('[data-mp-reset]').addEventListener('click', z.reset);
+  }
+
+  var lb = document.querySelector('[data-mp-lightbox]');
+  var expand = document.querySelector('[data-mp-expand]');
+  if (lb && expand) {
+    var lbStage = lb.querySelector('[data-mp-lb-stage]');
+    var lbImg = lb.querySelector('[data-mp-lb-img]');
+    var lbScale = lb.querySelector('[data-mp-lb-scale]');
+    var lz = makeZoom(lbStage, lbImg, lbScale, 0.5, 8);
+    function open(){
+      lb.classList.add('is-open'); lb.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden'; lz.reset();
+    }
+    function close(){
+      lb.classList.remove('is-open'); lb.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+    }
+    expand.addEventListener('click', open);
+    lb.querySelectorAll('[data-mp-close]').forEach(function(el){ el.addEventListener('click', close); });
+    lb.querySelector('[data-mp-lb-in]').addEventListener('click', lz.zoomIn);
+    lb.querySelector('[data-mp-lb-out]').addEventListener('click', lz.zoomOut);
+    lb.querySelector('[data-mp-lb-reset]').addEventListener('click', lz.reset);
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && lb.classList.contains('is-open')) close(); });
+  }
+})();
     </script>
 
     <script is:inline src="/assets/site-anim.js?v=1" defer></script>
