@@ -41,7 +41,7 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
     /* Мобильное меню: аккордеон «Услуги» по ролям */
 
     /* ── Герой (светлый, геометрический паттерн) ─────────────────────────── */
-    .b-hero{background:linear-gradient(180deg,#fff 0%,var(--surface) 100%);color:var(--text);position:relative;overflow:hidden}
+    .b-hero{--fs-h1:clamp(1.9rem,1.2rem + 3.3vw,4rem);background:linear-gradient(180deg,#fff 0%,var(--surface) 100%);color:var(--text);position:relative;overflow:hidden}
     .b-hero__glow{position:absolute;width:520px;height:520px;border-radius:50%;filter:blur(120px);opacity:.5;pointer-events:none}
     .b-hero__glow--purple{background:var(--purple-soft);top:-160px;right:-80px}
     .b-hero__glow--gold{background:rgba(235,184,30,.28);bottom:-200px;left:-100px}
@@ -109,6 +109,9 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
     .b-steps__link{display:flex;flex:1 1 auto;gap:18px;align-items:flex-start;height:100%;padding:26px 22px;color:inherit;text-decoration:none}
     .b-steps__num{flex:0 0 auto;min-width:2.2ch;font-size:clamp(2.6rem,1.9rem + 2.8vw,3.8rem);line-height:1;font-weight:800;color:transparent;-webkit-text-stroke:1.5px var(--purple-soft);transition:color .2s ease,-webkit-text-stroke-color .2s ease}
     .b-steps__item:hover .b-steps__num{color:var(--gold);-webkit-text-stroke-color:transparent}
+    .b-steps__item--static{cursor:default}
+    .b-steps__item--static:hover{border-color:var(--border);box-shadow:none;transform:none}
+    .b-steps__item--static:hover .b-steps__num{color:transparent;-webkit-text-stroke-color:var(--purple-soft)}
     .b-steps__icon{display:block;margin-bottom:8px;color:var(--purple);font-size:28px}
     .b-steps__body h3{margin:0 0 4px;font-size:1.1rem}
     .b-steps__body p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
@@ -171,13 +174,6 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
     .b-roles{display:grid;gap:32px;align-items:center}
     .b-roles__intro h2{margin-bottom:.4em}
     .b-roles__intro > p{color:var(--text-muted);margin:0 0 22px}
-    .b-roles__hint{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;background:var(--purple-soft);color:var(--purple);font-weight:700;font-size:var(--fs-small);animation:b-hint-pulse 2.2s ease-in-out infinite}
-    .b-roles__hint .material-symbols-outlined{font-size:18px}
-    @keyframes b-hint-pulse{
-      0%,100%{box-shadow:0 0 0 0 rgba(90,57,148,.35);transform:scale(1)}
-      50%{box-shadow:0 0 0 12px rgba(90,57,148,0);transform:scale(1.05)}
-    }
-    @media (prefers-reduced-motion:reduce){.b-roles__hint{animation:none}}
     .b-roles__grid{display:grid;gap:16px;grid-template-columns:1fr}
     .b-roles__grid .b-clients__card{padding:22px}
     .b-roles__grid .b-clients__card h3{font-size:1.1rem}
@@ -208,8 +204,9 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
 
     /* ── Стандарты строительства ─────────────────────────────────────────── */
     .b-split{display:grid;gap:24px;align-items:stretch;margin-bottom:36px}
-    .b-split__media{height:100%;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
-    .b-split__media img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+    .b-split__media{margin:0;display:flex;flex-direction:column;height:100%;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+    .b-split__media img{display:block;width:100%;height:100%;flex:1 1 auto;object-fit:cover;aspect-ratio:4/3}
+    .b-split__media figcaption{padding:8px 12px;font-size:var(--fs-small);color:var(--text-muted);border-top:1px solid var(--border)}
     .b-split__list{list-style:none;margin:0;padding:0;display:grid;gap:16px;grid-template-columns:1fr;grid-auto-rows:1fr;height:100%}
     .b-split__item{display:flex;flex-direction:column;gap:12px;height:100%;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px}
     .b-split__item .b-advantages__icon{flex:0 0 auto;margin:0}
@@ -217,89 +214,6 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
     .b-split__item p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
     @media (min-width:768px){.b-split{gap:32px}.b-split__list{grid-template-columns:repeat(2,1fr)}}
     @media (min-width:1024px){.b-split{grid-template-columns:1fr 1fr}}
-
-    /* ── Стандарты: изображение слева + диаграмма контроля справа ────────── */
-    .b-standards{display:grid;gap:24px}
-    .b-standards__media{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
-    .b-standards__media img{width:100%;object-fit:cover;aspect-ratio:4/3}
-    @media (min-width:768px) and (max-width:1023.98px){.b-standards__media img{aspect-ratio:16/9}}
-
-    /* ── Диаграмма контроля (блок «Стандарты строительства») ─────────────── */
-    .b-control{display:grid;grid-template-columns:1fr;gap:16px;margin-top:8px}
-    .b-control__lines,.b-control__center{display:none}
-    .b-control__node{position:static;width:auto;transform:none;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow-sm);transition:border-color .2s ease,box-shadow .2s ease}
-    .b-control__node:hover{border-color:var(--purple);box-shadow:var(--shadow)}
-    .b-control__node h3{margin:0 0 4px;font-size:1.1rem}
-    .b-control__node p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
-    .b-control__icon{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;background:var(--purple-soft);color:var(--purple);margin-bottom:12px}
-    .b-control__icon .material-symbols-outlined{font-size:24px}
-    @media (min-width:768px) and (max-width:1023.98px){.b-control{grid-template-columns:repeat(2,1fr)}}
-    @media (min-width:1024px){
-      .b-standards{grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-      .b-standards__media{height:100%}
-      .b-standards__media img{height:100%;aspect-ratio:4/3}
-      .b-control{position:relative;display:block;height:460px;max-width:520px;margin:0 auto}
-      .b-control__lines,.b-control__center{display:flex}
-      .b-control__lines{position:absolute;inset:0;width:100%;height:100%}
-      .b-control__center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:160px;height:160px;border-radius:50%;background:linear-gradient(135deg,var(--purple) 0%,var(--navy) 100%);color:#fff;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:3px;box-shadow:0 20px 50px rgba(90,57,148,.35);z-index:2;padding:16px}
-      .b-control__center .material-symbols-outlined{font-size:30px;color:var(--gold)}
-      .b-control__center strong{font-size:.95rem;font-weight:800}
-      .b-control__center span{font-size:var(--fs-small);color:rgba(255,255,255,.75)}
-      .b-control__node{position:absolute;width:200px;z-index:2}
-      .b-control__node--1{top:0;left:50%;transform:translateX(-50%)}
-      .b-control__node--2{top:50%;right:0;transform:translateY(-50%)}
-      .b-control__node--3{bottom:0;left:50%;transform:translateX(-50%)}
-      .b-control__node--4{top:50%;left:0;transform:translateY(-50%)}
-    }
-
-    /* ── Вертикальная диаграмма контроля (надёжная) ──────────────────────── */
-    .b-flow{position:relative;padding-left:44px}
-    .b-flow::before{content:"";position:absolute;left:17px;top:8px;bottom:8px;width:2px;background:repeating-linear-gradient(180deg,var(--purple) 0 8px,transparent 8px 16px);opacity:.35}
-    .b-flow__step{position:relative;margin-bottom:20px}
-    .b-flow__step:last-child{margin-bottom:0}
-    .b-flow__dot{position:absolute;left:-44px;top:0;width:36px;height:36px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;border:3px solid var(--gold);box-shadow:0 4px 12px rgba(90,57,148,.3)}
-    .b-flow__body{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow-sm);transition:border-color .2s ease,box-shadow .2s ease}
-    .b-flow__body:hover{border-color:var(--purple);box-shadow:var(--shadow)}
-    .b-flow__body h3{margin:0 0 4px;font-size:1.05rem}
-    .b-flow__body p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
-
-    /* ── Стандарты строительства: горизонтальный слайдер-бегунок ─────────── */
-    .b-std-slider{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:14px;scrollbar-width:thin}
-    .b-std-slider::-webkit-scrollbar{height:6px}
-    .b-std-slider::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
-    .b-std-card{flex:0 0 300px;scroll-snap-align:start;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm);transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
-    .b-std-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
-    .b-std-card__num{display:block;font-size:2rem;font-weight:800;color:transparent;-webkit-text-stroke:1.5px var(--purple-soft);margin-bottom:12px}
-    .b-std-card__icon{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;background:var(--purple-soft);color:var(--purple);margin-bottom:14px}
-    .b-std-card__icon .material-symbols-outlined{font-size:24px}
-    .b-std-card h3{margin:0 0 6px;font-size:1.1rem}
-    .b-std-card p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
-
-    /* ── Стандарты строительства: сетка 2×2 с галочками ──────────────────── */
-    .b-std-grid{display:grid;gap:20px;grid-template-columns:1fr}
-    @media (min-width:768px){.b-std-grid{grid-template-columns:repeat(2,1fr)}}
-    .b-std-grid__card{position:relative;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow-sm);transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
-    .b-std-grid__card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
-    .b-std-grid__check{position:absolute;top:20px;right:20px;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--gold);color:#fff}
-    .b-std-grid__check .material-symbols-outlined{font-size:18px}
-    .b-std-grid__icon{display:inline-flex;align-items:center;justify-content:center;width:50px;height:50px;border-radius:12px;background:var(--purple-soft);color:var(--purple);margin-bottom:16px}
-    .b-std-grid__icon .material-symbols-outlined{font-size:26px}
-    .b-std-grid__card h3{margin:0 0 6px;font-size:1.15rem}
-    .b-std-grid__card p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
-
-    /* ── Вертикальный список стандартов с прогресс-барами ─────────────────── */
-    .b-progress{display:grid;gap:16px;max-width:780px;margin:0 auto}
-    .b-progress__item{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow-sm);transition:border-color .2s ease,box-shadow .2s ease}
-    .b-progress__item:hover{border-color:var(--purple);box-shadow:var(--shadow)}
-    .b-progress__head{display:flex;align-items:flex-start;gap:16px}
-    .b-progress__icon{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;background:var(--purple-soft);color:var(--purple);flex:0 0 auto}
-    .b-progress__icon .material-symbols-outlined{font-size:24px}
-    .b-progress__text{flex:1}
-    .b-progress__text h3{margin:0 0 4px;font-size:1.1rem}
-    .b-progress__text p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
-    .b-progress__value{font-weight:800;color:var(--purple);font-size:1.1rem;white-space:nowrap}
-    .b-progress__bar{height:8px;border-radius:999px;background:var(--surface);margin-top:16px;overflow:hidden}
-    .b-progress__bar span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--purple) 0%,var(--gold) 100%)}
 
     .tz-panel{background:linear-gradient(120deg,var(--purple) 0%,var(--navy) 100%);border-radius:var(--radius);padding:30px;color:#fff;position:relative;overflow:hidden;margin-top:20px}
     .tz-panel::after{content:"";position:absolute;width:90px;height:90px;right:-30px;bottom:-30px;border:2px solid rgba(235,184,30,.4);transform:rotate(15deg)}
@@ -329,7 +243,6 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
     .b-mess:hover{background:var(--purple);transform:translateY(-2px)}
     .b-mess svg{display:block}
     .b-mess-row{display:flex;gap:12px;margin-bottom:24px}
-    .b-mess--text{border-radius:999px;padding-inline:16px;width:auto;font-size:.72rem;font-weight:800;color:var(--purple);letter-spacing:.02em}
 
     /* ── Форма ───────────────────────────────────────────────────────────── */
     .b-form{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
@@ -395,8 +308,8 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
       <div class="b-hero__media">
         <div class="b-hero__media-frame">
           <div class="img-placeholder" data-img="Видео: производственно-складской комплекс ММ Пром"><svg class="obj-meta-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>Видео: производственно-складской комплекс</div>
-          <video class="b-hero__video" muted autoplay loop playsinline preload="metadata" poster="https://mm-prom.ru/wp-content/uploads/2026/05/main.avif" aria-label="Видео о компании ММ Пром">
-            <source src="https://mm-prom.ru/wp-content/uploads/2026/09/mm-prom-s-ozvuchkoj-i-subtitrami-v4-1.mp4" type="video/mp4">
+          <video class="b-hero__video" muted autoplay loop playsinline preload="metadata" poster="/assets/external/main-poster.avif" aria-label="Видео о компании ММ Пром">
+            <source src="/mm-prom-hero.mp4" type="video/mp4">
           </video>
           <button class="b-hero__sound" type="button" aria-pressed="false">
             <span class="material-symbols-outlined" aria-hidden="true">volume_up</span><span class="b-hero__sound-label">Со звуком</span>
@@ -440,7 +353,7 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
           <a class="b-steps__link" href="/katalog/">
             <span class="b-steps__num" aria-hidden="true">01</span>
             <div class="b-steps__body">
-              <svg class="b-steps__icon" viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              <span class="material-symbols-outlined b-steps__icon" aria-hidden="true">pin_drop</span>
               <h3>Подбор объекта</h3>
               <p>Индустриальные парки и земельные участки</p>
             </div>
@@ -450,27 +363,27 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
           <a class="b-steps__link" href="/consalting/">
             <span class="b-steps__num" aria-hidden="true">02</span>
             <div class="b-steps__body">
-              <svg class="b-steps__icon" viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M21 8c-1.45 0-2.26 1.44-1.93 2.51l-3.55 3.56c-.3-.09-.74-.09-1.04 0l-2.55-2.55c.3-1.07-.48-2.51-1.93-2.51-1.45 0-2.26 1.44-1.93 2.51l-4.55 4.56c-.3-.09-.74-.09-1.04 0L2 15.5V19h20v-3.5l-1.07-1.07c-.3.09-.74.09-1.04 0l-4.55-4.56C15.26 9.44 14.45 8 13 8z"/></svg>
+              <span class="material-symbols-outlined b-steps__icon" aria-hidden="true">insights</span>
               <h3>Стратегия проекта</h3>
               <p>Разработка технического задания и финансовой модели</p>
             </div>
           </a>
         </li>
-        <li class="b-steps__item reveal">
-          <a class="b-steps__link" href="/development/">
+        <li class="b-steps__item b-steps__item--static reveal">
+          <div class="b-steps__link">
             <span class="b-steps__num" aria-hidden="true">03</span>
             <div class="b-steps__body">
-              <svg class="b-steps__icon" viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M1 21h12v2H1v-2zM5.24 8.07l2.83-2.83 14.14 14.14-2.83 2.83L5.24 8.07zM12.32 1l5.66 5.66-2.83 2.83-5.66-5.66L12.32 1zM3.83 9.48l5.66 5.66-2.83 2.83L1 12.31l2.83-2.83z"/></svg>
+              <span class="material-symbols-outlined b-steps__icon" aria-hidden="true">gavel</span>
               <h3>Юридическое и техническое сопровождение</h3>
               <p>Сопровождение сделок и контроль технической реализации проекта</p>
             </div>
-          </a>
+          </div>
         </li>
         <li class="b-steps__item reveal">
           <a class="b-steps__link" href="/investcomp/">
             <span class="b-steps__num" aria-hidden="true">04</span>
             <div class="b-steps__body">
-              <svg class="b-steps__icon" viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M19.83 7.5l-2.27-2.27c.07-.42.1-.86.1-1.23 0-1.38-.62-2.5-1.66-2.5-1.11 0-1.66.92-1.66 2.5 0 .37.03.81.1 1.23l-2.27 2.27c-1.34.34-2.5 1.02-3.42 1.92L4.5 8.5c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h1.5l1.5 3h5l1.5-1.5c.5-.5 1.5-1 2.5-1.5h3.5c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1h-1.17zM6 13.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+              <span class="material-symbols-outlined b-steps__icon" aria-hidden="true">savings</span>
               <h3>Финансирование ваших проектов</h3>
               <p>Привлечение инвестиций и банков</p>
             </div>
@@ -480,7 +393,7 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
           <a class="b-steps__link" href="/stroitelstvo/">
             <span class="b-steps__num" aria-hidden="true">05</span>
             <div class="b-steps__body">
-              <svg class="b-steps__icon" viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M12 2L2 8v2h20V8L12 2zM4 12v8h2v-8H4zm4 0v8h2v-8H8zm4 0v8h2v-8h-2zm4 0v8h2v-8h-2zm4 0v8h2v-8h-2z"/></svg>
+              <span class="material-symbols-outlined b-steps__icon" aria-hidden="true">foundation</span>
               <h3>Проектирование и строительство</h3>
               <p>Реализация индустриального объекта</p>
             </div>
@@ -490,7 +403,7 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
           <a class="b-steps__link" href="/upravlenie/">
             <span class="b-steps__num" aria-hidden="true">06</span>
             <div class="b-steps__body">
-              <svg class="b-steps__icon" viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+              <span class="material-symbols-outlined b-steps__icon" aria-hidden="true">settings</span>
               <h3>Эксплуатация</h3>
               <p>Управление и развитие площадки</p>
             </div>
@@ -507,31 +420,30 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
     <div class="container b-roles">
       <div class="b-roles__intro">
         <p class="sec-index" aria-hidden="true">03</p>
-        <h2>Как мы работаем</h2>
+        <h2>С кем мы работаем</h2>
         <p>Работаем с ключевыми участниками индустриального рынка. Реализуем проекты для производственных компаний, инвесторов и собственников индустриальных активов.</p>
-        <p class="b-roles__hint"><span class="material-symbols-outlined" aria-hidden="true">touch_app</span>Выберите свою роль</p>
       </div>
       <div class="b-roles__grid">
         <a class="b-clients__card reveal" href="/proizvodstvam/">
-          <span class="b-advantages__icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M22 10v12H2V10l7-3v2l5-2v3h8zm-12 8h-2v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/></svg></span>
+          <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">factory</span></span>
           <h3>Производственные компании</h3>
           <p>Запуск и развитие производственных площадок. От аренды небольших помещений до строительства крупных индустриальных объектов под задачи бизнеса</p>
           <span class="b-clients__go">Перейти<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
         </a>
         <a class="b-clients__card reveal" href="/sobstvennikam-zdaniy/">
-          <span class="b-advantages__icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M17 11V3H7v4H3v14h8v-4h2v4h8V11h-4zM7 19H5v-2h2v2zm0-4H5v-2h2v2zm0-4H5V9h2v2zm4 4H9v-2h2v2zm0-4H9V9h2v2zm0-4H9V5h2v2zm4 8h-2v-2h2v2zm0-4h-2V9h2v2zm0-4h-2V5h2v2zm4 8h-2v-2h2v2zm0-4h-2V9h2v2z"/></svg></span>
+          <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">apartment</span></span>
           <h3>Собственникам зданий</h3>
           <p>Повышение капитализации, аренда/продажа, услуги Управляющей компании</p>
           <span class="b-clients__go">Перейти<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
         </a>
         <a class="b-clients__card reveal" href="/sobstvennikam-uchastkov/">
-          <span class="b-advantages__icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M14 6l-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22L14 6z"/></svg></span>
+          <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">landscape</span></span>
           <h3>Собственникам участков</h3>
           <p>Развитие и повышение эффективности активов. Повышаем стоимость и доходность через совместный девелопмент и реализацию индустриальных проектов</p>
           <span class="b-clients__go">Перейти<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
         </a>
         <a class="b-clients__card reveal" href="/investoram/">
-          <span class="b-advantages__icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M19.83 7.5l-2.27-2.27c.07-.42.1-.86.1-1.23 0-1.38-.62-2.5-1.66-2.5-1.11 0-1.66.92-1.66 2.5 0 .37.03.81.1 1.23l-2.27 2.27c-1.34.34-2.5 1.02-3.42 1.92L4.5 8.5c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h1.5l1.5 3h5l1.5-1.5c.5-.5 1.5-1 2.5-1.5h3.5c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1h-1.17zM6 13.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></span>
+          <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">savings</span></span>
           <h3>Инвесторам</h3>
           <p>Инвестиции в индустриальную недвижимость. Готовые решения для инвесторов с различным объёмом капитала. Промышленная недвижимость — стабильный и прогнозируемый актив</p>
           <span class="b-clients__go">Перейти<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
@@ -620,34 +532,44 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
       <p class="sec-index" aria-hidden="true">05</p>
       <h2>Стандарты строительства</h2>
       <p style="max-width:58ch;color:var(--text-muted)">Контроль качества на всех этапах строительства. Контроль качества на всех этапах реализации индустриальных проектов. Сопровождение нашей командой экспертов</p>
-    <div class="b-std-grid">
-      <article class="b-std-grid__card reveal">
-        <span class="b-std-grid__check"><span class="material-symbols-outlined" aria-hidden="true">check</span></span>
-        <span class="b-std-grid__icon"><span class="material-symbols-outlined" aria-hidden="true">architecture</span></span>
-        <h3>Контроль проектирования</h3>
-        <p>Соответствие техническим требованиям и промышленным стандартам</p>
-      </article>
-      <article class="b-std-grid__card reveal">
-        <span class="b-std-grid__check"><span class="material-symbols-outlined" aria-hidden="true">check</span></span>
-        <span class="b-std-grid__icon"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span></span>
-        <h3>Гарантийное обслуживание</h3>
-        <p>Сопровождение объекта после ввода в эксплуатацию</p>
-      </article>
-      <article class="b-std-grid__card reveal">
-        <span class="b-std-grid__check"><span class="material-symbols-outlined" aria-hidden="true">check</span></span>
-        <span class="b-std-grid__icon"><span class="material-symbols-outlined" aria-hidden="true">fact_check</span></span>
-        <h3>Контроль сроков и бюджета</h3>
-        <p>Прозрачное управление строительным процессом</p>
-      </article>
-      <article class="b-std-grid__card reveal">
-        <span class="b-std-grid__check"><span class="material-symbols-outlined" aria-hidden="true">check</span></span>
-        <span class="b-std-grid__icon"><span class="material-symbols-outlined" aria-hidden="true">engineering</span></span>
-        <h3>Проверенные подрядчики</h3>
-        <p>Работа с опытными строительными и инженерными компаниями</p>
-      </article>
-    </div>
+      <div class="b-split">
+        <figure class="b-media b-split__media reveal">
+          <img src="/assets/external/quality.avif" alt="Строительство индустриального объекта под контролем ММ Пром" loading="lazy">
+          <figcaption>Контроль качества на всех этапах строительства</figcaption>
+        </figure>
+        <ul class="b-split__list">
+          <li class="b-split__item reveal">
+            <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">architecture</span></span>
+            <div>
+              <h3>Контроль проектирования</h3>
+              <p>Соответствие техническим требованиям и промышленным стандартам</p>
+            </div>
+          </li>
+          <li class="b-split__item reveal">
+            <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span></span>
+            <div>
+              <h3>Гарантийное обслуживание</h3>
+              <p>Сопровождение объекта после ввода в эксплуатацию</p>
+            </div>
+          </li>
+          <li class="b-split__item reveal">
+            <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">fact_check</span></span>
+            <div>
+              <h3>Контроль сроков и бюджета</h3>
+              <p>Прозрачное управление строительным процессом</p>
+            </div>
+          </li>
+          <li class="b-split__item reveal">
+            <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">engineering</span></span>
+            <div>
+              <h3>Проверенные подрядчики</h3>
+              <p>Работа с опытными строительными и инженерными компаниями</p>
+            </div>
+          </li>
+        </ul>
+      </div>
       <div class="reveal tz-panel">
-        <TzBanner heading="Подготовка технического задания" text="Не знаете, как сформировать требования к промышленному объекту?" muted="Скачайте пример технического задания проекта и используйте его как основу" ctaHref="/gejt-tz/" ctaText="Скачать шаблон ТЗ" />
+        <TzBanner heading="Подготовка технического задания" text="Не знаете, как сформировать требования к промышленному объекту?" muted="Скачайте пример технического задания проекта и используйте его как основу" ctaB24="click/36/skk415" ctaB24Loader="https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_36.js" ctaText="Скачать шаблон ТЗ" />
       </div>
     </div>
   </section>
@@ -674,9 +596,9 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
         </dl>
         <div class="b-mess-row">
           <a class="b-mess" href="https://t.me/mm_prom1" aria-label="Телеграм-канал ММ Пром"><svg viewBox="0 0 24 24" width="22" height="22" fill="#229ED9" aria-hidden="true"><path d="M9.04 15.51l-.38 5.35c.54 0 .78-.23 1.06-.51l2.55-2.44 5.28 3.87c.97.53 1.66.25 1.92-.9l3.48-16.3c.31-1.43-.52-1.99-1.46-1.64L1.1 9.76c-1.39.54-1.37 1.32-.24 1.67l5.3 1.65L18.35 5.1c.57-.38 1.09-.17.66.21L9.04 15.51z"/></svg></a>
-          <a class="b-mess" href="https://max.ru/se14192436_biz" aria-label="Канал ММ Пром в MAX"><svg viewBox="0 0 24 24" width="22" height="22" fill="#5A3994" aria-hidden="true"><path d="M12 2C6.48 2 2 6.03 2 11c0 2.6 1.24 4.94 3.22 6.55L4 22l4.6-1.5c1.06.32 2.22.5 3.4.5 5.52 0 10-4.03 10-9S17.52 2 12 2z"/></svg></a>
-          <a class="b-mess b-mess--text" href="#" aria-label="Авито">Авито</a>
-          <a class="b-mess b-mess--text" href="#" aria-label="Циан">Циан</a>
+          <a class="b-mess" href="https://max.ru/channel_MM_PROM" aria-label="Канал ММ Пром в MAX"><svg viewBox="0 0 24 24" width="22" height="22" fill="#5A3994" aria-hidden="true"><path d="M12 2C6.48 2 2 6.03 2 11c0 2.6 1.24 4.94 3.22 6.55L4 22l4.6-1.5c1.06.32 2.22.5 3.4.5 5.52 0 10-4.03 10-9S17.52 2 12 2z"/></svg></a>
+          <a class="b-mess" href="https://www.avito.ru/brands/mmprom/all/nedvizhimost" aria-label="Авито — объявления ММ Пром"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="7.5" cy="7.5" r="3.6" fill="#FF6163"/><circle cx="16.6" cy="7.5" r="2.2" fill="#97CF26"/><circle cx="7.4" cy="16.5" r="2.2" fill="#00AAFF"/><circle cx="16.4" cy="16.4" r="3.6" fill="#A169F7"/></svg></a>
+          <a class="b-mess" href="https://www.cian.ru/company/62039710" aria-label="ЦИАН — объявления ММ Пром"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#0468FF"/><path d="M15.6 7.5a5.4 5.4 0 1 0 0 9" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/><path d="M16.5 8v8" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/></svg></a>
         </div>
         <div class="b-map">
           <iframe src="https://yandex.ru/map-widget/v1/?ll=30.221877%2C59.989112&z=15&pt=30.221877,59.989112,pm2vvm" title="Карта: офис ММ Пром" loading="lazy" allowfullscreen></iframe>
@@ -750,28 +672,68 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
         });
       }
 
-      /* Конвейер: бегунок отмечает этапы как пройденные */
+      /* Конвейер: цикл стартует по входу блока в вьюпорт; бегунок и подсветка
+         этапов считаются из одной координаты в одном кадре */
       var conveyor = document.querySelector('.b-conveyor');
       var runner = document.querySelector('.b-conveyor__runner');
       var steps = document.querySelectorAll('.b-steps--conveyor .b-steps__item');
       var desktop = window.matchMedia && window.matchMedia('(min-width:1024px)');
       if (conveyor && runner && steps.length && desktop && desktop.matches && !reduce) {
         var duration = 9000;
-        var t0 = performance.now();
-        var tick = function(t){
-          var p = ((t - t0) % duration) / duration;
+        var rafId = 0;
+        var startTime = 0;
+        var centers = [];
+
+        var measure = function(){
           var convRect = conveyor.getBoundingClientRect();
-          var x = p * (convRect.width - runner.offsetWidth);
-          runner.style.left = x + 'px';
+          centers = [];
           steps.forEach(function(step){
             var r = step.getBoundingClientRect();
-            var center = r.left - convRect.left + r.width / 2;
-            if (x >= center) step.classList.add('is-passed');
+            centers.push(r.left - convRect.left + r.width / 2);
+          });
+        };
+
+        var tick = function(t){
+          var convRect = conveyor.getBoundingClientRect();
+          var p = ((t - startTime) % duration) / duration;
+          var x = p * (convRect.width - runner.offsetWidth);
+          runner.style.left = x + 'px';
+          var runnerCenter = x + runner.offsetWidth / 2;
+          steps.forEach(function(step, i){
+            if (runnerCenter >= centers[i]) step.classList.add('is-passed');
             else step.classList.remove('is-passed');
           });
-          requestAnimationFrame(tick);
+          rafId = requestAnimationFrame(tick);
         };
-        requestAnimationFrame(tick);
+
+        var stopConveyor = function(){
+          if (rafId) { cancelAnimationFrame(rafId); rafId = 0; }
+        };
+
+        var startConveyor = function(){
+          stopConveyor();
+          steps.forEach(function(step){ step.classList.remove('is-passed'); });
+          runner.style.left = '0px';
+          measure();
+          startTime = performance.now();
+          rafId = requestAnimationFrame(tick);
+        };
+
+        if ('IntersectionObserver' in window) {
+          var convIo = new IntersectionObserver(function(entries){
+            entries.forEach(function(en){
+              if (en.isIntersecting) startConveyor();
+              else stopConveyor();
+            });
+          }, { threshold: 0.15 });
+          convIo.observe(conveyor);
+        } else {
+          startConveyor();
+        }
+
+        window.addEventListener('resize', function(){
+          if (rafId) measure();
+        });
       }
 
     })();

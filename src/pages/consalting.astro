@@ -1,13 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import MapSection from '../components/MapSection.astro';
 import RoleCard from '../components/RoleCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import SiteButton from '../components/SiteButton.astro';
-import { getCollection } from 'astro:content';
-const objects = (await getCollection('objects')).sort((a, b) => a.data.sort - b.data.sort);
-const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coords: data.coords, address: data.address, area: data.area }));
 ---
 <BaseLayout title="Промышленный консалтинг — ММ Пром" description="Промышленный консалтинг ММ Пром: помогаем собственникам и инвесторам принять взвешенное решение о развитии активов. Оцениваем градостроительный потенциал земли, виды разрешённого использования (ВРИ) и финансовую эффективность сценариев застройки перед покупкой, продажей, сдачей в аренду или стартом стройки.">
   <Fragment slot="head">
@@ -71,7 +67,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     .b-hero__metrics span{display:block;color:var(--text-muted);font-size:var(--fs-small)}
     .b-hero__media{min-width:0;position:relative}
     .b-hero__media-frame{padding:3px;background:linear-gradient(135deg,var(--gold) 0%,var(--purple) 100%);position:relative;overflow:hidden;border-radius:0}
-    .b-hero__media-frame .img-placeholder{width:100%;aspect-ratio:16/9;border:0;border-radius:0;background:var(--surface);color:var(--text-muted)}
+    .b-hero__media-frame img{width:100%;height:auto;display:block;border:0;border-radius:0}
     .b-hero__video{position:absolute;top:3px;left:3px;width:calc(100% - 6px);height:calc(100% - 6px);object-fit:cover;display:block}
     .b-hero__sound{position:absolute;right:16px;bottom:16px;z-index:2;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.9);color:var(--navy);font:inherit;font-size:var(--fs-small);font-weight:600;cursor:pointer;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);box-shadow:0 4px 14px rgba(11,27,51,.1)}
     .b-hero__sound:hover{background:#fff}
@@ -85,7 +81,6 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     @media (min-width:1024px){
       .b-hero__inner{gap:56px}
       .b-hero__metrics{grid-template-columns:repeat(4,1fr)}
-      .b-hero__media-frame .img-placeholder{aspect-ratio:16/9}
     }
 
     /* ── Заголовки секций ────────────────────────────────────────────────── */
@@ -544,6 +539,14 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
         </div>
         <ul class="b-hero__metrics"><li><span class="material-symbols-outlined" aria-hidden="true">verified</span><span>с 2011 года</span></li><li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>200 000+ м²</span></li><li><span class="material-symbols-outlined" aria-hidden="true">apartment</span><span>25+ проектов</span></li><li><span class="material-symbols-outlined" aria-hidden="true">groups</span><span>150+ арендаторов</span></li></ul>
       </div>
+      <div class="b-hero__media">
+        <div class="b-hero__media-frame">
+          <picture>
+            <source media="(max-width: 1023px)" srcset="/assets/external/consalting-sm.avif">
+            <img src="/assets/external/inner-optimized.webp" alt="Консалтинг по промышленной недвижимости">
+          </picture>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -647,12 +650,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     </div>
   </section>
 
-  <MapSection objects={mapObjects} secIndex="06" />
-
-  <script is:inline src="https://api-maps.yandex.ru/2.1/?apikey=2ae53810-6967-43df-9165-4003eeb71cbf&lang=ru_RU" type="text/javascript"></script>
-    <script is:inline src="/assets/svc-map.js?v=1" defer></script>
-
-  <CtaBand variant="grad" id="cta" secIndex="07" heading="Не знаете, с чего начать проект?" lede="Оставьте заявку — превратим задачу в понятный и безопасный план: решение по объекту, прозрачный бюджет и сроки реализации." buttons={[
+  <CtaBand variant="grad" id="cta" secIndex="06" heading="Не знаете, с чего начать проект?" lede="Оставьте заявку — превратим задачу в понятный и безопасный план: решение по объекту, прозрачный бюджет и сроки реализации." buttons={[
           { variant: "gold", href: "/modalka-zayavki/", label: "Оставить заявку" },
           { variant: "ghost-light", href: "/katalog/", label: "Смотреть объекты" }
         ]} />
@@ -660,7 +658,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
   <section id="uslugi" class="b-others section">
     <div class="container">
       <div class="b-sec-head reveal">
-        <p class="sec-index" aria-hidden="true">08</p>
+        <p class="sec-index" aria-hidden="true">07</p>
         <h2>Другие услуги</h2>
 
       </div>

@@ -3,7 +3,9 @@ interface Props {
   title: string;
   description: string;
   noindex?: boolean;
+  /** OG-изображение страницы: относительный или абсолютный URL. Дефолт — логотип. */
   ogImage?: string;
+  /** OG-тип страницы. Дефолт — website; статьи передают article. */
   ogType?: string;
 }
 
@@ -12,7 +14,7 @@ const isProd = process.env.MMPROM_ENV !== 'staging';
 const site = Astro.site ?? new URL('https://mm-prom.ru');
 const canonical = new URL(Astro.url.pathname, site).href;
 const robots = !isProd || noindex ? 'noindex, follow' : 'index, follow';
-const ogImage = new URL(ogImageProp ?? '/mmprom-logo.png', site).href;
+const ogImage = ogImageProp ? new URL(ogImageProp, site).href : new URL('/mmprom-logo.png', site).href;
 const metrika = `<script>
 (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
 m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})

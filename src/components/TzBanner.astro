@@ -7,9 +7,11 @@ interface Props {
   muted?: string;
   ctaHref?: string;
   ctaText?: string;
+  ctaB24?: string;
+  ctaB24Loader?: string;
 }
 
-const { heading, text, muted, ctaHref, ctaText } = Astro.props;
+const { heading, text, muted, ctaHref, ctaText, ctaB24, ctaB24Loader } = Astro.props;
 ---
 
 <div class="grid grid--2 b-tz-banner">
@@ -20,6 +22,12 @@ const { heading, text, muted, ctaHref, ctaText } = Astro.props;
     {muted && <p class="muted">{muted}</p>}
     <slot />
   </div>
-  {ctaHref && ctaText && <SiteButton variant="gold" href={ctaHref} class="b-tz-banner__cta">{ctaText}</SiteButton>}
+  {ctaText && ctaB24 && ctaB24Loader && (
+    <>
+      <script is:inline define:vars={{ ctaB24Loader }} data-b24-form={ctaB24} data-skip-moving="true">(function(d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(document,ctaB24Loader);</script>
+      <button class="btn btn--gold b-tz-banner__cta" type="button" data-b24-form={ctaB24} data-skip-moving="true">{ctaText}</button>
+    </>
+  )}
+  {!ctaB24 && ctaHref && ctaText && <SiteButton variant="gold" href={ctaHref} class="b-tz-banner__cta">{ctaText}</SiteButton>}
   <slot name="aside" />
 </div>

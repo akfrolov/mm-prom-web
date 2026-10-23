@@ -38,6 +38,7 @@ const {
       {buttons.map((button) => (
         <SiteButton variant={button.variant} href={button.href} target={button.target}>{button.label}</SiteButton>
       ))}
+      <slot />
       <a class="b-cta__phone" href={phone}><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
     </div>
   </div>
