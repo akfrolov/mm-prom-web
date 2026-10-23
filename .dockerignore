@@ -1,0 +1,9 @@
+.git
+.kilo
+node_modules
+.astro
+docs
+src
+public
+*.md
+deploy/kamal/secrets

@@ -1,0 +1,27 @@
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # HTTPS
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # www -> без www
+  RewriteCond %{HTTP_HOST} ^www\.mm-prom\.ru$ [NC]
+  RewriteRule ^ https://mm-prom.ru%{REQUEST_URI} [R=301,L]
+
+  # 301-карта дублей WordPress
+  Redirect 301 /garage/ /atlas-garazhnyj/
+  Redirect 301 /ga/ /atlas-garazhnyj/
+  Redirect 301 /vitebski/ /avrora-vitebskij/
+  Redirect 301 /avrora-vitebskij-3/ /avrora-vitebskij/
+  Redirect 301 /sitemap.html /
+
+  # Канонический слэш на конце directory-URL
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}/index.html -f
+  RewriteRule ^(.*[^/])$ /$1/ [R=301,L]
+</IfModule>
