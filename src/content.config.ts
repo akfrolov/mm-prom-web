@@ -27,6 +27,7 @@ const objects = defineCollection({
     coords: z.tuple([z.number(), z.number()]),
     busy: z.boolean(),
     sort: z.number(),
+    group: z.enum(['ours', 'partners']).default('partners'),
     searchTitle: z.string().optional(),
     badgeLabel: z.string().optional(),
     badgeClass: z.string().optional(),

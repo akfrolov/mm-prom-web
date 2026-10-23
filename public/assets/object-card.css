@@ -37,6 +37,7 @@
 .obj-card--cat:hover .obj-card__media img{transform:scale(1.05)}
 .obj-card--cat .obj-card__media img.is-broken{display:none}
 .obj-card__ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--text-muted);font-size:var(--fs-small);text-align:center;padding:16px}
+.obj-card--cat .obj-card__media img:not(.is-broken) + .obj-card__ph{display:none}
 .obj-card__ph .material-symbols-outlined{font-size:34px;color:var(--border)}
 .obj-card--cat .obj-card__media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,0,40,.28) 0%,rgba(14,0,40,0) 38%,rgba(14,0,40,.10) 100%);pointer-events:none}
 .obj-card--cat .obj-card__badges{position:absolute;top:12px;left:12px;right:12px;display:flex;flex-wrap:wrap;gap:6px;z-index:2;justify-content:space-between;align-items:flex-start}

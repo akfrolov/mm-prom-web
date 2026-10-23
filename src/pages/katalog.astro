@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import CtaBand from '../components/CtaBand.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import ObjectCard from '../components/ObjectCard.astro';
 import { getCollection } from 'astro:content';
 const objects = (await getCollection('objects')).sort((a, b) => a.data.sort - b.data.sort);
+const ourObjects = objects.filter((o) => o.data.group === 'ours');
+const partnerObjects = objects.filter((o) => o.data.group !== 'ours');
 const totalCount = objects.length;
 const typeCounts = { park: 0, warehouse: 0, production: 0, land: 0 };
 objects.forEach(({ data }) => { typeCounts[data.type] += 1; });
@@ -24,7 +25,7 @@ const mapObjects = objects.map(({ id, data }) => ({
 ---
 <BaseLayout title="Каталог объектов — ММ Пром" description="Каталог производственной недвижимости Санкт-Петербурга и Ленинградской области: индустриальные парки, производственно-складские комплексы и земельные участки. Фильтры по типу, сделке, площади и локации, интерактивная карта.">
   <Fragment slot="head">
-  <link rel="stylesheet" href="/assets/object-card.css?v=2">
+  <link rel="stylesheet" href="/assets/object-card.css?v=3">
     <style is:inline>
     /* ═══════════════════════════════════════════════════════════════════════
        ММ ПРОМ — ГЛАВНАЯ СТРАНИЦА
@@ -495,6 +496,18 @@ const mapObjects = objects.map(({ id, data }) => ({
     @media (min-width:640px){.cat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media (min-width:1024px){.cat-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
+    .cat-group + .cat-group{margin-top:52px}
+    .cat-group__head{margin:0 0 22px}
+    .cat-group__head h2{margin:0 0 8px;font-size:var(--fs-h2)}
+    .cat-group__head h2::after{content:"";display:block;width:64px;height:4px;border-radius:2px;background:var(--gold);margin-top:10px}
+    .cat-group__head p{margin:0;max-width:72ch;color:var(--text-muted)}
+    .cat-grid--featured{grid-template-columns:1fr}
+    @media (min-width:768px){.cat-grid--featured{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (min-width:1024px){.cat-grid--featured{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    .cat-grid--featured .obj-card{border-top:4px solid var(--gold);box-shadow:0 10px 30px rgba(11,27,51,.08)}
+    .cat-grid--featured .obj-card--cat .obj-card__media{aspect-ratio:16/9}
+    .cat-grid--featured .obj-card--cat .obj-card__body h3{font-size:1.2rem}
+
     .badge--deal-rent{background:rgba(90,57,148,.92);color:#fff}
     .badge--deal-sale{background:rgba(235,184,30,.95);color:var(--navy)}
     .badge--type{background:rgba(255,255,255,.94);color:var(--text);border:1px solid rgba(255,255,255,.6)}
@@ -585,9 +598,25 @@ const mapObjects = objects.map(({ id, data }) => ({
         </div>
       </div>
 
-      <div id="cat-grid" class="cat-grid">
-        {objects.map((o) => <ObjectCard obj={o} showMap />)}
-      </div>
+      <section class="cat-group" id="ours">
+        <div class="cat-group__head">
+          <h2>Наши объекты</h2>
+          <p>Готовые площадки с коммуникациями, подъездными путями и спектром помещений — приоритетная выдача каталога.</p>
+        </div>
+        <div id="grid-ours" class="cat-grid cat-grid--featured">
+          {ourObjects.map((o) => <ObjectCard obj={o} showMap />)}
+        </div>
+      </section>
+
+      <section class="cat-group" id="partners">
+        <div class="cat-group__head">
+          <h2>Объекты партнёров</h2>
+          <p>Производственно-складские комплексы, производственные площади и земельные участки — остальные объекты и предложения партнёров.</p>
+        </div>
+        <div id="grid-partners" class="cat-grid">
+          {partnerObjects.map((o) => <ObjectCard obj={o} showMap />)}
+        </div>
+      </section>
 
       <div id="cat-map" class="cat-map" hidden>
         <div class="cat-map__canvas-wrap">
@@ -605,9 +634,18 @@ const mapObjects = objects.map(({ id, data }) => ({
     </div>
   </section>
 
-  <CtaBand variant="plain" id="cta" secIndex="03" heading="Не нашли подходящий объект?" lede="Подберём варианты под ваш запрос: тип сделки, площадь, локация и требования к инженерии." buttons={[
-          { variant: "purple", href: "/modalka-zayavki/", label: "Оставить заявку на подбор" }
-        ]} />
+  <section id="cta" class="b-cta">
+    <div class="container">
+      <p class="sec-index" aria-hidden="true">03</p>
+      <h2>Не нашли подходящий объект?</h2>
+      <p>Подберём варианты под ваш запрос: тип сделки, площадь, локация и требования к инженерии.</p>
+      <div class="b-cta__row">
+        <script is:inline data-b24-form="click/36/skk415" data-b24-form-telemetry-sign="v1:36:site.a467aeed9d7582f9de1e8a4dfb29aea466dae483b5806ff9c02b839525a9d495" data-skip-moving="true">(function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_36.js');</script>
+        <button type="button" class="btn btn--purple">Оставить заявку на подбор</button>
+        <a class="b-cta__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
+      </div>
+    </div>
+  </section>
 
 </main>
 

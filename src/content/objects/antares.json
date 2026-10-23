@@ -58,6 +58,7 @@
   ],
   "busy": false,
   "sort": 23,
+  "group": "ours",
   "badgeLabel": "Технопарк",
   "badgeClass": "badge--technopark",
   "media": {

@@ -48,6 +48,7 @@
   ],
   "busy": false,
   "sort": 4,
+  "group": "partners",
   "badgeLabel": "Земельный участок",
   "badgeClass": "badge--park",
   "media": {

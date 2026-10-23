@@ -1,0 +1,47 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Мобильные правки: тап-таргеты и компактная панель фильтров
+   ═══════════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+
+  /* Тап-таргеты не меньше 44 px */
+  .b-more,
+  .obj-card__presentation,
+  .b-faq__help-phone,
+  .contact-card__value a,
+  .b-contacts__list dd a,
+  .site-footer a[href^="tel:"],
+  .site-footer a[href^="mailto:"] {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  /* Каталог: панель фильтров не занимает пол-экрана */
+  .cat-toolbar {
+    position: static;
+    padding: 12px 0 10px;
+  }
+  .cat-toolbar__row { gap: 8px; }
+  .cat-search { flex: 1 1 100%; }
+  .seg { flex: 1 1 100%; justify-content: space-between; }
+  .seg button { flex: 1 1 0; min-height: 42px; }
+  .cat-select { flex: 1 1 calc(50% - 4px); min-width: 0; }
+  .cat-reset { flex: 1 1 100%; justify-content: center; min-height: 44px; }
+
+  /* Чипы типов — одна строка с горизонтальной прокруткой */
+  .cat-chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .cat-chips::-webkit-scrollbar { display: none; }
+  .chip-f { flex: 0 0 auto; min-height: 42px; }
+  .view-toggle button { min-height: 42px; }
+
+  .cat-active { margin-top: 8px; padding-top: 10px; }
+  .cat-bar { margin-bottom: 16px; }
+  .cat-bar__right { width: 100%; justify-content: space-between; }
+  .cat-bar__right .cat-select { flex: 1 1 auto; }
+}

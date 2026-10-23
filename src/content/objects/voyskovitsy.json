@@ -64,5 +64,6 @@
     29.98
   ],
   "busy": false,
-  "sort": 8
+  "sort": 8,
+  "group": "ours"
 }

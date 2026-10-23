@@ -38,6 +38,7 @@
   ],
   "busy": false,
   "sort": 26,
+  "group": "ours",
   "badgeLabel": "Производственные площади",
   "badgeClass": "badge--park",
   "media": {

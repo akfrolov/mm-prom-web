@@ -52,7 +52,7 @@ p{margin:0 0 1em}
 /* ── Контейнер: перенесён в blocks.css (дельта W2.1) ──────────────────── */
 
 /* ── Кнопки ──────────────────────────────────────────────────────────── */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:13px 26px;border-radius:var(--radius-sm);font-family:inherit;font-weight:700;font-size:var(--fs-body);text-decoration:none;cursor:pointer;border:2px solid transparent;transition:transform .18s ease,box-shadow .18s ease,background .18s ease,color .18s ease}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:13px 26px;border-radius:var(--radius-sm);font-family:inherit;font-weight:700;font-size:var(--fs-body);line-height:1.2;text-decoration:none;cursor:pointer;border:2px solid transparent;transition:transform .18s ease,box-shadow .18s ease,background .18s ease,color .18s ease}
 .btn:hover{transform:translateY(-2px)}
 .btn--gold{background:var(--gold);color:var(--navy)}
 .btn--gold:hover{background:var(--gold-soft)}
@@ -320,3 +320,5 @@ p{margin:0 0 1em}
 .b-faq__help .btn{width:100%}
 .b-map-sec__bar .btn{min-height:42px;padding:9px 18px}
 @media (max-width:767px){.b-cta--grad .btn{width:100%;justify-content:center}}
+/* ── Визуальные правки подрядчика: жёлтое свечение героя отключено ──── */
+.b-hero__glow--gold{display:none}

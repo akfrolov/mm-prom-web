@@ -557,7 +557,37 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 .obj-contact__body h2{margin:0 0 10px}
 .obj-contact__body p{color:var(--text-muted);max-width:56ch}
 .obj-contact__links{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.obj-contact__link{display:inline-flex;align-items:center;gap:8px;min-height:44px;color:var(--text);font-weight:600;text-decoration:none;transition:color .2s ease}
+.obj-contact__link:hover{color:var(--purple)}
+.obj-contact__link .material-symbols-outlined{font-size:20px;color:var(--purple)}
+.obj-contact--widget{align-items:start}
+.obj-contact__form{min-height:420px}
+.obj-contact--widget .obj-contact__media{margin-top:22px}
 @media (min-width:1024px){.obj-contact{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px}}
+
+.obj-split{display:grid;gap:24px;align-items:start}
+@media (min-width:1024px){.obj-split{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px}.obj-split--media-left{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}}
+.obj-split .approach-card{display:grid;grid-template-columns:36px 1fr;grid-template-areas:"icon title" "icon text";gap:2px 12px;align-items:start;padding:13px 0;border:0;border-bottom:1px solid var(--border);border-radius:0;background:none;box-shadow:none}
+.obj-split .approach-card:hover{transform:none;box-shadow:none;border-color:var(--border)}
+.obj-split .approach-card__icon{grid-area:icon;width:36px;height:36px;border-radius:9px}
+.obj-split .approach-card__icon .material-symbols-outlined{font-size:19px}
+.obj-split .approach-card h3{grid-area:title;font-size:.95rem;line-height:1.35;margin:0 0 3px}
+.obj-split .approach-card p{grid-area:text;font-size:var(--fs-small);line-height:1.45}
+.obj-split .obj-figure{margin:0;max-width:none}
+.obj-split .obj-cols{grid-template-columns:1fr}
+.obj-split .b-approach__grid{grid-template-columns:1fr;gap:0;border-top:1px solid var(--border)}
+.obj-split:not(.obj-split--media-left) .obj-figure{position:sticky;top:96px}
+
+.block-masterplan__legend{margin-top:24px}
+.block-masterplan__legend-title{margin:0 0 14px;font-size:1rem;font-weight:700}
+.block-masterplan__legend-grid{display:grid;gap:12px;margin:0;padding:0;list-style:none;grid-template-columns:1fr}
+@media (min-width:640px){.block-masterplan__legend-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1024px){.block-masterplan__legend-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.legend-item{display:flex;align-items:flex-start;gap:10px;color:var(--text-muted);font-size:var(--fs-small);line-height:1.45}
+.legend-item__icon{flex:0 0 auto;width:40px;height:40px}
+.legend-item__icon svg{display:block;width:100%;height:100%}
+.legend-item__text{padding-top:2px}
+@media (min-width:768px){.block-masterplan__legend{display:none}}
 
 .obj-next{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;padding:32px;border:1px solid var(--border);border-radius:var(--radius);background:#fff}
 .obj-next h2{margin:0 0 6px;font-size:var(--fs-h3)}
@@ -623,7 +653,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         <h1>Атлас <span class="accent">Гаражный</span></h1>
         <p class="b-hero__lead">Готовые производственные площади рядом с метро. Развитая инфраструктура, все необходимые инженерные сети. Удобная логистика, возможность адаптации под задачи производства.</p>
         <p class="b-hero__note">4 этажа производственно-складских помещений. Общая площадь здания — 10 719 м² (включая производственные, вспомогательные и технические помещения)</p>
-        <div class="b-hero__actions"><a class="btn btn--gold" href="#cta">Обсудить объект</a><a class="btn btn--outline" href="/katalog/">Смотреть каталог</a></div>
+        <div class="b-hero__actions"><script is:inline data-b24-form="click/36/skk415" data-b24-form-telemetry-sign="v1:36:site.a467aeed9d7582f9de1e8a4dfb29aea466dae483b5806ff9c02b839525a9d495" data-skip-moving="true">(function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_36.js');</script><button type="button" class="btn btn--gold">Обсудить объект</button><a class="btn btn--outline" href="/katalog/">Смотреть каталог</a></div>
         <ul class="b-hero__metrics"><li><strong>10 719 м²</strong><span>общая площадь здания</span></li><li><strong>5 минут</strong><span>до КАД</span></li><li><strong>10 минут</strong><span>до метро «Обухово» пешком</span></li><li><strong>25 минут</strong><span>до центра Петербурга</span></li></ul>
       </div>
       <figure class="obj-hero__media">
@@ -671,19 +701,51 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
           </div>
         </div>
       </div>
-      <h3 class="b-scope__obj-title">Условные обозначения</h3>
-      <ul class="obj-legend">
-        <li><i style="background:#5A3994"></i>Граница земельного участка</li>
-        <li><i style="background:#EBB81E"></i>Граница мест допустимого размещения зданий и сооружений</li>
-        <li><i style="background:#C9B8E8"></i>Строящееся здание</li>
-        <li><i style="background:#8A8A8A"></i>Существующие здания</li>
-        <li><i style="background:#B9B9B9"></i>Проезды с а/б покрытием</li>
-        <li><i style="background:#DCDCDC"></i>Тротуар</li>
-        <li><i style="background:#7FA86B"></i>Озеленение</li>
-        <li><i style="background:#4A6FA5"></i>Парковочные места</li>
-        <li><i style="background:#2F5D8A"></i>Парковочное место для МГН стандартного размера</li>
-        <li><i style="background:#1F4468"></i>Парковочное место для МГН увеличенного размера</li>
-      </ul>
+      <div class="block-masterplan__legend">
+        <h3 class="block-masterplan__legend-title">Условные обозначения:</h3>
+        <ul class="block-masterplan__legend-grid" role="list">
+          <li class="legend-item">
+            <span class="legend-item__icon" aria-hidden="true"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="36" height="36" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="1"/><line x1="6" y1="20" x2="34" y2="20" stroke="#F9A52B" stroke-width="3" stroke-linecap="round"/></svg></span>
+            <span class="legend-item__text">Граница земельного участка</span>
+          </li>
+          <li class="legend-item">
+            <span class="legend-item__icon" aria-hidden="true"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="36" height="36" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="1"/><line x1="6" y1="20" x2="34" y2="20" stroke="#E1393C" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 4"/></svg></span>
+            <span class="legend-item__text">Граница мест допустимого размещения зданий и сооружений</span>
+          </li>
+          <li class="legend-item">
+            <span class="legend-item__icon" aria-hidden="true"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="36" height="36" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="1"/><rect x="10" y="14" width="20" height="14" fill="#000000" stroke="#111" stroke-width="1.5"/><line x1="10" y1="21" x2="30" y2="21" stroke="#111" stroke-width="1"/></svg></span>
+            <span class="legend-item__text">Строящееся здание</span>
+          </li>
+          <li class="legend-item">
+            <span class="legend-item__icon" aria-hidden="true"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="36" height="36" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="1"/><rect x="10" y="14" width="20" height="14" fill="#989DA2" stroke="#111" stroke-width="1.5"/><line x1="10" y1="21" x2="30" y2="21" stroke="#111" stroke-width="1"/></svg></span>
+            <span class="legend-item__text">Существующие здания</span>
+          </li>
+          <li class="legend-item">
+            <span class="legend-item__icon" aria-hidden="true"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="36" height="36" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="1"/><rect x="8" y="16" width="24" height="10" fill="#D8D8D8" stroke="#9ca3af" stroke-width="1"/><circle cx="12" cy="21" r="1" fill="#6b7280"/><circle cx="16" cy="21" r="1" fill="#6b7280"/><circle cx="20" cy="21" r="1" fill="#6b7280"/><circle cx="24" cy="21" r="1" fill="#6b7280"/><circle cx="28" cy="21" r="1" fill="#6b7280"/></svg></span>
+            <span class="legend-item__text">Проезды с а/б покрытием</span>
+          </li>
+          <li class="legend-item">
+            <span class="legend-item__icon" aria-hidden="true"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="36" height="36" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="1"/><rect x="8" y="16" width="24" height="10" fill="#D0D0D0" stroke="#94a3b8" stroke-width="1"/></svg></span>
+            <span class="legend-item__text">Тротуар</span>
+          </li>
+          <li class="legend-item">
+            <span class="legend-item__icon" aria-hidden="true"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="36" height="36" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="1"/><rect x="8" y="16" width="24" height="10" fill="#5CA143" stroke="#4A8A36" stroke-width="1"/></svg></span>
+            <span class="legend-item__text">Озеленение</span>
+          </li>
+          <li class="legend-item">
+            <span class="legend-item__icon" aria-hidden="true"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="36" height="36" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="1"/><rect x="9" y="13" width="22" height="16" rx="2" fill="#fff" stroke="#111" stroke-width="1.5"/><line x1="9" y1="21" x2="31" y2="21" stroke="#111" stroke-width="1"/></svg></span>
+            <span class="legend-item__text">Парковочные места</span>
+          </li>
+          <li class="legend-item">
+            <span class="legend-item__icon" aria-hidden="true"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="36" height="36" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="1"/><rect x="9" y="13" width="22" height="16" rx="2" fill="#fff" stroke="#111" stroke-width="1.5"/><path d="M14 24c1.5-2 3-3 5-3s3.5 1 5 3" fill="none" stroke="#111" stroke-width="1.5" stroke-linecap="round"/><circle cx="19" cy="18" r="2" fill="#111"/></svg></span>
+            <span class="legend-item__text">Парковочное место для МГН стандартного размера</span>
+          </li>
+          <li class="legend-item">
+            <span class="legend-item__icon" aria-hidden="true"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="36" height="36" rx="6" fill="#fff" stroke="#e0e0e0" stroke-width="1"/><rect x="9" y="13" width="22" height="16" rx="2" fill="#fff" stroke="#111" stroke-width="1.5"/><circle cx="17" cy="19" r="2.2" fill="#111"/><path d="M14 26c1.5-2 3-3 5-3s3.5 1 5 3" fill="none" stroke="#111" stroke-width="1.5" stroke-linecap="round"/><path d="M21 17h3M21 20h3M21 23h3" stroke="#111" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+            <span class="legend-item__text">Парковочное место для МГН увеличенного размера</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -694,6 +756,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         <h2>Площадь объекта</h2>
         <p class="b-sec-head__lead">Общая площадь здания — 10 719 м², включает производственные, вспомогательные и технические помещения.</p>
       </div>
+      <div class="obj-split">
       <div class="obj-cols">
         <div class="obj-detail reveal">
           <h3>Производство (3 этажа)</h3>
@@ -722,6 +785,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
       <figure class="obj-figure">
         <img src="/assets/external/e0930b8e-ploshad-obekta.jpg" alt="Площадь объекта Атлас Гаражный" loading="lazy">
       </figure>
+      </div>
     </div>
   </section>
 
@@ -767,6 +831,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         <h2>Характеристики объекта</h2>
         <p class="b-sec-head__lead">Технические параметры производственного корпуса. Срок ввода — 2027 год, РНС получен.</p>
       </div>
+      <div class="obj-split">
       <div class="b-approach__grid">
         <article class="approach-card reveal" style="--i:0">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">height</span></span>
@@ -822,6 +887,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
       <figure class="obj-figure">
         <img src="/assets/external/ad44f319-12-optimized.png" alt="Характеристики объекта Атлас Гаражный" loading="lazy">
       </figure>
+      </div>
     </div>
   </section>
 
@@ -832,9 +898,11 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         <h2>Разрез здания</h2>
         <p class="b-sec-head__lead">Три уровня производственного корпуса и их высоты.</p>
       </div>
+      <div class="obj-split obj-split--media-left">
       <figure class="obj-figure">
         <img src="/assets/external/a328c1dc-13-optimized.png" alt="Разрез здания Атлас Гаражный" loading="lazy">
       </figure>
+      <div class="obj-split__body">
       <div class="obj-floors">
         <div class="obj-floor reveal" style="--i:0"><span>01 этаж</span><strong>11,5 м</strong><span>высота этажа</span></div>
         <div class="obj-floor reveal" style="--i:1"><span>02 этаж</span><strong>4,8 м</strong><span>высота этажа</span></div>
@@ -845,6 +913,8 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         <li>Производство</li><li>Склад</li><li>Офис</li><li>Шоу-рум</li>
       </ul>
       <div class="b-scope__cta"><a class="btn btn--gold" href="#cta">Получить планировку под мою задачу</a></div>
+      </div>
+      </div>
     </div>
   </section>
 
@@ -896,20 +966,45 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
   </section>
 
 <!-- ═══ Формы сделки ═══ -->
-<section id="deals" class="section section--tint">
+<section id="deals" class="section">
   <div class="container">
-    <p class="sec-index">Формы сделки</p>
-    <h2>Формы сделки</h2>
-    <div class="obj-deals">
-      <div class="obj-deal"><span class="obj-deal__num">01</span><h3>Аренда</h3><p>Быстрый старт для промышленного бизнеса</p></div>
-      <div class="obj-deal"><span class="obj-deal__num">02</span><h3>Покупка</h3><p>Собственный актив и полный контроль</p></div>
-      <div class="obj-deal"><span class="obj-deal__num">03</span><h3>Аренда с выкупом</h3><p>Арендуете — постепенно становитесь собственником</p></div>
-      <div class="obj-deal"><span class="obj-deal__num">04</span><h3>Trade-In</h3><p>Обмен старого актива на новый</p></div>
-      <div class="obj-deal"><span class="obj-deal__num">05</span><h3>Финансовые инструменты</h3><p>Гибкие схемы для разного бюджета</p></div>
+    <div class="b-sec-head reveal">
+      <p class="sec-index" aria-hidden="true">09</p>
+      <h2>Формы сделки</h2>
+      <p class="b-sec-head__lead">Пять сценариев — от аренды до выкупа и обмена актива.</p>
     </div>
-    <figure class="obj-figure">
-      <img src="/assets/external/56ff6f96-formy-sdelki.jpg" alt="Формы сделки" loading="lazy">
-    </figure>
+    <div class="obj-split">
+      <div class="b-approach__grid">
+        <article class="approach-card reveal" style="--i:0">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">key</span></span>
+          <h3>Аренда</h3>
+          <p>Быстрый старт для промышленного бизнеса</p>
+        </article>
+        <article class="approach-card reveal" style="--i:1">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">sell</span></span>
+          <h3>Покупка</h3>
+          <p>Собственный актив и полный контроль</p>
+        </article>
+        <article class="approach-card reveal" style="--i:2">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">handshake</span></span>
+          <h3>Аренда с выкупом</h3>
+          <p>Арендуете — постепенно становитесь собственником</p>
+        </article>
+        <article class="approach-card reveal" style="--i:3">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">swap_horiz</span></span>
+          <h3>Trade-In</h3>
+          <p>Обмен старого актива на новый</p>
+        </article>
+        <article class="approach-card reveal" style="--i:4">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">savings</span></span>
+          <h3>Финансовые инструменты</h3>
+          <p>Гибкие схемы для разного бюджета</p>
+        </article>
+      </div>
+      <figure class="obj-figure">
+        <img src="/assets/external/56ff6f96-formy-sdelki.jpg" alt="Формы сделки" loading="lazy">
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -919,7 +1014,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
       <h2>Получите планировки, площади и условия</h2>
       <p>Укажите формат сделки и параметры объекта — подготовим предложение под вашу задачу.</p>
       <div class="b-cta__row">
-        <a class="btn btn--gold" href="#contacts">Оставить заявку</a>
+        <script is:inline data-b24-form="click/36/skk415" data-b24-form-telemetry-sign="v1:36:site.a467aeed9d7582f9de1e8a4dfb29aea466dae483b5806ff9c02b839525a9d495" data-skip-moving="true">(function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_36.js');</script><button type="button" class="btn btn--gold">Оставить заявку</button>
         <a class="btn btn--ghost-light" href="/katalog/">Смотреть каталог</a>
         <a class="b-cta__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
       </div>
@@ -963,18 +1058,21 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 
   <section id="contacts" class="section section--tint">
     <div class="container">
-      <div class="obj-contact">
-        <figure class="obj-contact__media">
-          <img src="/assets/external/045eca12-contacts-photo.jpg" alt="Контакты ММ Пром" loading="lazy">
-        </figure>
+      <div class="obj-contact obj-contact--widget">
         <div class="obj-contact__body">
           <p class="sec-index" aria-hidden="true">12</p>
+          <div class="obj-contact__links">
+            <a class="obj-contact__link" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
+            <a class="obj-contact__link" href="mailto:info@mm-prom.ru"><span class="material-symbols-outlined" aria-hidden="true">mail</span>info@mm-prom.ru</a>
+          </div>
           <h2>Свяжитесь с нами и станьте резидентом технопарка</h2>
           <p>Покажем объект, ответим на вопросы по инженерии и условиям, подготовим расчёт под вашу задачу.</p>
-          <div class="obj-contact__links">
-            <a class="btn btn--gold" href="tel:88003331010">8 800 333 10 10</a>
-            <a class="btn btn--outline" href="mailto:info@mm-prom.ru">info@mm-prom.ru</a>
-          </div>
+          <figure class="obj-contact__media">
+            <img src="/assets/external/045eca12-contacts-photo.jpg" alt="Контакты ММ Пром" loading="lazy">
+          </figure>
+        </div>
+        <div class="obj-contact__form">
+          <script is:inline data-b24-form="inline/14/n9dztr" data-skip-moving="true">(function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_14.js');</script>
         </div>
       </div>
     </div>

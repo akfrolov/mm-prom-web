@@ -15,8 +15,9 @@ document.addEventListener('DOMContentLoaded', function () {
         return o.url || BRAND_URLS[o.id] || '/obekt/' + o.id + '/';
       }
 
-      var grid = document.getElementById('cat-grid');
-      var cards = Array.prototype.slice.call(grid.querySelectorAll('.obj-card'));
+      var grids = [document.getElementById('grid-ours'), document.getElementById('grid-partners')].filter(Boolean);
+      var cards = [];
+      grids.forEach(function(g){ cards = cards.concat(Array.prototype.slice.call(g.querySelectorAll('.obj-card'))); });
       var countEl = document.getElementById('res-count');
       var countWordEl = document.getElementById('res-count-word');
       var emptyEl = document.getElementById('cat-empty');
@@ -89,7 +90,15 @@ document.addEventListener('DOMContentLoaded', function () {
       function apply(){
         var list = sortCards(visible());
         cards.forEach(function(c){ c.hidden = true; });
-        list.forEach(function(c){ c.hidden = false; grid.appendChild(c); });
+        list.forEach(function(c){ c.hidden = false; });
+        var mapMode = state.view === 'map';
+        grids.forEach(function(g){
+          var own = list.filter(function(c){ return c.parentNode === g; });
+          own.forEach(function(c){ g.appendChild(c); });
+          g.hidden = mapMode;
+          var group = g.closest('.cat-group');
+          if (group) group.hidden = mapMode || own.length === 0;
+        });
         countEl.textContent = list.length;
         if (countWordEl) {
           var n = list.length, m10 = n % 10, m100 = n % 100;
@@ -157,9 +166,8 @@ document.addEventListener('DOMContentLoaded', function () {
         state.view = v;
         btnList.setAttribute('aria-pressed', String(v === 'list'));
         btnMap.setAttribute('aria-pressed', String(v === 'map'));
-        grid.hidden = v === 'map';
         mapWrap.hidden = v !== 'map';
-        if (v === 'map') { initMap(); apply(); }
+        if (v === 'map') { initMap(); apply(); } else { apply(); }
       }
       btnList.addEventListener('click', function(){ setView('list'); });
       btnMap.addEventListener('click', function(){ setView('map'); });

@@ -73,6 +73,7 @@
   ],
   "busy": false,
   "sort": 0,
+  "group": "ours",
   "badgeLabel": "Технопарк",
   "badgeClass": "badge--technopark",
   "link": "/atlas-garazhnyj/",

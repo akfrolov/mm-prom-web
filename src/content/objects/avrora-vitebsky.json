@@ -66,6 +66,7 @@
   ],
   "busy": false,
   "sort": 1,
+  "group": "ours",
   "badgeLabel": "Индустриальный парк",
   "badgeClass": "badge--park",
   "link": "/avrora-vitebskij/",

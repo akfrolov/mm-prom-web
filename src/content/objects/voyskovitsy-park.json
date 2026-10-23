@@ -35,6 +35,7 @@
   ],
   "busy": false,
   "sort": 24,
+  "group": "partners",
   "badgeLabel": "Производственные площади",
   "badgeClass": "badge--park",
   "placeholder": "Фото: Войсковицы",

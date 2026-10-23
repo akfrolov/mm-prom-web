@@ -40,6 +40,7 @@
   ],
   "busy": false,
   "sort": 25,
+  "group": "ours",
   "badgeLabel": "Производственные площади",
   "badgeClass": "badge--park",
   "placeholder": "Фото: Волхонское",
