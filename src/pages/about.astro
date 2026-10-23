@@ -447,11 +447,17 @@ import SiteButton from '../components/SiteButton.astro';
 
     /* ═══ О компании ═══ */
     .about-hero .b-hero__inner{grid-template-columns:minmax(0,1fr);gap:32px}
-    .about-hero__media{margin:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow)}
-    .about-hero__media img{display:block;width:100%;height:100%;max-height:420px;object-fit:cover}
+    .about-hero .b-hero__metrics li{display:flex;flex-direction:column;gap:8px}
+    .about-hero .b-hero__metrics li .material-symbols-outlined{font-size:clamp(32px,2.3vw,40px);color:var(--purple);font-variation-settings:'FILL' 1,'wght' 500}
+    .about-hero__media{margin:0;position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow)}
+    .about-hero__media img{display:block;width:100%;height:100%;min-height:280px;max-height:520px;object-fit:cover}
     .about-hero__media img.is-broken{display:none}
+    .about-hero__badge{position:absolute;left:20px;bottom:20px;display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;background:rgba(14,0,40,.82);color:#fff;font-size:var(--fs-small);font-weight:600;letter-spacing:.02em;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+    .about-hero__badge .material-symbols-outlined{font-size:20px;color:var(--gold)}
     @media (min-width:1024px){
       .about-hero .b-hero__inner{grid-template-columns:1.05fr .95fr;align-items:center;gap:48px}
+      .about-hero__media{align-self:stretch;display:flex}
+      .about-hero__media img{min-height:0;max-height:none;height:100%}
     }
     .about-who__lead{position:relative;margin:18px 0 0;padding-left:22px;max-width:min(58ch,760px);font-size:clamp(1.15rem,1.02rem + .55vw,1.4rem);line-height:1.55;font-weight:600;color:var(--text)}
     .about-who__lead::before{content:"";position:absolute;left:0;top:.15em;bottom:.15em;width:4px;border-radius:2px;background:var(--gold)}
@@ -515,14 +521,15 @@ import SiteButton from '../components/SiteButton.astro';
           <SiteButton variant="outline" href="/uslugi/">Наши услуги</SiteButton>
         </div>
         <ul class="b-hero__metrics">
-          <li><span class="material-symbols-outlined" aria-hidden="true">verified</span>с 2011 года</li>
-          <li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span>200 000+ м²</li>
-          <li><span class="material-symbols-outlined" aria-hidden="true">apartment</span>25+ проектов</li>
-          <li><span class="material-symbols-outlined" aria-hidden="true">groups</span>150+ резидентов</li>
+          <li><span class="material-symbols-outlined" aria-hidden="true">verified</span><span>с 2011 года</span></li>
+          <li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>200 000+ м²</span></li>
+          <li><span class="material-symbols-outlined" aria-hidden="true">apartment</span><span>25+ проектов</span></li>
+          <li><span class="material-symbols-outlined" aria-hidden="true">groups</span><span>150+ резидентов</span></li>
         </ul>
       </div>
       <figure class="about-hero__media">
-        <img src="https://mm-prom.ru/wp-content/uploads/2026/05/o-kompanii.avif" alt="О компании ММ Пром" loading="eager" onerror="this.classList.add('is-broken')">
+        <img src="/assets/external/main-poster.avif" alt="Индустриальные объекты ММ Пром с высоты" loading="eager" onerror="this.classList.add('is-broken')">
+        <figcaption class="about-hero__badge"><span class="material-symbols-outlined" aria-hidden="true">location_on</span>Санкт-Петербург и Ленинградская область</figcaption>
       </figure>
     </div>
   </section>
