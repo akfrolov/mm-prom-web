@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import ObjectCard from '../components/ObjectCard.astro';
+import SiteButton from '../components/SiteButton.astro';
 import { getCollection } from 'astro:content';
 const objects = (await getCollection('objects')).sort((a, b) => a.data.sort - b.data.sort);
 const typeRank: Record<string, number> = { park: 0, production: 1, warehouse: 2, land: 3 };
@@ -654,8 +655,7 @@ const mapObjects = objects.map(({ id, data }) => ({
       <h2>Не нашли подходящий объект?</h2>
       <p>Подберём варианты под ваш запрос: тип сделки, площадь, локация и требования к инженерии.</p>
       <div class="b-cta__row">
-        <script is:inline data-b24-form="click/36/skk415" data-b24-form-telemetry-sign="v1:36:site.a467aeed9d7582f9de1e8a4dfb29aea466dae483b5806ff9c02b839525a9d495" data-skip-moving="true">(function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_36.js');</script>
-        <button type="button" class="btn btn--purple">Оставить заявку на подбор</button>
+        <SiteButton variant="purple" b24="request">Оставить заявку на подбор</SiteButton>
         <a class="b-cta__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
       </div>
     </div>

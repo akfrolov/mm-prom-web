@@ -1,5 +1,7 @@
 ---
 import SiteButton from './SiteButton.astro';
+import B24Loader from './B24Loader.astro';
+import { B24_FORMS, type B24FormKey } from '../lib/b24';
 
 interface Props {
   heading?: string;
@@ -7,11 +9,11 @@ interface Props {
   muted?: string;
   ctaHref?: string;
   ctaText?: string;
-  ctaB24?: string;
-  ctaB24Loader?: string;
+  b24?: B24FormKey;
 }
 
-const { heading, text, muted, ctaHref, ctaText, ctaB24, ctaB24Loader } = Astro.props;
+const { heading, text, muted, ctaHref, ctaText, b24 } = Astro.props;
+const b24Form = b24 ? B24_FORMS[b24] : null;
 ---
 
 <div class="grid grid--2 b-tz-banner">
@@ -22,12 +24,12 @@ const { heading, text, muted, ctaHref, ctaText, ctaB24, ctaB24Loader } = Astro.p
     {muted && <p class="muted">{muted}</p>}
     <slot />
   </div>
-  {ctaText && ctaB24 && ctaB24Loader && (
+  {ctaText && b24 && b24Form && (
     <>
-      <script is:inline define:vars={{ ctaB24Loader }} data-b24-form={ctaB24} data-skip-moving="true">(function(d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(document,ctaB24Loader);</script>
-      <button class="btn btn--gold b-tz-banner__cta" type="button" data-b24-form={ctaB24} data-skip-moving="true">{ctaText}</button>
+      <B24Loader form={b24} />
+      <button class="btn btn--gold b-tz-banner__cta" type="button" data-b24-form={b24Form.id} data-b24-form-telemetry-sign={b24Form.sign}>{ctaText}</button>
     </>
   )}
-  {!ctaB24 && ctaHref && ctaText && <SiteButton variant="gold" href={ctaHref} class="b-tz-banner__cta">{ctaText}</SiteButton>}
+  {!b24Form && ctaHref && ctaText && <SiteButton variant="gold" href={ctaHref} class="b-tz-banner__cta">{ctaText}</SiteButton>}
   <slot name="aside" />
 </div>

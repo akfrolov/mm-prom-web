@@ -1,14 +1,26 @@
 ---
+import { B24_FORMS, type B24FormKey } from '../lib/b24';
+import B24Loader from './B24Loader.astro';
+
 interface Props {
   variant: 'gold' | 'purple' | 'outline' | 'ghost-light';
-  href: string;
+  href?: string;
+  b24?: B24FormKey;
   class?: string;
   target?: string;
 }
 
-const { variant, href, class: extraClass, target } = Astro.props;
+const { variant, href = '#', b24, class: extraClass, target } = Astro.props;
 const cls = ['btn', `btn--${variant}`, extraClass].filter(Boolean).join(' ');
 const linkAttrs = target ? { target, rel: 'noopener' } : {};
+const b24Form = b24 ? B24_FORMS[b24] : null;
 ---
 
-<a class={cls} href={href} {...linkAttrs}><slot /></a>
+{b24 && b24Form ? (
+  <Fragment>
+    <B24Loader form={b24} />
+    <button class={cls} type="button" data-b24-form={b24Form.id} data-b24-form-telemetry-sign={b24Form.sign}><slot /></button>
+  </Fragment>
+) : (
+  <a class={cls} href={href} {...linkAttrs}><slot /></a>
+)}

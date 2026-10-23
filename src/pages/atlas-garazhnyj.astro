@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TzBanner from '../components/TzBanner.astro';
 import FaqSection from '../components/FaqSection.astro';
+import SiteButton from '../components/SiteButton.astro';
 ---
 <BaseLayout title="Атлас Гаражный — технопарк в Обухово | ММ Пром" description="Атлас Гаражный — технопарк в Обухово: общая площадь здания 10 719 м², 4 этажа производственно-складских помещений, кран-балки 10 т, 1 МВт, 5 минут до КАД.">
   <Fragment slot="head">
@@ -653,7 +654,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         <h1>Атлас <span class="accent">Гаражный</span></h1>
         <p class="b-hero__lead">Готовые производственные площади рядом с метро. Развитая инфраструктура, все необходимые инженерные сети. Удобная логистика, возможность адаптации под задачи производства.</p>
         <p class="b-hero__note">4 этажа производственно-складских помещений. Общая площадь здания — 10 719 м² (включая производственные, вспомогательные и технические помещения)</p>
-        <div class="b-hero__actions"><script is:inline data-b24-form="click/36/skk415" data-b24-form-telemetry-sign="v1:36:site.a467aeed9d7582f9de1e8a4dfb29aea466dae483b5806ff9c02b839525a9d495" data-skip-moving="true">(function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_36.js');</script><button type="button" class="btn btn--gold">Обсудить объект</button><a class="btn btn--outline" href="/katalog/">Смотреть каталог</a></div>
+        <div class="b-hero__actions"><SiteButton variant="gold" b24="offer">Обсудить объект</SiteButton><a class="btn btn--outline" href="/katalog/">Смотреть каталог</a></div>
         <ul class="b-hero__metrics"><li><strong>10 719 м²</strong><span>общая площадь здания</span></li><li><strong>5 минут</strong><span>до КАД</span></li><li><strong>10 минут</strong><span>до метро «Обухово» пешком</span></li><li><strong>25 минут</strong><span>до центра Петербурга</span></li></ul>
       </div>
       <figure class="obj-hero__media">
@@ -1014,7 +1015,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
       <h2>Получите планировки, площади и условия</h2>
       <p>Укажите формат сделки и параметры объекта — подготовим предложение под вашу задачу.</p>
       <div class="b-cta__row">
-        <script is:inline data-b24-form="click/36/skk415" data-b24-form-telemetry-sign="v1:36:site.a467aeed9d7582f9de1e8a4dfb29aea466dae483b5806ff9c02b839525a9d495" data-skip-moving="true">(function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_36.js');</script><button type="button" class="btn btn--gold">Оставить заявку</button>
+        <SiteButton variant="gold" b24="request">Оставить заявку</SiteButton>
         <a class="btn btn--ghost-light" href="/katalog/">Смотреть каталог</a>
         <a class="b-cta__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
       </div>

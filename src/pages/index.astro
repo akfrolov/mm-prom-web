@@ -107,7 +107,7 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
     .b-steps__item{display:flex;background:#fff;border:1px solid var(--border);border-radius:var(--radius);transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
     .b-steps__item:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
     .b-steps__link{display:flex;flex:1 1 auto;gap:18px;align-items:flex-start;height:100%;padding:26px 22px;color:inherit;text-decoration:none}
-    .b-steps__num{flex:0 0 auto;min-width:2.2ch;font-size:clamp(2.6rem,1.9rem + 2.8vw,3.8rem);line-height:1;font-weight:800;color:transparent;-webkit-text-stroke:1.5px var(--purple-soft);transition:color .2s ease,-webkit-text-stroke-color .2s ease}
+    .b-steps__num{flex:0 0 auto;min-width:2.2ch;font-size:clamp(2.6rem,1.9rem + 2.8vw,3.8rem);line-height:1;font-weight:800;color:transparent;-webkit-text-stroke:1.5px var(--purple-soft);transition:color .15s ease,-webkit-text-stroke-color .15s ease}
     .b-steps__item:hover .b-steps__num{color:var(--gold);-webkit-text-stroke-color:transparent}
     .b-steps__item--static{cursor:default}
     .b-steps__item--static:hover{border-color:var(--border);box-shadow:none;transform:none}
@@ -121,8 +121,7 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
     /* ── Конвейер полного цикла (второй блок) ────────────────────────────── */
     .b-conveyor{position:relative}
     .b-conveyor__line{position:absolute;top:22px;left:0;right:0;height:2px;background:repeating-linear-gradient(90deg,var(--purple) 0 10px,transparent 10px 20px);opacity:.35;pointer-events:none;display:none}
-    .b-conveyor__runner{position:absolute;top:18px;left:0;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(235,184,30,.25);pointer-events:none;display:none}
-    @keyframes b-conveyor-run{0%{left:0}100%{left:calc(100% - 10px)}}
+    .b-conveyor__runner{position:absolute;top:18px;left:0;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(235,184,30,.25);pointer-events:none;display:none;transform:translate3d(0,0,0);will-change:transform,opacity}
     .b-conveyor__note{display:inline-flex;align-items:center;gap:10px;margin:28px 0 0;padding:14px 20px;border-radius:var(--radius-sm);background:var(--purple-soft);color:var(--purple);font-weight:700;font-size:var(--fs-small)}
     .b-conveyor__note .material-symbols-outlined{font-size:20px}
     /* Компактный второй блок (на один экран) */
@@ -241,7 +240,7 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
     /* ── Иконки мессенджеров ─────────────────────────────────────────────── */
     .b-mess{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:var(--purple-soft);transition:background .2s ease,transform .2s ease}
     .b-mess:hover{background:var(--purple);transform:translateY(-2px)}
-    .b-mess svg{display:block}
+    .b-mess svg,.b-mess img{display:block;border-radius:5px}
     .b-mess-row{display:flex;gap:12px;margin-bottom:24px}
 
     /* ── Форма ───────────────────────────────────────────────────────────── */
@@ -277,6 +276,7 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
     html.js .reveal.is-visible{opacity:1;transform:none}
     @media (prefers-reduced-motion:reduce){
       html.js .reveal{opacity:1;transform:none;transition:none}
+      .b-conveyor__runner{display:none}
     }
     </style>
   </Fragment>
@@ -295,7 +295,7 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
         <h1>Промышленная недвижимость <span class="accent">под ключ</span></h1>
         <p class="b-hero__lead">Комплексные решения и полный цикл услуг в сфере промышленной недвижимости</p>
         <div class="b-hero__actions">
-          <SiteButton variant="gold" href="/modalka-zayavki/">Обсудить проект</SiteButton>
+          <SiteButton variant="gold" b24="offer">Обсудить проект</SiteButton>
           <SiteButton variant="outline" href="/katalog/">Смотреть объекты</SiteButton>
         </div>
         <ul class="b-hero__metrics">
@@ -460,32 +460,32 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
       <p style="max-width:58ch;color:var(--text-muted)">Экспертиза на всех этапах работы с промышленной недвижимостью</p>
       <div class="grid grid--3">
         <div class="b-services__card reveal">
-          <span class="b-advantages__icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M21 8c-1.45 0-2.26 1.44-1.93 2.51l-3.55 3.56c-.3-.09-.74-.09-1.04 0l-2.55-2.55c.3-1.07-.48-2.51-1.93-2.51-1.45 0-2.26 1.44-1.93 2.51l-4.55 4.56c-.3-.09-.74-.09-1.04 0L2 15.5V19h20v-3.5l-1.07-1.07c-.3.09-.74.09-1.04 0l-4.55-4.56C15.26 9.44 14.45 8 13 8z"/></svg></span>
+          <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">insights</span></span>
           <h3>Консалтинг</h3>
           <p>Анализ рынка, стратегии развития и подбор оптимальных площадок для бизнеса</p>
         </div>
         <div class="b-services__card reveal">
-          <span class="b-advantages__icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M19.83 7.5l-2.27-2.27c.07-.42.1-.86.1-1.23 0-1.38-.62-2.5-1.66-2.5-1.11 0-1.66.92-1.66 2.5 0 .37.03.81.1 1.23l-2.27 2.27c-1.34.34-2.5 1.02-3.42 1.92L4.5 8.5c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h1.5l1.5 3h5l1.5-1.5c.5-.5 1.5-1 2.5-1.5h3.5c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1h-1.17zM6 13.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></span>
+          <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">savings</span></span>
           <h3>Инвестиции</h3>
           <p>Привлечение финансирования, структурирование инвестиционных проектов и сопровождение сделок</p>
         </div>
         <div class="b-services__card reveal">
-          <span class="b-advantages__icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></span>
+          <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">search</span></span>
           <h3>Брокеридж</h3>
           <p>Поиск, продажа и аренда промышленной и складской недвижимости</p>
         </div>
         <div class="b-services__card reveal">
-          <span class="b-advantages__icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M12 2L2 8v2h20V8L12 2zM4 12v8h2v-8H4zm4 0v8h2v-8H8zm4 0v8h2v-8h-2zm4 0v8h2v-8h-2zm4 0v8h2v-8h-2z"/></svg></span>
+          <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">handyman</span></span>
           <h3>Девелопмент</h3>
           <p>Развитие промышленных объектов и реализация девелоперских проектов</p>
         </div>
         <div class="b-services__card reveal">
-          <span class="b-advantages__icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span>
+          <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">settings</span></span>
           <h3>Управление</h3>
           <p>Комплексное управление объектами и повышение эффективности активов</p>
         </div>
         <div class="b-services__card reveal">
-          <span class="b-advantages__icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/></svg></span>
+          <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">swap_horiz</span></span>
           <h3>Trade-in</h3>
           <p>Обмен и оптимизация портфеля вашей промышленной недвижимости</p>
         </div>
@@ -569,13 +569,13 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
         </ul>
       </div>
       <div class="reveal tz-panel">
-        <TzBanner heading="Подготовка технического задания" text="Не знаете, как сформировать требования к промышленному объекту?" muted="Скачайте пример технического задания проекта и используйте его как основу" ctaB24="click/36/skk415" ctaB24Loader="https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_36.js" ctaText="Скачать шаблон ТЗ" />
+        <TzBanner heading="Подготовка технического задания" text="Не знаете, как сформировать требования к промышленному объекту?" muted="Скачайте пример технического задания проекта и используйте его как основу" b24="requestTz" ctaText="Скачать шаблон ТЗ" />
       </div>
     </div>
   </section>
 
   <!-- ═══ Вопросы и ответы ═══ -->
-  <FaqSection variant="panel" id="faq" class="b-faq section section--tint" secIndex="06" intro={{ secIndex: "06", title: "Вопросы и ответы", lead: "Ответы на ключевые вопросы о запуске производственных проектов" }} help={{ title: "Не нашли свой вопрос?", sub: "Позвоните — ответим на любые вопросы о проекте", phone: "88003331010", ctaHref: "/modalka-zayavki/", ctaText: "Обратный звонок" }} items={[
+  <FaqSection variant="panel" id="faq" class="b-faq section section--tint" secIndex="06" intro={{ secIndex: "06", title: "Вопросы и ответы", lead: "Ответы на ключевые вопросы о запуске производственных проектов" }} help={{ title: "Не нашли свой вопрос?", sub: "Позвоните — ответим на любые вопросы о проекте", phone: "88003331010", ctaB24: "callback", ctaText: "Обратный звонок" }} items={[
       { q: "Если у вас нет готового Технического задания?", a: "Мы вас консультируем и помогаем разработать" },
       { q: "Как мы помогаем с финансированием?", a: ["Мы работаем не только как девелопер, но и как финансовый партнёр. Помогаем клиентам получить поддержку от ФРП, банков и частных инвесторов, а также используем собственные инвестиционные инструменты.", "Подберём оптимальную схему — рассрочка, лизинг, совместное участие или индивидуальное финансирование под ваш проект"] },
       { q: "Можно ли расширяться поэтапно?", a: "Да. Мы проектируем объекты и парки по модульному принципу: вы можете начать с первой очереди и постепенно достраивать новые корпуса без остановки бизнеса. Такой подход снижает инвестиционную нагрузку и позволяет масштабироваться органично, под реальные темпы роста компании" },
@@ -596,7 +596,7 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
         </dl>
         <div class="b-mess-row">
           <a class="b-mess" href="https://t.me/mm_prom1" aria-label="Телеграм-канал ММ Пром"><svg viewBox="0 0 24 24" width="22" height="22" fill="#229ED9" aria-hidden="true"><path d="M9.04 15.51l-.38 5.35c.54 0 .78-.23 1.06-.51l2.55-2.44 5.28 3.87c.97.53 1.66.25 1.92-.9l3.48-16.3c.31-1.43-.52-1.99-1.46-1.64L1.1 9.76c-1.39.54-1.37 1.32-.24 1.67l5.3 1.65L18.35 5.1c.57-.38 1.09-.17.66.21L9.04 15.51z"/></svg></a>
-          <a class="b-mess" href="https://max.ru/channel_MM_PROM" aria-label="Канал ММ Пром в MAX"><svg viewBox="0 0 24 24" width="22" height="22" fill="#5A3994" aria-hidden="true"><path d="M12 2C6.48 2 2 6.03 2 11c0 2.6 1.24 4.94 3.22 6.55L4 22l4.6-1.5c1.06.32 2.22.5 3.4.5 5.52 0 10-4.03 10-9S17.52 2 12 2z"/></svg></a>
+          <a class="b-mess" href="https://max.ru/channel_MM_PROM" aria-label="Канал ММ Пром в MAX"><img src="/assets/max-logo.svg" width="22" height="22" alt="" aria-hidden="true" loading="lazy"></a>
           <a class="b-mess" href="https://www.avito.ru/brands/mmprom/all/nedvizhimost" aria-label="Авито — объявления ММ Пром"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="7.5" cy="7.5" r="3.6" fill="#FF6163"/><circle cx="16.6" cy="7.5" r="2.2" fill="#97CF26"/><circle cx="7.4" cy="16.5" r="2.2" fill="#00AAFF"/><circle cx="16.4" cy="16.4" r="3.6" fill="#A169F7"/></svg></a>
           <a class="b-mess" href="https://www.cian.ru/company/62039710" aria-label="ЦИАН — объявления ММ Пром"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#0468FF"/><path d="M15.6 7.5a5.4 5.4 0 1 0 0 9" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/><path d="M16.5 8v8" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/></svg></a>
         </div>
@@ -672,37 +672,98 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
         });
       }
 
-      /* Конвейер: цикл стартует по входу блока в вьюпорт; бегунок и подсветка
-         этапов считаются из одной координаты в одном кадре */
+      /* Бегущая строка: библиотека не нужна. Клонируем последовательность,
+         пока половина трека не станет шире окна — тогда сдвиг на -50%
+         всегда возвращает идентичный контент и стыка не видно. */
+      var marqueeTrack = document.querySelector('.b-marquee__track');
+      var marqueeSeq = marqueeTrack && marqueeTrack.querySelector('.b-marquee__seq');
+      if (marqueeTrack && marqueeSeq && !reduce) {
+        var marqueeSpeed = 70;
+        var syncMarquee = function(){
+          var seqWidth = marqueeSeq.getBoundingClientRect().width;
+          if (!seqWidth) return;
+          var want = Math.max(2, Math.ceil((window.innerWidth * 2) / seqWidth));
+          if (want % 2) want += 1;
+          var count = marqueeTrack.querySelectorAll('.b-marquee__seq').length;
+          while (count < want) {
+            var clone = marqueeSeq.cloneNode(true);
+            clone.setAttribute('aria-hidden', 'true');
+            marqueeTrack.appendChild(clone);
+            count++;
+          }
+          var total = marqueeTrack.getBoundingClientRect().width;
+          marqueeTrack.style.animationDuration = Math.max(12, total / 2 / marqueeSpeed) + 's';
+        };
+        syncMarquee();
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncMarquee);
+        var marqueeResize;
+        window.addEventListener('resize', function(){
+          clearTimeout(marqueeResize);
+          marqueeResize = setTimeout(syncMarquee, 150);
+        });
+      }
+
+      /* Конвейер: бегунок движется от центра первого этапа до центра
+         последнего; этап подсвечивается ровно в момент прохода его центра.
+         Геометрия меряется один раз, движение — через transform (без
+         пересчёта layout в каждом кадре), поэтому анимация не дёргается. */
       var conveyor = document.querySelector('.b-conveyor');
       var runner = document.querySelector('.b-conveyor__runner');
       var steps = document.querySelectorAll('.b-steps--conveyor .b-steps__item');
       var desktop = window.matchMedia && window.matchMedia('(min-width:1024px)');
-      if (conveyor && runner && steps.length && desktop && desktop.matches && !reduce) {
-        var duration = 9000;
+      if (conveyor && runner && steps.length && desktop && !reduce) {
+        var CYCLE = 8200;
+        var HOLD = 900;
         var rafId = 0;
         var startTime = 0;
-        var centers = [];
+        var geom = null;
 
         var measure = function(){
           var convRect = conveyor.getBoundingClientRect();
-          centers = [];
+          var runnerW = runner.offsetWidth || 10;
+          var centers = [];
           steps.forEach(function(step){
             var r = step.getBoundingClientRect();
             centers.push(r.left - convRect.left + r.width / 2);
           });
+          var startX = Math.max(0, centers[0] - runnerW / 2);
+          var endX = Math.min(convRect.width - runnerW, centers[centers.length - 1] - runnerW / 2);
+          var line = conveyor.querySelector('.b-conveyor__line');
+          if (line) {
+            line.style.left = startX + 'px';
+            line.style.right = (convRect.width - endX - runnerW) + 'px';
+          }
+          geom = { startX: startX, endX: endX, centers: centers, runnerW: runnerW };
+        };
+
+        var apply = function(p){
+          if (!geom) return;
+          var x = geom.startX + (geom.endX - geom.startX) * p;
+          runner.style.transform = 'translate3d(' + x + 'px,0,0)';
+          var runnerCenter = x + geom.runnerW / 2;
+          var active = -1;
+          for (var i = 0; i < geom.centers.length; i++) {
+            if (runnerCenter >= geom.centers[i]) active = i;
+          }
+          for (var j = 0; j < steps.length; j++) {
+            var on = j <= active;
+            if (steps[j].classList.contains('is-passed') !== on) {
+              steps[j].classList.toggle('is-passed', on);
+            }
+          }
         };
 
         var tick = function(t){
-          var convRect = conveyor.getBoundingClientRect();
-          var p = ((t - startTime) % duration) / duration;
-          var x = p * (convRect.width - runner.offsetWidth);
-          runner.style.left = x + 'px';
-          var runnerCenter = x + runner.offsetWidth / 2;
-          steps.forEach(function(step, i){
-            if (runnerCenter >= centers[i]) step.classList.add('is-passed');
-            else step.classList.remove('is-passed');
-          });
+          var elapsed = (t - startTime) % (CYCLE + HOLD);
+          if (elapsed < CYCLE) {
+            var q = elapsed / CYCLE;
+            runner.style.opacity = '1';
+            apply(q * q * (3 - 2 * q));
+          } else {
+            apply(1);
+            var h = (elapsed - CYCLE) / HOLD;
+            runner.style.opacity = String(h < 0.5 ? 1 : Math.max(0, 1 - (h - 0.5) * 2));
+          }
           rafId = requestAnimationFrame(tick);
         };
 
@@ -711,12 +772,17 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
         };
 
         var startConveyor = function(){
+          if (!desktop.matches) return;
           stopConveyor();
           steps.forEach(function(step){ step.classList.remove('is-passed'); });
-          runner.style.left = '0px';
+          geom = null;
           measure();
+          apply(0);
           startTime = performance.now();
           rafId = requestAnimationFrame(tick);
+          if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(function(){ if (rafId) measure(); });
+          }
         };
 
         if ('IntersectionObserver' in window) {
@@ -731,8 +797,14 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
           startConveyor();
         }
 
+        var onViewportChange = function(){ startConveyor(); };
+        if (desktop.addEventListener) desktop.addEventListener('change', onViewportChange);
+        else if (desktop.addListener) desktop.addListener(onViewportChange);
+
+        var convResize;
         window.addEventListener('resize', function(){
-          if (rafId) measure();
+          clearTimeout(convResize);
+          convResize = setTimeout(function(){ if (rafId) { geom = null; measure(); apply(0); } }, 150);
         });
       }
 

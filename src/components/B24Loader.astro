@@ -1,0 +1,27 @@
+---
+import { B24_FORMS, type B24FormKey } from '../lib/b24';
+
+interface Props {
+  form: B24FormKey;
+}
+
+const { form } = Astro.props;
+const b24Form = B24_FORMS[form];
+---
+
+<script
+  is:inline
+  define:vars={{ b24FormId: b24Form.id, b24FormSign: b24Form.sign, b24Loader: b24Form.loader }}
+  data-b24-form={b24Form.id}
+  data-b24-form-telemetry-sign={b24Form.sign}
+  data-skip-moving="true"
+>(function (w, d) {
+  if (!w.__mmB24) w.__mmB24 = {};
+  if (w.__mmB24[b24FormId]) return;
+  w.__mmB24[b24FormId] = true;
+  var s = d.createElement('script');
+  s.async = true;
+  s.src = b24Loader + '?' + (Date.now() / 180000 | 0);
+  var h = d.getElementsByTagName('script')[0];
+  h.parentNode.insertBefore(s, h);
+})(window, document);</script>

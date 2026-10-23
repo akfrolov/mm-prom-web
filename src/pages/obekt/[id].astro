@@ -4,6 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ObjectCard from '../../components/ObjectCard.astro';
+import SiteButton from '../../components/SiteButton.astro';
 
 // Страница объекта /obekt/<id>/ (SPEC object-pages, блоки B1/B2).
 // Брендбуки /atlas-garazhnyj/ и /avrora-vitebskij/ — отдельные маршруты фичи
@@ -74,12 +75,6 @@ const singlePhoto = photoList.length === 1;
 const caption = d.media?.caption && singlePhoto ? d.media.caption : '';
 const ctaTitle = d.cta?.title ?? 'Нужна консультация по объекту?';
 const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуникациям и срокам заезда. Покажем объект в удобное время.';
-// Механика формы №34 — click-вариант (loader_34.js подключён в хвосте BaseLayout).
-const b24Attrs = {
-  'data-b24-form': 'click/34/0ph3wy',
-  'data-b24-form-telemetry-sign':
-    'v1:34:site.b62d3cf56414758a8a11ec9af534ac54810f3b8241a479ddb796adfd2f3d5e4c',
-};
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} ogImage={ogImage}>
@@ -349,7 +344,7 @@ const b24Attrs = {
           <h2>{ctaTitle}</h2>
           <p class="cta-card__text">{ctaText}</p>
           <div class="cta-form">
-            <button class="btn btn--purple" type="button" {...b24Attrs}>Оставить заявку</button>
+            <SiteButton variant="purple" b24="request">Оставить заявку</SiteButton>
             {d.cta?.href && d.cta?.label && (
               <a class="btn btn--outline" href={d.cta.href}>{d.cta.label}</a>
             )}
@@ -360,7 +355,7 @@ const b24Attrs = {
         </div>
 
         <div class="cta-bar">
-          <button class="btn btn--purple" type="button" {...b24Attrs}>Оставить заявку</button>
+          <SiteButton variant="purple" b24="request">Оставить заявку</SiteButton>
           <a class="btn btn--outline" href="tel:88003331010">Позвонить</a>
         </div>
       </section>

@@ -539,7 +539,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
         <h1>Трейд-ин / Срочный <span class="accent">выкуп</span></h1>
         <p class="b-hero__lead">Принимаем ваш актив — здание, земельный участок или оборудование — и зачитываем его стоимость при приобретении нового объекта. Вам не придётся тратить время на поиск покупателя, торги и согласование условий: мы берём эти задачи на себя. Варианты обмена гибкие: например, здание можно зачесть в счёт земельного участка и наоборот — мы подстроимся под ваши цели и особенности активов.</p>
         <div class="b-hero__actions">
-          <SiteButton variant="gold" href="/modalka-zayavki/">Обсудить проект</SiteButton>
+          <SiteButton variant="gold" b24="offer">Обсудить проект</SiteButton>
           <SiteButton variant="outline" href="/katalog/">Смотреть объекты</SiteButton>
         </div>
         <ul class="b-hero__metrics"><li><span class="material-symbols-outlined" aria-hidden="true">verified</span><span>с 2011 года</span></li><li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>200 000+ м²</span></li><li><span class="material-symbols-outlined" aria-hidden="true">apartment</span><span>25+ проектов</span></li><li><span class="material-symbols-outlined" aria-hidden="true">groups</span><span>150+ резидентов</span></li></ul>
@@ -654,7 +654,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     <script is:inline src="/assets/svc-map.js?v=1" defer></script>
 
   <CtaBand variant="grad" id="cta" secIndex="07" heading="Хотите обменять актив на новый формат или продать его срочно?" lede="Расскажите, что у вас есть и что вы хотели бы получить взамен, — мы подберём оптимальное решение." buttons={[
-          { variant: "gold", href: "/modalka-zayavki/", label: "Оставить заявку" },
+          { variant: "gold", b24: "request", label: "Оставить заявку" },
           { variant: "ghost-light", href: "/katalog/", label: "Смотреть объекты" }
         ]} />
 

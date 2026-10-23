@@ -519,7 +519,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
         <h1>Продажа <span class="accent">промышленной</span> недвижимости</h1>
         <p class="b-hero__lead">Подберем покупателя на ваш объект или найдем площадку для развития вашего производства или инвестиций.</p>
         <div class="b-hero__actions">
-          <SiteButton variant="gold" href="/modalka-zayavki/">Обсудить проект</SiteButton>
+          <SiteButton variant="gold" b24="offer">Обсудить проект</SiteButton>
           <SiteButton variant="outline" href="/katalog/">Смотреть объекты</SiteButton>
         </div>
         <ul class="b-hero__metrics"><li><span class="material-symbols-outlined" aria-hidden="true">verified</span><span>с 2011 года</span></li><li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>200 000+ м²</span></li><li><span class="material-symbols-outlined" aria-hidden="true">apartment</span><span>25+ проектов</span></li><li><span class="material-symbols-outlined" aria-hidden="true">groups</span><span>150+ резидентов</span></li></ul>
@@ -641,7 +641,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     <script is:inline src="/assets/svc-map.js?v=1" defer></script>
 
   <CtaBand variant="grad" id="cta" secIndex="07" heading="Обсудим вашу задачу" lede="Оставьте заявку, и мы свяжемся с вами в течение рабочего дня, чтобы обсудить вашу задачу." buttons={[
-          { variant: "gold", href: "/modalka-zayavki/", label: "Оставить заявку" },
+          { variant: "gold", b24: "request", label: "Оставить заявку" },
           { variant: "ghost-light", href: "/katalog/", label: "Смотреть объекты" }
         ]} />
 

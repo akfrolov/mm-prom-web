@@ -520,7 +520,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
         <p class="b-hero__lead">Сдадим ваш объект надежным арендаторам или найдем готовую площадку для запуска вашего предприятия.</p>
         <p class="b-hero__lead">ГК «ММ ПРОМ» сопровождает сделки аренды промышленной недвижимости. Мы знаем, что для владельца важно сохранить актив и получать стабильный доход, а для арендатора — быстро запустить процессы без риска внезапного расторжения договора.</p>
         <div class="b-hero__actions">
-          <SiteButton variant="gold" href="/modalka-zayavki/">Обсудить проект</SiteButton>
+          <SiteButton variant="gold" b24="offer">Обсудить проект</SiteButton>
           <SiteButton variant="outline" href="/katalog/">Смотреть объекты</SiteButton>
         </div>
         <ul class="b-hero__metrics"><li><span class="material-symbols-outlined" aria-hidden="true">verified</span><span>с 2011 года</span></li><li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>200 000+ м²</span></li><li><span class="material-symbols-outlined" aria-hidden="true">apartment</span><span>25+ проектов</span></li><li><span class="material-symbols-outlined" aria-hidden="true">groups</span><span>150+ резидентов</span></li></ul>
@@ -646,7 +646,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     <script is:inline src="/assets/svc-map.js?v=1" defer></script>
 
   <CtaBand variant="grad" id="cta" secIndex="07" heading="Связаться с экспертом" lede="Оставьте заявку, и мы свяжемся с вами в течение рабочего дня, чтобы подобрать площадку или найти арендатора на ваш объект." buttons={[
-          { variant: "gold", href: "/modalka-zayavki/", label: "Связаться с экспертом" },
+          { variant: "gold", b24: "offer", label: "Связаться с экспертом" },
           { variant: "ghost-light", href: "/katalog/", label: "Смотреть объекты" }
         ]} />
 
