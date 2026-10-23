@@ -65,7 +65,7 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
     .b-hero__eyebrow{display:inline-flex;align-items:center;gap:10px;margin:0 0 20px;font-size:var(--fs-small);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple)}
     .b-hero__eyebrow::before{content:"";width:34px;height:3px;border-radius:2px;background:var(--gold)}
     .b-hero h1{color:var(--navy);margin-bottom:.35em}
-    .b-hero h1 .accent{color:var(--purple)}
+    .b-hero h1 .accent{color:var(--purple);white-space:nowrap}
     .b-hero__lead{color:var(--text-muted);max-width:56ch;font-size:1.08em}
     .b-hero__actions{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0 28px}
     .b-hero__metrics{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:22px 18px}
@@ -486,7 +486,7 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
         </div>
         <div class="b-services__card reveal">
           <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">swap_horiz</span></span>
-          <h3>Trade-in</h3>
+          <h3>Трейд-ин</h3>
           <p>Обмен и оптимизация портфеля вашей промышленной недвижимости</p>
         </div>
       </div>
@@ -531,11 +531,11 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
     <div class="container">
       <p class="sec-index" aria-hidden="true">05</p>
       <h2>Стандарты строительства</h2>
-      <p style="max-width:58ch;color:var(--text-muted)">Контроль качества на всех этапах строительства. Контроль качества на всех этапах реализации индустриальных проектов. Сопровождение нашей командой экспертов</p>
+      <p style="max-width:58ch;color:var(--text-muted)">Контролируем качество на каждом этапе — от проектирования до ввода в эксплуатацию. Строительство ведёт наша команда экспертов.</p>
       <div class="b-split">
         <figure class="b-media b-split__media reveal">
           <img src="/assets/external/quality.avif" alt="Строительство индустриального объекта под контролем ММ Пром" loading="lazy">
-          <figcaption>Контроль качества на всех этапах строительства</figcaption>
+          <figcaption>Строительство по промышленным стандартам</figcaption>
         </figure>
         <ul class="b-split__list">
           <li class="b-split__item reveal">
@@ -703,8 +703,8 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
         });
       }
 
-      /* Конвейер: бегунок движется от центра первого этапа до центра
-         последнего; этап подсвечивается ровно в момент прохода его центра.
+      /* Конвейер: бегунок движется от левого края блока до правого;
+         этап подсвечивается ровно в момент прохода его центра.
          Геометрия меряется один раз, движение — через transform (без
          пересчёта layout в каждом кадре), поэтому анимация не дёргается. */
       var conveyor = document.querySelector('.b-conveyor');
@@ -726,13 +726,8 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
             var r = step.getBoundingClientRect();
             centers.push(r.left - convRect.left + r.width / 2);
           });
-          var startX = Math.max(0, centers[0] - runnerW / 2);
-          var endX = Math.min(convRect.width - runnerW, centers[centers.length - 1] - runnerW / 2);
-          var line = conveyor.querySelector('.b-conveyor__line');
-          if (line) {
-            line.style.left = startX + 'px';
-            line.style.right = (convRect.width - endX - runnerW) + 'px';
-          }
+          var startX = 0;
+          var endX = Math.max(0, convRect.width - runnerW);
           geom = { startX: startX, endX: endX, centers: centers, runnerW: runnerW };
         };
 
