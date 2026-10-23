@@ -495,7 +495,7 @@ const mapObjects = objects.map(({ id, data }) => ({
     .cat-active__chip:hover{background:var(--purple);color:#fff}
 
     /* ── Выдача ──────────────────────────────────────────────────────── */
-    .cat-results{padding:26px 0 0}
+    .cat-results{padding:26px 0 clamp(48px,6vw,72px)}
     .cat-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
     .cat-bar__count{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
     .cat-bar__count strong{color:var(--text);font-size:1.05rem}
