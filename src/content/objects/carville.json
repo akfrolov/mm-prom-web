@@ -32,9 +32,9 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/objects/carville/cover.jpg",
+  "image": "/assets/objects/carville/cover.webp",
   "images": [
-    "/assets/objects/carville/cover.jpg"
+    "/assets/objects/carville/cover.webp"
   ],
   "coords": [
     59.6785,

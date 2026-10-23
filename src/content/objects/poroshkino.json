@@ -32,9 +32,9 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/objects/poroshkino/cover.jpg",
+  "image": "/assets/objects/poroshkino/cover.webp",
   "images": [
-    "/assets/objects/poroshkino/cover.jpg"
+    "/assets/objects/poroshkino/cover.webp"
   ],
   "coords": [
     60.1077,

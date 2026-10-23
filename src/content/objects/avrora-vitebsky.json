@@ -52,12 +52,12 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/objects/avrora-vitebsky/cover.jpg",
+  "image": "/assets/objects/avrora-vitebsky/cover.webp",
   "images": [
-    "/assets/objects/avrora-vitebsky/cover.jpg",
-    "/assets/objects/avrora-vitebsky/2.jpg",
-    "/assets/objects/avrora-vitebsky/3.jpg",
-    "/assets/objects/avrora-vitebsky/4.jpg"
+    "/assets/objects/avrora-vitebsky/cover.webp",
+    "/assets/objects/avrora-vitebsky/2.webp",
+    "/assets/objects/avrora-vitebsky/3.webp",
+    "/assets/objects/avrora-vitebsky/4.webp"
   ],
   "external": "/avrora-vitebskij/",
   "coords": [

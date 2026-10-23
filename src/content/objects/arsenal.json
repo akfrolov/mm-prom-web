@@ -47,9 +47,9 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/objects/arsenal/cover.jpg",
+  "image": "/assets/objects/arsenal/cover.webp",
   "images": [
-    "/assets/objects/arsenal/cover.jpg"
+    "/assets/objects/arsenal/cover.webp"
   ],
   "external": "",
   "coords": [

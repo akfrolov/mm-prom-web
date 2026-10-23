@@ -88,7 +88,7 @@ land-volosovo).
 |--------|-------|----------|
 | invest-platforma.com (22 файла) | arsenal, business-park-113, fedorovskoe, gorigo, lagolovo, land-koltushi (image + media-thumb), land-volosovo (image + media-thumb), light-industrial-razmetelevo, luch, novotroitsky, predportovy, promboks2, pushkin, razbegaevo, salova, varshavskaya, volhonskoe, volhov, voyskovitsy, voyskovitsy-park, yanino, zaozernaya | прямые URL фото/превью |
 | mm-prom.ru/wp-content (3 файла) | antares (`…/2026/05/cases03.avif`), atlas-garazhny (`…/2026/09/image-14-09-26-…-scaled-optimized.png`), avrora-vitebsky (`…/2026/05/garage.avif`) | прямые URL |
-| локальные пути (2 файла) | land-tervolovo → `/tervolovo.jpg`, parnas → `/parnas.png` | файлы из `public/` |
+| локальные пути (2 файла) | land-tervolovo → `/tervolovo.webp`, parnas → `/parnas.webp` | файлы из `public/` |
 
 ### 4.1 Карта invest-platforma → локальные файлы (`map-external.tsv`)
 
@@ -103,11 +103,11 @@ land-volosovo).
 
 | URL в JSON | Где | Локальная копия на данный момент |
 |------------|-----|----------------------------------|
-| `invest-platforma.com/images/cms/thumbs/ae2e0043…/osnovnaya_585_403_png_5_80.png` | `image` voyskovitsy и voyskovitsy-park | файла нет; в `public/assets/objects/voyskovitsy/cover.jpg` есть фото объекта |
-| `invest-platforma.com/images/cms/thumbs/9da23208…/zu_koltushi_277_191_png_5_80.png` | `media.src` land-koltushi | `public/assets/external/2e4cd858-zu_koltushi_277_191_png_5_80.png` |
+| `invest-platforma.com/images/cms/thumbs/ae2e0043…/osnovnaya_585_403_png_5_80.png` | `image` voyskovitsy и voyskovitsy-park | файла нет; в `public/assets/objects/voyskovitsy/cover.webp` есть фото объекта |
+| `invest-platforma.com/images/cms/thumbs/9da23208…/zu_koltushi_277_191_png_5_80.png` | `media.src` land-koltushi | `public/assets/external/2e4cd858-zu_koltushi_277_191_png_5_80.webp` |
 | `invest-platforma.com/images/cms/thumbs/81456c67…/vid_sverhu_277_191_jpg_5_80.jpg` | `media.src` land-volosovo | `public/assets/external/097ecd19-vid_sverhu_277_191_jpg_5_80.jpg` |
 | `mm-prom.ru/wp-content/uploads/2026/05/cases03.avif` | `image` + `media.src` antares | `public/assets/external/9d4c4a14-cases03.avif` |
-| `mm-prom.ru/wp-content/uploads/2026/09/image-14-09-26-10-33-1-scaled-optimized.png` | `image` + `media.src` atlas-garazhny | `public/assets/external/ade44b54-image-14-09-26-10-33-1-scaled-optimized.png` |
+| `mm-prom.ru/wp-content/uploads/2026/09/image-14-09-26-10-33-1-scaled-optimized.png` | `image` + `media.src` atlas-garazhny | `public/assets/external/ade44b54-image-14-09-26-10-33-1-scaled-optimized.webp` |
 | `mm-prom.ru/wp-content/uploads/2026/05/garage.avif` | `image` + `media.src` avrora-vitebsky | `public/assets/external/7da0587c-garage.avif` |
 | `mm-prom.ru/atlas-garazhnyj/`, `mm-prom.ru/avrora-vitebskij/` | `external` брендбуков (не фото — ссылки на страницы) | копия не нужна — целевое поведение: внутренние маршруты (§6) |
 
@@ -161,7 +161,7 @@ district, desc, specs, price, image, external, coords, busy } (инжект в
      `097ecd19-…` (или соответствующие локальные ассеты);
    - `mm-prom.ru/wp-content` ×3 → локальные копии `9d4c4a14-`, `ade44b54-`,
      `7da0587c-`;
-   - voyskovitsy / voyskovitsy-park → `public/assets/objects/voyskovitsy/cover.jpg`.
+   - voyskovitsy / voyskovitsy-park → `public/assets/objects/voyskovitsy/cover.webp`.
    Критерий итогового состояния: в `src/content/objects/*.json` нет ссылок на
    `invest-platforma.com` и `mm-prom.ru/wp-content`.
 
@@ -194,7 +194,7 @@ district, desc, specs, price, image, external, coords, busy } (инжект в
 
 1. **voyskovitsy / voyskovitsy-park**: URL-превью не в карте и без локальной
    копии; в качестве целевого `image` предложен
-   `/assets/objects/voyskovitsy/cover.jpg` (уже скачан импортом).
+   `/assets/objects/voyskovitsy/cover.webp` (уже скачан импортом).
 2. **media-thumbs Колтушей/Волосово и фото antares/atlas/avrora**: локальные
    копии существуют под hash-префиксами схемы `inv-*`/`<sha1-8>-*` в
    `public/assets/external/`; целевые пути в JSON — эти файлы, без переименования.

@@ -32,9 +32,9 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/objects/bogatyr/cover.jpg",
+  "image": "/assets/objects/bogatyr/cover.webp",
   "images": [
-    "/assets/objects/bogatyr/cover.jpg"
+    "/assets/objects/bogatyr/cover.webp"
   ],
   "coords": [
     59.9993,

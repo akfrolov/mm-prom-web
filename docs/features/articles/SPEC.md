@@ -157,10 +157,10 @@ PNG из `docs/notes` копируются при реализации B1 в `pu
 
 | Целевой файл | Из исходника (docs/notes) |
 |--------------|---------------------------|
-| `public/assets/articles/kuda-vygodno-investirovat.png` | «Куда выгодно инвестировать в недвижимость.png» |
-| `public/assets/articles/promyshlennaya-ipoteka-probuksovyvaet.png` | «Промышленная ипотека пробуксовывает.png» |
-| `public/assets/articles/razbor-trendov-promyshlennoj-nedvizhimosti.png` | «Разбор трендов промышленной недвижимости.png» |
-| `public/assets/articles/stroitelnyj-rynok-pod-davleniem.png` | «Строительный рынок под давлением.png» |
+| `public/assets/articles/kuda-vygodno-investirovat.webp` | «Куда выгодно инвестировать в недвижимость.png» |
+| `public/assets/articles/promyshlennaya-ipoteka-probuksovyvaet.webp` | «Промышленная ипотека пробуксовывает.png» |
+| `public/assets/articles/razbor-trendov-promyshlennoj-nedvizhimosti.webp` | «Разбор трендов промышленной недвижимости.png» |
+| `public/assets/articles/stroitelnyj-rynok-pod-davleniem.webp` | «Строительный рынок под давлением.png» |
 
 Подключение — с cache-busting `?v=1` (правило 6 AGENTS.md). Обложка
 используется: карточка списка, шапка статьи, `og:image` статьи.

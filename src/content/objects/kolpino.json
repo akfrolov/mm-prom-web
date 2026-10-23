@@ -52,11 +52,11 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/objects/kolpino/cover.jpg",
+  "image": "/assets/objects/kolpino/cover.webp",
   "images": [
-    "/assets/objects/kolpino/cover.jpg",
-    "/assets/objects/kolpino/2.jpg",
-    "/assets/objects/kolpino/3.jpg"
+    "/assets/objects/kolpino/cover.webp",
+    "/assets/objects/kolpino/2.webp",
+    "/assets/objects/kolpino/3.webp"
   ],
   "external": "",
   "coords": [

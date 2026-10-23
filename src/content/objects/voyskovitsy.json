@@ -54,9 +54,9 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/objects/voyskovitsy/cover.jpg",
+  "image": "/assets/objects/voyskovitsy/cover.webp",
   "images": [
-    "/assets/objects/voyskovitsy/cover.jpg"
+    "/assets/objects/voyskovitsy/cover.webp"
   ],
   "external": "",
   "coords": [

@@ -54,9 +54,9 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/objects/promboks2/cover.jpg",
+  "image": "/assets/objects/promboks2/cover.webp",
   "images": [
-    "/assets/objects/promboks2/cover.jpg"
+    "/assets/objects/promboks2/cover.webp"
   ],
   "external": "",
   "coords": [

@@ -69,7 +69,7 @@
 ## 7. Решения агента (принять/скорректировать на ревью)
 
 - Целевой `image` voyskovitsy/voyskovitsy-park —
-  `/assets/objects/voyskovitsy/cover.jpg` (превью не в карте, локальной копии
+  `/assets/objects/voyskovitsy/cover.webp` (превью не в карте, локальной копии
   thumb нет).
 - Целевые пути к фото antares/atlas/avrora и media-thumbs — существующие
   файлы `public/assets/external/` под hash-префиксами

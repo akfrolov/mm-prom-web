@@ -32,9 +32,9 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/objects/mashopttorg/cover.jpg",
+  "image": "/assets/objects/mashopttorg/cover.webp",
   "images": [
-    "/assets/objects/mashopttorg/cover.jpg"
+    "/assets/objects/mashopttorg/cover.webp"
   ],
   "coords": [
     59.9329,

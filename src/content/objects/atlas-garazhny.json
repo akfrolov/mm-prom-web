@@ -59,12 +59,12 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/objects/atlas-garazhny/cover.jpg",
+  "image": "/assets/objects/atlas-garazhny/cover.webp",
   "images": [
-    "/assets/objects/atlas-garazhny/cover.jpg",
-    "/assets/objects/atlas-garazhny/2.jpg",
-    "/assets/objects/atlas-garazhny/3.jpg",
-    "/assets/objects/atlas-garazhny/4.jpg"
+    "/assets/objects/atlas-garazhny/cover.webp",
+    "/assets/objects/atlas-garazhny/2.webp",
+    "/assets/objects/atlas-garazhny/3.webp",
+    "/assets/objects/atlas-garazhny/4.webp"
   ],
   "external": "/atlas-garazhnyj/",
   "coords": [
@@ -79,7 +79,7 @@
   "link": "/atlas-garazhnyj/",
   "presentation": "/gejt-broshury/",
   "media": {
-    "src": "/assets/external/ade44b54-image-14-09-26-10-33-1-scaled-optimized.png",
+    "src": "/assets/external/ade44b54-image-14-09-26-10-33-1-scaled-optimized.webp",
     "alt": "Атлас Гаражный — технопарк",
     "caption": "Атлас Гаражный — современный технопарк"
   },

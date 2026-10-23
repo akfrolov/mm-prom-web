@@ -47,10 +47,10 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/objects/nevelskaya/cover.jpg",
+  "image": "/assets/objects/nevelskaya/cover.webp",
   "images": [
-    "/assets/objects/nevelskaya/cover.jpg",
-    "/assets/objects/nevelskaya/2.jpg"
+    "/assets/objects/nevelskaya/cover.webp",
+    "/assets/objects/nevelskaya/2.webp"
   ],
   "external": "",
   "coords": [

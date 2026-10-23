@@ -52,11 +52,11 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/objects/tervolovo/cover.jpg",
+  "image": "/assets/objects/tervolovo/cover.webp",
   "images": [
-    "/assets/objects/tervolovo/cover.jpg",
-    "/assets/objects/tervolovo/2.jpg",
-    "/assets/objects/tervolovo/3.jpg",
+    "/assets/objects/tervolovo/cover.webp",
+    "/assets/objects/tervolovo/2.webp",
+    "/assets/objects/tervolovo/3.webp",
     "/assets/objects/tervolovo/4.jpg"
   ],
   "external": "",
@@ -70,7 +70,7 @@
   "badgeLabel": "Земельный участок",
   "badgeClass": "badge--park",
   "media": {
-    "src": "/tervolovo.jpg",
+    "src": "/tervolovo.webp",
     "alt": "Земельный участок в Терволово",
     "caption": "Земельный участок в Терволово"
   },

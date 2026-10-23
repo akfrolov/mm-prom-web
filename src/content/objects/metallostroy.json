@@ -52,9 +52,9 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/objects/metallostroy/cover.jpg",
+  "image": "/assets/objects/metallostroy/cover.webp",
   "images": [
-    "/assets/objects/metallostroy/cover.jpg"
+    "/assets/objects/metallostroy/cover.webp"
   ],
   "external": "",
   "coords": [

@@ -44,12 +44,12 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/objects/antares/cover.jpg",
+  "image": "/assets/objects/antares/cover.webp",
   "images": [
-    "/assets/objects/antares/cover.jpg",
-    "/assets/objects/antares/2.jpg",
-    "/assets/objects/antares/3.jpg",
-    "/assets/objects/antares/4.jpg"
+    "/assets/objects/antares/cover.webp",
+    "/assets/objects/antares/2.webp",
+    "/assets/objects/antares/3.webp",
+    "/assets/objects/antares/4.webp"
   ],
   "external": "",
   "coords": [

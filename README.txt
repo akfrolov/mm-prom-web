@@ -61,7 +61,9 @@ staging (noindex): MMPROM_ENV=staging ASTRO_SITE=<staging-домен> npm run bu
   брендбуки — второй); на брендбуках код карты с guard-проверкой и без
   контейнера (мёртвый код, паритет с исходником).
 - Фотографии объектов — прямые ссылки invest-platforma.com / mm-prom.ru;
-  локальные — /parnas.png, /tervolovo.jpg.
+  локальные — /parnas.webp, /tervolovo.webp (у каждого .webp/.avif есть
+  .jpg-двойник; BaseLayout подменяет src на .jpg при ошибке загрузки,
+  og:image всегда отдаётся в .jpg/PNG).
 - Анимации отключаются при системной настройке «уменьшить движение».
 - Известные битые ссылки (до плана форм заявок): /modalka-zayavki/,
   /kartochka-obekta/, /gejt-broshury/, /gejt-tz/.

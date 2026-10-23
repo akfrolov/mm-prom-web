@@ -34,9 +34,9 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/objects/pulkovo/cover.jpg",
+  "image": "/assets/objects/pulkovo/cover.webp",
   "images": [
-    "/assets/objects/pulkovo/cover.jpg"
+    "/assets/objects/pulkovo/cover.webp"
   ],
   "coords": [
     59.7305,

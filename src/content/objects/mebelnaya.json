@@ -32,9 +32,9 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/objects/mebelnaya/cover.jpg",
+  "image": "/assets/objects/mebelnaya/cover.webp",
   "images": [
-    "/assets/objects/mebelnaya/cover.jpg"
+    "/assets/objects/mebelnaya/cover.webp"
   ],
   "coords": [
     59.9952,

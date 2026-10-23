@@ -21,8 +21,8 @@ export const projects: ProjectData[] = [
     "note": "",
     "inProgress": false,
     "images": [
-      "/assets/projects/rus-telkom/1.jpg",
-      "/assets/projects/rus-telkom/2.jpg"
+      "/assets/projects/rus-telkom/1.webp",
+      "/assets/projects/rus-telkom/2.webp"
     ],
       "highlights": ["Общая площадь: 4 008 м²", "Участок: 10 499 м²", "Этажей: 3"],
     "type": "Строительство",
@@ -54,8 +54,8 @@ export const projects: ProjectData[] = [
     "note": "",
     "inProgress": false,
     "images": [
-      "/assets/projects/agp/1.jpg",
-      "/assets/projects/agp/2.jpg"
+      "/assets/projects/agp/1.webp",
+      "/assets/projects/agp/2.webp"
     ],
       "highlights": ["Общая площадь: 22 107 м²", "Участок: 30 700 м²"],
     "type": "Проектирование",
@@ -93,14 +93,14 @@ export const projects: ProjectData[] = [
     "note": "",
     "inProgress": false,
     "images": [
-      "/assets/projects/karlino/1.jpg",
-      "/assets/projects/karlino/2.jpg",
-      "/assets/projects/karlino/3.jpg",
-      "/assets/projects/karlino/4.jpg",
-      "/assets/projects/karlino/5.jpg",
-      "/assets/projects/karlino/6.jpg",
-      "/assets/projects/karlino/7.jpg",
-      "/assets/projects/karlino/8.jpg"
+      "/assets/projects/karlino/1.webp",
+      "/assets/projects/karlino/2.webp",
+      "/assets/projects/karlino/3.webp",
+      "/assets/projects/karlino/4.webp",
+      "/assets/projects/karlino/5.webp",
+      "/assets/projects/karlino/6.webp",
+      "/assets/projects/karlino/7.webp",
+      "/assets/projects/karlino/8.webp"
     ],
       "highlights": ["Общая площадь: 24 224 м²", "Участок: 48 841 м²"],
     "type": "Строительство",
@@ -152,12 +152,12 @@ export const projects: ProjectData[] = [
     "note": "",
     "inProgress": false,
     "images": [
-      "/assets/projects/dikom/1.jpg",
-      "/assets/projects/dikom/2.jpg",
-      "/assets/projects/dikom/3.jpg",
-      "/assets/projects/dikom/4.jpg",
-      "/assets/projects/dikom/5.jpg",
-      "/assets/projects/dikom/6.jpg"
+      "/assets/projects/dikom/1.webp",
+      "/assets/projects/dikom/2.webp",
+      "/assets/projects/dikom/3.webp",
+      "/assets/projects/dikom/4.webp",
+      "/assets/projects/dikom/5.webp",
+      "/assets/projects/dikom/6.webp"
     ],
       "highlights": ["Здание 2 этапа: 7 997 м²", "Участок: 14 359 м²"],
     "type": "Строительство",
@@ -190,10 +190,10 @@ export const projects: ProjectData[] = [
     "note": "Объект культурного наследия регионального значения: ремонт, реставрация и приспособление для современного использования",
     "inProgress": false,
     "images": [
-      "/assets/projects/olda/1.jpg",
-      "/assets/projects/olda/2.jpg",
-      "/assets/projects/olda/3.jpg",
-      "/assets/projects/olda/4.jpg"
+      "/assets/projects/olda/1.webp",
+      "/assets/projects/olda/2.webp",
+      "/assets/projects/olda/3.webp",
+      "/assets/projects/olda/4.webp"
     ],
       "highlights": ["Общая площадь: 4 119 м²", "Этажей: 6, в том числе подземных — 1"],
     "type": "Реконструкция",
@@ -224,14 +224,14 @@ export const projects: ProjectData[] = [
     "note": "Реконструкция производственного здания",
     "inProgress": true,
     "images": [
-      "/assets/projects/spv-tsekh/1.jpg",
-      "/assets/projects/spv-tsekh/2.jpg",
-      "/assets/projects/spv-tsekh/3.jpg",
-      "/assets/projects/spv-tsekh/4.jpg",
-      "/assets/projects/spv-tsekh/5.jpg",
-      "/assets/projects/spv-tsekh/6.jpg",
-      "/assets/projects/spv-tsekh/7.jpg",
-      "/assets/projects/spv-tsekh/8.jpg"
+      "/assets/projects/spv-tsekh/1.webp",
+      "/assets/projects/spv-tsekh/2.webp",
+      "/assets/projects/spv-tsekh/3.webp",
+      "/assets/projects/spv-tsekh/4.webp",
+      "/assets/projects/spv-tsekh/5.webp",
+      "/assets/projects/spv-tsekh/6.webp",
+      "/assets/projects/spv-tsekh/7.webp",
+      "/assets/projects/spv-tsekh/8.webp"
     ],
       "highlights": ["Площадь основного здания: 10 537 м²", "Этажей: 4 + технический"],
     "type": "Реконструкция",
@@ -269,8 +269,8 @@ export const projects: ProjectData[] = [
     "note": "",
     "inProgress": true,
     "images": [
-      "/assets/projects/spv-technopark/1.jpg",
-      "/assets/projects/spv-technopark/2.jpg"
+      "/assets/projects/spv-technopark/1.webp",
+      "/assets/projects/spv-technopark/2.webp"
     ],
       "highlights": ["Общая площадь: 8 772 м²", "Участок: 6 690 м²"],
     "type": "Строительство",

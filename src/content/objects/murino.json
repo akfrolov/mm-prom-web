@@ -57,12 +57,12 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/objects/murino/cover.jpg",
+  "image": "/assets/objects/murino/cover.webp",
   "images": [
-    "/assets/objects/murino/cover.jpg",
-    "/assets/objects/murino/2.jpg",
-    "/assets/objects/murino/3.jpg",
-    "/assets/objects/murino/4.jpg"
+    "/assets/objects/murino/cover.webp",
+    "/assets/objects/murino/2.webp",
+    "/assets/objects/murino/3.webp",
+    "/assets/objects/murino/4.webp"
   ],
   "external": "",
   "coords": [

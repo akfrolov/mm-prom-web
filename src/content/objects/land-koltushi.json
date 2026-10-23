@@ -37,9 +37,9 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/external/inv-eed837bf-zu_koltushi.png",
+  "image": "/assets/external/inv-eed837bf-zu_koltushi.webp",
   "images": [
-    "/assets/external/inv-eed837bf-zu_koltushi.png"
+    "/assets/external/inv-eed837bf-zu_koltushi.webp"
   ],
   "external": "",
   "coords": [
@@ -52,7 +52,7 @@
   "badgeLabel": "Земельный участок",
   "badgeClass": "badge--park",
   "media": {
-    "src": "/assets/external/2e4cd858-zu_koltushi_277_191_png_5_80.png",
+    "src": "/assets/external/2e4cd858-zu_koltushi_277_191_png_5_80.webp",
     "alt": "Земельный участок в Колтушах",
     "caption": "Земельный участок в Колтушах"
   },

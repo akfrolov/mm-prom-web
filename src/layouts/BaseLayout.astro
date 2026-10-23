@@ -14,7 +14,8 @@ const isProd = process.env.MMPROM_ENV !== 'staging';
 const site = Astro.site ?? new URL('https://mm-prom.ru');
 const canonical = new URL(Astro.url.pathname, site).href;
 const robots = !isProd || noindex ? 'noindex, follow' : 'index, follow';
-const ogImage = ogImageProp ? new URL(ogImageProp, site).href : new URL('/mmprom-logo.png', site).href;
+const ogImageRaw = ogImageProp ? new URL(ogImageProp, site).href : new URL('/mmprom-logo.png', site).href;
+const ogImage = ogImageRaw.replace(/\.(webp|avif)$/i, '.jpg');
 const metrika = `<script>
 (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
 m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
@@ -30,6 +31,16 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{title}</title>
     <meta name="description" content={description}>
+    <script is:inline>
+      document.addEventListener('error', function (e) {
+        var img = e.target;
+        if (!img || img.tagName !== 'IMG' || img.dataset.fb) return;
+        if (!/\.(webp|avif)(?=\?|$)/.test(img.src)) return;
+        e.stopPropagation();
+        img.dataset.fb = '1';
+        img.src = img.src.replace(/\.(webp|avif)(?=\?|$)/, '.jpg');
+      }, true);
+    </script>
     <meta name="robots" content={robots}>
     <link rel="icon" type="image/png" href="/mm-logo.png">
     <link rel="canonical" href={canonical}>

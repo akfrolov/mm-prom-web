@@ -44,13 +44,13 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/objects/rabochaya/cover.jpg",
+  "image": "/assets/objects/rabochaya/cover.webp",
   "images": [
-    "/assets/objects/rabochaya/cover.jpg",
-    "/assets/objects/rabochaya/2.jpg",
-    "/assets/objects/rabochaya/3.jpg",
-    "/assets/objects/rabochaya/4.jpg",
-    "/assets/objects/rabochaya/5.jpg"
+    "/assets/objects/rabochaya/cover.webp",
+    "/assets/objects/rabochaya/2.webp",
+    "/assets/objects/rabochaya/3.webp",
+    "/assets/objects/rabochaya/4.webp",
+    "/assets/objects/rabochaya/5.webp"
   ],
   "external": "",
   "coords": [

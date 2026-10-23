@@ -63,7 +63,7 @@
 - `base` не используем: сайт в корне домена на staging (Pages) и prod (Beget/mm-prom.ru). Все внутренние ссылки и ассеты корневые: `/about/`, `/assets/site-anim.css`, `/mmprom-logo.png`.
 - Маршруты — по канонической таблице; имя файла страницы = слаг (`src/pages/about.astro` и т.д.). id объектов в данных (`atlas-garazhny`, `avrora-vitebsky`) не трогаем.
 - Инлайн-стили остаются в `<head>` страницы (`is:inline`), инлайн-скрипты — `is:inline`; общие скрипты — классикой из `public/assets/`, данные — `window.MMPROM_*` через `define:vars` (подразумевает `is:inline`).
-- Данные объектов: `glob()`, **id = имя файла, поле id в JSON не задаётся** (используется `entry.id`); zod-схема покрывает фильтры каталога: `areaNum` (число, `null` = «по запросу»), `location` enum `spb|lo`, `dealTypes` enum `rent|sale`, `busy` boolean, `price`/`external`/`typeLabel`/`district`, `sort`, опциональные `hero`/`faq`/`cta`; локальные картинки в данных — корневые (`/tervolovo.jpg`, `/parnas.png`).
+- Данные объектов: `glob()`, **id = имя файла, поле id в JSON не задаётся** (используется `entry.id`); zod-схема покрывает фильтры каталога: `areaNum` (число, `null` = «по запросу»), `location` enum `spb|lo`, `dealTypes` enum `rent|sale`, `busy` boolean, `price`/`external`/`typeLabel`/`district`, `sort`, опциональные `hero`/`faq`/`cta`; локальные картинки в данных — корневые (`/tervolovo.webp`, `/parnas.webp`).
 - ObjectCard рендерится ТОЛЬКО на билде; каталог: 27 карточек серверно, фильтрация/сортировка — по data-атрибутам DOM, модалка — из `window.MMPROM_OBJECTS`.
 - Окружения (env-флаг `MMPROM_ENV`: `prod` — дефолт, `staging`): staging-сборка — `ASTRO_SITE=<staging>` + `noindex`, без Метрики, robots без Sitemap-строки; прод-сборка — canonical/OG, Метрика №109764749, robots с `Sitemap: https://mm-prom.ru/sitemap-index.xml`.
 - Битые ссылки не чиним — кебаб-правило + остаются битыми до плана форм.
@@ -92,7 +92,7 @@
 - 2b. Перезапись ссылок и ассетов одним проходом (включая источник будущей шапки/подвала):
   - `href="X.html"` → `href="/<slug>/` по таблице; `href="index.html"` → `href="/"`;
   - битые — кебаб и остаются битыми: `/modalka-zayavki/`, `/kartochka-obekta/`, `/gejt-broshury/`, `/gejt-tz/`;
-  - локальные ассеты в `src`/`href`/CSS `url()`: `assets/…` → `/assets/…`, `mmprom-logo.png` → `/mmprom-logo.png`, `parnas.png` → `/parnas.png`, `tervolovo.jpg` → `/tervolovo.jpg`;
+  - локальные ассеты в `src`/`href`/CSS `url()`: `assets/…` → `/assets/…`, `mmprom-logo.png` → `/mmprom-logo.png`, `parnas.png` → `/parnas.webp`, `tervolovo.jpg` → `/tervolovo.webp`;
   - внешние (mm-prom.ru, Google Fonts, api-maps.yandex.ru, b24-*.bitrix24site.ru) — не трогать.
 - **Пост-чек:** `npm run build` exit 0; каталоги в `dist/` точно соответствуют таблице (21 каталог + корневой `index.html`); `grep -c 'href="[^/"]*\.html"' src/pages/*.astro` — 0; `grep -cE 'href="/[a-z0-9-]*_[a-z0-9-]*/"' src/pages/*.astro` — 0; `grep -cE '(src|href)="(assets|mmprom-logo|parnas|tervolovo)' src/pages/*.astro` — 0; размер страниц сопоставим (±5%).
 - **Валидация:** baseline-скриншоты ДО переноса (Playwright, список docs/REGRESSION.md); после — те же точки через `astro preview` (`/about/`, `/arenda/`…), 8 preflight-страниц отдельным вниманием; консоль без новых ошибок; клик по 2–3 ссылкам меню.
@@ -110,7 +110,7 @@
 
 ### Шаг 4 — данные объектов + ObjectCard + карты
 
-- `src/content/objects/<id>.json` — 27 файлов (id = имя файла; поля id в JSON нет), из `OBJECTS` каталога + поля карточки (badgeLabel/badgeClass, presentation, media, meta) + поля фильтров (`areaNum`, `location`, `dealTypes`, `busy`) + `sort` + опциональные `hero`/`faq`/`cta`; локальные картинки — `/tervolovo.jpg`, `/parnas.png`.
+- `src/content/objects/<id>.json` — 27 файлов (id = имя файла; поля id в JSON нет), из `OBJECTS` каталога + поля карточки (badgeLabel/badgeClass, presentation, media, meta) + поля фильтров (`areaNum`, `location`, `dealTypes`, `busy`) + `sort` + опциональные `hero`/`faq`/`cta`; локальные картинки — `/tervolovo.webp`, `/parnas.webp`.
 - `src/content.config.ts`: `glob({ base: './src/content/objects', pattern: '**/*.json' })` + zod-схема (title/type/typeLabel/dealTypes/area/areaNum/location/address/district/desc/sort обязательны; enum `type`: park|warehouse|production|land; enum `dealTypes`: rent|sale; coords — пара чисел; busy boolean; price/external/image строки; specs/meta массивы; hero/cta опциональны).
 - **Явная таблица «карточка → id»** для 21 заменяемой карточки («Войсковицы» на главной = `voyskovitsy-park`, не `voyskovitsy`; карточки с `kartochka-obekta` мапятся по заголовку). Фиксируется в первом коммите шага.
 - `src/components/ObjectCard.astro`: канон `.obj-card` с медиа; optional-props: `busy` (бейдж), `externalHref`, `showMap` (для каталога), `presentation`; data-атрибуты каталога — из объекта.

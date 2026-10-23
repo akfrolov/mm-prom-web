@@ -27,9 +27,9 @@
     ]
   ],
   "price": "по запросу",
-  "image": "/assets/objects/parnas/cover.jpg",
+  "image": "/assets/objects/parnas/cover.webp",
   "images": [
-    "/assets/objects/parnas/cover.jpg"
+    "/assets/objects/parnas/cover.webp"
   ],
   "external": "",
   "coords": [
@@ -42,7 +42,7 @@
   "badgeLabel": "Производственные площади",
   "badgeClass": "badge--park",
   "media": {
-    "src": "/parnas.png",
+    "src": "/parnas.webp",
     "alt": "Парнас — производственные площади",
     "caption": "Парнас — производственные площади"
   },
