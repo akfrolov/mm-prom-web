@@ -9,8 +9,8 @@
     "rent"
   ],
   "area": "14 000 м²",
-  "areaNum": 14000,
-  "location": "lo",
+  "areaNum": null,
+  "location": "spb",
   "address": "Ленинградская обл., г. Волхов, Порожский проезд, 5А",
   "district": "г. Волхов",
   "desc": "Комплекс 14 000 м² с делением от 5 000 м²: высота 8 м, нагрузка на пол 10 т/м², 8 роллетных ворот.",
@@ -56,8 +56,11 @@
       "охраняемая территория, видеонаблюдение, СКУД, парковка"
     ]
   ],
-  "price": "",
-  "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/volhov/fasad.jpg",
+  "price": "по запросу",
+  "image": "/assets/external/inv-cc24d72b-fasad.jpg",
+  "images": [
+    "/assets/external/inv-cc24d72b-fasad.jpg"
+  ],
   "external": "",
   "coords": [
     59.925,

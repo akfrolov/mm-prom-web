@@ -27,7 +27,7 @@
     ]
   ],
   "price": "",
-  "image": "https://invest-platforma.com/images/cms/thumbs/ae2e004318d552a38fd9d68b1233f3cf3980cc5a/osnovnaya_585_403_png_5_80.png",
+  "image": "/assets/objects/voyskovitsy/cover.jpg",
   "external": "",
   "coords": [
     59.532,
@@ -37,7 +37,6 @@
   "sort": 24,
   "badgeLabel": "Производственные площади",
   "badgeClass": "badge--park",
-  "link": "/kartochka-obekta/",
   "placeholder": "Фото: Войсковицы",
   "cardDesc": "Производственный комплекс в Гатчинском районе",
   "meta": [

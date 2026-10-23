@@ -9,7 +9,7 @@
     "rent"
   ],
   "area": "9 124 м²",
-  "areaNum": 9124,
+  "areaNum": null,
   "location": "spb",
   "address": "Санкт-Петербург, ул. Салова, 56, лит. О",
   "district": "Фрунзенский район",
@@ -46,8 +46,11 @@
       "видеонаблюдение, СКУД, парковка"
     ]
   ],
-  "price": "",
-  "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/salova-56/fasad.jpeg",
+  "price": "по запросу",
+  "image": "/assets/external/inv-966e10ad-fasad.jpeg",
+  "images": [
+    "/assets/external/inv-966e10ad-fasad.jpeg"
+  ],
   "external": "",
   "coords": [
     59.87,

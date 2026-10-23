@@ -9,7 +9,7 @@
     "rent"
   ],
   "area": "15 700 м²",
-  "areaNum": 15700,
+  "areaNum": null,
   "location": "spb",
   "address": "Санкт-Петербург, ул. Заозёрная, 8",
   "district": "Фрунзенский район",
@@ -36,13 +36,16 @@
       "для легкового и грузового транспорта"
     ]
   ],
-  "price": "",
-  "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/zaozerniy/osnovnaya.jpg",
+  "price": "по запросу",
+  "image": "/assets/external/inv-d2ecc661-osnovnaya.jpg",
+  "images": [
+    "/assets/external/inv-d2ecc661-osnovnaya.jpg"
+  ],
   "external": "",
   "coords": [
     59.87,
     30.32
   ],
-  "busy": true,
+  "busy": false,
   "sort": 15
 }

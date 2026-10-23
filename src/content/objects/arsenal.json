@@ -8,8 +8,8 @@
   "dealTypes": [
     "rent"
   ],
-  "area": "по запросу",
-  "areaNum": null,
+  "area": "3 909,7 м²",
+  "areaNum": 3910,
   "location": "spb",
   "address": "Санкт-Петербург, ул. Комсомола, 1-3АГ",
   "district": "Калининский район",
@@ -46,13 +46,16 @@
       "видеонаблюдение, СКУД, парковка"
     ]
   ],
-  "price": "",
-  "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/arsenal/fasad.jpg",
+  "price": "по запросу",
+  "image": "/assets/external/inv-637bfb77-fasad.jpg",
+  "images": [
+    "/assets/external/inv-637bfb77-fasad.jpg"
+  ],
   "external": "",
   "coords": [
     59.955,
     30.36
   ],
-  "busy": true,
+  "busy": false,
   "sort": 10
 }

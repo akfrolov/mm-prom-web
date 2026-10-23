@@ -9,11 +9,11 @@
     "sale"
   ],
   "area": "3,6 га",
-  "areaNum": 36000,
-  "location": "lo",
-  "address": "ЛО, Гатчинский м.о., п. Терволово",
+  "areaNum": null,
+  "location": "spb",
+  "address": "Ленинградская область, Гатчинский муниципальный округ, п. Терволово",
   "district": "Гатчинский район",
-  "desc": "Продажа земельного участка — земли сельскохозяйственного назначения.",
+  "desc": "Продажа участка 3,6 га — земли сельскохозяйственного назначения: газ, асфальтированные подъезды, BTS-проект под задачу заказчика.",
   "specs": [
     [
       "square_foot",
@@ -21,13 +21,44 @@
       "3,6 га"
     ],
     [
+      "description",
+      "Назначение",
+      "земли сельскохозяйственного назначения"
+    ],
+    [
+      "local_fire_department",
+      "Газ",
+      "есть"
+    ],
+    [
       "place",
-      "Локация",
-      "Гатчинский муниципальный округ, п. Терволово"
+      "До КАД",
+      "30 минут"
+    ],
+    [
+      "route",
+      "До магистрали Е20",
+      "20 км"
+    ],
+    [
+      "add_road",
+      "Подъезд",
+      "асфальтированные дорожные пути"
+    ],
+    [
+      "construction",
+      "BTS",
+      "строительство по техническому заданию заказчика"
     ]
   ],
-  "price": "",
-  "image": "/tervolovo.jpg",
+  "price": "по запросу",
+  "image": "/assets/objects/tervolovo/cover.jpg",
+  "images": [
+    "/assets/objects/tervolovo/cover.jpg",
+    "/assets/objects/tervolovo/2.jpg",
+    "/assets/objects/tervolovo/3.jpg",
+    "/assets/objects/tervolovo/4.jpg"
+  ],
   "external": "",
   "coords": [
     59.43,
@@ -37,7 +68,6 @@
   "sort": 5,
   "badgeLabel": "Земельный участок",
   "badgeClass": "badge--park",
-  "link": "/katalog/",
   "media": {
     "src": "/tervolovo.jpg",
     "alt": "Земельный участок в Терволово",

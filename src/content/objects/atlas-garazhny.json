@@ -3,37 +3,70 @@
   "type": "park",
   "typeLabel": "Индустриальный парк",
   "deal": [
-    "Аренда"
+    "Аренда",
+    "Продажа"
   ],
   "dealTypes": [
-    "rent"
+    "rent",
+    "sale"
   ],
-  "area": "8 577 м²",
-  "areaNum": 8577,
+  "area": "8 577 м² · 10 719 м²",
+  "areaNum": null,
   "location": "spb",
-  "address": "Санкт-Петербург, промышленная зона Обухово",
-  "district": "Промышленная зона Обухово",
-  "desc": "Современный индустриальный парк в промышленной зоне Обухово: 14 минут до метро пешком, 5 минут до КАД.",
+  "address": "Санкт-Петербург, Гаражный проезд, 1",
+  "district": "промышленная зона Обухово",
+  "desc": "Новый индустриальный парк в 5 минутах от КАД и 1 км от метро: два производственных корпуса — 8 577 м² и 10 719 м².",
   "specs": [
     [
-      "bolt",
-      "Электрическая мощность",
-      "1 МВт, с возможностью увеличения"
+      "square_foot",
+      "Корпус 1",
+      "8 577 м², 3 этажа + АБК 7 этажей"
     ],
     [
       "square_foot",
-      "Предлагаемая площадь",
-      "8 577 м², аренда от 1 300 м²"
+      "Корпус 2",
+      "10 719 м², 5 этажей, включая технический"
+    ],
+    [
+      "precision_manufacturing",
+      "Кран-балки",
+      "10 т и 8 т"
+    ],
+    [
+      "bolt",
+      "Электрическая мощность",
+      "5 МВт, возможно размещение ЦОД"
+    ],
+    [
+      "event_available",
+      "Срок ввода",
+      "2027 год, РНС получено"
     ],
     [
       "place",
-      "Локация",
-      "Промышленная зона Обухово, Санкт-Петербург"
+      "До КАД",
+      "5 минут"
+    ],
+    [
+      "subway",
+      "До метро",
+      "1 км"
+    ],
+    [
+      "handshake",
+      "Форма сделки",
+      "покупка / аренда"
     ]
   ],
-  "price": "",
-  "image": "https://mm-prom.ru/wp-content/uploads/2026/09/image-14-09-26-10-33-1-scaled-optimized.png",
-  "external": "https://mm-prom.ru/atlas-garazhnyj/",
+  "price": "по запросу",
+  "image": "/assets/objects/atlas-garazhny/cover.jpg",
+  "images": [
+    "/assets/objects/atlas-garazhny/cover.jpg",
+    "/assets/objects/atlas-garazhny/2.jpg",
+    "/assets/objects/atlas-garazhny/3.jpg",
+    "/assets/objects/atlas-garazhny/4.jpg"
+  ],
+  "external": "/atlas-garazhnyj/",
   "coords": [
     59.85,
     30.45
@@ -45,7 +78,7 @@
   "link": "/atlas-garazhnyj/",
   "presentation": "/gejt-broshury/",
   "media": {
-    "src": "https://mm-prom.ru/wp-content/uploads/2026/09/image-14-09-26-10-33-1-scaled-optimized.png",
+    "src": "/assets/external/ade44b54-image-14-09-26-10-33-1-scaled-optimized.png",
     "alt": "Атлас Гаражный — индустриальный парк",
     "caption": "Атлас Гаражный — современный индустриальный парк"
   },

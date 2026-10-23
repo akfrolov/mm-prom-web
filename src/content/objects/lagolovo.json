@@ -9,8 +9,8 @@
     "rent"
   ],
   "area": "14 480 м²",
-  "areaNum": 14480,
-  "location": "lo",
+  "areaNum": null,
+  "location": "spb",
   "address": "Ломоносовский р-н, Лаголовское с/п, промзона Восточная, 1",
   "district": "Ломоносовский район",
   "desc": "Комплекс 14 480 м²: склад 9 980 м², мультитемпературный склад 2 100 м², мезонин 2 400 м², высота 11,4 м.",
@@ -51,8 +51,11 @@
       "охраняемая территория, видеонаблюдение, СКУД, парковка"
     ]
   ],
-  "price": "",
-  "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/lagolovo-trend/fasad.jpg",
+  "price": "по запросу",
+  "image": "/assets/external/inv-df1d7590-fasad.jpg",
+  "images": [
+    "/assets/external/inv-df1d7590-fasad.jpg"
+  ],
   "external": "",
   "coords": [
     59.72,

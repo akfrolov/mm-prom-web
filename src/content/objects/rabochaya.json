@@ -1,0 +1,62 @@
+{
+  "title": "Производственный комплекс на Рабочей, 7",
+  "type": "production",
+  "typeLabel": "Производственный комплекс",
+  "deal": [
+    "Аренда",
+    "Продажа"
+  ],
+  "dealTypes": [
+    "rent",
+    "sale"
+  ],
+  "area": "1 960 м² · 1 409 м²",
+  "areaNum": 1960,
+  "location": "spb",
+  "address": "Санкт-Петербург, Красносельский р-н, ул. Рабочая, 7",
+  "district": "Красносельский район",
+  "desc": "Готовая инфраструктура для бизнеса: два производственных объекта, 5 минут до КАД, 10 минут пешком до остановок общественного транспорта.",
+  "specs": [
+    [
+      "square_foot",
+      "Объект 1",
+      "1 960 м², высота до потолка 8,2 м, до фермы 5,8 м"
+    ],
+    [
+      "square_foot",
+      "Объект 2",
+      "1 409 м², высота до фермы 10,2 м, кран-балка 10 т"
+    ],
+    [
+      "handshake",
+      "Форма сделки",
+      "объект 1 — аренда/продажа, объект 2 — покупка (BTS)"
+    ],
+    [
+      "place",
+      "До КАД",
+      "5 минут"
+    ],
+    [
+      "directions_walk",
+      "Транспорт",
+      "10 минут пешком до остановок"
+    ]
+  ],
+  "price": "по запросу",
+  "image": "/assets/objects/rabochaya/cover.jpg",
+  "images": [
+    "/assets/objects/rabochaya/cover.jpg",
+    "/assets/objects/rabochaya/2.jpg",
+    "/assets/objects/rabochaya/3.jpg",
+    "/assets/objects/rabochaya/4.jpg",
+    "/assets/objects/rabochaya/5.jpg"
+  ],
+  "external": "",
+  "coords": [
+    59.83,
+    30.17
+  ],
+  "busy": false,
+  "sort": 27
+}

@@ -9,7 +9,7 @@
     "rent"
   ],
   "area": "2 615 м²",
-  "areaNum": 2615,
+  "areaNum": null,
   "location": "spb",
   "address": "Санкт-Петербург, пр. Металлистов, д. 7",
   "district": "Красногвардейский район",
@@ -51,8 +51,11 @@
       "охраняемая территория, видеонаблюдение, СКУД, парковка"
     ]
   ],
-  "price": "",
-  "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/luch/osnovnaya.jpg",
+  "price": "по запросу",
+  "image": "/assets/external/inv-7cb20935-osnovnaya.jpg",
+  "images": [
+    "/assets/external/inv-7cb20935-osnovnaya.jpg"
+  ],
   "external": "",
   "coords": [
     59.96,

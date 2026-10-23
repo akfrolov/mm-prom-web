@@ -9,7 +9,7 @@
     "rent"
   ],
   "area": "8 000 м²",
-  "areaNum": 8000,
+  "areaNum": null,
   "location": "spb",
   "address": "Московское шоссе, 113, корп. 2",
   "district": "Московский район",
@@ -51,8 +51,11 @@
       "6,5 км"
     ]
   ],
-  "price": "",
-  "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/biznes-park-113/osnovnaya.jpg",
+  "price": "по запросу",
+  "image": "/assets/external/inv-0584fd1d-osnovnaya.jpg",
+  "images": [
+    "/assets/external/inv-0584fd1d-osnovnaya.jpg"
+  ],
   "external": "",
   "coords": [
     59.8,

@@ -9,7 +9,7 @@
     "sale"
   ],
   "area": "11 732 м²",
-  "areaNum": 11732,
+  "areaNum": null,
   "location": "spb",
   "address": "Санкт-Петербург, Московский р-н, ул. Варшавская, д. 11А",
   "district": "Московский район",
@@ -51,8 +51,11 @@
       "охраняемая территория, видеонаблюдение, СКУД, парковка"
     ]
   ],
-  "price": "",
-  "image": "https://invest-platforma.com/images/cms/thumbs/f5a4b2aae9b8eb4eca6273290655ca77911e6850/pomewenie2_278_191_jpg_5_80.jpg",
+  "price": "по запросу",
+  "image": "/assets/external/inv-e2699da6-pomewenie2_278_191_jpg_5_80.jpg",
+  "images": [
+    "/assets/external/inv-e2699da6-pomewenie2_278_191_jpg_5_80.jpg"
+  ],
   "external": "",
   "coords": [
     59.855,

@@ -9,8 +9,8 @@
     "rent"
   ],
   "area": "1 450 м²",
-  "areaNum": 1450,
-  "location": "lo",
+  "areaNum": null,
+  "location": "spb",
   "address": "Ропшинское шоссе, 19, дер. Велигонты, Ломоносовский р-н",
   "district": "Ломоносовский район",
   "desc": "Комплекс класса B площадью 1 450 м²: высота 6 м, нагрузка 7 т/м², 2 ворот, 4,5 км до КАД.",
@@ -51,8 +51,11 @@
       "4,5 км"
     ]
   ],
-  "price": "",
-  "image": "https://invest-platforma.com/images/obekty/indastrial/arenda/razbegaevo-ropshinskoe-shosse/osnovnaya.png",
+  "price": "по запросу",
+  "image": "/assets/external/inv-ab5f9dc2-osnovnaya.png",
+  "images": [
+    "/assets/external/inv-ab5f9dc2-osnovnaya.png"
+  ],
   "external": "",
   "coords": [
     59.78,

@@ -1,7 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-// Коллекция объектов (CR-2026-001): 27 файлов src/content/objects/<id>.json.
+// Коллекция объектов (CR-2026-001): 33 файла src/content/objects/<id>.json.
 // id = имя файла (поле id в JSON не задаётся). Поля каталога покрывают фильтры
 // (areaNum/location/dealTypes/busy), поля карточки — канон .obj-card; hero/faq/cta
 // подготовлены под будущие страницы объектов (/obekt/[id]/).
@@ -22,7 +22,8 @@ const objects = defineCollection({
     specs: z.array(z.tuple([z.string(), z.string(), z.string()])),
     price: z.string(),
     image: z.string(),
-    external: z.string(),
+    images: z.array(z.string()).optional(),
+    external: z.string().optional(),
     coords: z.tuple([z.number(), z.number()]),
     busy: z.boolean(),
     sort: z.number(),
