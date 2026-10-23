@@ -317,11 +317,17 @@ import SiteButton from '../components/SiteButton.astro';
     .b-progress__bar{height:8px;border-radius:999px;background:var(--surface);margin-top:16px;overflow:hidden}
     .b-progress__bar span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--purple) 0%,var(--gold) 100%)}
 
-    .tz-panel{background:linear-gradient(120deg,var(--purple) 0%,var(--navy) 100%);border-radius:var(--radius);padding:30px;color:#fff;position:relative;overflow:hidden;margin-top:20px}
+    .tz-panel{background:linear-gradient(120deg,var(--purple) 0%,var(--navy) 100%);border-radius:var(--radius);padding:30px;color:#fff;position:relative;overflow:clip;margin-top:20px}
     .tz-panel::after{content:"";position:absolute;width:90px;height:90px;right:-30px;bottom:-30px;border:2px solid rgba(235,184,30,.4);transform:rotate(15deg)}
     .tz-panel h3{margin:0 0 8px;color:#fff}
     .tz-panel p{margin:0 0 4px}
     .tz-panel p.muted{color:rgba(255,255,255,.7)}
+    .tz-panel .site-footer__phone{color:#fff}
+    .tz-panel .site-footer__phone:hover{color:var(--gold)}
+    @media (min-width:1024px){
+      .tz-panel .b-tz-banner{align-items:start}
+      .tz-panel .b-tz-banner > div:first-child{position:sticky;top:96px}
+    }
 
     /* ── Контакты ────────────────────────────────────────────────────────── */
     .b-contacts__inner{display:grid;gap:32px;margin-top:36px}
@@ -576,7 +582,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 .obj-split .approach-card p{grid-area:text;font-size:var(--fs-small);line-height:1.45}
 .obj-split .obj-figure{margin:0;max-width:none}
 .obj-split .obj-cols{grid-template-columns:1fr}
-.obj-split .b-approach__grid{grid-template-columns:1fr;gap:0;border-top:1px solid var(--border)}
+.obj-split .b-approach__grid{grid-template-columns:1fr;gap:0;margin-top:0;border-top:1px solid var(--border)}
 .obj-split:not(.obj-split--media-left) .obj-figure{position:sticky;top:96px}
 
 .block-masterplan__legend{margin-top:24px}

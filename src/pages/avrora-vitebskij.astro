@@ -574,8 +574,24 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 .obj-split .approach-card p{grid-area:text;font-size:var(--fs-small);line-height:1.45}
 .obj-split .obj-figure{margin:0;max-width:none}
 .obj-split .obj-cols{grid-template-columns:1fr}
-.obj-split .b-approach__grid{grid-template-columns:1fr;gap:0;border-top:1px solid var(--border)}
+.obj-split .b-approach__grid{grid-template-columns:1fr;gap:0;margin-top:0;border-top:1px solid var(--border)}
 .obj-split:not(.obj-split--media-left) .obj-figure{position:sticky;top:96px}
+
+/* ── Преимущества: тёмные карточки с нумерацией ───────────────────────── */
+.adv-grid{display:grid;gap:20px;grid-template-columns:1fr}
+@media (min-width:768px){.adv-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}}
+@media (min-width:1024px){.adv-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.adv-media{margin:0;position:relative;overflow:hidden;min-height:230px;border-radius:var(--radius);background:var(--surface)}
+.adv-media img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
+.adv-card{position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:28px;border-radius:var(--radius);background:linear-gradient(145deg,var(--purple) 0%,var(--navy) 100%);color:#fff;transition:transform .22s ease,box-shadow .22s ease}
+.adv-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.adv-card::after{content:"";position:absolute;right:-26px;bottom:-26px;width:86px;height:86px;border:2px solid rgba(235,184,30,.35);transform:rotate(15deg);z-index:0}
+.adv-card > *{position:relative;z-index:1}
+.adv-card__num{position:absolute;top:20px;right:24px;font-size:2.2rem;font-weight:800;line-height:1;color:rgba(235,184,30,.4);font-variant-numeric:tabular-nums}
+.adv-card__icon{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,.12);color:var(--gold)}
+.adv-card__icon .material-symbols-outlined{font-size:26px}
+.adv-card h3{margin:0;padding-right:48px;color:#fff;font-size:1.12rem;line-height:1.35}
+.adv-card p{margin:0;color:rgba(255,255,255,.72);font-size:var(--fs-small);line-height:1.6}
 
 .obj-next{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;padding:32px;border:1px solid var(--border);border-radius:var(--radius);background:#fff}
 .obj-next h2{margin:0 0 6px;font-size:var(--fs-h3)}
@@ -806,27 +822,28 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         <h2>Преимущества</h2>
         <p class="b-sec-head__lead">Три причины разместить производство в парке.</p>
       </div>
-      <div class="obj-split">
-      <div class="b-approach__grid">
-        <article class="approach-card reveal" style="--i:0">
-          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">engineering</span></span>
+      <div class="adv-grid">
+        <article class="adv-card reveal" style="--i:0">
+          <span class="adv-card__num" aria-hidden="true">01</span>
+          <span class="adv-card__icon"><span class="material-symbols-outlined" aria-hidden="true">engineering</span></span>
           <h3>Инженерная инфраструктура</h3>
           <p>Центральные инженерные сети<br>Возможность увеличения мощностей под задачи резидента</p>
         </article>
-        <article class="approach-card reveal" style="--i:1">
-          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">location_on</span></span>
+        <article class="adv-card reveal" style="--i:1">
+          <span class="adv-card__num" aria-hidden="true">02</span>
+          <span class="adv-card__icon"><span class="material-symbols-outlined" aria-hidden="true">location_on</span></span>
           <h3>Локация вдоль Витебского проспекта</h3>
           <p>Первая видовая линия<br>Удобная транспортная доступность</p>
         </article>
-        <article class="approach-card reveal" style="--i:2">
-          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">factory</span></span>
+        <article class="adv-card reveal" style="--i:2">
+          <span class="adv-card__num" aria-hidden="true">03</span>
+          <span class="adv-card__icon"><span class="material-symbols-outlined" aria-hidden="true">factory</span></span>
           <h3>Разные конфигурации производств</h3>
           <p>Подходит для размещения производств любого профиля, включая пищевые и фармацевтические<br>Размещение производств 3–4–5 классов опасности</p>
         </article>
-      </div>
-      <figure class="obj-figure">
-        <img src="/assets/external/ecd455b5-11-optimized.webp" alt="Преимущества индустриального парка" loading="lazy">
-      </figure>
+        <figure class="adv-media reveal" style="--i:3">
+          <img src="/assets/external/ecd455b5-11-optimized.webp" alt="Индустриальный парк Аврора Витебский" loading="lazy">
+        </figure>
       </div>
     </div>
   </section>
