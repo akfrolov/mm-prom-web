@@ -19,6 +19,7 @@ const href = brandbookRoutes[obj.id] ?? `/obekt/${obj.id}/`;
 const isBrandbook = obj.id in brandbookRoutes;
 const searchTitle = d.searchTitle ?? d.title.toLowerCase();
 const presentationForm = B24_FORMS.contact;
+const cardMedia = d.media ?? (d.image ? { src: d.image, alt: d.title, caption: '' } : null);
 ---
 
 {showMap ? (
@@ -78,9 +79,9 @@ const presentationForm = B24_FORMS.contact;
         </button>
       </Fragment>
     )}
-    {d.media ? (
+    {cardMedia ? (
       <figure class="b-media">
-        <img src={d.media.src} alt={d.media.alt} loading="lazy" onerror="this.classList.add('is-broken')" />
+        <img src={cardMedia.src} alt={cardMedia.alt} loading="lazy" onerror="this.classList.add('is-broken')" />
       </figure>
     ) : d.placeholder ? (
       <div class="img-placeholder" data-img={d.placeholder}>
