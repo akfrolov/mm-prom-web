@@ -27,7 +27,7 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
     <title>{title}</title>
     <meta name="description" content={description}>
     <meta name="robots" content={robots}>
-    <link rel="icon" type="image/png" href="/mmprom-logo.png">
+    <link rel="icon" type="image/png" href="/mm-logo.png">
     <link rel="canonical" href={canonical}>
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="ММ Пром">
@@ -38,8 +38,9 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
     <meta property="og:locale" content="ru_RU">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/base.css?v=1">
     <link rel="stylesheet" href="/assets/site-anim.css?v=1">
     <slot name="head" />
     {isProd && <Fragment set:html={metrika} />}
@@ -52,104 +53,7 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
         </a>
         <nav class="site-header__nav" aria-label="Основное меню">
           <div class="nav-item nav-item--has-mega">
-            <a href="/uslugi/">Услуги</a>
-            <div class="mega">
-              <div class="mega__roles">
-                <p class="mega__title">Решения под вашу задачу</p>
-                <button class="mega__role" data-role="prod">
-                  <span class="mega__role-icon"><span class="material-symbols-outlined" aria-hidden="true">factory</span></span>
-                  <span class="mega__role-text">
-                    <strong>Производствам</strong>
-                    <span>Помещения, стройка и финансирование для производства</span>
-                  </span>
-                  <span class="mega__role-more">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></span>
-                </button>
-                <button class="mega__role" data-role="zdaniya">
-                  <span class="mega__role-icon"><span class="material-symbols-outlined" aria-hidden="true">apartment</span></span>
-                  <span class="mega__role-text">
-                    <strong>Собственникам зданий</strong>
-                    <span>Доходность, управление и продажа объектов</span>
-                  </span>
-                  <span class="mega__role-more">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></span>
-                </button>
-                <button class="mega__role" data-role="uchastki">
-                  <span class="mega__role-icon"><span class="material-symbols-outlined" aria-hidden="true">landscape</span></span>
-                  <span class="mega__role-text">
-                    <strong>Собственникам участков</strong>
-                    <span>Оценка, застройка и монетизация земли</span>
-                  </span>
-                  <span class="mega__role-more">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></span>
-                </button>
-                <button class="mega__role" data-role="invest">
-                  <span class="mega__role-icon"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span></span>
-                  <span class="mega__role-text">
-                    <strong>Инвесторам</strong>
-                    <span>Готовые инвест-продукты и управление активом</span>
-                  </span>
-                  <span class="mega__role-more">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></span>
-                </button>
-              </div>
-              <div class="mega__services">
-                <div class="mega__services-panel is-active" data-panel="all">
-                  <h4>Все услуги</h4>
-                  <a href="/brokerage/"><span class="material-symbols-outlined" aria-hidden="true">search</span>Подбор недвижимости</a>
-                  <a href="/arenda/"><span class="material-symbols-outlined" aria-hidden="true">apartment</span>Аренда недвижимости</a>
-                  <a href="/prodazha/"><span class="material-symbols-outlined" aria-hidden="true">sell</span>Продажа недвижимости</a>
-                  <a href="/trade-in/"><span class="material-symbols-outlined" aria-hidden="true">swap_horiz</span>Трейд-ин / Срочный выкуп</a>
-                  <a href="/stroitelstvo/"><span class="material-symbols-outlined" aria-hidden="true">foundation</span>Строительство</a>
-                  <a href="/development/"><span class="material-symbols-outlined" aria-hidden="true">handyman</span>Девелопмент под ключ</a>
-                  <a href="/redevelopment/"><span class="material-symbols-outlined" aria-hidden="true">refresh</span>Редевелопмент</a>
-                  <a href="/upravlenie/"><span class="material-symbols-outlined" aria-hidden="true">settings</span>Управление</a>
-                  <a href="/consalting/"><span class="material-symbols-outlined" aria-hidden="true">insights</span>Промышленный консалтинг</a>
-                  <a href="/investcomp/"><span class="material-symbols-outlined" aria-hidden="true">savings</span>Инвестиции и финансирование</a>
-                </div>
-                <div class="mega__services-panel" data-panel="prod">
-                  <h4>Производствам</h4>
-                  <a href="/brokerage/"><span class="material-symbols-outlined" aria-hidden="true">search</span>Подбор недвижимости</a>
-                  <a href="/arenda/"><span class="material-symbols-outlined" aria-hidden="true">apartment</span>Аренда недвижимости</a>
-                  <a href="/trade-in/"><span class="material-symbols-outlined" aria-hidden="true">swap_horiz</span>Трейд-ин / Срочный выкуп</a>
-                  <a href="/stroitelstvo/"><span class="material-symbols-outlined" aria-hidden="true">foundation</span>Строительство</a>
-                  <a href="/development/"><span class="material-symbols-outlined" aria-hidden="true">handyman</span>Девелопмент под ключ</a>
-                  <a href="/redevelopment/"><span class="material-symbols-outlined" aria-hidden="true">refresh</span>Редевелопмент</a>
-                  <a href="/upravlenie/"><span class="material-symbols-outlined" aria-hidden="true">settings</span>Управление</a>
-                  <a href="/consalting/"><span class="material-symbols-outlined" aria-hidden="true">insights</span>Промышленный консалтинг</a>
-                  <a href="/investcomp/"><span class="material-symbols-outlined" aria-hidden="true">savings</span>Инвестиции и финансирование</a>
-                </div>
-                <div class="mega__services-panel" data-panel="zdaniya">
-                  <h4>Собственникам зданий</h4>
-                  <a href="/brokerage/"><span class="material-symbols-outlined" aria-hidden="true">search</span>Подбор недвижимости</a>
-                  <a href="/arenda/"><span class="material-symbols-outlined" aria-hidden="true">apartment</span>Аренда недвижимости</a>
-                  <a href="/prodazha/"><span class="material-symbols-outlined" aria-hidden="true">sell</span>Продажа недвижимости</a>
-                  <a href="/trade-in/"><span class="material-symbols-outlined" aria-hidden="true">swap_horiz</span>Трейд-ин / Срочный выкуп</a>
-                  <a href="/redevelopment/"><span class="material-symbols-outlined" aria-hidden="true">refresh</span>Редевелопмент</a>
-                  <a href="/upravlenie/"><span class="material-symbols-outlined" aria-hidden="true">settings</span>Управление</a>
-                  <a href="/consalting/"><span class="material-symbols-outlined" aria-hidden="true">insights</span>Промышленный консалтинг</a>
-                  <a href="/investcomp/"><span class="material-symbols-outlined" aria-hidden="true">savings</span>Инвестиции и финансирование</a>
-                </div>
-                <div class="mega__services-panel" data-panel="uchastki">
-                  <h4>Собственникам участков</h4>
-                  <a href="/brokerage/"><span class="material-symbols-outlined" aria-hidden="true">search</span>Подбор недвижимости</a>
-                  <a href="/arenda/"><span class="material-symbols-outlined" aria-hidden="true">apartment</span>Аренда недвижимости</a>
-                  <a href="/prodazha/"><span class="material-symbols-outlined" aria-hidden="true">sell</span>Продажа недвижимости</a>
-                  <a href="/trade-in/"><span class="material-symbols-outlined" aria-hidden="true">swap_horiz</span>Трейд-ин / Срочный выкуп</a>
-                  <a href="/stroitelstvo/"><span class="material-symbols-outlined" aria-hidden="true">foundation</span>Строительство</a>
-                  <a href="/development/"><span class="material-symbols-outlined" aria-hidden="true">handyman</span>Девелопмент под ключ</a>
-                  <a href="/redevelopment/"><span class="material-symbols-outlined" aria-hidden="true">refresh</span>Редевелопмент</a>
-                  <a href="/consalting/"><span class="material-symbols-outlined" aria-hidden="true">insights</span>Промышленный консалтинг</a>
-                  <a href="/investcomp/"><span class="material-symbols-outlined" aria-hidden="true">savings</span>Инвестиции и финансирование</a>
-                </div>
-                <div class="mega__services-panel" data-panel="invest">
-                  <h4>Инвесторам</h4>
-                  <a href="/brokerage/"><span class="material-symbols-outlined" aria-hidden="true">search</span>Подбор недвижимости</a>
-                  <a href="/investcomp/"><span class="material-symbols-outlined" aria-hidden="true">savings</span>Инвестиции и финансирование</a>
-                  <a href="/upravlenie/"><span class="material-symbols-outlined" aria-hidden="true">settings</span>Управление активом</a>
-                  <a href="/consalting/"><span class="material-symbols-outlined" aria-hidden="true">insights</span>Промышленный консалтинг</a>
-                </div>
-                <a class="btn btn--gold mega__all" href="/uslugi/">Все услуги<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
-                <a class="b-more mega__catalog" href="/katalog/" data-astro-prefetch>Каталог объектов<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
-                <a class="site-header__phone mega__phone" href="tel:88003331010">8 800 333 10 10</a>
-              </div>
-            </div>
+            <button class="site-header__mega-trigger" id="mega-trigger" type="button" aria-haspopup="dialog" aria-controls="mega-overlay" aria-expanded="false">Услуги</button>
           </div>
           <a href="/katalog/" data-astro-prefetch>Каталог</a>
           <a href="/blog/" data-astro-prefetch>Публикации</a>
@@ -158,70 +62,252 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
         </nav>
         <div class="site-header__actions">
           <a class="site-header__phone" href="tel:88003331010">8 800 333 10 10</a>
-          <a class="btn btn--purple site-header__cta" href="/modalka-zayavki/">Оставить заявку</a>
-          <button class="site-header__burger" type="button" aria-label="Открыть меню" aria-expanded="false"><span class="material-symbols-outlined" aria-hidden="true">menu</span></button>
-        </div>
-      </div>
-      <div class="mobile-menu" id="mobile-menu">
-        <nav class="mobile-menu__nav" aria-label="Мобильное меню">
-          <div class="mobile-menu__item">
-            <button class="mobile-menu__toggle" type="button" aria-expanded="false">Услуги<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button>
-            <div class="mobile-menu__sub">
-              <button class="mobile-menu__role" type="button" data-mrole="prod">Производствам<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button>
-              <div class="mobile-menu__services" data-mpanel="prod">
-                <a href="/brokerage/">Подбор недвижимости</a>
-                <a href="/arenda/">Аренда недвижимости</a>
-                <a href="/trade-in/">Трейд-ин / Срочный выкуп</a>
-                <a href="/stroitelstvo/">Строительство</a>
-                <a href="/development/">Девелопмент под ключ</a>
-                <a href="/redevelopment/">Редевелопмент</a>
-                <a href="/upravlenie/">Управление</a>
-                <a href="/consalting/">Промышленный консалтинг</a>
-                <a href="/investcomp/">Инвестиции и финансирование</a>
-              </div>
-              <button class="mobile-menu__role" type="button" data-mrole="zdaniya">Собственникам зданий<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button>
-              <div class="mobile-menu__services" data-mpanel="zdaniya">
-                <a href="/brokerage/">Подбор недвижимости</a>
-                <a href="/arenda/">Аренда недвижимости</a>
-                <a href="/prodazha/">Продажа недвижимости</a>
-                <a href="/trade-in/">Трейд-ин / Срочный выкуп</a>
-                <a href="/redevelopment/">Редевелопмент</a>
-                <a href="/upravlenie/">Управление</a>
-                <a href="/consalting/">Промышленный консалтинг</a>
-                <a href="/investcomp/">Инвестиции и финансирование</a>
-              </div>
-              <button class="mobile-menu__role" type="button" data-mrole="uchastki">Собственникам участков<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button>
-              <div class="mobile-menu__services" data-mpanel="uchastki">
-                <a href="/brokerage/">Подбор недвижимости</a>
-                <a href="/arenda/">Аренда недвижимости</a>
-                <a href="/prodazha/">Продажа недвижимости</a>
-                <a href="/trade-in/">Трейд-ин / Срочный выкуп</a>
-                <a href="/stroitelstvo/">Строительство</a>
-                <a href="/development/">Девелопмент под ключ</a>
-                <a href="/redevelopment/">Редевелопмент</a>
-                <a href="/consalting/">Промышленный консалтинг</a>
-                <a href="/investcomp/">Инвестиции и финансирование</a>
-              </div>
-              <button class="mobile-menu__role" type="button" data-mrole="invest">Инвесторам<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button>
-              <div class="mobile-menu__services" data-mpanel="invest">
-                <a href="/brokerage/">Подбор недвижимости</a>
-                <a href="/investcomp/">Инвестиции и финансирование</a>
-                <a href="/upravlenie/">Управление активом</a>
-                <a href="/consalting/">Промышленный консалтинг</a>
-              </div>
-            </div>
-          </div>
-          <a href="/katalog/" data-astro-prefetch>Каталог</a>
-          <a href="/blog/" data-astro-prefetch>Публикации</a>
-          <a href="/about/" data-astro-prefetch>О компании</a>
-          <a href="/contact/" data-astro-prefetch>Контакты</a>
-        </nav>
-        <div class="mobile-menu__actions">
-          <a class="site-header__phone" href="tel:88003331010">8 800 333 10 10</a>
-          <a class="btn btn--purple" href="/modalka-zayavki/">Оставить заявку</a>
+          <button class="btn btn--purple site-header__cta" type="button" data-b24-form="click/34/0ph3wy" data-b24-form-telemetry-sign="v1:34:site.b62d3cf56414758a8a11ec9af534ac54810f3b8241a479ddb796adfd2f3d5e4c">Оставить заявку</button>
+          <button class="site-header__burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu"><span class="material-symbols-outlined" aria-hidden="true">menu</span></button>
         </div>
       </div>
     </header>
+
+    <!-- ═══ Мобильное меню: drawer слева (W2.2) ═══ -->
+    <div class="mobile-overlay" id="mobile-overlay" hidden>
+      <div class="mobile-overlay__backdrop" data-mobile-close></div>
+      <div class="mobile-overlay__holder">
+        <section class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Мобильное меню">
+          <div class="mobile-menu__bar">
+            <button class="mobile-menu__close" type="button" aria-label="Закрыть меню" data-mobile-close><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+          </div>
+          <nav class="mobile-menu__nav" aria-label="Мобильное меню">
+            <div class="mobile-menu__item">
+              <button class="mobile-menu__toggle" type="button" aria-expanded="false">
+                <span class="mobile-menu__toggle-name"><span class="material-symbols-outlined" aria-hidden="true">widgets</span>Услуги</span>
+                <span class="material-symbols-outlined mobile-menu__arrow" aria-hidden="true">expand_more</span>
+              </button>
+              <div class="mobile-menu__sub">
+                <button class="mobile-menu__role" type="button" data-mrole="prod" aria-expanded="false">Производствам<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button>
+                <div class="mobile-menu__services" data-mpanel="prod">
+                  <a href="/brokerage/">Подбор недвижимости</a>
+                  <a href="/arenda/">Аренда недвижимости</a>
+                  <a href="/trade-in/">Трейд-ин / Срочный выкуп</a>
+                  <a href="/stroitelstvo/">Строительство</a>
+                  <a href="/development/">Девелопмент под ключ</a>
+                  <a href="/redevelopment/">Редевелопмент</a>
+                  <a href="/upravlenie/">Управление</a>
+                  <a href="/consalting/">Промышленный консалтинг</a>
+                  <a href="/investcomp/">Инвестиции и финансирование</a>
+                  <a class="mobile-menu__more" href="/proizvodstvam/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+                </div>
+                <button class="mobile-menu__role" type="button" data-mrole="zdaniya" aria-expanded="false">Собственникам зданий<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button>
+                <div class="mobile-menu__services" data-mpanel="zdaniya">
+                  <a href="/brokerage/">Подбор недвижимости</a>
+                  <a href="/arenda/">Аренда недвижимости</a>
+                  <a href="/prodazha/">Продажа недвижимости</a>
+                  <a href="/trade-in/">Трейд-ин / Срочный выкуп</a>
+                  <a href="/redevelopment/">Редевелопмент</a>
+                  <a href="/upravlenie/">Управление</a>
+                  <a href="/consalting/">Промышленный консалтинг</a>
+                  <a href="/investcomp/">Инвестиции и финансирование</a>
+                  <a class="mobile-menu__more" href="/sobstvennikam-zdaniy/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+                </div>
+                <button class="mobile-menu__role" type="button" data-mrole="uchastki" aria-expanded="false">Собственникам участков<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button>
+                <div class="mobile-menu__services" data-mpanel="uchastki">
+                  <a href="/brokerage/">Подбор недвижимости</a>
+                  <a href="/arenda/">Аренда недвижимости</a>
+                  <a href="/prodazha/">Продажа недвижимости</a>
+                  <a href="/trade-in/">Трейд-ин / Срочный выкуп</a>
+                  <a href="/stroitelstvo/">Строительство</a>
+                  <a href="/development/">Девелопмент под ключ</a>
+                  <a href="/redevelopment/">Редевелопмент</a>
+                  <a href="/consalting/">Промышленный консалтинг</a>
+                  <a href="/investcomp/">Инвестиции и финансирование</a>
+                  <a class="mobile-menu__more" href="/sobstvennikam-uchastkov/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+                </div>
+                <button class="mobile-menu__role" type="button" data-mrole="invest" aria-expanded="false">Инвесторам<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button>
+                <div class="mobile-menu__services" data-mpanel="invest">
+                  <a href="/brokerage/">Подбор недвижимости</a>
+                  <a href="/investcomp/">Инвестиции и финансирование</a>
+                  <a href="/upravlenie/">Управление активом</a>
+                  <a href="/consalting/">Промышленный консалтинг</a>
+                  <a class="mobile-menu__more" href="/investoram/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+                </div>
+              </div>
+            </div>
+            <a class="mobile-menu__link" href="/katalog/" data-astro-prefetch><span class="material-symbols-outlined" aria-hidden="true">inventory_2</span>Каталог</a>
+            <a class="mobile-menu__link" href="/blog/" data-astro-prefetch><span class="material-symbols-outlined" aria-hidden="true">article</span>Публикации</a>
+            <a class="mobile-menu__link" href="/about/" data-astro-prefetch><span class="material-symbols-outlined" aria-hidden="true">apartment</span>О компании</a>
+            <a class="mobile-menu__link" href="/contact/" data-astro-prefetch><span class="material-symbols-outlined" aria-hidden="true">place</span>Контакты</a>
+          </nav>
+          <div class="mobile-menu__actions">
+            <a class="site-header__phone" href="tel:88003331010">8 800 333 10 10</a>
+            <button class="btn btn--purple" type="button" data-b24-form="click/34/0ph3wy" data-b24-form-telemetry-sign="v1:34:site.b62d3cf56414758a8a11ec9af534ac54810f3b8241a479ddb796adfd2f3d5e4c">Оставить заявку</button>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ═══ Мегаменю «Услуги»: центрированный оверлей (≥1024, W2.1) ═══ -->
+    <div class="mega-overlay" id="mega-overlay" hidden>
+      <div class="mega-overlay__backdrop" data-mega-close></div>
+      <div class="mega-overlay__holder">
+        <section class="mega-panel" role="dialog" aria-modal="true" aria-label="Меню «Услуги»">
+          <button class="mega-panel__close" type="button" aria-label="Закрыть меню" data-mega-close><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+
+          <!-- Вкладки ролей (слева) + группы услуг (справа). Радио-фильтр без JS:
+               скрытые radio управляют подсветкой вкладки, чипом-заголовком и
+               фильтрацией услуг (CSS-фильтр по data-roles). -->
+          <div class="mm-layout">
+            <p class="mm-roles-title">Решения под вашу задачу</p>
+
+            <input class="mm-tab-radio" type="radio" name="mm-role" id="mmf-all" checked>
+
+            <input class="mm-tab-radio" type="radio" name="mm-role" id="mmf-prod">
+            <div class="mm-tab">
+              <label class="mm-tab__label" for="mmf-prod"><span class="material-symbols-outlined mm-tab__icon" aria-hidden="true">factory</span><span class="mm-tab__name">Производствам</span></label>
+              <label class="mm-tab__body" for="mmf-prod"><span class="mm-tab__desc">Помещения, стройка и финансирование для производства</span></label>
+              <a class="mm-tab__more" href="/proizvodstvam/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+            </div>
+
+            <input class="mm-tab-radio" type="radio" name="mm-role" id="mmf-zdaniya">
+            <div class="mm-tab">
+              <label class="mm-tab__label" for="mmf-zdaniya"><span class="material-symbols-outlined mm-tab__icon" aria-hidden="true">apartment</span><span class="mm-tab__name">Собственникам зданий</span></label>
+              <label class="mm-tab__body" for="mmf-zdaniya"><span class="mm-tab__desc">Доходность, управление и продажа объектов</span></label>
+              <a class="mm-tab__more" href="/sobstvennikam-zdaniy/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+            </div>
+
+            <input class="mm-tab-radio" type="radio" name="mm-role" id="mmf-uchastki">
+            <div class="mm-tab">
+              <label class="mm-tab__label" for="mmf-uchastki"><span class="material-symbols-outlined mm-tab__icon" aria-hidden="true">landscape</span><span class="mm-tab__name">Собственникам участков</span></label>
+              <label class="mm-tab__body" for="mmf-uchastki"><span class="mm-tab__desc">Оценка, застройка и монетизация земли</span></label>
+              <a class="mm-tab__more" href="/sobstvennikam-uchastkov/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+            </div>
+
+            <input class="mm-tab-radio" type="radio" name="mm-role" id="mmf-investor">
+            <div class="mm-tab mm-tab--last">
+              <label class="mm-tab__label" for="mmf-investor"><span class="material-symbols-outlined mm-tab__icon" aria-hidden="true">trending_up</span><span class="mm-tab__name">Инвесторам</span></label>
+              <label class="mm-tab__body" for="mmf-investor"><span class="mm-tab__desc">Готовые инвест-продукты и управление активом</span></label>
+              <a class="mm-tab__more" href="/investoram/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+            </div>
+
+            <!-- Заголовок-чип правой области: отдельный grid-элемент .mm-layout
+                 (строка 1, колонка 2) — над группами услуг. 5 пред-рендеренных
+                 состояний; при выборе роли — её чип с ✕-сбросом (label for=mmf-all). -->
+            <div class="mm-head">
+              <span class="mm-head__chip mm-head__chip--all">Все услуги</span>
+              <span class="mm-head__chip mm-head__chip--prod">Услуги для производств<label class="mm-head__x" for="mmf-all" aria-label="Показать все услуги"><span class="material-symbols-outlined" aria-hidden="true">close</span></label></span>
+              <span class="mm-head__chip mm-head__chip--zdaniya">Услуги для собственников зданий<label class="mm-head__x" for="mmf-all" aria-label="Показать все услуги"><span class="material-symbols-outlined" aria-hidden="true">close</span></label></span>
+              <span class="mm-head__chip mm-head__chip--uchastki">Услуги для собственников участков<label class="mm-head__x" for="mmf-all" aria-label="Показать все услуги"><span class="material-symbols-outlined" aria-hidden="true">close</span></label></span>
+              <span class="mm-head__chip mm-head__chip--investor">Услуги для инвесторов<label class="mm-head__x" for="mmf-all" aria-label="Показать все услуги"><span class="material-symbols-outlined" aria-hidden="true">close</span></label></span>
+            </div>
+
+            <!-- Единый каталог услуг: каждая услуга один раз, сгруппированы по смыслу.
+                 data-roles — матрица «услуга × роль» (токены: prod zdaniya uchastki investor) -->
+            <div class="mm-groups">
+              <section class="mm-group" aria-labelledby="mm-g-objects">
+                <h2 class="mm-group__title" id="mm-g-objects">Объекты</h2>
+                <div class="mm-item" data-roles="prod zdaniya uchastki investor">
+                  <a class="mm-item__main" href="/arenda/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">warehouse</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Аренда недвижимости</span>
+                      <span class="mm-item__desc">Свободные площади: производство, склады, офисы.</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mm-item" data-roles="zdaniya uchastki investor">
+                  <a class="mm-item__main" href="/prodazha/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">sell</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Продажа недвижимости</span>
+                      <span class="mm-item__desc">Поиск арендаторов и покупателей на ваш объект.</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mm-item" data-roles="prod zdaniya uchastki investor">
+                  <a class="mm-item__main" href="/trade-in/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">swap_horiz</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Трейд-ин / Срочный выкуп</span>
+                      <span class="mm-item__desc">Обмен объекта на более эффективный формат или быстрая продажа актива.</span>
+                    </span>
+                  </a>
+                </div>
+              </section>
+
+              <section class="mm-group" aria-labelledby="mm-g-projects">
+                <h2 class="mm-group__title" id="mm-g-projects">Проекты и эксплуатация</h2>
+                <div class="mm-item" data-roles="prod uchastki investor">
+                  <a class="mm-item__main" href="/stroitelstvo/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">foundation</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Строительство</span>
+                      <span class="mm-item__desc">Новое здание или пристройка под задачи производства.</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mm-item" data-roles="prod uchastki investor">
+                  <a class="mm-item__main" href="/development/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">construction</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Девелопмент под ключ</span>
+                      <span class="mm-item__desc">Реализация промышленного проекта — от участка до запуска.</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mm-item" data-roles="prod zdaniya uchastki investor">
+                  <a class="mm-item__main" href="/redevelopment/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">autorenew</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Редевелопмент</span>
+                      <span class="mm-item__desc">Перестройка устаревшего объекта под новый эффективный формат.</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mm-item" data-roles="prod zdaniya investor">
+                  <a class="mm-item__main" href="/upravlenie/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">settings</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Управление</span>
+                      <span class="mm-item__desc">Эксплуатация, арендаторы, редевелопмент, рост доходности.</span>
+                    </span>
+                  </a>
+                </div>
+              </section>
+
+              <section class="mm-group" aria-labelledby="mm-g-strategy">
+                <h2 class="mm-group__title" id="mm-g-strategy">Стратегия и капитал</h2>
+                <div class="mm-item" data-roles="prod zdaniya uchastki">
+                  <a class="mm-item__main" href="/consalting/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">insights</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Промышленный консалтинг</span>
+                      <span class="mm-item__desc">Превращаем задачу в понятный и безопасный план: аудит, ТЗ, финмодель.</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mm-item" data-roles="prod zdaniya uchastki investor">
+                  <a class="mm-item__main" href="/investcomp/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Инвестиции и финансирование</span>
+                      <span class="mm-item__desc">Инвестиции в реальные промышленные активы с понятной экономикой.</span>
+                    </span>
+                  </a>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <!-- Подвал панели -->
+          <div class="mm-foot">
+            <div class="mm-foot__links">
+              <a class="btn btn--gold" href="/uslugi/">Все услуги<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+              <a class="mm-foot__link mm-foot__link--catalog" href="/katalog/"><span class="material-symbols-outlined" aria-hidden="true">grid_view</span>Каталог объектов</a>
+            </div>
+            <a class="mm-foot__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
+          </div>
+        </section>
+      </div>
+    </div>
+
     <slot />
     <footer class="site-footer">
       <div class="site-footer__particles" aria-hidden="true">
@@ -261,7 +347,7 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
           <p class="site-footer__addr">Санкт-Петербург, ул. Савушкина, 125 к.6</p>
           <div class="site-footer__social">
             <a href="https://t.me/mm_prom1" aria-label="Телеграм-канал ММ Пром"><svg viewBox="0 0 24 24" width="22" height="22" fill="#229ED9" aria-hidden="true"><path d="M9.04 15.51l-.38 5.35c.54 0 .78-.23 1.06-.51l2.55-2.44 5.28 3.87c.97.53 1.66.25 1.92-.9l3.48-16.3c.31-1.43-.52-1.99-1.46-1.64L1.1 9.76c-1.39.54-1.37 1.32-.24 1.67l5.3 1.65L18.35 5.1c.57-.38 1.09-.17.66.21L9.04 15.51z"/></svg></a>
-            <a href="https://max.ru/se14192436_biz" aria-label="Канал ММ Пром в MAX"><svg viewBox="0 0 24 24" width="22" height="22" fill="#5A3994" aria-hidden="true"><path d="M12 2C6.48 2 2 6.03 2 11c0 2.6 1.24 4.94 3.22 6.55L4 22l4.6-1.5c1.06.32 2.22.5 3.4.5 5.52 0 10-4.03 10-9S17.52 2 12 2z"/></svg></a>
+            <a href="https://max.ru/channel_MM_PROM" aria-label="Канал ММ Пром в MAX"><svg viewBox="0 0 24 24" width="22" height="22" fill="#5A3994" aria-hidden="true"><path d="M12 2C6.48 2 2 6.03 2 11c0 2.6 1.24 4.94 3.22 6.55L4 22l4.6-1.5c1.06.32 2.22.5 3.4.5 5.52 0 10-4.03 10-9S17.52 2 12 2z"/></svg></a>
           </div>
         </div>
       </div>
@@ -271,5 +357,7 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
       </div>
     </footer>
     <slot name="tail" />
+    <script is:inline defer src="/assets/menu.js?v=1"></script>
+    <script is:inline data-b24-form="click/34/0ph3wy" data-b24-form-telemetry-sign="v1:34:site.b62d3cf56414758a8a11ec9af534ac54810f3b8241a479ddb796adfd2f3d5e4c" data-skip-moving="true">(function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_34.js');</script>
   </body>
 </html>

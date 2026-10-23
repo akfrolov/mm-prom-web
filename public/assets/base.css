@@ -1,0 +1,325 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   ММ ПРОМ — каркас сайта (общие стили шапки/меню/подвала/базовых токенов)
+   Вынесено из inline-стилей 22 страниц (CR-2026-002, п. 21 / дельта W1.1).
+   Подключается в BaseLayout ДО slot-стилей страниц; стили секций страниц
+   остаются inline. Кэш-бастинг — ?v=1.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Токены ──────────────────────────────────────────────────────────── */
+:root{
+  --navy:#0E0028;          /* тёмно-фиолетовый — текст/доминанта */
+  --navy-2:#1A0F3D;
+  --navy-3:#2A1B5E;
+  --purple:#5A3994;        /* фиолетовый — основной акцент */
+  --purple-dark:#4A2E7A;
+  --purple-soft:#F0ECF8;   /* светло-фиолетовая подложка */
+  --gold:#EBB81E;          /* золотисто-жёлтый — акцент */
+  --gold-soft:#F6E7B6;
+  --gold-deep:#C9960F;
+  --white:#FFFFFF;
+  --text:#0E0028;
+  --text-muted:#5C5C66;
+  --surface:#F7F7F8;
+  --border:#E6E3EE;
+  --font:"Manrope","Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --fs-h1:clamp(1.75rem,1.2rem + 2.6vw,3rem);
+  --fs-h2:clamp(1.4rem,1.1rem + 1.6vw,2.125rem);
+  --fs-h3:clamp(1.15rem,1rem + 0.8vw,1.5rem);
+  --fs-body:clamp(1rem,0.95rem + 0.25vw,1.0625rem);
+  --fs-small:0.875rem;
+  --radius:14px;
+  --radius-sm:10px;
+  --shadow:0 10px 34px rgba(11,27,51,.10);
+  --container:1280px;
+  --space-section:clamp(56px,9vw,110px);
+  --header-h:73px;
+  --marquee-h:49px;
+}
+
+/* ── Базовые элементы ────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;font-family:var(--font);color:var(--text);background:var(--white);line-height:1.6;font-size:var(--fs-body)}
+img{max-width:100%;display:block}
+a{color:var(--purple)}
+h1,h2,h3{line-height:1.18;margin:0 0 .5em;font-weight:800;letter-spacing:-.01em}
+h1{font-size:var(--fs-h1)}
+h2{font-size:var(--fs-h2)}
+h3{font-size:var(--fs-h3)}
+p{margin:0 0 1em}
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 24;vertical-align:middle}
+
+/* ── Контейнер (брейкпоинты 768/1024) ──────────────────────────────────── */
+.container{max-width:var(--container);margin:0 auto;padding:0 32px}
+@media (min-width:768px){.container{padding:0 32px}}
+@media (min-width:1024px){.container{padding:0 40px}}
+
+/* ── Кнопки ──────────────────────────────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:13px 26px;border-radius:var(--radius-sm);font-family:inherit;font-weight:700;font-size:var(--fs-body);text-decoration:none;cursor:pointer;border:2px solid transparent;transition:transform .18s ease,box-shadow .18s ease,background .18s ease,color .18s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn--gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 22px rgba(235,184,30,.35)}
+.btn--gold:hover{background:var(--gold-soft)}
+.btn--purple{background:var(--purple);color:#fff}
+.btn--purple:hover{background:var(--purple-dark)}
+.btn--outline{border-color:var(--purple);color:var(--purple);background:#fff;box-shadow:0 8px 22px rgba(90,57,148,.16)}
+.btn--outline:hover{background:var(--purple);color:#fff}
+.btn--ghost-light{border-color:rgba(255,255,255,.5);color:#fff;background:transparent}
+.btn--ghost-light:hover{background:#fff;color:var(--navy)}
+
+/* ── Шапка ───────────────────────────────────────────────────────────── */
+.site-header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.site-header__inner{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:72px}
+.site-header__logo{display:inline-flex;align-items:center;gap:12px;text-decoration:none}
+.site-header__logo img{height:40px;width:auto;display:block}
+.logo-emblem{display:block;flex:0 0 auto}
+.logo-text{display:flex;flex-direction:column;line-height:1.1}
+.logo-text b{font-size:1.15rem;font-weight:800;color:var(--navy);letter-spacing:.04em}
+.logo-text span{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--text-muted)}
+.site-header__nav{display:none;align-items:center;gap:2px}
+.site-header__nav a{display:inline-flex;align-items:center;min-height:44px;padding:8px 14px;color:var(--text);text-decoration:none;font-weight:600;white-space:nowrap;border-radius:8px}
+.site-header__nav a:hover{color:var(--purple);background:var(--purple-soft)}
+
+/* ── Мегаменю «Услуги»: центрированный оверлей (≥1024, W2.1) ───────────
+   До 1024px панель не активируется (там мобильный drawer). */
+.site-header__nav .nav-item--has-mega > button{display:inline-flex;align-items:center;min-height:44px;padding:8px 14px;color:var(--text);text-decoration:none;font-weight:600;white-space:nowrap;border-radius:8px;background:none;border:0;cursor:pointer;font-family:inherit;font-size:inherit;line-height:inherit}
+.site-header__nav .nav-item--has-mega > button:hover{color:var(--purple);background:var(--purple-soft)}
+
+.mega-overlay{position:fixed;inset:0;z-index:70}
+.mega-overlay[hidden]{display:none}
+.mega-overlay__backdrop{position:absolute;inset:0;background:rgba(22,21,25,.52);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+/* Фолбэк: без размытия — темнее затемнение + большая мягкая тень панели */
+@supports not ((backdrop-filter:blur(4px)) or (-webkit-backdrop-filter:blur(4px))){
+  .mega-overlay__backdrop{background:rgba(22,21,25,.72)}
+  .mega-panel{box-shadow:0 32px 120px rgba(22,21,25,.6)}
+}
+/* Холдер не перехватывает клики (не мешает и клику-вне); кликабельны
+   сама панель (data-mega-close/ссылки) и подложка под ней */
+.mega-overlay__holder{position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;padding:24px 16px;overflow-y:auto;pointer-events:none}
+.mega-panel{pointer-events:auto}
+@media (min-width:768px){.mega-overlay__holder{padding:40px 32px}}
+@media (min-width:1024px){.mega-overlay__holder{padding:48px 40px;max-width:1440px;margin:0 auto}}
+/* Панель оверлея */
+.mega-panel{position:relative;width:100%;background:#FFFFFF;border-radius:0;box-shadow:0 24px 64px rgba(22,21,25,.35);border:1px solid var(--border);overflow:hidden;animation:megaIn .2s var(--ease-soft, ease-out) both}
+@media (min-width:768px){.mega-panel{border-radius:var(--radius)}}
+@keyframes megaIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.mega-panel{animation:none}}
+.mega-panel__close{position:absolute;top:12px;right:12px;z-index:5;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--border);border-radius:50%;background:var(--surface);color:var(--text-muted);cursor:pointer}
+.mega-panel__close:hover{background:var(--surface);color:var(--text)}
+.mega-panel__close .material-symbols-outlined{font-size:26px}
+/* Тело панели: вкладки ролей слева + группы услуг справа.
+   Фильтр без JS: скрытые radio (name="mm-role") — общие siblings для
+   вкладок и .mm-groups, работают селекторы :checked + и :checked ~. */
+.mm-layout{position:relative;display:flex;flex-direction:column;gap:0;padding:0;background:linear-gradient(135deg,var(--purple) 0%,var(--navy) 100%)}
+.mm-tab-radio{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;opacity:0;pointer-events:none}
+/* Микрозаголовок над списком ролей (тёмная колонка) */
+.mm-roles-title{display:flex;align-items:center;min-height:44px;margin:0;padding:12px 16px 0;font-size:var(--fs-small);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+/* Вкладка роли: label (иконка + имя); описание и
+   инлайн-ссылка «Подробнее» — вне label, в потоке текста */
+.mm-tab{display:block;padding:0 16px 12px;border-bottom:1px solid rgba(255,255,255,.16)}
+.mm-tab__label{display:flex;align-items:center;gap:10px;min-height:44px;padding:12px 0 0;cursor:pointer}
+.mm-tab__icon{flex:0 0 auto;font-size:20px;color:var(--gold)}
+.mm-tab__name{font-weight:700;font-size:1rem;line-height:1.3;color:#FFFFFF}
+.mm-tab__body{display:inline;cursor:pointer}
+.mm-tab__desc{color:rgba(255,255,255,.72);font-size:var(--fs-small);line-height:1.4}
+.mm-tab__more{display:inline-flex;align-items:center;gap:4px;margin-left:6px;text-decoration:none;white-space:nowrap;font-weight:600;font-size:var(--fs-small);color:var(--gold)}
+.mm-tab__more .material-symbols-outlined{font-size:16px}
+.mm-tab__more:hover{color:#FFFFFF}
+.mm-tab:hover{background:rgba(255,255,255,.06)}
+/* Активная вкладка (radio:checked) и фокус с клавиатуры */
+#mmf-prod:checked + .mm-tab,
+#mmf-zdaniya:checked + .mm-tab,
+#mmf-uchastki:checked + .mm-tab,
+#mmf-investor:checked + .mm-tab{background:rgba(255,255,255,.08);box-shadow:inset 3px 0 0 var(--gold)}
+.mm-tab-radio:focus-visible + .mm-tab{outline:2px solid var(--gold);outline-offset:-2px}
+.mm-tab__more:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+/* Фильтрация услуг чистым CSS по data-roles (токены: prod zdaniya uchastki investor) */
+#mmf-prod:checked ~ .mm-groups .mm-item:not([data-roles~="prod"]){display:none}
+#mmf-zdaniya:checked ~ .mm-groups .mm-item:not([data-roles~="zdaniya"]){display:none}
+#mmf-uchastki:checked ~ .mm-groups .mm-item:not([data-roles~="uchastki"]){display:none}
+#mmf-investor:checked ~ .mm-groups .mm-item:not([data-roles~="investor"]){display:none}
+/* Заголовок-чип над группами услуг: по умолчанию «Все услуги», при выборе
+   роли — «Услуги для <роли>» с крестиком-сбросом (<label for="mmf-all">). */
+.mm-head{background:#fff;padding:32px 16px 0}
+.mm-head__chip{display:none;align-items:center;min-height:44px;padding:4px 8px 4px 16px;border-radius:999px;font-size:var(--fs-small);font-weight:700;background:rgba(90,57,148,.08);color:var(--purple)}
+.mm-head__chip--all{padding-right:16px}
+.mm-head__x{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;margin-left:6px;border-radius:50%;color:var(--purple);cursor:pointer}
+.mm-head__x:hover{background:rgba(90,57,148,.16)}
+.mm-head__x .material-symbols-outlined{font-size:16px}
+#mmf-all:checked ~ .mm-head .mm-head__chip--all{display:inline-flex}
+#mmf-prod:checked ~ .mm-head .mm-head__chip--prod{display:inline-flex}
+#mmf-zdaniya:checked ~ .mm-head .mm-head__chip--zdaniya{display:inline-flex}
+#mmf-uchastki:checked ~ .mm-head .mm-head__chip--uchastki{display:inline-flex}
+#mmf-investor:checked ~ .mm-head .mm-head__chip--investor{display:inline-flex}
+/* Основная область: услуги один раз, сгруппированы по смыслу.
+   align-content:start — при фильтрации список не центрируется по вертикали */
+.mm-groups{display:grid;grid-template-columns:1fr;align-content:start;background:#fff}
+.mm-group{padding:16px}
+.mm-group + .mm-group{border-top:1px solid var(--border)}
+.mm-group__title{margin:0 0 8px;font-size:var(--fs-small);font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted)}
+/* Пункт меню: вся строка — ссылка на страницу услуги */
+.mm-item{padding:10px;border-radius:8px}
+.mm-item__main{display:flex;align-items:flex-start;gap:12px;min-height:44px;color:var(--text);text-decoration:none}
+.mm-item:hover{background:var(--purple-soft)}
+.mm-item:hover .mm-item__name{color:var(--purple)}
+.mm-item__icon{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:36px;height:36px;border-radius:10px;background:rgba(90,57,148,.08);color:var(--purple)}
+.mm-item__icon .material-symbols-outlined{font-size:20px}
+.mm-item__body{display:flex;flex-direction:column;gap:2px;min-width:0}
+.mm-item__name{font-weight:700;font-size:1rem;line-height:1.3}
+.mm-item__desc{color:var(--text-muted);font-size:var(--fs-small);line-height:1.4}
+@media (min-width:768px){
+  /* Панель в две колонки: слева роли, справа — чип и группы услуг */
+  .mm-layout{display:grid;grid-template-columns:minmax(240px,280px) minmax(0,1fr);column-gap:0;padding:0}
+  .mm-roles-title{grid-column:1;padding:12px 16px 0}
+  .mm-tab{grid-column:1}
+  .mm-tab--last{border-bottom:0} /* последняя вкладка: низ колонки не подчёркиваем */
+  .mm-tab:last-child{border-bottom:0}
+  /* Чип — строка 1 правой колонки; группы услуг — строки 2–5.
+     Левый тёмный столбец: .mm-roles-title — строка 1, 4 вкладки — строки 2–5. */
+  .mm-head{grid-column:2;grid-row:1;border-left:1px solid rgba(255,255,255,.16);padding:32px 20px 0}
+  .mm-groups{grid-column:2;grid-row:2 / span 4;grid-template-columns:repeat(2,minmax(0,1fr));border-left:1px solid rgba(255,255,255,.16);padding-top:0}
+  .mm-group{padding:20px}
+  /* группы — после .mm-head: вторая без верхней границы, третья — во всю ширину */
+  .mm-group:nth-of-type(2){border-top:0;border-left:1px solid var(--border)}
+  .mm-group:nth-of-type(3){grid-column:1/-1;border-top:1px solid var(--border);border-left:0}
+}
+@media (min-width:1024px){
+  /* Вкладки 280–320px; три смысловые группы — три колонки */
+  .mm-layout{grid-template-columns:minmax(280px,320px) minmax(0,1fr)}
+  .mm-groups{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .mm-group:nth-of-type(2),.mm-group:nth-of-type(3){grid-column:auto;border-top:0;border-left:1px solid var(--border)}
+}
+/* Подвал панели */
+.mm-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;padding:12px 16px;border-top:1px solid var(--border)}
+.mm-foot__links{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.mm-foot__link{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-weight:600;color:var(--text);text-decoration:none}
+.mm-foot__link .material-symbols-outlined{font-size:18px;color:var(--border)}
+.mm-foot__link--catalog{margin-left:24px}
+.mm-foot__link--catalog .material-symbols-outlined{color:var(--purple)}
+.mm-foot__link:hover{color:var(--purple)}
+.mm-foot__link:hover .material-symbols-outlined{color:var(--purple)}
+.mm-foot__phone{display:inline-flex;align-items:center;min-height:44px;font-weight:800;color:var(--text);text-decoration:none;white-space:nowrap}
+.mm-foot__phone:hover{color:var(--purple)}
+.mm-foot__phone .material-symbols-outlined{font-size:20px;color:var(--purple);margin-right:6px}
+@media (min-width:768px){
+  .mm-foot{padding:14px 24px}
+}
+.site-header__actions{display:flex;align-items:center;gap:10px}
+.site-header__phone{display:none;font-weight:800;font-size:.95rem;color:var(--navy);text-decoration:none;white-space:nowrap}
+.site-header__phone:hover{color:var(--purple)}
+/* Высота CTA зафиксирована height:44px (TC-SHELL-06): без неё при line-height:normal
+   бокс получался 48px. Текст центрируется — визуальные зазоры ≈12px. */
+.site-header__cta{display:none;white-space:nowrap;flex:0 0 auto;min-height:44px;height:44px;padding:12px 20px}
+.site-header__burger{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:0;background:none;color:var(--navy);cursor:pointer}
+.site-header__burger .material-symbols-outlined{font-size:28px}
+
+/* ── Мобильное меню: drawer слева (W2.2) ───────────────────────────────
+   До 1024px — единственное меню; ≥1024 не активируется (мега-оверлей).
+   Геометрия — docs/mockups/mobilnoe_menu.html:152–230. */
+.mobile-overlay{position:fixed;inset:0;z-index:60}
+.mobile-overlay[hidden]{display:none}
+.mobile-overlay__backdrop{position:absolute;inset:0;background:rgba(22,21,25,.52);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);animation:mobileFade .25s ease-out both}
+/* Холдер пропускает клики мимо панели к подложке (закрытие «кликом вне») */
+.mobile-overlay__holder{position:absolute;inset:0;display:flex;justify-content:flex-start;pointer-events:none}
+.mobile-menu{pointer-events:auto;position:relative;display:flex;flex-direction:column;width:85%;max-width:420px;min-height:72vh;max-height:100vh;background:#fff;border:1px solid var(--border);border-left:0;box-shadow:24px 0 64px rgba(22,21,25,.35);overflow-y:auto;animation:mobileDrawerIn .25s ease-out both}
+@keyframes mobileDrawerIn{from{transform:translateX(-100%)}to{transform:none}}
+@keyframes mobileFade{from{opacity:0}to{opacity:1}}
+@media (min-width:768px){
+  .mobile-menu{width:380px;height:640px;min-height:0;max-height:calc(100vh - 160px);border-left:1px solid var(--border);border-radius:0 var(--radius) var(--radius) 0}
+}
+@media (min-width:1024px){
+  .mobile-menu{width:400px;height:680px}
+  /* ≥1024 drawer не активируется — работает мега-оверлей (W2.1) */
+  .mobile-overlay{display:none!important}
+}
+@media (prefers-reduced-motion:reduce){
+  .mobile-menu,.mobile-overlay__backdrop{animation:none}
+}
+.mobile-menu__bar{display:flex;justify-content:flex-end;padding:6px 8px;border-bottom:1px solid var(--border)}
+.mobile-menu__close{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:0;border-radius:8px;background:none;color:var(--text-muted);cursor:pointer}
+.mobile-menu__close:hover{background:var(--surface);color:var(--text)}
+.mobile-menu__close .material-symbols-outlined{font-size:26px}
+.mobile-menu__nav{display:flex;flex-direction:column;padding:8px 0;border-bottom:1px solid var(--border)}
+.mobile-menu__link{display:flex;align-items:center;gap:12px;min-height:48px;padding:10px 16px;color:var(--text);text-decoration:none;font-weight:600;font-size:1rem}
+.mobile-menu__link .material-symbols-outlined{flex:0 0 auto;font-size:22px;color:var(--purple)}
+.mobile-menu__link:hover{color:var(--purple)}
+.mobile-menu__actions{display:flex;flex-direction:column;gap:12px;margin-top:auto;padding:12px 16px 16px;border-top:1px solid var(--border)}
+.mobile-menu__actions .btn{width:100%}
+.mobile-menu__actions .site-header__phone{display:inline-flex}
+
+/* Мобильное меню: аккордеон «Услуги» по ролям */
+.mobile-menu__item{border-bottom:1px solid var(--border)}
+.mobile-menu__toggle{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:48px;padding:10px 16px;border:0;background:none;color:var(--text);font:inherit;font-weight:600;cursor:pointer}
+.mobile-menu__toggle-name{display:inline-flex;align-items:center;gap:12px;font-size:1rem}
+.mobile-menu__toggle-name .material-symbols-outlined{font-size:22px;color:var(--purple)}
+.mobile-menu__arrow{transition:transform .25s ease}
+.mobile-menu__toggle.is-open .mobile-menu__arrow{transform:rotate(180deg);color:var(--purple)}
+.mobile-menu__sub{display:none;padding:0 0 8px}
+.mobile-menu__sub.is-open{display:block}
+.mobile-menu__role{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:44px;padding:8px 16px 8px 24px;border:0;background:none;color:var(--text);font:inherit;font-weight:600;cursor:pointer}
+.mobile-menu__role .material-symbols-outlined{transition:transform .25s ease;color:var(--text-muted)}
+.mobile-menu__role.is-open .material-symbols-outlined{transform:rotate(180deg);color:var(--purple)}
+.mobile-menu__services{display:none;padding:0 8px 4px 16px}
+.mobile-menu__services.is-open{display:block}
+.mobile-menu__services a{display:flex;align-items:center;min-height:44px;padding:8px;color:var(--text-muted);text-decoration:none;font-size:var(--fs-small);font-weight:500;border-radius:8px}
+.mobile-menu__services a:hover{color:var(--purple);background:var(--purple-soft)}
+/* Выделенная ссылка «Подробнее» на страницу роли — в конце каждой панели */
+.mobile-menu__services a.mobile-menu__more{display:inline-flex;align-items:center;gap:4px;min-height:44px;margin:4px 0 8px;padding:4px 14px;border-radius:999px;background:var(--purple-soft);color:var(--purple);font-weight:700}
+.mobile-menu__services a.mobile-menu__more:hover{background:var(--purple);color:#fff}
+.mobile-menu__more .material-symbols-outlined{font-size:16px}
+
+/* Видимость элементов шапки по брейкпоинтам */
+@media (min-width:768px){.site-header__cta{display:inline-flex}}
+@media (min-width:1200px){.site-header__phone{display:inline-flex}}
+@media (min-width:1024px){
+  .site-header__nav{display:flex}
+  .site-header__burger{display:none}
+}
+
+/* ── Подвал (светлый) ────────────────────────────────────────────────── */
+.site-footer{background:var(--surface);color:var(--text);padding:64px 0 28px;position:relative;overflow:hidden}
+.site-footer::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(61,14,106,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(61,14,106,.05) 1px,transparent 1px);
+  background-size:56px 56px}
+.site-footer__inner{position:relative;display:grid;gap:36px}
+.site-footer a{color:var(--purple);text-decoration:none}
+.site-footer a:hover{color:var(--purple-dark)}
+.site-footer__title{margin:0 0 12px;font-size:var(--fs-small);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)}
+.site-footer__brand .logo-text b{color:var(--navy)}
+.site-footer__brand .logo-text span{color:var(--text-muted)}
+.site-footer__brand img{height:44px;width:auto;display:block}
+.site-footer__brand p{margin:14px 0 0;color:var(--text-muted);font-size:var(--fs-small);max-width:46ch}
+.site-footer__col ul{list-style:none;margin:0;padding:0}
+.site-footer__col ul a{display:inline-flex;align-items:center;min-height:44px}
+.site-footer__phone{display:inline-flex;align-items:center;min-height:44px;font-weight:800;font-size:1.3rem;color:var(--purple)}
+.site-footer__addr{margin:8px 0 0;color:var(--text-muted);font-size:var(--fs-small)}
+.site-footer__social{display:flex;gap:12px;margin-top:14px}
+.site-footer__social a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:var(--purple-soft);color:var(--purple)}
+.site-footer__social a:hover{background:var(--purple);color:#fff}
+.site-footer__social .material-symbols-outlined{font-size:22px}
+.site-footer__bottom{position:relative;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;margin-top:44px;padding-top:22px;border-top:1px solid var(--border);color:var(--text-muted);font-size:var(--fs-small)}
+.site-footer__bottom p{margin:0}
+.site-footer__link--disabled{display:inline-flex;align-items:center;min-height:44px;color:var(--text-muted);cursor:default}
+@media (min-width:768px){.site-footer__inner{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1024px){.site-footer__inner{grid-template-columns:1.4fr 1fr 1fr 1.2fr}}
+
+/* ── Подвал: падающие частицы (как на обложке) ───────────────────────── */
+.site-footer__particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.site-footer__particles span{position:absolute;top:-24px;border-radius:2px;opacity:0;animation:b-fall linear infinite}
+.site-footer__particles span:nth-child(1){left:5%;width:10px;height:10px;background:rgba(90,57,148,.35);animation-duration:13s;animation-delay:0s}
+.site-footer__particles span:nth-child(2){left:15%;width:7px;height:7px;background:rgba(235,184,30,.5);animation-duration:17s;animation-delay:2s}
+.site-footer__particles span:nth-child(3){left:28%;width:12px;height:12px;background:rgba(185,166,216,.4);animation-duration:15s;animation-delay:4s}
+.site-footer__particles span:nth-child(4){left:42%;width:6px;height:6px;background:rgba(168,198,134,.45);animation-duration:19s;animation-delay:1s}
+.site-footer__particles span:nth-child(5){left:58%;width:9px;height:9px;background:rgba(217,192,138,.45);animation-duration:14s;animation-delay:3s}
+.site-footer__particles span:nth-child(6){left:72%;width:11px;height:11px;background:rgba(90,57,148,.3);animation-duration:18s;animation-delay:5s}
+.site-footer__particles span:nth-child(7){left:85%;width:8px;height:8px;background:rgba(235,184,30,.4);animation-duration:16s;animation-delay:2.5s}
+.site-footer__particles span:nth-child(8){left:93%;width:6px;height:6px;background:rgba(185,166,216,.4);animation-duration:20s;animation-delay:4.5s}
+@keyframes b-fall{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.6}90%{opacity:.4}100%{transform:translateY(120vh) rotate(180deg);opacity:0}}
+@media (prefers-reduced-motion:reduce){.site-footer__particles span{animation:none;opacity:0}}
+
+/* ── Кнопки: секционные оверрайды (общие дубли .btn-семейства, W1.1) ──── */
+.b-form .btn{width:100%}
+.b-faq__help .btn{width:100%}
+.b-map-sec__bar .btn{min-height:42px;padding:9px 18px}
+@media (max-width:767px){.b-cta--grad .btn{width:100%;justify-content:center}}
