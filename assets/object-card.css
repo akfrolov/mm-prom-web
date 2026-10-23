@@ -1,0 +1,64 @@
+/* Карточки объектов ММ Пром — канон .obj-card (CR-2026-001 шаг 5).
+   Общие правила (ленты index/arenda/prodazha) + каталог-вариант .obj-card--cat.
+   Cache-busting: подключать с ?v=2 и bump при правках. */
+
+.obj-card{position:relative;display:flex;flex-direction:column;height:100%;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:box-shadow .2s ease,transform .2s ease}
+.obj-card:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
+.obj-card .img-placeholder{border:0;border-bottom:1px solid var(--border);border-radius:0;min-height:150px;flex:1 1 auto}
+.obj-card__body{display:flex;flex-direction:column;gap:8px;padding:18px;flex:1 1 auto}
+.obj-card__badges{display:flex;align-items:center;flex-wrap:wrap;justify-content:space-between;gap:8px;min-height:24px}
+.obj-card .badge--park{background:rgba(235,184,30,.18);color:#0E0028}
+.obj-card .badge--production{background:rgba(90,57,148,.12);color:#5A3994}
+.obj-card .badge--warehouse{background:rgba(14,0,40,.10);color:#0E0028}
+.obj-card .badge--land{background:#F7F5FA;border:1px solid #EBB81E;color:#0E0028}
+.obj-card__link{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;margin:-10px -6px -10px auto;color:var(--purple);text-decoration:none}
+.obj-card__link .material-symbols-outlined{font-size:20px}
+.obj-card__link:hover .material-symbols-outlined{color:var(--navy)}
+.obj-card__link::after{content:"";position:absolute;inset:0}
+.obj-card__body h3{margin:0;font-size:1.1rem;line-height:1.3}
+.obj-card__desc{margin:0;font-size:var(--fs-small);color:var(--text-muted)}
+.obj-card__meta{display:grid;gap:4px;list-style:none;margin:0;padding:0;font-size:var(--fs-small);color:var(--text-muted)}
+.obj-card__meta li{display:flex;align-items:center;gap:8px}
+.obj-card__meta .material-symbols-outlined{font-size:18px;color:var(--purple)}
+.obj-card__meta .icon-loc{flex:0 0 auto}
+.obj-card__meta strong{color:var(--text);font-weight:600}
+.obj-card__presentation{position:absolute;top:12px;left:12px;z-index:2;display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--text);font-size:var(--fs-small);font-weight:600;text-decoration:none;box-shadow:0 4px 14px rgba(11,27,51,.12)}
+.obj-card__presentation .material-symbols-outlined{font-size:18px}
+.obj-card__presentation:hover{border-color:var(--purple);color:var(--purple)}
+.obj-card .b-media img{aspect-ratio:16/10}
+
+.b-media{margin:0;display:flex;flex-direction:column;background:var(--surface)}
+.b-media img{display:block;width:100%;flex:1 1 auto;object-fit:cover}
+.b-media img.is-broken{display:none}
+
+/* Каталог-вариант (из .cat-card) */
+.obj-card--cat .obj-card__media{position:relative;aspect-ratio:16/10;background:var(--surface);overflow:hidden}
+.obj-card--cat .obj-card__media img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.obj-card--cat:hover .obj-card__media img{transform:scale(1.05)}
+.obj-card--cat .obj-card__media img.is-broken{display:none}
+.obj-card__ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--text-muted);font-size:var(--fs-small);text-align:center;padding:16px}
+.obj-card__ph .material-symbols-outlined{font-size:34px;color:var(--border)}
+.obj-card--cat .obj-card__media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,0,40,.28) 0%,rgba(14,0,40,0) 38%,rgba(14,0,40,.10) 100%);pointer-events:none}
+.obj-card--cat .obj-card__badges{position:absolute;top:12px;left:12px;right:12px;display:flex;flex-wrap:wrap;gap:6px;z-index:2;justify-content:space-between;align-items:flex-start}
+.obj-card__badges-left{display:flex;flex-wrap:wrap;gap:6px}
+.obj-card--cat .obj-card__badges .badge{backdrop-filter:blur(6px)}
+.obj-card--cat .obj-card__map{position:absolute;right:12px;bottom:12px;z-index:2;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:0;border-radius:50%;background:rgba(255,255,255,.94);color:var(--purple);cursor:pointer;box-shadow:0 4px 14px rgba(11,27,51,.18);transition:background .18s ease,color .18s ease,transform .18s ease}
+.obj-card--cat .obj-card__map:hover{background:var(--purple);color:#fff;transform:scale(1.06)}
+.obj-card--cat .obj-card__map .material-symbols-outlined{font-size:20px}
+.obj-card--cat .obj-card__body{display:flex;flex-direction:column;gap:10px;padding:18px 18px 16px;flex:1 1 auto}
+.obj-card--cat .obj-card__body h3{margin:0;font-size:1.06rem;line-height:1.35}
+.obj-card--cat .obj-card__addr{margin:0;color:var(--text-muted);font-size:var(--fs-small);display:flex;gap:6px;align-items:flex-start;line-height:1.45}
+.obj-card--cat .obj-card__addr .material-symbols-outlined{font-size:16px;color:var(--purple);flex:0 0 auto;margin-top:2px}
+.obj-card--cat .obj-card__facts{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:2px;padding-top:12px;border-top:1px solid var(--border)}
+.obj-card--cat .obj-card__fact{display:flex;flex-direction:column;gap:2px;min-width:0}
+.obj-card--cat .obj-card__fact span{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);font-weight:700}
+.obj-card--cat .obj-card__fact strong{font-size:.98rem;color:var(--text);font-weight:700;line-height:1.3}
+.obj-card--cat .obj-card__foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:12px}
+.obj-card--cat .obj-card__more{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0;border:0;background:none;color:var(--purple);font:inherit;font-weight:700;font-size:var(--fs-small);text-decoration:none;cursor:pointer}
+.obj-card--cat .obj-card__more .material-symbols-outlined{font-size:18px;transition:transform .2s ease}
+.obj-card--cat .obj-card__more:hover .material-symbols-outlined{transform:translateX(4px)}
+.obj-card--cat .obj-card__ext{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--purple);font-weight:700;font-size:var(--fs-small);text-decoration:none}
+.obj-card--cat .obj-card__ext .material-symbols-outlined{font-size:18px}
+.obj-card--cat .obj-card__busy{display:inline-flex;align-items:center;gap:4px;color:var(--text-muted);font-size:var(--fs-small)}
+.obj-card--cat .obj-card__busy .material-symbols-outlined{font-size:16px}
+.obj-card--busy .obj-card__media img{filter:grayscale(.35);opacity:.9}

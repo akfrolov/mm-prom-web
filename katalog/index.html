@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Каталог объектов — ММ Пром</title>
+    <meta name="description" content="Каталог производственной недвижимости Санкт-Петербурга и Ленинградской области: индустриальные парки, производственно-складские комплексы и земельные участки. Фильтры по типу, сделке, площади и локации, интерактивная карта.">
+    <meta name="robots" content="noindex, follow">
+    <link rel="icon" type="image/png" href="/mm-logo.png">
+    <link rel="canonical" href="https://test.mm-prom.ru/katalog/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ММ Пром">
+    <meta property="og:title" content="Каталог объектов — ММ Пром">
+    <meta property="og:description" content="Каталог производственной недвижимости Санкт-Петербурга и Ленинградской области: индустриальные парки, производственно-складские комплексы и земельные участки. Фильтры по типу, сделке, площади и локации, интерактивная карта.">
+    <meta property="og:url" content="https://test.mm-prom.ru/katalog/">
+    <meta property="og:image" content="https://test.mm-prom.ru/mmprom-logo.png">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/base.css?v=1">
+    <link rel="stylesheet" href="/assets/blocks.css?v=1">
+    <link rel="stylesheet" href="/assets/site-anim.css?v=1">
+    
+  <link rel="stylesheet" href="/assets/object-card.css?v=2">
+    <style>
+    /* ═══════════════════════════════════════════════════════════════════════
+       ММ ПРОМ — ГЛАВНАЯ СТРАНИЦА
+       Дизайн по брендбуку «МИ ПРОМ ГРУППА КОМПАНИЙ» (2026):
+       • тёмно-синий (доверие, профессионализм) — доминанта,
+       • глубокий фиолетовый (премиальность) — акценты,
+       • золотисто-жёлтый (успех) — маркеры, CTA, логотип,
+       • белый (чистота, пространство),
+       • фирменный мотив — геометрические квадраты (структура, порядок).
+       Стиль: деловой, современный, технологичный, премиальный.
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    /* ── Брендбук: рассыпанные цветные квадраты (пиксельный паттерн) ─────── */
+    .brand-squares{position:absolute;pointer-events:none;z-index:1}
+    .brand-squares span{position:absolute;display:block;border-radius:2px}
+
+    /* ── Кнопки ──────────────────────────────────────────────────────────── */
+
+    /* ── Шапка ───────────────────────────────────────────────────────────── */
+
+    /* ── Мегаменю «Услуги» (роль → услуга) ──────────────────────────────── */
+
+    /* ── Мобильное меню ─────────────────────────────────────────────────── */
+
+    /* Мобильное меню: аккордеон «Услуги» по ролям */
+
+    /* ── Герой (светлый, геометрический паттерн) ─────────────────────────── */
+    .b-hero{background:linear-gradient(180deg,#fff 0%,var(--surface) 100%);color:var(--text);position:relative;overflow:hidden}
+    .b-hero__glow{position:absolute;width:520px;height:520px;border-radius:50%;filter:blur(120px);opacity:.5;pointer-events:none}
+    .b-hero__glow--purple{background:var(--purple-soft);top:-160px;right:-80px}
+    .b-hero__glow--gold{background:rgba(235,184,30,.28);bottom:-200px;left:-100px}
+    .b-hero__glow--purple{animation:b-glow-pulse 9s ease-in-out infinite}
+    .b-hero__glow--gold{animation:b-glow-pulse 12s ease-in-out infinite reverse}
+    @keyframes b-glow-pulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.18);opacity:.75}}
+    .b-hero__particles{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+    .b-hero__particles span{position:absolute;bottom:-24px;border-radius:2px;opacity:0;animation:b-rise linear infinite}
+    .b-hero__particles span:nth-child(1){left:8%;width:10px;height:10px;background:rgba(90,57,148,.35);animation-duration:14s;animation-delay:0s}
+    .b-hero__particles span:nth-child(2){left:22%;width:6px;height:6px;background:rgba(235,184,30,.4);animation-duration:18s;animation-delay:2s}
+    .b-hero__particles span:nth-child(3){left:38%;width:12px;height:12px;background:rgba(185,166,216,.4);animation-duration:16s;animation-delay:4s}
+    .b-hero__particles span:nth-child(4){left:55%;width:7px;height:7px;background:rgba(168,198,134,.4);animation-duration:20s;animation-delay:1s}
+    .b-hero__particles span:nth-child(5){left:72%;width:9px;height:9px;background:rgba(217,192,138,.4);animation-duration:15s;animation-delay:3s}
+    .b-hero__particles span:nth-child(6){left:88%;width:5px;height:5px;background:rgba(90,57,148,.3);animation-duration:22s;animation-delay:5s}
+    @keyframes b-rise{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.7}90%{opacity:.5}100%{transform:translateY(-110vh) rotate(180deg);opacity:0}}
+    @media (prefers-reduced-motion:reduce){
+      .b-hero__glow--purple,.b-hero__glow--gold,.b-hero__particles span{animation:none}
+      .b-hero__particles span{opacity:0}
+    }
+    .b-hero__inner{position:relative;z-index:2;display:grid;gap:40px;padding:clamp(40px,6vw,72px) 0}
+    .b-hero__eyebrow{display:inline-flex;align-items:center;gap:10px;margin:0 0 20px;font-size:var(--fs-small);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple)}
+    .b-hero__eyebrow::before{content:"";width:34px;height:3px;border-radius:2px;background:var(--gold)}
+    .b-hero h1{color:var(--navy);margin-bottom:.35em}
+    .b-hero h1 .accent{color:var(--purple)}
+    .b-hero__lead{color:var(--text-muted);max-width:56ch;font-size:1.08em}
+    .b-hero__actions{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0 28px}
+    .b-hero__metrics{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:22px 18px}
+    .b-hero__metrics li{border-top:3px solid var(--gold);padding-top:14px}
+    .b-hero__metrics strong{display:block;font-size:clamp(1.1rem,1rem + .6vw,1.5rem);color:var(--purple);font-weight:800;white-space:nowrap}
+    .b-hero__metrics span{display:block;color:var(--text-muted);font-size:var(--fs-small)}
+    .b-hero__media{min-width:0;position:relative}
+    .b-hero__media-frame{padding:3px;background:linear-gradient(135deg,var(--gold) 0%,var(--purple) 100%);position:relative;overflow:hidden;border-radius:0}
+    .b-hero__media-frame .img-placeholder{width:100%;aspect-ratio:16/9;border:0;border-radius:0;background:var(--surface);color:var(--text-muted)}
+    .b-hero__video{position:absolute;top:3px;left:3px;width:calc(100% - 6px);height:calc(100% - 6px);object-fit:cover;display:block}
+    .b-hero__sound{position:absolute;right:16px;bottom:16px;z-index:2;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.9);color:var(--navy);font:inherit;font-size:var(--fs-small);font-weight:600;cursor:pointer;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);box-shadow:0 4px 14px rgba(11,27,51,.1)}
+    .b-hero__sound:hover{background:#fff}
+    @media (min-width:768px){
+      .b-hero{min-height:calc(100vh - var(--header-h) - var(--marquee-h));display:flex;align-items:center}
+      @supports (min-height:100svh){.b-hero{min-height:calc(100svh - var(--header-h) - var(--marquee-h))}}
+      .b-hero__inner{flex:1 1 auto;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+      .b-hero__metrics{grid-template-columns:repeat(2,1fr)}
+      .b-hero__media{max-width:calc(100vh - var(--header-h) - var(--marquee-h) - 48px)}
+    }
+    @media (min-width:1024px){
+      .b-hero__inner{gap:56px}
+      .b-hero__metrics{grid-template-columns:repeat(4,1fr)}
+      .b-hero__media-frame .img-placeholder{aspect-ratio:16/9}
+    }
+
+    /* ── Заголовки секций ────────────────────────────────────────────────── */
+    .sec-index{display:inline-flex;align-items:center;gap:10px;margin:0 0 16px;font-size:var(--fs-small);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)}
+    .sec-index::before{content:"";width:30px;height:3px;border-radius:2px;background:var(--gold)}
+    .sec-index--light{color:rgba(255,255,255,.6)}
+    .b-rowhead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;margin-bottom:36px}
+    .b-rowhead h2{margin:0}
+    .b-rowhead > p{margin:0;flex-basis:100%;color:var(--text-muted)}
+    .b-more{display:inline-flex;align-items:center;gap:6px;font-weight:700;text-decoration:none;color:var(--purple)}
+    .b-more .material-symbols-outlined{font-size:20px;transition:transform .2s ease}
+    .b-more:hover .material-symbols-outlined{transform:translateX(4px)}
+
+    /* ── Комплексное сопровождение (шаги 01–06) ──────────────────────────── */
+    .b-steps{list-style:none;margin:0;padding:0;display:grid;gap:16px;grid-template-columns:1fr}
+    .b-steps__item{display:flex;background:#fff;border:1px solid var(--border);border-radius:var(--radius);transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+    .b-steps__item:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
+    .b-steps__link{display:flex;flex:1 1 auto;gap:18px;align-items:flex-start;height:100%;padding:26px 22px;color:inherit;text-decoration:none}
+    .b-steps__num{flex:0 0 auto;min-width:2.2ch;font-size:clamp(2.6rem,1.9rem + 2.8vw,3.8rem);line-height:1;font-weight:800;color:transparent;-webkit-text-stroke:1.5px var(--purple-soft);transition:color .2s ease,-webkit-text-stroke-color .2s ease}
+    .b-steps__item:hover .b-steps__num{color:var(--gold);-webkit-text-stroke-color:transparent}
+    .b-steps__icon{display:block;margin-bottom:8px;color:var(--purple);font-size:28px}
+    .b-steps__body h3{margin:0 0 4px;font-size:1.1rem}
+    .b-steps__body p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
+    @media (min-width:768px){.b-steps{grid-template-columns:repeat(2,1fr);gap:24px}}
+    @media (min-width:1024px){.b-steps{grid-template-columns:repeat(3,1fr)}}
+
+    /* ── Конвейер полного цикла (второй блок) ────────────────────────────── */
+    .b-conveyor{position:relative}
+    .b-conveyor__line{position:absolute;top:22px;left:0;right:0;height:2px;background:repeating-linear-gradient(90deg,var(--purple) 0 10px,transparent 10px 20px);opacity:.35;pointer-events:none;display:none}
+    .b-conveyor__runner{position:absolute;top:18px;left:0;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(235,184,30,.25);pointer-events:none;display:none}
+    @keyframes b-conveyor-run{0%{left:0}100%{left:calc(100% - 10px)}}
+    .b-conveyor__note{display:inline-flex;align-items:center;gap:10px;margin:28px 0 0;padding:14px 20px;border-radius:var(--radius-sm);background:var(--purple-soft);color:var(--purple);font-weight:700;font-size:var(--fs-small)}
+    .b-conveyor__note .material-symbols-outlined{font-size:20px}
+    /* Компактный второй блок (на один экран) */
+    .b-advantages--compact{padding:clamp(32px,5vw,56px) 0}
+    .b-advantages--compact h2{margin-bottom:.3em}
+    .b-advantages--compact .b-advantages__lead{margin-bottom:24px}
+    .b-advantages--compact .b-conveyor__note{margin-top:20px}
+    /* Этап «пройден» при прохождении бегунка */
+    .b-steps--conveyor .b-steps__item.is-passed .b-steps__num{color:var(--gold);-webkit-text-stroke-color:transparent}
+    .b-steps--conveyor .b-steps__item.is-passed .b-steps__icon{color:var(--gold)}
+    .b-steps--conveyor .b-steps__item.is-passed .b-steps__body h3{color:var(--purple)}
+    @media (min-width:1024px){
+      .b-conveyor__line,.b-conveyor__runner{display:block}
+      .b-steps--conveyor{grid-template-columns:repeat(6,1fr);gap:14px}
+      .b-steps--conveyor .b-steps__item{background:transparent;border:0;box-shadow:none}
+      .b-steps--conveyor .b-steps__item:hover{transform:none;box-shadow:none}
+      .b-steps--conveyor .b-steps__link{flex-direction:column;align-items:flex-start;padding:0;gap:0;height:auto}
+      .b-steps--conveyor .b-steps__num{font-size:2.2rem;height:44px;display:flex;align-items:center;margin-bottom:14px}
+      .b-steps--conveyor .b-steps__icon{margin-bottom:10px}
+      .b-steps--conveyor .b-steps__body h3{font-size:1rem}
+    }
+    @media (max-width:767.98px){
+      .b-steps--conveyor{position:relative;padding-left:30px}
+      .b-steps--conveyor::before{content:"";position:absolute;left:6px;top:10px;bottom:10px;width:2px;background:repeating-linear-gradient(180deg,var(--purple) 0 8px,transparent 8px 16px);opacity:.35}
+      .b-steps--conveyor .b-steps__item{position:relative}
+      .b-steps--conveyor .b-steps__item::before{content:"";position:absolute;left:-30px;top:34px;width:14px;height:14px;border-radius:50%;background:var(--gold);border:2px solid var(--purple)}
+    }
+
+    /* ── Иконки-плашки ───────────────────────────────────────────────────── */
+    .b-advantages__icon{display:inline-flex;align-items:center;justify-content:center;width:50px;height:50px;border-radius:12px;background:var(--purple-soft);color:var(--purple);margin-bottom:14px}
+    .b-advantages__icon .material-symbols-outlined{font-size:26px}
+
+    /* ── Клиенты ─────────────────────────────────────────────────────────── */
+    .b-clients__card{display:flex;flex-direction:column;height:100%;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:26px;color:var(--text);text-decoration:none;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+    .b-clients__card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
+    .b-clients__card h3{margin:0 0 6px;font-size:1.15rem}
+    .b-clients__card > p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
+    .b-clients__go{display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding-top:18px;font-weight:700;color:var(--purple)}
+    .b-clients__go .material-symbols-outlined{font-size:20px;transition:transform .2s ease}
+    .b-clients__card:hover .b-clients__go .material-symbols-outlined{transform:translateX(4px)}
+
+    /* ── Комплексные решения (перечисление услуг) ────────────────────────── */
+    .b-services__card{height:100%;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow-sm);transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+    .b-services__card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
+    .b-services__card h3{margin:0 0 6px;font-size:1.15rem}
+    .b-services__card p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
+
+    /* ── Карта ролей (третий блок, один экран) ───────────────────────────── */
+    .b-roles{display:grid;gap:32px;align-items:center}
+    .b-roles__intro h2{margin-bottom:.4em}
+    .b-roles__intro > p{color:var(--text-muted);margin:0 0 22px}
+    .b-roles__hint{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;background:var(--purple-soft);color:var(--purple);font-weight:700;font-size:var(--fs-small);animation:b-hint-pulse 2.2s ease-in-out infinite}
+    .b-roles__hint .material-symbols-outlined{font-size:18px}
+    @keyframes b-hint-pulse{
+      0%,100%{box-shadow:0 0 0 0 rgba(90,57,148,.35);transform:scale(1)}
+      50%{box-shadow:0 0 0 12px rgba(90,57,148,0);transform:scale(1.05)}
+    }
+    @media (prefers-reduced-motion:reduce){.b-roles__hint{animation:none}}
+    .b-roles__grid{display:grid;gap:16px;grid-template-columns:1fr}
+    .b-roles__grid .b-clients__card{padding:22px}
+    .b-roles__grid .b-clients__card h3{font-size:1.1rem}
+    @media (min-width:768px){
+      .b-roles__grid{grid-template-columns:repeat(2,1fr);gap:20px}
+    }
+    @media (min-width:1024px){
+      .b-roles{grid-template-columns:0.85fr 1.15fr;gap:56px}
+    }
+
+    /* ── Объекты (горизонтальная лента) ──────────────────────────────────── */
+    .b-rail-group{margin-top:40px}
+    .b-rail-group > h3{margin:0 0 18px;font-size:var(--fs-h3);display:flex;align-items:center;gap:10px}
+    .b-rail-group > h3::before{content:"";width:12px;height:12px;background:var(--gold);transform:rotate(45deg);flex:0 0 auto}
+    .b-rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:14px;scrollbar-width:thin}
+    .b-rail::-webkit-scrollbar{height:6px}
+    .b-rail::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+    .b-rail > *{flex:0 0 84vw;max-width:360px;scroll-snap-align:start}
+    @media (min-width:768px){.b-rail{gap:20px}.b-rail > *{flex:0 0 340px}}
+
+    /* ── Бейджи ──────────────────────────────────────────────────────────── */
+    .badge{display:inline-flex;align-items:center;gap:6px;min-height:26px;padding:3px 12px;border-radius:999px;font-size:var(--fs-small);font-weight:700}
+    .badge--park,.badge--technopark{background:rgba(235,184,30,.2);color:var(--navy)}
+
+    /* ── Заглушка изображения ────────────────────────────────────────────── */
+    .img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius);color:var(--text-muted);font-size:var(--fs-small);min-height:180px;padding:16px;text-align:center}
+    .img-placeholder .material-symbols-outlined{font-size:36px;color:var(--border)}
+
+    /* ── Стандарты строительства ─────────────────────────────────────────── */
+    .b-split{display:grid;gap:24px;align-items:stretch;margin-bottom:36px}
+    .b-split__media{height:100%;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+    .b-split__media img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+    .b-split__list{list-style:none;margin:0;padding:0;display:grid;gap:16px;grid-template-columns:1fr;grid-auto-rows:1fr;height:100%}
+    .b-split__item{display:flex;flex-direction:column;gap:12px;height:100%;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px}
+    .b-split__item .b-advantages__icon{flex:0 0 auto;margin:0}
+    .b-split__item h3{margin:0 0 4px;font-size:1.15rem}
+    .b-split__item p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
+    @media (min-width:768px){.b-split{gap:32px}.b-split__list{grid-template-columns:repeat(2,1fr)}}
+    @media (min-width:1024px){.b-split{grid-template-columns:1fr 1fr}}
+
+    /* ── Стандарты: изображение слева + диаграмма контроля справа ────────── */
+    .b-standards{display:grid;gap:24px}
+    .b-standards__media{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+    .b-standards__media img{width:100%;object-fit:cover;aspect-ratio:4/3}
+    @media (min-width:768px) and (max-width:1023.98px){.b-standards__media img{aspect-ratio:16/9}}
+
+    /* ── Диаграмма контроля (блок «Стандарты строительства») ─────────────── */
+    .b-control{display:grid;grid-template-columns:1fr;gap:16px;margin-top:8px}
+    .b-control__lines,.b-control__center{display:none}
+    .b-control__node{position:static;width:auto;transform:none;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow-sm);transition:border-color .2s ease,box-shadow .2s ease}
+    .b-control__node:hover{border-color:var(--purple);box-shadow:var(--shadow)}
+    .b-control__node h3{margin:0 0 4px;font-size:1.1rem}
+    .b-control__node p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
+    .b-control__icon{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;background:var(--purple-soft);color:var(--purple);margin-bottom:12px}
+    .b-control__icon .material-symbols-outlined{font-size:24px}
+    @media (min-width:768px) and (max-width:1023.98px){.b-control{grid-template-columns:repeat(2,1fr)}}
+    @media (min-width:1024px){
+      .b-standards{grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+      .b-standards__media{height:100%}
+      .b-standards__media img{height:100%;aspect-ratio:4/3}
+      .b-control{position:relative;display:block;height:460px;max-width:520px;margin:0 auto}
+      .b-control__lines,.b-control__center{display:flex}
+      .b-control__lines{position:absolute;inset:0;width:100%;height:100%}
+      .b-control__center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:160px;height:160px;border-radius:50%;background:linear-gradient(135deg,var(--purple) 0%,var(--navy) 100%);color:#fff;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:3px;box-shadow:0 20px 50px rgba(90,57,148,.35);z-index:2;padding:16px}
+      .b-control__center .material-symbols-outlined{font-size:30px;color:var(--gold)}
+      .b-control__center strong{font-size:.95rem;font-weight:800}
+      .b-control__center span{font-size:var(--fs-small);color:rgba(255,255,255,.75)}
+      .b-control__node{position:absolute;width:200px;z-index:2}
+      .b-control__node--1{top:0;left:50%;transform:translateX(-50%)}
+      .b-control__node--2{top:50%;right:0;transform:translateY(-50%)}
+      .b-control__node--3{bottom:0;left:50%;transform:translateX(-50%)}
+      .b-control__node--4{top:50%;left:0;transform:translateY(-50%)}
+    }
+
+    /* ── Вертикальная диаграмма контроля (надёжная) ──────────────────────── */
+    .b-flow{position:relative;padding-left:44px}
+    .b-flow::before{content:"";position:absolute;left:17px;top:8px;bottom:8px;width:2px;background:repeating-linear-gradient(180deg,var(--purple) 0 8px,transparent 8px 16px);opacity:.35}
+    .b-flow__step{position:relative;margin-bottom:20px}
+    .b-flow__step:last-child{margin-bottom:0}
+    .b-flow__dot{position:absolute;left:-44px;top:0;width:36px;height:36px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;border:3px solid var(--gold);box-shadow:0 4px 12px rgba(90,57,148,.3)}
+    .b-flow__body{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow-sm);transition:border-color .2s ease,box-shadow .2s ease}
+    .b-flow__body:hover{border-color:var(--purple);box-shadow:var(--shadow)}
+    .b-flow__body h3{margin:0 0 4px;font-size:1.05rem}
+    .b-flow__body p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
+
+    /* ── Стандарты строительства: горизонтальный слайдер-бегунок ─────────── */
+    .b-std-slider{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:14px;scrollbar-width:thin}
+    .b-std-slider::-webkit-scrollbar{height:6px}
+    .b-std-slider::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+    .b-std-card{flex:0 0 300px;scroll-snap-align:start;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm);transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+    .b-std-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
+    .b-std-card__num{display:block;font-size:2rem;font-weight:800;color:transparent;-webkit-text-stroke:1.5px var(--purple-soft);margin-bottom:12px}
+    .b-std-card__icon{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;background:var(--purple-soft);color:var(--purple);margin-bottom:14px}
+    .b-std-card__icon .material-symbols-outlined{font-size:24px}
+    .b-std-card h3{margin:0 0 6px;font-size:1.1rem}
+    .b-std-card p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
+
+    /* ── Стандарты строительства: сетка 2×2 с галочками ──────────────────── */
+    .b-std-grid{display:grid;gap:20px;grid-template-columns:1fr}
+    @media (min-width:768px){.b-std-grid{grid-template-columns:repeat(2,1fr)}}
+    .b-std-grid__card{position:relative;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow-sm);transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+    .b-std-grid__card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
+    .b-std-grid__check{position:absolute;top:20px;right:20px;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--gold);color:#fff}
+    .b-std-grid__check .material-symbols-outlined{font-size:18px}
+    .b-std-grid__icon{display:inline-flex;align-items:center;justify-content:center;width:50px;height:50px;border-radius:12px;background:var(--purple-soft);color:var(--purple);margin-bottom:16px}
+    .b-std-grid__icon .material-symbols-outlined{font-size:26px}
+    .b-std-grid__card h3{margin:0 0 6px;font-size:1.15rem}
+    .b-std-grid__card p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
+
+    /* ── Вертикальный список стандартов с прогресс-барами ─────────────────── */
+    .b-progress{display:grid;gap:16px;max-width:780px;margin:0 auto}
+    .b-progress__item{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow-sm);transition:border-color .2s ease,box-shadow .2s ease}
+    .b-progress__item:hover{border-color:var(--purple);box-shadow:var(--shadow)}
+    .b-progress__head{display:flex;align-items:flex-start;gap:16px}
+    .b-progress__icon{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;background:var(--purple-soft);color:var(--purple);flex:0 0 auto}
+    .b-progress__icon .material-symbols-outlined{font-size:24px}
+    .b-progress__text{flex:1}
+    .b-progress__text h3{margin:0 0 4px;font-size:1.1rem}
+    .b-progress__text p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
+    .b-progress__value{font-weight:800;color:var(--purple);font-size:1.1rem;white-space:nowrap}
+    .b-progress__bar{height:8px;border-radius:999px;background:var(--surface);margin-top:16px;overflow:hidden}
+    .b-progress__bar span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--purple) 0%,var(--gold) 100%)}
+
+    .tz-panel{background:linear-gradient(120deg,var(--purple) 0%,var(--navy) 100%);border-radius:var(--radius);padding:30px;color:#fff;position:relative;overflow:hidden;margin-top:20px}
+    .tz-panel::after{content:"";position:absolute;width:90px;height:90px;right:-30px;bottom:-30px;border:2px solid rgba(235,184,30,.4);transform:rotate(15deg)}
+    .tz-panel h3{margin:0 0 8px;color:#fff}
+    .tz-panel p{margin:0 0 4px}
+    .tz-panel p.muted{color:rgba(255,255,255,.7)}
+
+    /* ── Контакты ────────────────────────────────────────────────────────── */
+    .b-contacts__inner{display:grid;gap:32px;margin-top:36px}
+    .b-contacts__list{margin:0 0 24px;display:grid;grid-template-columns:auto 1fr;gap:10px 18px}
+    .b-contacts__list dt{color:var(--text-muted);font-size:var(--fs-small)}
+    .b-contacts__list dd{margin:0;font-weight:600}
+    .b-contacts__list dd a{color:inherit;text-decoration:none}
+    .b-contacts__list dd a:hover{color:var(--purple)}
+    .b-contacts .img-placeholder{min-height:260px}
+    @media (min-width:1024px){.b-contacts__inner{grid-template-columns:1fr 1fr;align-items:start}}
+
+    /* Форма Битрикс24 — полностью видна */
+    .b24-form-wrap{max-height:none;overflow:visible}
+
+    /* ── Карта с жёлтой меткой офиса ─────────────────────────────────────── */
+    .b-map{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);min-height:280px}
+    .b-map iframe{width:100%;height:100%;border:0;display:block;min-height:280px}
+
+    /* ── Иконки мессенджеров ─────────────────────────────────────────────── */
+    .b-mess{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:var(--purple-soft);transition:background .2s ease,transform .2s ease}
+    .b-mess:hover{background:var(--purple);transform:translateY(-2px)}
+    .b-mess svg{display:block}
+    .b-mess-row{display:flex;gap:12px;margin-bottom:24px}
+    .b-mess--text{border-radius:999px;padding-inline:16px;width:auto;font-size:.72rem;font-weight:800;color:var(--purple);letter-spacing:.02em}
+
+    /* ── Форма ───────────────────────────────────────────────────────────── */
+    .b-form{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+    .b-form h3{margin:0 0 18px}
+    .lead-form__field{display:block;margin-bottom:14px}
+    .lead-form__label{display:block;margin-bottom:6px;font-size:var(--fs-small);font-weight:600}
+    .lead-form__field input,.lead-form__field textarea{display:block;width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);background:#fff;color:var(--text);font:inherit;font-size:var(--fs-body);min-height:46px}
+    .lead-form__field input:focus,.lead-form__field textarea:focus{outline:2px solid var(--purple);outline-offset:1px;border-color:var(--purple)}
+    .lead-form__field textarea{min-height:110px;resize:vertical}
+    .lead-form__hint{margin:6px 0 0;font-size:var(--fs-small);font-weight:400;color:var(--text-muted)}
+    .lead-form__consent{display:flex;gap:10px;align-items:flex-start;margin:16px 0;font-size:var(--fs-small);font-weight:400;color:var(--text-muted)}
+    .lead-form__consent input{width:20px;height:20px;flex:0 0 auto;margin:2px 0 0}
+    .lead-form__row{display:grid;gap:16px}
+    .lead-form__chips{display:flex;flex-wrap:wrap;gap:8px}
+    .lead-form__chip{position:relative;display:inline-flex}
+    .lead-form__chip input{position:absolute;opacity:0;pointer-events:none}
+    .lead-form__chip span{display:inline-flex;align-items:center;min-height:44px;padding:8px 16px;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--text);font-size:var(--fs-small);font-weight:600;cursor:pointer;white-space:nowrap}
+    .lead-form__chip input:checked+span{border-color:var(--purple);background:var(--purple);color:#fff}
+    .lead-form__chip input:focus-visible+span{outline:2px solid var(--purple);outline-offset:2px}
+    .req{color:var(--purple)}
+    @media(min-width:768px){
+      .lead-form__row--3{grid-template-columns:repeat(3,1fr)}
+      .lead-form__row--2{grid-template-columns:repeat(2,1fr)}
+    }
+
+    /* ── Подвал (светлый) ────────────────────────────────────────────────── */
+
+    /* ── Подвал: падающие частицы (как на обложке) ───────────────────────── */
+
+    /* ── Reveal-анимации ─────────────────────────────────────────────────── */
+    html.js .reveal{opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease}
+    html.js .reveal.is-visible{opacity:1;transform:none}
+    @media (prefers-reduced-motion:reduce){
+      html.js .reveal{opacity:1;transform:none;transition:none}
+    }
+
+    .b-hero--service .b-hero__inner{grid-template-columns:minmax(0,1fr);gap:0}
+    .b-hero--service .b-hero__lead{max-width:70ch}
+    .b-hero--service .b-hero__metrics{margin-top:8px}
+
+    .b-tasks__lead,.b-scope__lead,.b-approach__lead,.b-projects__lead{margin:12px 0 0;max-width:70ch;color:var(--text-muted)}
+
+    .b-projects__grid{display:grid;gap:20px;margin-top:32px;grid-template-columns:1fr}
+    .proj-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+    .proj-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
+    .proj-card .img-placeholder{border:0;border-bottom:1px solid var(--border);border-radius:0;min-height:170px}
+    .proj-card__body{display:flex;flex-direction:column;gap:8px;padding:22px}
+    .proj-card__badges{display:flex;flex-wrap:wrap;gap:8px}
+    .proj-card__body h3{margin:0;font-size:1.1rem}
+    .proj-card__customer{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
+    .proj-card__meta{display:grid;gap:4px;list-style:none;margin:4px 0 0;padding:0;font-size:var(--fs-small);color:var(--text-muted)}
+    .proj-card__meta li{display:flex;align-items:center;gap:8px}
+    .proj-card__meta .material-symbols-outlined{font-size:18px;color:var(--purple)}
+    .badge--work{background:rgba(235,184,30,.2);color:var(--navy)}
+    .badge--type{background:var(--purple-soft);color:var(--purple)}
+    @media (min-width:768px){.b-projects__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (min-width:1024px){.b-projects__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+    .b-scope__grid{display:grid;gap:16px;margin-top:32px;grid-template-columns:1fr}
+    .scope-card{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+    .scope-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
+    .scope-card__num{flex:0 0 auto;min-width:2.2ch;font-size:clamp(1.9rem,1.4rem + 1.8vw,2.8rem);line-height:1;font-weight:800;color:transparent;-webkit-text-stroke:1.5px var(--purple-soft);transition:color .2s ease,-webkit-text-stroke-color .2s ease}
+    .scope-card:hover .scope-card__num{color:var(--gold);-webkit-text-stroke-color:transparent}
+    .scope-card p{margin:0;font-weight:500;font-size:1rem}
+    @media (min-width:768px){.b-scope__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}}
+    @media (min-width:1024px){.b-scope__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+    .b-approach__grid{display:grid;gap:16px;margin-top:32px;grid-template-columns:1fr}
+    .approach-card{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:26px;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+    .approach-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
+    .approach-card > .material-symbols-outlined{font-size:28px;color:var(--purple)}
+    .approach-card h3{margin:0;font-size:1.15rem}
+    .approach-card p{margin:0;color:var(--text-muted);font-weight:500;font-size:1rem}
+    .approach-card ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+    .approach-card li{position:relative;padding-left:20px;color:var(--text-muted);font-weight:500;font-size:1rem}
+    .approach-card li::before{content:"";position:absolute;left:0;top:.6em;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+    @media (min-width:768px){.b-approach__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}}
+
+    .b-steps-sec .b-steps{margin-top:32px}
+    .step{display:flex;flex-direction:column;gap:12px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+    .step:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
+    .step__num{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800}
+    .step__text{margin:0;font-weight:500;font-size:1rem}
+    @media (min-width:1024px){.b-steps-sec .b-steps{grid-template-columns:repeat(var(--n,5),minmax(0,1fr))}}
+
+    .b-others__grid{display:grid;gap:16px;margin-top:32px;grid-template-columns:1fr}
+    .other-card{position:relative;display:flex;flex-direction:column;gap:10px;min-height:100%;padding:22px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);text-decoration:none;color:var(--text);transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+    .other-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
+    .other-card:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+    .other-card__icon{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;background:var(--purple-soft);color:var(--purple)}
+    .other-card__icon .material-symbols-outlined{font-size:24px}
+    .other-card__name{font-weight:700;font-size:1.0625rem;line-height:1.3}
+    .other-card__desc{color:var(--text-muted);font-size:var(--fs-small)}
+    .other-card__arrow{position:absolute;top:14px;right:14px;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:var(--purple-soft);color:var(--purple)}
+    .other-card__arrow .material-symbols-outlined{font-size:20px}
+    .other-card:hover .other-card__arrow{background:var(--purple);color:#fff}
+    @media (min-width:768px){.b-others__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}}
+    @media (min-width:1024px){.b-others__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+    /* ═══ Каталог объектов ═══ */
+    .cat-head{padding:clamp(28px,4vw,48px) 0 10px}
+    .cat-head h1{margin:0 0 10px}
+    .cat-head__lead{margin:0;max-width:70ch;color:var(--text-muted);font-size:1.05rem}
+    .cat-head__stats{display:flex;flex-wrap:wrap;gap:10px 28px;margin:22px 0 0;padding:0;list-style:none}
+    .cat-head__stats li{display:inline-flex;align-items:baseline;gap:8px;color:var(--text-muted);font-size:var(--fs-small)}
+    .cat-head__stats strong{font-size:1.35rem;color:var(--purple);font-weight:800}
+
+    /* ── Панель фильтров ─────────────────────────────────────────────── */
+    .cat-toolbar{position:sticky;top:72px;z-index:30;background:rgba(255,255,255,.97);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:14px 0 12px}
+    .cat-toolbar__row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+    .cat-search{position:relative;flex:1 1 260px;min-width:200px}
+    .cat-search .material-symbols-outlined{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--text-muted);pointer-events:none}
+    .cat-search input{width:100%;min-height:46px;padding:10px 14px 10px 42px;border:1px solid var(--border);border-radius:var(--radius-sm);background:#fff;font:inherit;color:var(--text)}
+    .cat-search input::placeholder{color:var(--text-muted)}
+    .cat-search input:focus{outline:2px solid var(--purple);outline-offset:1px;border-color:transparent}
+    .seg{display:inline-flex;padding:4px;background:var(--surface);border:1px solid var(--border);border-radius:999px}
+    .seg button{min-height:38px;padding:6px 16px;border:0;border-radius:999px;background:transparent;color:var(--text-muted);font:inherit;font-weight:600;font-size:var(--fs-small);cursor:pointer;white-space:nowrap;transition:background .18s ease,color .18s ease}
+    .seg button[aria-pressed="true"]{background:var(--purple);color:#fff;box-shadow:0 4px 12px rgba(90,57,148,.28)}
+    .seg button:hover:not([aria-pressed="true"]){color:var(--purple)}
+    .cat-select{min-height:46px;padding:8px 38px 8px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A3994' stroke-width='2' fill='none'/%3E%3C/svg%3E") no-repeat right 14px center;font:inherit;font-size:var(--fs-small);color:var(--text);cursor:pointer;appearance:none}
+    .cat-select:focus{outline:2px solid var(--purple);outline-offset:1px}
+    .cat-reset{display:inline-flex;align-items:center;gap:6px;min-height:46px;padding:8px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);background:#fff;color:var(--text-muted);font:inherit;font-size:var(--fs-small);font-weight:600;cursor:pointer;transition:border-color .18s ease,color .18s ease}
+    .cat-reset:hover{border-color:var(--purple);color:var(--purple)}
+    .cat-reset .material-symbols-outlined{font-size:18px}
+
+    .cat-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .chip-f{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:6px 14px;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--text-muted);font:inherit;font-size:var(--fs-small);font-weight:600;cursor:pointer;transition:background .18s ease,border-color .18s ease,color .18s ease}
+    .chip-f:hover{border-color:var(--purple);color:var(--purple)}
+    .chip-f[aria-pressed="true"]{background:var(--purple);border-color:var(--purple);color:#fff}
+    .chip-f__count{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:20px;padding:0 6px;border-radius:999px;background:var(--surface);color:var(--text-muted);font-size:.72rem;font-weight:800}
+    .chip-f[aria-pressed="true"] .chip-f__count{background:rgba(255,255,255,.22);color:#fff}
+
+    .cat-active{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px dashed var(--border)}
+    .cat-active[hidden]{display:none}
+    .cat-active__label{font-size:var(--fs-small);color:var(--text-muted);font-weight:600}
+    .cat-active__chip{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:4px 10px 4px 12px;border:1px solid var(--purple);border-radius:999px;background:var(--purple-soft);color:var(--purple);font:inherit;font-size:var(--fs-small);font-weight:600;cursor:pointer}
+    .cat-active__chip .material-symbols-outlined{font-size:16px}
+    .cat-active__chip:hover{background:var(--purple);color:#fff}
+
+    /* ── Выдача ──────────────────────────────────────────────────────── */
+    .cat-results{padding:26px 0 0}
+    .cat-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+    .cat-bar__count{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
+    .cat-bar__count strong{color:var(--text);font-size:1.05rem}
+    .cat-bar__right{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+    .view-toggle{display:inline-flex;padding:4px;background:var(--surface);border:1px solid var(--border);border-radius:999px}
+    .view-toggle button{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:6px 14px;border:0;border-radius:999px;background:transparent;color:var(--text-muted);font:inherit;font-size:var(--fs-small);font-weight:600;cursor:pointer}
+    .view-toggle button[aria-pressed="true"]{background:#fff;color:var(--purple);box-shadow:0 2px 8px rgba(11,27,51,.12)}
+    .view-toggle .material-symbols-outlined{font-size:18px}
+
+    .cat-grid{display:grid;gap:22px;grid-template-columns:1fr}
+    @media (min-width:640px){.cat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (min-width:1024px){.cat-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+    .badge--deal-rent{background:rgba(90,57,148,.92);color:#fff}
+    .badge--deal-sale{background:rgba(235,184,30,.95);color:var(--navy)}
+    .badge--type{background:rgba(255,255,255,.94);color:var(--text);border:1px solid rgba(255,255,255,.6)}
+    .badge--busy{background:rgba(14,0,40,.72);color:#fff}
+
+    /* ── Карта ───────────────────────────────────────────────────────── */
+    .cat-map{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+    .cat-map__canvas-wrap{position:relative;min-width:0}
+    #cat-map-canvas{width:100%;height:clamp(440px,60vh,680px)}
+    .cat-map__hint{position:absolute;left:12px;bottom:12px;z-index:2;margin:0;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.94);box-shadow:0 4px 14px rgba(11,27,51,.12);font-size:var(--fs-small);color:var(--text-muted)}
+    .cat-empty{padding:64px 0;text-align:center}
+    .cat-empty .material-symbols-outlined{font-size:46px;color:var(--border)}
+    .cat-empty h2{margin:12px 0 6px;font-size:var(--fs-h3)}
+    .cat-empty p{margin:0 0 18px;color:var(--text-muted)}
+
+    </style>
+  
+    
+  <script type="module" src="/_astro/page.tougUCvb.js"></script></head>
+  <body>
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="site-header__logo" href="/">
+          <img src="/mmprom-logo.png" alt="ММ Пром">
+        </a>
+        <nav class="site-header__nav" aria-label="Основное меню">
+          <div class="nav-item nav-item--has-mega">
+            <button class="site-header__mega-trigger" id="mega-trigger" type="button" aria-haspopup="dialog" aria-controls="mega-overlay" aria-expanded="false">Услуги</button>
+          </div>
+          <a href="/katalog/" data-astro-prefetch>Каталог</a>
+          <a href="/blog/" data-astro-prefetch>Публикации</a>
+          <a href="/about/" data-astro-prefetch>О компании</a>
+          <a href="/contact/" data-astro-prefetch>Контакты</a>
+        </nav>
+        <div class="site-header__actions">
+          <a class="site-header__phone" href="tel:88003331010">8 800 333 10 10</a>
+          <button class="btn btn--purple site-header__cta" type="button" data-b24-form="click/34/0ph3wy" data-b24-form-telemetry-sign="v1:34:site.b62d3cf56414758a8a11ec9af534ac54810f3b8241a479ddb796adfd2f3d5e4c">Оставить заявку</button>
+          <button class="site-header__burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu"><span class="material-symbols-outlined" aria-hidden="true">menu</span></button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ═══ Мобильное меню: drawer слева (W2.2) ═══ -->
+    <div class="mobile-overlay" id="mobile-overlay" hidden>
+      <div class="mobile-overlay__backdrop" data-mobile-close></div>
+      <div class="mobile-overlay__holder">
+        <section class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Мобильное меню">
+          <div class="mobile-menu__bar">
+            <button class="mobile-menu__close" type="button" aria-label="Закрыть меню" data-mobile-close><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+          </div>
+          <nav class="mobile-menu__nav" aria-label="Мобильное меню">
+            <div class="mobile-menu__item">
+              <button class="mobile-menu__toggle" type="button" aria-expanded="false">
+                <span class="mobile-menu__toggle-name"><span class="material-symbols-outlined" aria-hidden="true">widgets</span>Услуги</span>
+                <span class="material-symbols-outlined mobile-menu__arrow" aria-hidden="true">expand_more</span>
+              </button>
+              <div class="mobile-menu__sub">
+                <button class="mobile-menu__role" type="button" data-mrole="prod" aria-expanded="false">Производствам<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button>
+                <div class="mobile-menu__services" data-mpanel="prod">
+                  <a href="/brokerage/">Подбор недвижимости</a>
+                  <a href="/arenda/">Аренда недвижимости</a>
+                  <a href="/trade-in/">Трейд-ин / Срочный выкуп</a>
+                  <a href="/stroitelstvo/">Строительство</a>
+                  <a href="/development/">Девелопмент под ключ</a>
+                  <a href="/redevelopment/">Редевелопмент</a>
+                  <a href="/upravlenie/">Управление</a>
+                  <a href="/consalting/">Промышленный консалтинг</a>
+                  <a href="/investcomp/">Инвестиции и финансирование</a>
+                  <a class="mobile-menu__more" href="/proizvodstvam/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+                </div>
+                <button class="mobile-menu__role" type="button" data-mrole="zdaniya" aria-expanded="false">Собственникам зданий<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button>
+                <div class="mobile-menu__services" data-mpanel="zdaniya">
+                  <a href="/brokerage/">Подбор недвижимости</a>
+                  <a href="/arenda/">Аренда недвижимости</a>
+                  <a href="/prodazha/">Продажа недвижимости</a>
+                  <a href="/trade-in/">Трейд-ин / Срочный выкуп</a>
+                  <a href="/redevelopment/">Редевелопмент</a>
+                  <a href="/upravlenie/">Управление</a>
+                  <a href="/consalting/">Промышленный консалтинг</a>
+                  <a href="/investcomp/">Инвестиции и финансирование</a>
+                  <a class="mobile-menu__more" href="/sobstvennikam-zdaniy/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+                </div>
+                <button class="mobile-menu__role" type="button" data-mrole="uchastki" aria-expanded="false">Собственникам участков<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button>
+                <div class="mobile-menu__services" data-mpanel="uchastki">
+                  <a href="/brokerage/">Подбор недвижимости</a>
+                  <a href="/arenda/">Аренда недвижимости</a>
+                  <a href="/prodazha/">Продажа недвижимости</a>
+                  <a href="/trade-in/">Трейд-ин / Срочный выкуп</a>
+                  <a href="/stroitelstvo/">Строительство</a>
+                  <a href="/development/">Девелопмент под ключ</a>
+                  <a href="/redevelopment/">Редевелопмент</a>
+                  <a href="/consalting/">Промышленный консалтинг</a>
+                  <a href="/investcomp/">Инвестиции и финансирование</a>
+                  <a class="mobile-menu__more" href="/sobstvennikam-uchastkov/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+                </div>
+                <button class="mobile-menu__role" type="button" data-mrole="invest" aria-expanded="false">Инвесторам<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button>
+                <div class="mobile-menu__services" data-mpanel="invest">
+                  <a href="/brokerage/">Подбор недвижимости</a>
+                  <a href="/investcomp/">Инвестиции и финансирование</a>
+                  <a href="/upravlenie/">Управление активом</a>
+                  <a href="/consalting/">Промышленный консалтинг</a>
+                  <a class="mobile-menu__more" href="/investoram/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+                </div>
+              </div>
+            </div>
+            <a class="mobile-menu__link" href="/katalog/" data-astro-prefetch><span class="material-symbols-outlined" aria-hidden="true">inventory_2</span>Каталог</a>
+            <a class="mobile-menu__link" href="/blog/" data-astro-prefetch><span class="material-symbols-outlined" aria-hidden="true">article</span>Публикации</a>
+            <a class="mobile-menu__link" href="/about/" data-astro-prefetch><span class="material-symbols-outlined" aria-hidden="true">apartment</span>О компании</a>
+            <a class="mobile-menu__link" href="/contact/" data-astro-prefetch><span class="material-symbols-outlined" aria-hidden="true">place</span>Контакты</a>
+          </nav>
+          <div class="mobile-menu__actions">
+            <a class="site-header__phone" href="tel:88003331010">8 800 333 10 10</a>
+            <button class="btn btn--purple" type="button" data-b24-form="click/34/0ph3wy" data-b24-form-telemetry-sign="v1:34:site.b62d3cf56414758a8a11ec9af534ac54810f3b8241a479ddb796adfd2f3d5e4c">Оставить заявку</button>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ═══ Мегаменю «Услуги»: центрированный оверлей (≥1024, W2.1) ═══ -->
+    <div class="mega-overlay" id="mega-overlay" hidden>
+      <div class="mega-overlay__backdrop" data-mega-close></div>
+      <div class="mega-overlay__holder">
+        <section class="mega-panel" role="dialog" aria-modal="true" aria-label="Меню «Услуги»">
+          <button class="mega-panel__close" type="button" aria-label="Закрыть меню" data-mega-close><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+
+          <!-- Вкладки ролей (слева) + группы услуг (справа). Радио-фильтр без JS:
+               скрытые radio управляют подсветкой вкладки, чипом-заголовком и
+               фильтрацией услуг (CSS-фильтр по data-roles). -->
+          <div class="mm-layout">
+            <p class="mm-roles-title">Решения под вашу задачу</p>
+
+            <input class="mm-tab-radio" type="radio" name="mm-role" id="mmf-all" checked>
+
+            <input class="mm-tab-radio" type="radio" name="mm-role" id="mmf-prod">
+            <div class="mm-tab">
+              <label class="mm-tab__label" for="mmf-prod"><span class="material-symbols-outlined mm-tab__icon" aria-hidden="true">factory</span><span class="mm-tab__name">Производствам</span></label>
+              <label class="mm-tab__body" for="mmf-prod"><span class="mm-tab__desc">Помещения, стройка и финансирование для производства</span></label>
+              <a class="mm-tab__more" href="/proizvodstvam/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+            </div>
+
+            <input class="mm-tab-radio" type="radio" name="mm-role" id="mmf-zdaniya">
+            <div class="mm-tab">
+              <label class="mm-tab__label" for="mmf-zdaniya"><span class="material-symbols-outlined mm-tab__icon" aria-hidden="true">apartment</span><span class="mm-tab__name">Собственникам зданий</span></label>
+              <label class="mm-tab__body" for="mmf-zdaniya"><span class="mm-tab__desc">Доходность, управление и продажа объектов</span></label>
+              <a class="mm-tab__more" href="/sobstvennikam-zdaniy/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+            </div>
+
+            <input class="mm-tab-radio" type="radio" name="mm-role" id="mmf-uchastki">
+            <div class="mm-tab">
+              <label class="mm-tab__label" for="mmf-uchastki"><span class="material-symbols-outlined mm-tab__icon" aria-hidden="true">landscape</span><span class="mm-tab__name">Собственникам участков</span></label>
+              <label class="mm-tab__body" for="mmf-uchastki"><span class="mm-tab__desc">Оценка, застройка и монетизация земли</span></label>
+              <a class="mm-tab__more" href="/sobstvennikam-uchastkov/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+            </div>
+
+            <input class="mm-tab-radio" type="radio" name="mm-role" id="mmf-investor">
+            <div class="mm-tab mm-tab--last">
+              <label class="mm-tab__label" for="mmf-investor"><span class="material-symbols-outlined mm-tab__icon" aria-hidden="true">trending_up</span><span class="mm-tab__name">Инвесторам</span></label>
+              <label class="mm-tab__body" for="mmf-investor"><span class="mm-tab__desc">Готовые инвест-продукты и управление активом</span></label>
+              <a class="mm-tab__more" href="/investoram/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+            </div>
+
+            <!-- Заголовок-чип правой области: отдельный grid-элемент .mm-layout
+                 (строка 1, колонка 2) — над группами услуг. 5 пред-рендеренных
+                 состояний; при выборе роли — её чип с ✕-сбросом (label for=mmf-all). -->
+            <div class="mm-head">
+              <span class="mm-head__chip mm-head__chip--all">Все услуги</span>
+              <span class="mm-head__chip mm-head__chip--prod">Услуги для производств<label class="mm-head__x" for="mmf-all" aria-label="Показать все услуги"><span class="material-symbols-outlined" aria-hidden="true">close</span></label></span>
+              <span class="mm-head__chip mm-head__chip--zdaniya">Услуги для собственников зданий<label class="mm-head__x" for="mmf-all" aria-label="Показать все услуги"><span class="material-symbols-outlined" aria-hidden="true">close</span></label></span>
+              <span class="mm-head__chip mm-head__chip--uchastki">Услуги для собственников участков<label class="mm-head__x" for="mmf-all" aria-label="Показать все услуги"><span class="material-symbols-outlined" aria-hidden="true">close</span></label></span>
+              <span class="mm-head__chip mm-head__chip--investor">Услуги для инвесторов<label class="mm-head__x" for="mmf-all" aria-label="Показать все услуги"><span class="material-symbols-outlined" aria-hidden="true">close</span></label></span>
+            </div>
+
+            <!-- Единый каталог услуг: каждая услуга один раз, сгруппированы по смыслу.
+                 data-roles — матрица «услуга × роль» (токены: prod zdaniya uchastki investor) -->
+            <div class="mm-groups">
+              <section class="mm-group" aria-labelledby="mm-g-objects">
+                <h2 class="mm-group__title" id="mm-g-objects">Объекты</h2>
+                <div class="mm-item" data-roles="prod zdaniya uchastki investor">
+                  <a class="mm-item__main" href="/arenda/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">warehouse</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Аренда недвижимости</span>
+                      <span class="mm-item__desc">Свободные площади: производство, склады, офисы.</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mm-item" data-roles="zdaniya uchastki investor">
+                  <a class="mm-item__main" href="/prodazha/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">sell</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Продажа недвижимости</span>
+                      <span class="mm-item__desc">Поиск арендаторов и покупателей на ваш объект.</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mm-item" data-roles="prod zdaniya uchastki investor">
+                  <a class="mm-item__main" href="/trade-in/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">swap_horiz</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Трейд-ин / Срочный выкуп</span>
+                      <span class="mm-item__desc">Обмен объекта на более эффективный формат или быстрая продажа актива.</span>
+                    </span>
+                  </a>
+                </div>
+              </section>
+
+              <section class="mm-group" aria-labelledby="mm-g-projects">
+                <h2 class="mm-group__title" id="mm-g-projects">Проекты и эксплуатация</h2>
+                <div class="mm-item" data-roles="prod uchastki investor">
+                  <a class="mm-item__main" href="/stroitelstvo/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">foundation</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Строительство</span>
+                      <span class="mm-item__desc">Новое здание или пристройка под задачи производства.</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mm-item" data-roles="prod uchastki investor">
+                  <a class="mm-item__main" href="/development/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">construction</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Девелопмент под ключ</span>
+                      <span class="mm-item__desc">Реализация промышленного проекта — от участка до запуска.</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mm-item" data-roles="prod zdaniya uchastki investor">
+                  <a class="mm-item__main" href="/redevelopment/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">autorenew</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Редевелопмент</span>
+                      <span class="mm-item__desc">Перестройка устаревшего объекта под новый эффективный формат.</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mm-item" data-roles="prod zdaniya investor">
+                  <a class="mm-item__main" href="/upravlenie/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">settings</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Управление</span>
+                      <span class="mm-item__desc">Эксплуатация, арендаторы, редевелопмент, рост доходности.</span>
+                    </span>
+                  </a>
+                </div>
+              </section>
+
+              <section class="mm-group" aria-labelledby="mm-g-strategy">
+                <h2 class="mm-group__title" id="mm-g-strategy">Стратегия и капитал</h2>
+                <div class="mm-item" data-roles="prod zdaniya uchastki">
+                  <a class="mm-item__main" href="/consalting/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">insights</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Промышленный консалтинг</span>
+                      <span class="mm-item__desc">Превращаем задачу в понятный и безопасный план: аудит, ТЗ, финмодель.</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mm-item" data-roles="prod zdaniya uchastki investor">
+                  <a class="mm-item__main" href="/investcomp/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Инвестиции и финансирование</span>
+                      <span class="mm-item__desc">Инвестиции в реальные промышленные активы с понятной экономикой.</span>
+                    </span>
+                  </a>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <!-- Подвал панели -->
+          <div class="mm-foot">
+            <div class="mm-foot__links">
+              <a class="btn btn--gold" href="/uslugi/">Все услуги<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+              <a class="mm-foot__link mm-foot__link--catalog" href="/katalog/"><span class="material-symbols-outlined" aria-hidden="true">grid_view</span>Каталог объектов</a>
+            </div>
+            <a class="mm-foot__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    
+  
+
+<main>
+
+  <section id="breadcrumbs" class="b-breadcrumbs">
+  <div class="container">
+    <ol>
+      <li><a href="/">Главная</a></li><li><span aria-current="page">Каталог объектов</span></li>
+    </ol>
+  </div>
+</section>
+
+  <section id="catalog-head" class="cat-head">
+    <div class="container">
+      <h1>Каталог объектов</h1>
+      <p class="cat-head__lead">Производственная недвижимость Санкт-Петербурга и Ленинградской области: индустриальные парки, производственно-складские комплексы и земельные участки — включая объекты партнёров.</p>
+      <ul class="cat-head__stats">
+        <li><strong>33</strong> объекта в каталоге</li>
+        <li><strong>5</strong> индустриальных парков</li>
+        <li><strong>16</strong> производственно-складских комплексов</li>
+        <li><strong>3</strong> земельных участка</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="filters" class="cat-toolbar" aria-label="Фильтры каталога">
+    <div class="container">
+      <div class="cat-toolbar__row">
+        <div class="cat-search">
+          <span class="material-symbols-outlined" aria-hidden="true">search</span>
+          <input type="search" id="f-search" placeholder="Поиск по названию или адресу" aria-label="Поиск по названию или адресу">
+        </div>
+        <div class="seg" role="group" aria-label="Тип сделки">
+          <button type="button" data-deal="all" aria-pressed="true">Все</button>
+          <button type="button" data-deal="rent" aria-pressed="false">Аренда</button>
+          <button type="button" data-deal="sale" aria-pressed="false">Продажа</button>
+        </div>
+        <select class="cat-select" id="f-area" aria-label="Площадь">
+          <option value="all">Любая площадь</option>
+          <option value="s">до 2 000 м²</option>
+          <option value="m">2 000 – 10 000 м²</option>
+          <option value="l">10 000 – 20 000 м²</option>
+          <option value="xl">от 20 000 м²</option>
+        </select>
+        <select class="cat-select" id="f-loc" aria-label="Локация">
+          <option value="all">Все локации</option>
+          <option value="spb">Санкт-Петербург</option>
+          <option value="lo">Ленинградская область</option>
+        </select>
+        <button class="cat-reset" type="button" id="f-reset"><span class="material-symbols-outlined" aria-hidden="true">restart_alt</span>Сбросить</button>
+      </div>
+      <div class="cat-chips" role="group" aria-label="Тип объекта">
+        <button class="chip-f" type="button" data-type="all" aria-pressed="true">Все объекты<span class="chip-f__count">33</span></button>
+        <button class="chip-f" type="button" data-type="park" aria-pressed="false">Индустриальные парки<span class="chip-f__count">5</span></button>
+        <button class="chip-f" type="button" data-type="warehouse" aria-pressed="false">Производственно-складские<span class="chip-f__count">16</span></button>
+        <button class="chip-f" type="button" data-type="production" aria-pressed="false">Производственные<span class="chip-f__count">9</span></button>
+        <button class="chip-f" type="button" data-type="land" aria-pressed="false">Земельные участки<span class="chip-f__count">3</span></button>
+      </div>
+      <div class="cat-active" id="active-filters" hidden></div>
+    </div>
+  </section>
+
+  <section id="results" class="cat-results">
+    <div class="container">
+      <div class="cat-bar">
+        <p class="cat-bar__count">Найдено: <strong id="res-count">33</strong> <span id="res-count-word">объекта</span></p>
+        <div class="cat-bar__right">
+          <select class="cat-select" id="f-sort" aria-label="Сортировка">
+            <option value="default">По умолчанию</option>
+            <option value="area-desc">Площадь: по убыванию</option>
+            <option value="area-asc">Площадь: по возрастанию</option>
+            <option value="name">По названию</option>
+          </select>
+          <div class="view-toggle" role="group" aria-label="Вид каталога">
+            <button type="button" id="view-list" aria-pressed="true"><span class="material-symbols-outlined" aria-hidden="true">view_list</span>Список</button>
+            <button type="button" id="view-map" aria-pressed="false"><span class="material-symbols-outlined" aria-hidden="true">map</span>Карта</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="cat-grid" class="cat-grid">
+        <article class="obj-card obj-card--cat reveal" data-id="atlas-garazhny" data-type="park" data-deal="rent sale" data-area="0" data-loc="spb" data-title="атлас гаражный">
+    <div class="obj-card__media">
+      <img src="/assets/objects/atlas-garazhny/cover.jpg" alt="Атлас Гаражный" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Атлас Гаражный</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--park">Индустриальный парк</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span><span class="badge badge--deal-sale">Продажа</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="atlas-garazhny" aria-label="Показать на карте: Атлас Гаражный">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Атлас Гаражный</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, Гаражный проезд, 1</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>8 577 м² · 10 719 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>промышленная зона Обухово</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__ext" href="/atlas-garazhnyj/">На страницу объекта<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="avrora-vitebsky" data-type="park" data-deal="sale" data-area="0" data-loc="spb" data-title="аврора витебский">
+    <div class="obj-card__media">
+      <img src="/assets/objects/avrora-vitebsky/cover.jpg" alt="Аврора Витебский" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Аврора Витебский</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--park">Индустриальный парк</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-sale">Продажа</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="avrora-vitebsky" aria-label="Показать на карте: Аврора Витебский">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Аврора Витебский</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, Витебский проспект, первая линия</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>38 га</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Витебский проспект</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__ext" href="/avrora-vitebskij/">На страницу объекта<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="light-industrial-razmetelevo" data-type="park" data-deal="sale" data-area="0" data-loc="spb" data-title="light industrial разметелево">
+    <div class="obj-card__media">
+      <img src="/assets/external/inv-21667830-osnovnaya_585_403_jpg_5_80.jpg" alt="Light Industrial Разметелево" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Light Industrial Разметелево</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--park">Индустриальный парк</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-sale">Продажа</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="light-industrial-razmetelevo" aria-label="Показать на карте: Light Industrial Разметелево">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Light Industrial Разметелево</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>дер. Разметелево, Колтушское г.п., Всеволожский р-н, Ленинградская обл.</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>16 000 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Всеволожский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/light-industrial-razmetelevo/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="land-volosovo" data-type="land" data-deal="sale" data-area="0" data-loc="spb" data-title="земельный участок в волосовском районе">
+    <div class="obj-card__media">
+      <img src="/assets/external/inv-64570d3c-vid_sverhu.jpg" alt="Земельный участок в Волосовском районе" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Земельный участок в Волосовском районе</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--land">Земельный участок</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-sale">Продажа</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="land-volosovo" aria-label="Показать на карте: Земельный участок в Волосовском районе">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Земельный участок в Волосовском районе</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Ленинградская обл., Волосовский р-н, Калитинское с/п</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>18 га</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Волосовский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/land-volosovo/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="land-koltushi" data-type="land" data-deal="sale" data-area="0" data-loc="spb" data-title="земельный участок в колтушах">
+    <div class="obj-card__media">
+      <img src="/assets/external/inv-eed837bf-zu_koltushi.png" alt="Земельный участок в Колтушах" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Земельный участок в Колтушах</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--land">Земельный участок</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-sale">Продажа</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="land-koltushi" aria-label="Показать на карте: Земельный участок в Колтушах">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Земельный участок в Колтушах</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Ленинградская обл., Всеволожский р-н, Колтушское с/п</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>1,8 га</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Всеволожский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/land-koltushi/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="land-tervolovo" data-type="land" data-deal="sale" data-area="0" data-loc="spb" data-title="земельный участок в терволово">
+    <div class="obj-card__media">
+      <img src="/assets/objects/tervolovo/cover.jpg" alt="Земельный участок в Терволово" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Земельный участок в Терволово</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--land">Земельный участок</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-sale">Продажа</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="land-tervolovo" aria-label="Показать на карте: Земельный участок в Терволово">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Земельный участок в Терволово</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Ленинградская область, Гатчинский муниципальный округ, п. Терволово</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>3,6 га</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Гатчинский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/land-tervolovo/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="volhov" data-type="warehouse" data-deal="rent" data-area="0" data-loc="spb" data-title="производственно-складской комплекс волхов">
+    <div class="obj-card__media">
+      <img src="/assets/external/inv-cc24d72b-fasad.jpg" alt="Производственно-складской комплекс Волхов" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс Волхов</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--warehouse">Производственно-складской комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="volhov" aria-label="Показать на карте: Производственно-складской комплекс Волхов">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственно-складской комплекс Волхов</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Ленинградская обл., г. Волхов, Порожский проезд, 5А</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>14 000 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>г. Волхов</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/volhov/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="varshavskaya" data-type="production" data-deal="sale" data-area="0" data-loc="spb" data-title="производственное здание на варшавской, 11">
+    <div class="obj-card__media">
+      <img src="/assets/external/inv-e2699da6-pomewenie2_278_191_jpg_5_80.jpg" alt="Производственное здание на Варшавской, 11" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственное здание на Варшавской, 11</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--production">Производственный комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-sale">Продажа</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="varshavskaya" aria-label="Показать на карте: Производственное здание на Варшавской, 11">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственное здание на Варшавской, 11</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, Московский р-н, ул. Варшавская, д. 11А</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>11 732 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Московский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/varshavskaya/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="voyskovitsy" data-type="production" data-deal="rent sale" data-area="0" data-loc="spb" data-title="производственный комплекс в войсковицах">
+    <div class="obj-card__media">
+      <img src="/assets/objects/voyskovitsy/cover.jpg" alt="Производственный комплекс в Войсковицах" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственный комплекс в Войсковицах</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--production">Производственный комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span><span class="badge badge--deal-sale">Продажа</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="voyskovitsy" aria-label="Показать на карте: Производственный комплекс в Войсковицах">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственный комплекс в Войсковицах</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Ленинградская область, Гатчинский р-н, пос. Войсковицы</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>22 882 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Гатчинский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/voyskovitsy/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="salova" data-type="warehouse" data-deal="rent" data-area="0" data-loc="spb" data-title="производственно-складской комплекс на салова, 56">
+    <div class="obj-card__media">
+      <img src="/assets/external/inv-966e10ad-fasad.jpeg" alt="Производственно-складской комплекс на Салова, 56" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс на Салова, 56</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--warehouse">Производственно-складской комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="salova" aria-label="Показать на карте: Производственно-складской комплекс на Салова, 56">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственно-складской комплекс на Салова, 56</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, ул. Салова, 56, лит. О</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>9 124 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Фрунзенский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/salova/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="arsenal" data-type="warehouse" data-deal="rent" data-area="3910" data-loc="spb" data-title="производственно-складской комплекс арсенал">
+    <div class="obj-card__media">
+      <img src="/assets/external/inv-637bfb77-fasad.jpg" alt="Производственно-складской комплекс Арсенал" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс Арсенал</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--warehouse">Производственно-складской комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="arsenal" aria-label="Показать на карте: Производственно-складской комплекс Арсенал">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственно-складской комплекс Арсенал</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, ул. Комсомола, 1-3АГ</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>3 909,7 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Калининский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/arsenal/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="pushkin" data-type="warehouse" data-deal="rent" data-area="0" data-loc="spb" data-title="производственно-складской комплекс в пушкине">
+    <div class="obj-card__media">
+      <img src="/assets/external/inv-bdb7e424-osnovnaya.jpg" alt="Производственно-складской комплекс в Пушкине" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс в Пушкине</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--warehouse">Производственно-складской комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="pushkin" aria-label="Показать на карте: Производственно-складской комплекс в Пушкине">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственно-складской комплекс в Пушкине</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>г. Пушкин, ул. Сетевая, д. 14</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>по запросу</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Пушкинский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/pushkin/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="yanino" data-type="warehouse" data-deal="sale" data-area="0" data-loc="spb" data-title="производственно-складской комплекс янино-1">
+    <div class="obj-card__media">
+      <img src="/assets/external/inv-c06fa3ec-sklad.jpg" alt="Производственно-складской комплекс Янино-1" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс Янино-1</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--warehouse">Производственно-складской комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-sale">Продажа</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="yanino" aria-label="Показать на карте: Производственно-складской комплекс Янино-1">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственно-складской комплекс Янино-1</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>ЛО, Всеволожский р-н, гп. Янино-1, ул. Новая, участок № 17</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>по запросу</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Всеволожский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/yanino/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="lagolovo" data-type="warehouse" data-deal="rent" data-area="0" data-loc="spb" data-title="производственно-складской комплекс lagolovo trend">
+    <div class="obj-card__media">
+      <img src="/assets/external/inv-df1d7590-fasad.jpg" alt="Производственно-складской комплекс Lagolovo Trend" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс Lagolovo Trend</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--warehouse">Производственно-складской комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="lagolovo" aria-label="Показать на карте: Производственно-складской комплекс Lagolovo Trend">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственно-складской комплекс Lagolovo Trend</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Ломоносовский р-н, Лаголовское с/п, промзона Восточная, 1</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>14 480 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Ломоносовский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/lagolovo/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="gorigo" data-type="warehouse" data-deal="rent" data-area="0" data-loc="spb" data-title="производственно-складской комплекс gorigo">
+    <div class="obj-card__media">
+      <img src="/assets/external/inv-a458d379-vid-sverhu2.jpeg" alt="Производственно-складской комплекс Gorigo" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс Gorigo</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--warehouse">Производственно-складской комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="gorigo" aria-label="Показать на карте: Производственно-складской комплекс Gorigo">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственно-складской комплекс Gorigo</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>ЛО, Ломоносовский р-н, Волхонское шоссе, 3к2</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>13 352 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Ломоносовский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/gorigo/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="zaozernaya" data-type="warehouse" data-deal="rent" data-area="0" data-loc="spb" data-title="производственно-складской комплекс на заозёрной">
+    <div class="obj-card__media">
+      <img src="/assets/external/inv-d2ecc661-osnovnaya.jpg" alt="Производственно-складской комплекс на Заозёрной" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс на Заозёрной</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--warehouse">Производственно-складской комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="zaozernaya" aria-label="Показать на карте: Производственно-складской комплекс на Заозёрной">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственно-складской комплекс на Заозёрной</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, ул. Заозёрная, 8</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>15 700 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Фрунзенский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/zaozernaya/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="novotroitsky" data-type="warehouse" data-deal="rent" data-area="0" data-loc="spb" data-title="производственно-складской комплекс «новотроицкий»">
+    <div class="obj-card__media">
+      <img src="/assets/external/inv-7f33523f-osnovnaya.jpg" alt="Производственно-складской комплекс «Новотроицкий»" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс «Новотроицкий»</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--warehouse">Производственно-складской комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="novotroitsky" aria-label="Показать на карте: Производственно-складской комплекс «Новотроицкий»">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственно-складской комплекс «Новотроицкий»</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, пр. Обуховской обороны, 120Б</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>15 000 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Невский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/novotroitsky/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="razbegaevo" data-type="warehouse" data-deal="rent" data-area="0" data-loc="spb" data-title="производственно-складской комплекс в разбегаево">
+    <div class="obj-card__media">
+      <img src="/assets/external/inv-ab5f9dc2-osnovnaya.png" alt="Производственно-складской комплекс в Разбегаево" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс в Разбегаево</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--warehouse">Производственно-складской комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="razbegaevo" aria-label="Показать на карте: Производственно-складской комплекс в Разбегаево">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственно-складской комплекс в Разбегаево</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Ропшинское шоссе, 19, дер. Велигонты, Ломоносовский р-н</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>1 450 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Ломоносовский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/razbegaevo/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="promboks2" data-type="warehouse" data-deal="rent sale" data-area="1500" data-loc="spb" data-title="производственно-складской комплекс «промбокс-2»">
+    <div class="obj-card__media">
+      <img src="/assets/external/inv-47df520c-osnovnaya.jpg" alt="Производственно-складской комплекс «Промбокс-2»" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс «Промбокс-2»</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--warehouse">Производственно-складской комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span><span class="badge badge--deal-sale">Продажа</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="promboks2" aria-label="Показать на карте: Производственно-складской комплекс «Промбокс-2»">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственно-складской комплекс «Промбокс-2»</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>ЛО, Шушары, Московское шоссе, 155 к1</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>1 500–3 780 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Пушкинский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/promboks2/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="predportovy" data-type="warehouse" data-deal="rent" data-area="0" data-loc="spb" data-title="производственно-складской комплекс на предпортовом проезде">
+    <div class="obj-card__media">
+      <img src="/assets/external/inv-f0867148-fasad.png" alt="Производственно-складской комплекс на Предпортовом проезде" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс на Предпортовом проезде</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--warehouse">Производственно-складской комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="predportovy" aria-label="Показать на карте: Производственно-складской комплекс на Предпортовом проезде">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственно-складской комплекс на Предпортовом проезде</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, 4-й Предпортовый проезд, 5Л</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>1 460 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Московский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/predportovy/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="business-park-113" data-type="warehouse" data-deal="rent" data-area="0" data-loc="spb" data-title="производственно-складской комплекс «бизнес парк 113»">
+    <div class="obj-card__media">
+      <img src="/assets/external/inv-0584fd1d-osnovnaya.jpg" alt="Производственно-складской комплекс «Бизнес Парк 113»" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс «Бизнес Парк 113»</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--warehouse">Производственно-складской комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="business-park-113" aria-label="Показать на карте: Производственно-складской комплекс «Бизнес Парк 113»">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственно-складской комплекс «Бизнес Парк 113»</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Московское шоссе, 113, корп. 2</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>8 000 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Московский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/business-park-113/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="fedorovskoe" data-type="warehouse" data-deal="sale" data-area="0" data-loc="spb" data-title="производственно-складской комплекс в фёдоровском">
+    <div class="obj-card__media">
+      <img src="/assets/external/inv-35e22499-osnovnaya.jpg" alt="Производственно-складской комплекс в Фёдоровском" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс в Фёдоровском</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--warehouse">Производственно-складской комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-sale">Продажа</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="fedorovskoe" aria-label="Показать на карте: Производственно-складской комплекс в Фёдоровском">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственно-складской комплекс в Фёдоровском</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>ЛО, Тосненский р-н, гп. Фёдоровское, 1-й Восточный пр., 13к1</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>3 500 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Тосненский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/fedorovskoe/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="luch" data-type="warehouse" data-deal="rent" data-area="0" data-loc="spb" data-title="производственно-складской комплекс «луч»">
+    <div class="obj-card__media">
+      <img src="/assets/external/inv-7cb20935-osnovnaya.jpg" alt="Производственно-складской комплекс «Луч»" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс «Луч»</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--warehouse">Производственно-складской комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="luch" aria-label="Показать на карте: Производственно-складской комплекс «Луч»">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственно-складской комплекс «Луч»</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, пр. Металлистов, д. 7</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>2 615 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Красногвардейский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/luch/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="antares" data-type="park" data-deal="rent sale" data-area="0" data-loc="spb" data-title="антарес латышских стрелков">
+    <div class="obj-card__media">
+      <img src="/assets/objects/antares/cover.jpg" alt="Антарес Латышских Стрелков" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Антарес Латышских Стрелков</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--park">Технопарк</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span><span class="badge badge--deal-sale">Продажа</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="antares" aria-label="Показать на карте: Антарес Латышских Стрелков">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Антарес Латышских Стрелков</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, ул. Латышских Стрелков, 19</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>14 000 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Красногвардейский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/antares/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="voyskovitsy-park" data-type="production" data-deal="sale" data-area="0" data-loc="lo" data-title="войсковицы">
+    <div class="obj-card__media">
+      <img src="/assets/objects/voyskovitsy/cover.jpg" alt="Войсковицы" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Войсковицы</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--production">Производственный комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-sale">Продажа</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="voyskovitsy-park" aria-label="Показать на карте: Войсковицы">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Войсковицы</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>ЛО, Гатчинский р-н, пос. Войсковицы</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>участки 1,2–2,4 га</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Гатчинский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/voyskovitsy-park/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="volhonskoe" data-type="production" data-deal="rent sale" data-area="0" data-loc="spb" data-title="волхонское">
+    <div class="obj-card__media">
+      <img src="/assets/objects/volhonskoe/cover.jpg" alt="Волхонское" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Волхонское</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--production">Промышленный парк</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span><span class="badge badge--deal-sale">Продажа</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="volhonskoe" aria-label="Показать на карте: Волхонское">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Волхонское</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Ленинградская область, Ломоносовский район, Волхонское шоссе, 2</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>по запросу</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Ломоносовский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/volhonskoe/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="parnas" data-type="production" data-deal="rent" data-area="0" data-loc="spb" data-title="парнас">
+    <div class="obj-card__media">
+      <img src="/assets/objects/parnas/cover.jpg" alt="Парнас" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Парнас</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--production">Производственные площади</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="parnas" aria-label="Показать на карте: Парнас">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Парнас</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Ленинградская обл., Всеволожский муниципальный район, Бугровское городское поселение, деревня Порошкино</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>по запросу</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Всеволожский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/parnas/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="rabochaya" data-type="production" data-deal="rent sale" data-area="1960" data-loc="spb" data-title="производственный комплекс на рабочей, 7">
+    <div class="obj-card__media">
+      <img src="/assets/objects/rabochaya/cover.jpg" alt="Производственный комплекс на Рабочей, 7" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственный комплекс на Рабочей, 7</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--production">Производственный комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span><span class="badge badge--deal-sale">Продажа</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="rabochaya" aria-label="Показать на карте: Производственный комплекс на Рабочей, 7">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственный комплекс на Рабочей, 7</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, Красносельский р-н, ул. Рабочая, 7</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>1 960 м² · 1 409 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Красносельский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/rabochaya/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="nevelskaya" data-type="production" data-deal="sale" data-area="13000" data-loc="spb" data-title="производственный комплекс на невельской, 7">
+    <div class="obj-card__media">
+      <img src="/assets/objects/nevelskaya/cover.jpg" alt="Производственный комплекс на Невельской, 7" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственный комплекс на Невельской, 7</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--production">Производственный комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-sale">Продажа</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="nevelskaya" aria-label="Показать на карте: Производственный комплекс на Невельской, 7">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственный комплекс на Невельской, 7</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, ул. Невельская, 7</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>участок 1,3 га</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Красногвардейский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/nevelskaya/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="kolpino" data-type="production" data-deal="rent" data-area="7200" data-loc="spb" data-title="производственные площади в колпино">
+    <div class="obj-card__media">
+      <img src="/assets/objects/kolpino/cover.jpg" alt="Производственные площади в Колпино" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственные площади в Колпино</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--production">Производственные площади</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="kolpino" aria-label="Показать на карте: Производственные площади в Колпино">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственные площади в Колпино</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, Колпино, территория Ижорского завода</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>7 200 м² · 6 900 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Колпинский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/kolpino/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="metallostroy" data-type="production" data-deal="rent" data-area="1872" data-loc="spb" data-title="производственное здание в металлострое">
+    <div class="obj-card__media">
+      <img src="/assets/objects/metallostroy/cover.jpg" alt="Производственное здание в Металлострое" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственное здание в Металлострое</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--production">Производственное здание</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="metallostroy" aria-label="Показать на карте: Производственное здание в Металлострое">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственное здание в Металлострое</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Санкт-Петербург, пос. Металлострой, дорога на Металлострой, 5ПА</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>1 872 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Колпинский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/metallostroy/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="murino" data-type="warehouse" data-deal="rent" data-area="8286" data-loc="lo" data-title="производственно-складской комплекс муринский">
+    <div class="obj-card__media">
+      <img src="/assets/objects/murino/cover.jpg" alt="Производственно-складской комплекс Муринский" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>Производственно-складской комплекс Муринский</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--warehouse">Производственно-складской комплекс</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="murino" aria-label="Показать на карте: Производственно-складской комплекс Муринский">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>Производственно-складской комплекс Муринский</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Ленинградская область, Всеволожский р-н, производственная зона Мурино</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>8 286 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Всеволожский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/murino/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article><article class="obj-card obj-card--cat reveal" data-id="ip-razmetelevo" data-type="park" data-deal="rent sale" data-area="10106" data-loc="lo" data-title="ip разметелево">
+    <div class="obj-card__media">
+      <img src="/assets/objects/ip-razmetelevo/cover.jpg" alt="IP Разметелево" loading="lazy" onerror="this.classList.add('is-broken')">
+      <div class="obj-card__ph"><span class="material-symbols-outlined" aria-hidden="true">image</span>IP Разметелево</div>
+      <div class="obj-card__badges">
+        <div class="obj-card__badges-left"><span class="badge badge--park">Индустриальный парк</span></div>
+        <div class="obj-card__badges-left">
+          <span class="badge badge--deal-rent">Аренда</span><span class="badge badge--deal-sale">Продажа</span>
+          
+        </div>
+      </div>
+      <button class="obj-card__map" type="button" data-map="ip-razmetelevo" aria-label="Показать на карте: IP Разметелево">
+        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+      </button>
+    </div>
+    <div class="obj-card__body">
+      <h3>IP Разметелево</h3>
+      <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>Ленинградская обл., Колтушское с/п, коммунально-складская зона «Разметелево», 2-й проезд</span></p>
+      <div class="obj-card__facts">
+        <div class="obj-card__fact"><span>Площадь</span><strong>10 106 м²</strong></div>
+        <div class="obj-card__fact"><span>Локация</span><strong>Всеволожский район</strong></div>
+      </div>
+      <div class="obj-card__foot">
+        <a class="obj-card__more" href="/obekt/ip-razmetelevo/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        
+      </div>
+    </div>
+  </article>
+      </div>
+
+      <div id="cat-map" class="cat-map" hidden>
+        <div class="cat-map__canvas-wrap">
+          <div id="cat-map-canvas"></div>
+          <p class="cat-map__hint">Нажмите на метку, чтобы открыть страницу объекта</p>
+        </div>
+      </div>
+
+      <div id="cat-empty" class="cat-empty" hidden>
+        <span class="material-symbols-outlined" aria-hidden="true">search_off</span>
+        <h2>Ничего не нашлось</h2>
+        <p>Попробуйте изменить фильтры или сбросить их.</p>
+        <button class="btn btn--outline" type="button" id="empty-reset">Сбросить фильтры</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta" class="b-cta">
+  <div class="container">
+    <p class="sec-index" aria-hidden="true">03</p>
+    <h2>Не нашли подходящий объект?</h2>
+    <p>Подберём варианты под ваш запрос: тип сделки, площадь, локация и требования к инженерии.</p>
+    <div class="b-cta__row">
+      <a class="btn btn--purple" href="/modalka-zayavki/">Оставить заявку на подбор</a>
+      
+      <a class="b-cta__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+  
+
+    <footer class="site-footer">
+      <div class="site-footer__particles" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="container site-footer__inner">
+        <div class="site-footer__brand">
+          <img src="/mmprom-logo.png" alt="ММ Пром">
+          <p>Промышленная недвижимость Санкт-Петербурга и Ленинградской области: аренда, продажа и строительство. Работаем с 2011 года.</p>
+        </div>
+        <nav class="site-footer__col" aria-label="Услуги">
+          <p class="site-footer__title">Услуги</p>
+          <ul>
+            <li><a href="/arenda/" data-astro-prefetch>Аренда недвижимости</a></li>
+            <li><a href="/prodazha/" data-astro-prefetch>Продажа недвижимости</a></li>
+            <li><a href="/stroitelstvo/" data-astro-prefetch>Строительство</a></li>
+            <li><a href="/development/" data-astro-prefetch>Девелопмент под ключ</a></li>
+            <li><a href="/redevelopment/" data-astro-prefetch>Редевелопмент</a></li>
+            <li><a href="/upravlenie/" data-astro-prefetch>Управление</a></li>
+            <li><a href="/consalting/" data-astro-prefetch>Промышленный консалтинг</a></li>
+            <li><a href="/trade-in/" data-astro-prefetch>Трейд-ин / Срочный выкуп</a></li>
+            <li><a href="/investcomp/" data-astro-prefetch>Инвестиции и финансирование</a></li>
+            <li><a href="/brokerage/" data-astro-prefetch>Подбор недвижимости</a></li>
+          </ul>
+        </nav>
+        <nav class="site-footer__col" aria-label="Компания">
+          <p class="site-footer__title">Компания</p>
+          <ul>
+            <li><a href="/about/" data-astro-prefetch>О компании</a></li>
+            <li><a href="/blog/" data-astro-prefetch>Публикации</a></li>
+            <li><a href="/contact/" data-astro-prefetch>Контакты</a></li>
+          </ul>
+        </nav>
+        <div class="site-footer__col">
+          <p class="site-footer__title">Контакты</p>
+          <a class="site-footer__phone" href="tel:88003331010">8 800 333 10 10</a>
+          <p class="site-footer__addr">Санкт-Петербург, ул. Савушкина, 125 к.6</p>
+          <div class="site-footer__social">
+            <a href="https://t.me/mm_prom1" aria-label="Телеграм-канал ММ Пром"><svg viewBox="0 0 24 24" width="22" height="22" fill="#229ED9" aria-hidden="true"><path d="M9.04 15.51l-.38 5.35c.54 0 .78-.23 1.06-.51l2.55-2.44 5.28 3.87c.97.53 1.66.25 1.92-.9l3.48-16.3c.31-1.43-.52-1.99-1.46-1.64L1.1 9.76c-1.39.54-1.37 1.32-.24 1.67l5.3 1.65L18.35 5.1c.57-.38 1.09-.17.66.21L9.04 15.51z"></path></svg></a>
+            <a href="https://max.ru/channel_MM_PROM" aria-label="Канал ММ Пром в MAX"><svg viewBox="0 0 24 24" width="22" height="22" fill="#5A3994" aria-hidden="true"><path d="M12 2C6.48 2 2 6.03 2 11c0 2.6 1.24 4.94 3.22 6.55L4 22l4.6-1.5c1.06.32 2.22.5 3.4.5 5.52 0 10-4.03 10-9S17.52 2 12 2z"></path></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="container site-footer__bottom">
+        <p>© 2011–2026 ММ Пром</p>
+        <span class="site-footer__link--disabled" aria-disabled="true" title="Документ готовится">Политика конфиденциальности</span>
+      </div>
+    </footer>
+    
+    <script>
+    (function(){
+      'use strict';
+      document.documentElement.classList.add('js');
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var reveals = document.querySelectorAll('.reveal');
+      if (reveals.length && 'IntersectionObserver' in window && !reduce) {
+        var rio = new IntersectionObserver(function(entries){
+          entries.forEach(function(en){
+            if (!en.isIntersecting) return;
+            en.target.classList.add('is-visible');
+            rio.unobserve(en.target);
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(function(el){ rio.observe(el); });
+      } else {
+        reveals.forEach(function(el){ el.classList.add('is-visible'); });
+      }
+    })();
+    </script>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=2ae53810-6967-43df-9165-4003eeb71cbf&lang=ru_RU" type="text/javascript"></script>
+          <script>(function(){const mapObjects = [{"id":"atlas-garazhny","title":"Атлас Гаражный","area":"8 577 м² · 10 719 м²","address":"Санкт-Петербург, Гаражный проезд, 1","coords":[59.85,30.45]},{"id":"avrora-vitebsky","title":"Аврора Витебский","area":"38 га","address":"Санкт-Петербург, Витебский проспект, первая линия","coords":[59.82,30.35]},{"id":"light-industrial-razmetelevo","title":"Light Industrial Разметелево","area":"16 000 м²","address":"дер. Разметелево, Колтушское г.п., Всеволожский р-н, Ленинградская обл.","coords":[59.905,30.66]},{"id":"land-volosovo","title":"Земельный участок в Волосовском районе","area":"18 га","address":"Ленинградская обл., Волосовский р-н, Калитинское с/п","coords":[59.455,29.64]},{"id":"land-koltushi","title":"Земельный участок в Колтушах","area":"1,8 га","address":"Ленинградская обл., Всеволожский р-н, Колтушское с/п","coords":[59.93,30.64]},{"id":"land-tervolovo","title":"Земельный участок в Терволово","area":"3,6 га","address":"Ленинградская область, Гатчинский муниципальный округ, п. Терволово","coords":[59.43,29.95]},{"id":"volhov","title":"Производственно-складской комплекс Волхов","area":"14 000 м²","address":"Ленинградская обл., г. Волхов, Порожский проезд, 5А","coords":[59.925,32.3]},{"id":"varshavskaya","title":"Производственное здание на Варшавской, 11","area":"11 732 м²","address":"Санкт-Петербург, Московский р-н, ул. Варшавская, д. 11А","coords":[59.855,30.32]},{"id":"voyskovitsy","title":"Производственный комплекс в Войсковицах","area":"22 882 м²","address":"Ленинградская область, Гатчинский р-н, пос. Войсковицы","coords":[59.53,29.98]},{"id":"salova","title":"Производственно-складской комплекс на Салова, 56","area":"9 124 м²","address":"Санкт-Петербург, ул. Салова, 56, лит. О","coords":[59.87,30.36]},{"id":"arsenal","title":"Производственно-складской комплекс Арсенал","area":"3 909,7 м²","address":"Санкт-Петербург, ул. Комсомола, 1-3АГ","coords":[59.955,30.36]},{"id":"pushkin","title":"Производственно-складской комплекс в Пушкине","area":"по запросу","address":"г. Пушкин, ул. Сетевая, д. 14","coords":[59.72,30.42]},{"id":"yanino","title":"Производственно-складской комплекс Янино-1","area":"по запросу","address":"ЛО, Всеволожский р-н, гп. Янино-1, ул. Новая, участок № 17","coords":[59.945,30.55]},{"id":"lagolovo","title":"Производственно-складской комплекс Lagolovo Trend","area":"14 480 м²","address":"Ломоносовский р-н, Лаголовское с/п, промзона Восточная, 1","coords":[59.72,30.2]},{"id":"gorigo","title":"Производственно-складской комплекс Gorigo","area":"13 352 м²","address":"ЛО, Ломоносовский р-н, Волхонское шоссе, 3к2","coords":[59.75,30.2]},{"id":"zaozernaya","title":"Производственно-складской комплекс на Заозёрной","area":"15 700 м²","address":"Санкт-Петербург, ул. Заозёрная, 8","coords":[59.87,30.32]},{"id":"novotroitsky","title":"Производственно-складской комплекс «Новотроицкий»","area":"15 000 м²","address":"Санкт-Петербург, пр. Обуховской обороны, 120Б","coords":[59.89,30.43]},{"id":"razbegaevo","title":"Производственно-складской комплекс в Разбегаево","area":"1 450 м²","address":"Ропшинское шоссе, 19, дер. Велигонты, Ломоносовский р-н","coords":[59.78,29.95]},{"id":"promboks2","title":"Производственно-складской комплекс «Промбокс-2»","area":"1 500–3 780 м²","address":"ЛО, Шушары, Московское шоссе, 155 к1","coords":[59.75,30.45]},{"id":"predportovy","title":"Производственно-складской комплекс на Предпортовом проезде","area":"1 460 м²","address":"Санкт-Петербург, 4-й Предпортовый проезд, 5Л","coords":[59.83,30.3]},{"id":"business-park-113","title":"Производственно-складской комплекс «Бизнес Парк 113»","area":"8 000 м²","address":"Московское шоссе, 113, корп. 2","coords":[59.8,30.4]},{"id":"fedorovskoe","title":"Производственно-складской комплекс в Фёдоровском","area":"3 500 м²","address":"ЛО, Тосненский р-н, гп. Фёдоровское, 1-й Восточный пр., 13к1","coords":[59.55,30.55]},{"id":"luch","title":"Производственно-складской комплекс «Луч»","area":"2 615 м²","address":"Санкт-Петербург, пр. Металлистов, д. 7","coords":[59.96,30.42]},{"id":"antares","title":"Антарес Латышских Стрелков","area":"14 000 м²","address":"Санкт-Петербург, ул. Латышских Стрелков, 19","coords":[59.93,30.47]},{"id":"voyskovitsy-park","title":"Войсковицы","area":"участки 1,2–2,4 га","address":"ЛО, Гатчинский р-н, пос. Войсковицы","coords":[59.532,29.985]},{"id":"volhonskoe","title":"Волхонское","area":"по запросу","address":"Ленинградская область, Ломоносовский район, Волхонское шоссе, 2","coords":[59.748,30.195]},{"id":"parnas","title":"Парнас","area":"по запросу","address":"Ленинградская обл., Всеволожский муниципальный район, Бугровское городское поселение, деревня Порошкино","coords":[60.07,30.35]},{"id":"rabochaya","title":"Производственный комплекс на Рабочей, 7","area":"1 960 м² · 1 409 м²","address":"Санкт-Петербург, Красносельский р-н, ул. Рабочая, 7","coords":[59.83,30.17]},{"id":"nevelskaya","title":"Производственный комплекс на Невельской, 7","area":"участок 1,3 га","address":"Санкт-Петербург, ул. Невельская, 7","coords":[59.93,30.28]},{"id":"kolpino","title":"Производственные площади в Колпино","area":"7 200 м² · 6 900 м²","address":"Санкт-Петербург, Колпино, территория Ижорского завода","coords":[59.75,30.6]},{"id":"metallostroy","title":"Производственное здание в Металлострое","area":"1 872 м²","address":"Санкт-Петербург, пос. Металлострой, дорога на Металлострой, 5ПА","coords":[59.8,30.6]},{"id":"murino","title":"Производственно-складской комплекс Муринский","area":"8 286 м²","address":"Ленинградская область, Всеволожский р-н, производственная зона Мурино","coords":[60.05,30.45]},{"id":"ip-razmetelevo","title":"IP Разметелево","area":"10 106 м²","address":"Ленинградская обл., Колтушское с/п, коммунально-складская зона «Разметелево», 2-й проезд","coords":[59.9,30.65]}];
+window.MMPROM_OBJECTS = mapObjects;})();</script>
+<script src="/assets/catalog.js?v=1" defer></script>
+
+    <script src="/assets/site-anim.js?v=1" defer></script>
+  
+    <script defer src="/assets/menu.js?v=1"></script>
+    <script data-b24-form="click/34/0ph3wy" data-b24-form-telemetry-sign="v1:34:site.b62d3cf56414758a8a11ec9af534ac54810f3b8241a479ddb796adfd2f3d5e4c" data-skip-moving="true">(function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_34.js');</script>
+  </body>
+</html>

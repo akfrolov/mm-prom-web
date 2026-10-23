@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Земельный участок в Колтушах — карточка объекта — ММ Пром</title>
+    <meta name="description" content="Участок промышленного назначения 1,8 га с оплаченными техническими условиями и проектом завода металлоконструкций.">
+    <meta name="robots" content="noindex, follow">
+    <link rel="icon" type="image/png" href="/mm-logo.png">
+    <link rel="canonical" href="https://test.mm-prom.ru/obekt/land-koltushi/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ММ Пром">
+    <meta property="og:title" content="Земельный участок в Колтушах — карточка объекта — ММ Пром">
+    <meta property="og:description" content="Участок промышленного назначения 1,8 га с оплаченными техническими условиями и проектом завода металлоконструкций.">
+    <meta property="og:url" content="https://test.mm-prom.ru/obekt/land-koltushi/">
+    <meta property="og:image" content="https://test.mm-prom.ru/assets/external/inv-eed837bf-zu_koltushi.png">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/base.css?v=1">
+    <link rel="stylesheet" href="/assets/blocks.css?v=1">
+    <link rel="stylesheet" href="/assets/site-anim.css?v=1">
+    
+    <style>
+    /* ═══════════════════════════════════════════════════════════════════════
+       ММ ПРОМ — карточка объекта /obekt/<id>/ (SPEC object-pages, блок B1)
+       Токены — из base.css (navy/purple/gold, Manrope+Inter).
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    /* ── Каркас: контент + sticky-колонка CTA ───────────────────────────── */
+    body{padding-bottom:72px}
+    .object-shell{margin-top:8px;padding-bottom:48px}
+    .object-main{min-width:0}
+    .object-main>section{margin:0 0 40px}
+    @media (min-width:1024px){
+      body{padding-bottom:0}
+      .object-shell{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:40px;align-items:start}
+      .object-aside{position:sticky;top:88px}
+    }
+
+    /* ── Чипы типа и статуса (канон object-card) ────────────────────────── */
+    .badge{display:inline-flex;align-items:center;gap:6px;min-height:26px;padding:3px 12px;border-radius:999px;font-size:var(--fs-small);font-weight:700}
+    .badge--park{background:rgba(235,184,30,.18);color:var(--navy)}
+    .badge--production{background:rgba(90,57,148,.12);color:var(--purple)}
+    .badge--warehouse{background:rgba(14,0,40,.10);color:var(--navy)}
+    .badge--land{background:#F7F5FA;border:1px solid var(--gold);color:var(--navy)}
+    .badge--busy{background:rgba(14,0,40,.72);color:#fff}
+
+    /* ── Заглушка изображения ───────────────────────────────────────────── */
+    .img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius);color:var(--text-muted);font-size:var(--fs-small);min-height:180px;padding:16px;text-align:center}
+    .img-placeholder .material-symbols-outlined{font-size:36px;color:var(--border)}
+
+    /* ── Первый экран: главное фото (ветки «одно фото»/«нет фото») ──────── */
+    .gallery-media{position:relative;min-height:260px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+    .gallery-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .gallery-media img.is-broken{display:none}
+    .gallery-media .img-placeholder{position:absolute;inset:0;min-height:0;border:0;border-radius:0;background:transparent}
+    .gallery-caption{margin:8px 0 0;font-size:var(--fs-small);color:var(--text-muted)}
+    @media (min-width:768px){.gallery-media{min-height:380px}}
+    @media (min-width:1024px){.gallery-media{min-height:440px}}
+
+    /* ── Заголовок объекта ──────────────────────────────────────────────── */
+    .b-object-head h1{margin:8px 0}
+    .obj-head__badges{display:flex;flex-wrap:wrap;gap:6px}
+    .obj-head__meta{margin:0 0 8px;font-size:var(--fs-small);color:var(--text-muted)}
+    .obj-head__desc{margin:0;max-width:72ch;color:var(--text-muted)}
+
+    /* ── Ключевые параметры ─────────────────────────────────────────────── */
+    .b-price{padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
+    .b-price h2{font-size:var(--fs-h3);margin:0 0 12px}
+    .price-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px 16px;margin:0}
+    .price-item{min-width:0}
+    .price-item dt{display:flex;align-items:center;gap:6px;font-size:var(--fs-small);color:var(--text-muted)}
+    .price-item dt .material-symbols-outlined{font-size:18px;color:var(--purple)}
+    .price-item dd{margin:0;font-weight:800;font-size:1.0625rem;line-height:1.35}
+    .b-note{margin:14px 0 0;padding:10px 14px;background:rgba(235,184,30,.12);border-left:3px solid var(--gold);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:var(--fs-small);color:var(--text-muted)}
+    @media (max-width:479px){.price-grid{grid-template-columns:1fr}}
+    @media (min-width:1280px){.price-grid{grid-template-columns:repeat(3,1fr)}}
+
+    /* ── Характеристики: таблица → карточки-пары на смартфоне ───────────── */
+    .b-specs h2,.b-about h2{margin:0 0 12px}
+    .table-wrap{background:#fff;border:1px solid var(--border);border-radius:var(--radius)}
+    .specs-table{width:100%;border-collapse:collapse}
+    .specs-table th,.specs-table td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+    .specs-table tr:last-child th,.specs-table tr:last-child td{border-bottom:0}
+    .specs-table th{width:44%;font-weight:600;color:var(--text-muted)}
+    @media (max-width:767px){
+      .table-wrap{background:transparent;border:0;border-radius:0}
+      .specs-table{display:block}
+      .specs-table tbody{display:grid;gap:8px}
+      .specs-table tr{display:block;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:4px 16px}
+      .specs-table th,.specs-table td{display:block;width:auto;padding:6px 0;border:0}
+      .specs-table td{font-weight:700}
+    }
+
+    /* ── Описание ───────────────────────────────────────────────────────── */
+    .b-about p{margin:0;max-width:72ch;color:var(--text-muted)}
+
+    /* ── CTA-панель: sticky справа (≥1024) / фиксированный бар снизу ────── */
+    .b-cta-panel{margin:0}
+    .cta-card{display:none;padding:20px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .cta-card h2{font-size:var(--fs-h3);margin:0 0 6px}
+    .cta-card__text{margin:0 0 12px;font-size:var(--fs-small);color:var(--text-muted)}
+    .cta-form{display:grid;gap:8px;margin:0 0 12px}
+    .cta-form .btn{width:100%}
+    .cta-card__phone{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:700;color:var(--text);text-decoration:none}
+    .cta-card__phone .material-symbols-outlined{color:var(--purple)}
+    .cta-card__phone:hover{color:var(--purple)}
+    .cta-bar{position:fixed;left:0;right:0;bottom:0;z-index:45;display:flex;gap:8px;padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));background:#fff;border-top:1px solid var(--border);box-shadow:0 -4px 16px rgba(11,27,51,.12)}
+    .cta-bar .btn{flex:1 1 auto;padding:12px 8px;font-size:0.9375rem}
+    @media (min-width:1024px){
+      .cta-card{display:block}
+      .cta-bar{display:none}
+    }
+    </style>
+  
+    
+  <script type="module" src="/_astro/page.tougUCvb.js"></script></head>
+  <body>
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="site-header__logo" href="/">
+          <img src="/mmprom-logo.png" alt="ММ Пром">
+        </a>
+        <nav class="site-header__nav" aria-label="Основное меню">
+          <div class="nav-item nav-item--has-mega">
+            <button class="site-header__mega-trigger" id="mega-trigger" type="button" aria-haspopup="dialog" aria-controls="mega-overlay" aria-expanded="false">Услуги</button>
+          </div>
+          <a href="/katalog/" data-astro-prefetch>Каталог</a>
+          <a href="/blog/" data-astro-prefetch>Публикации</a>
+          <a href="/about/" data-astro-prefetch>О компании</a>
+          <a href="/contact/" data-astro-prefetch>Контакты</a>
+        </nav>
+        <div class="site-header__actions">
+          <a class="site-header__phone" href="tel:88003331010">8 800 333 10 10</a>
+          <button class="btn btn--purple site-header__cta" type="button" data-b24-form="click/34/0ph3wy" data-b24-form-telemetry-sign="v1:34:site.b62d3cf56414758a8a11ec9af534ac54810f3b8241a479ddb796adfd2f3d5e4c">Оставить заявку</button>
+          <button class="site-header__burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu"><span class="material-symbols-outlined" aria-hidden="true">menu</span></button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ═══ Мобильное меню: drawer слева (W2.2) ═══ -->
+    <div class="mobile-overlay" id="mobile-overlay" hidden>
+      <div class="mobile-overlay__backdrop" data-mobile-close></div>
+      <div class="mobile-overlay__holder">
+        <section class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Мобильное меню">
+          <div class="mobile-menu__bar">
+            <button class="mobile-menu__close" type="button" aria-label="Закрыть меню" data-mobile-close><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+          </div>
+          <nav class="mobile-menu__nav" aria-label="Мобильное меню">
+            <div class="mobile-menu__item">
+              <button class="mobile-menu__toggle" type="button" aria-expanded="false">
+                <span class="mobile-menu__toggle-name"><span class="material-symbols-outlined" aria-hidden="true">widgets</span>Услуги</span>
+                <span class="material-symbols-outlined mobile-menu__arrow" aria-hidden="true">expand_more</span>
+              </button>
+              <div class="mobile-menu__sub">
+                <button class="mobile-menu__role" type="button" data-mrole="prod" aria-expanded="false">Производствам<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button>
+                <div class="mobile-menu__services" data-mpanel="prod">
+                  <a href="/brokerage/">Подбор недвижимости</a>
+                  <a href="/arenda/">Аренда недвижимости</a>
+                  <a href="/trade-in/">Трейд-ин / Срочный выкуп</a>
+                  <a href="/stroitelstvo/">Строительство</a>
+                  <a href="/development/">Девелопмент под ключ</a>
+                  <a href="/redevelopment/">Редевелопмент</a>
+                  <a href="/upravlenie/">Управление</a>
+                  <a href="/consalting/">Промышленный консалтинг</a>
+                  <a href="/investcomp/">Инвестиции и финансирование</a>
+                  <a class="mobile-menu__more" href="/proizvodstvam/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+                </div>
+                <button class="mobile-menu__role" type="button" data-mrole="zdaniya" aria-expanded="false">Собственникам зданий<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button>
+                <div class="mobile-menu__services" data-mpanel="zdaniya">
+                  <a href="/brokerage/">Подбор недвижимости</a>
+                  <a href="/arenda/">Аренда недвижимости</a>
+                  <a href="/prodazha/">Продажа недвижимости</a>
+                  <a href="/trade-in/">Трейд-ин / Срочный выкуп</a>
+                  <a href="/redevelopment/">Редевелопмент</a>
+                  <a href="/upravlenie/">Управление</a>
+                  <a href="/consalting/">Промышленный консалтинг</a>
+                  <a href="/investcomp/">Инвестиции и финансирование</a>
+                  <a class="mobile-menu__more" href="/sobstvennikam-zdaniy/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+                </div>
+                <button class="mobile-menu__role" type="button" data-mrole="uchastki" aria-expanded="false">Собственникам участков<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button>
+                <div class="mobile-menu__services" data-mpanel="uchastki">
+                  <a href="/brokerage/">Подбор недвижимости</a>
+                  <a href="/arenda/">Аренда недвижимости</a>
+                  <a href="/prodazha/">Продажа недвижимости</a>
+                  <a href="/trade-in/">Трейд-ин / Срочный выкуп</a>
+                  <a href="/stroitelstvo/">Строительство</a>
+                  <a href="/development/">Девелопмент под ключ</a>
+                  <a href="/redevelopment/">Редевелопмент</a>
+                  <a href="/consalting/">Промышленный консалтинг</a>
+                  <a href="/investcomp/">Инвестиции и финансирование</a>
+                  <a class="mobile-menu__more" href="/sobstvennikam-uchastkov/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+                </div>
+                <button class="mobile-menu__role" type="button" data-mrole="invest" aria-expanded="false">Инвесторам<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button>
+                <div class="mobile-menu__services" data-mpanel="invest">
+                  <a href="/brokerage/">Подбор недвижимости</a>
+                  <a href="/investcomp/">Инвестиции и финансирование</a>
+                  <a href="/upravlenie/">Управление активом</a>
+                  <a href="/consalting/">Промышленный консалтинг</a>
+                  <a class="mobile-menu__more" href="/investoram/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+                </div>
+              </div>
+            </div>
+            <a class="mobile-menu__link" href="/katalog/" data-astro-prefetch><span class="material-symbols-outlined" aria-hidden="true">inventory_2</span>Каталог</a>
+            <a class="mobile-menu__link" href="/blog/" data-astro-prefetch><span class="material-symbols-outlined" aria-hidden="true">article</span>Публикации</a>
+            <a class="mobile-menu__link" href="/about/" data-astro-prefetch><span class="material-symbols-outlined" aria-hidden="true">apartment</span>О компании</a>
+            <a class="mobile-menu__link" href="/contact/" data-astro-prefetch><span class="material-symbols-outlined" aria-hidden="true">place</span>Контакты</a>
+          </nav>
+          <div class="mobile-menu__actions">
+            <a class="site-header__phone" href="tel:88003331010">8 800 333 10 10</a>
+            <button class="btn btn--purple" type="button" data-b24-form="click/34/0ph3wy" data-b24-form-telemetry-sign="v1:34:site.b62d3cf56414758a8a11ec9af534ac54810f3b8241a479ddb796adfd2f3d5e4c">Оставить заявку</button>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ═══ Мегаменю «Услуги»: центрированный оверлей (≥1024, W2.1) ═══ -->
+    <div class="mega-overlay" id="mega-overlay" hidden>
+      <div class="mega-overlay__backdrop" data-mega-close></div>
+      <div class="mega-overlay__holder">
+        <section class="mega-panel" role="dialog" aria-modal="true" aria-label="Меню «Услуги»">
+          <button class="mega-panel__close" type="button" aria-label="Закрыть меню" data-mega-close><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+
+          <!-- Вкладки ролей (слева) + группы услуг (справа). Радио-фильтр без JS:
+               скрытые radio управляют подсветкой вкладки, чипом-заголовком и
+               фильтрацией услуг (CSS-фильтр по data-roles). -->
+          <div class="mm-layout">
+            <p class="mm-roles-title">Решения под вашу задачу</p>
+
+            <input class="mm-tab-radio" type="radio" name="mm-role" id="mmf-all" checked>
+
+            <input class="mm-tab-radio" type="radio" name="mm-role" id="mmf-prod">
+            <div class="mm-tab">
+              <label class="mm-tab__label" for="mmf-prod"><span class="material-symbols-outlined mm-tab__icon" aria-hidden="true">factory</span><span class="mm-tab__name">Производствам</span></label>
+              <label class="mm-tab__body" for="mmf-prod"><span class="mm-tab__desc">Помещения, стройка и финансирование для производства</span></label>
+              <a class="mm-tab__more" href="/proizvodstvam/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+            </div>
+
+            <input class="mm-tab-radio" type="radio" name="mm-role" id="mmf-zdaniya">
+            <div class="mm-tab">
+              <label class="mm-tab__label" for="mmf-zdaniya"><span class="material-symbols-outlined mm-tab__icon" aria-hidden="true">apartment</span><span class="mm-tab__name">Собственникам зданий</span></label>
+              <label class="mm-tab__body" for="mmf-zdaniya"><span class="mm-tab__desc">Доходность, управление и продажа объектов</span></label>
+              <a class="mm-tab__more" href="/sobstvennikam-zdaniy/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+            </div>
+
+            <input class="mm-tab-radio" type="radio" name="mm-role" id="mmf-uchastki">
+            <div class="mm-tab">
+              <label class="mm-tab__label" for="mmf-uchastki"><span class="material-symbols-outlined mm-tab__icon" aria-hidden="true">landscape</span><span class="mm-tab__name">Собственникам участков</span></label>
+              <label class="mm-tab__body" for="mmf-uchastki"><span class="mm-tab__desc">Оценка, застройка и монетизация земли</span></label>
+              <a class="mm-tab__more" href="/sobstvennikam-uchastkov/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+            </div>
+
+            <input class="mm-tab-radio" type="radio" name="mm-role" id="mmf-investor">
+            <div class="mm-tab mm-tab--last">
+              <label class="mm-tab__label" for="mmf-investor"><span class="material-symbols-outlined mm-tab__icon" aria-hidden="true">trending_up</span><span class="mm-tab__name">Инвесторам</span></label>
+              <label class="mm-tab__body" for="mmf-investor"><span class="mm-tab__desc">Готовые инвест-продукты и управление активом</span></label>
+              <a class="mm-tab__more" href="/investoram/">Подробнее<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+            </div>
+
+            <!-- Заголовок-чип правой области: отдельный grid-элемент .mm-layout
+                 (строка 1, колонка 2) — над группами услуг. 5 пред-рендеренных
+                 состояний; при выборе роли — её чип с ✕-сбросом (label for=mmf-all). -->
+            <div class="mm-head">
+              <span class="mm-head__chip mm-head__chip--all">Все услуги</span>
+              <span class="mm-head__chip mm-head__chip--prod">Услуги для производств<label class="mm-head__x" for="mmf-all" aria-label="Показать все услуги"><span class="material-symbols-outlined" aria-hidden="true">close</span></label></span>
+              <span class="mm-head__chip mm-head__chip--zdaniya">Услуги для собственников зданий<label class="mm-head__x" for="mmf-all" aria-label="Показать все услуги"><span class="material-symbols-outlined" aria-hidden="true">close</span></label></span>
+              <span class="mm-head__chip mm-head__chip--uchastki">Услуги для собственников участков<label class="mm-head__x" for="mmf-all" aria-label="Показать все услуги"><span class="material-symbols-outlined" aria-hidden="true">close</span></label></span>
+              <span class="mm-head__chip mm-head__chip--investor">Услуги для инвесторов<label class="mm-head__x" for="mmf-all" aria-label="Показать все услуги"><span class="material-symbols-outlined" aria-hidden="true">close</span></label></span>
+            </div>
+
+            <!-- Единый каталог услуг: каждая услуга один раз, сгруппированы по смыслу.
+                 data-roles — матрица «услуга × роль» (токены: prod zdaniya uchastki investor) -->
+            <div class="mm-groups">
+              <section class="mm-group" aria-labelledby="mm-g-objects">
+                <h2 class="mm-group__title" id="mm-g-objects">Объекты</h2>
+                <div class="mm-item" data-roles="prod zdaniya uchastki investor">
+                  <a class="mm-item__main" href="/arenda/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">warehouse</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Аренда недвижимости</span>
+                      <span class="mm-item__desc">Свободные площади: производство, склады, офисы.</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mm-item" data-roles="zdaniya uchastki investor">
+                  <a class="mm-item__main" href="/prodazha/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">sell</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Продажа недвижимости</span>
+                      <span class="mm-item__desc">Поиск арендаторов и покупателей на ваш объект.</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mm-item" data-roles="prod zdaniya uchastki investor">
+                  <a class="mm-item__main" href="/trade-in/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">swap_horiz</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Трейд-ин / Срочный выкуп</span>
+                      <span class="mm-item__desc">Обмен объекта на более эффективный формат или быстрая продажа актива.</span>
+                    </span>
+                  </a>
+                </div>
+              </section>
+
+              <section class="mm-group" aria-labelledby="mm-g-projects">
+                <h2 class="mm-group__title" id="mm-g-projects">Проекты и эксплуатация</h2>
+                <div class="mm-item" data-roles="prod uchastki investor">
+                  <a class="mm-item__main" href="/stroitelstvo/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">foundation</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Строительство</span>
+                      <span class="mm-item__desc">Новое здание или пристройка под задачи производства.</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mm-item" data-roles="prod uchastki investor">
+                  <a class="mm-item__main" href="/development/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">construction</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Девелопмент под ключ</span>
+                      <span class="mm-item__desc">Реализация промышленного проекта — от участка до запуска.</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mm-item" data-roles="prod zdaniya uchastki investor">
+                  <a class="mm-item__main" href="/redevelopment/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">autorenew</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Редевелопмент</span>
+                      <span class="mm-item__desc">Перестройка устаревшего объекта под новый эффективный формат.</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mm-item" data-roles="prod zdaniya investor">
+                  <a class="mm-item__main" href="/upravlenie/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">settings</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Управление</span>
+                      <span class="mm-item__desc">Эксплуатация, арендаторы, редевелопмент, рост доходности.</span>
+                    </span>
+                  </a>
+                </div>
+              </section>
+
+              <section class="mm-group" aria-labelledby="mm-g-strategy">
+                <h2 class="mm-group__title" id="mm-g-strategy">Стратегия и капитал</h2>
+                <div class="mm-item" data-roles="prod zdaniya uchastki">
+                  <a class="mm-item__main" href="/consalting/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">insights</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Промышленный консалтинг</span>
+                      <span class="mm-item__desc">Превращаем задачу в понятный и безопасный план: аудит, ТЗ, финмодель.</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mm-item" data-roles="prod zdaniya uchastki investor">
+                  <a class="mm-item__main" href="/investcomp/">
+                    <span class="mm-item__icon"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span></span>
+                    <span class="mm-item__body">
+                      <span class="mm-item__name">Инвестиции и финансирование</span>
+                      <span class="mm-item__desc">Инвестиции в реальные промышленные активы с понятной экономикой.</span>
+                    </span>
+                  </a>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <!-- Подвал панели -->
+          <div class="mm-foot">
+            <div class="mm-foot__links">
+              <a class="btn btn--gold" href="/uslugi/">Все услуги<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+              <a class="mm-foot__link mm-foot__link--catalog" href="/katalog/"><span class="material-symbols-outlined" aria-hidden="true">grid_view</span>Каталог объектов</a>
+            </div>
+            <a class="mm-foot__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    
+  
+
+  
+  <section id="breadcrumbs" class="b-breadcrumbs">
+  <div class="container">
+    <ol>
+      <li><a href="/">Главная</a></li><li><a href="/katalog/">Каталог</a></li><li><span aria-current="page">Земельный участок в Колтушах</span></li>
+    </ol>
+  </div>
+</section>
+
+  <div class="container object-shell">
+    <div class="object-main">
+      <section id="gallery" class="b-gallery" aria-label="Фото объекта">
+        <div class="gallery-media">
+          <div class="img-placeholder" aria-hidden="true">
+            <span class="material-symbols-outlined" aria-hidden="true">image</span>
+            <span>Земельный участок в Колтушах</span>
+          </div>
+          <img src="/assets/external/inv-eed837bf-zu_koltushi.png" alt="Земельный участок в Колтушах" loading="eager" onerror="this.classList.add('is-broken')">
+        </div>
+        <p class="gallery-caption">Земельный участок в Колтушах</p>
+      </section>
+
+      <section id="object-head" class="b-object-head">
+        <div class="obj-head__badges">
+          <span class="badge badge--land">Земельный участок</span>
+          
+        </div>
+        <h1>Земельный участок в Колтушах</h1>
+        <p class="obj-head__meta">Ленинградская обл., Всеволожский р-н, Колтушское с/п · Продажа</p>
+        <p class="obj-head__desc">Участок промышленного назначения 1,8 га с оплаченными техническими условиями и проектом завода металлоконструкций.</p>
+      </section>
+
+      <section id="key-params" class="b-price">
+        <h2>Ключевые параметры</h2>
+        <dl class="price-grid">
+          <div class="price-item">
+              <dt><span class="material-symbols-outlined" aria-hidden="true">square_foot</span>Площадь</dt>
+              <dd>1,8 га</dd>
+            </div><div class="price-item">
+              <dt><span class="material-symbols-outlined" aria-hidden="true">description</span>Кадастровый номер</dt>
+              <dd>47:07:1047002:2717, земли промышленности</dd>
+            </div><div class="price-item">
+              <dt><span class="material-symbols-outlined" aria-hidden="true">bolt</span>Технические условия</dt>
+              <dd>электричество 1 МВт, газ, вода — оплачены</dd>
+            </div>
+          <div class="price-item">
+            <dt><span class="material-symbols-outlined" aria-hidden="true">square_foot</span>Площадь</dt>
+            <dd>1,8 га</dd>
+          </div>
+          <div class="price-item">
+            <dt><span class="material-symbols-outlined" aria-hidden="true">payments</span>Цена</dt>
+            <dd>по запросу</dd>
+          </div>
+        </dl>
+        
+      </section>
+
+      <section id="specs" class="b-specs">
+        <h2>Характеристики</h2>
+        <div class="table-wrap">
+          <table class="specs-table">
+            <tbody>
+              <tr>
+                  <th scope="row">Площадь</th>
+                  <td>1,8 га</td>
+                </tr><tr>
+                  <th scope="row">Кадастровый номер</th>
+                  <td>47:07:1047002:2717, земли промышленности</td>
+                </tr><tr>
+                  <th scope="row">Технические условия</th>
+                  <td>электричество 1 МВт, газ, вода — оплачены</td>
+                </tr><tr>
+                  <th scope="row">Разрешение на строительство</th>
+                  <td>в процессе получения, есть экспертиза проекта завода 6 500 м²</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="about" class="b-about">
+        <h2>Об объекте</h2>
+        <p>Участок промышленного назначения 1,8 га с оплаченными техническими условиями и проектом завода металлоконструкций.</p>
+      </section>
+    </div>
+
+    <aside class="object-aside">
+      <section id="cta" class="b-cta-panel" aria-label="Заявка по объекту">
+        <div class="cta-card">
+          <h2>Нужна консультация по объекту?</h2>
+          <p class="cta-card__text">Ответим по ставке, коммуникациям и срокам заезда. Покажем объект в удобное время.</p>
+          <div class="cta-form">
+            <button class="btn btn--purple" type="button" data-b24-form="click/34/0ph3wy" data-b24-form-telemetry-sign="v1:34:site.b62d3cf56414758a8a11ec9af534ac54810f3b8241a479ddb796adfd2f3d5e4c">Оставить заявку</button>
+            
+          </div>
+          <a class="cta-card__phone" href="tel:88003331010">
+            <span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10
+          </a>
+        </div>
+
+        <div class="cta-bar">
+          <button class="btn btn--purple" type="button" data-b24-form="click/34/0ph3wy" data-b24-form-telemetry-sign="v1:34:site.b62d3cf56414758a8a11ec9af534ac54810f3b8241a479ddb796adfd2f3d5e4c">Оставить заявку</button>
+          <a class="btn btn--outline" href="tel:88003331010">Позвонить</a>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+    <footer class="site-footer">
+      <div class="site-footer__particles" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="container site-footer__inner">
+        <div class="site-footer__brand">
+          <img src="/mmprom-logo.png" alt="ММ Пром">
+          <p>Промышленная недвижимость Санкт-Петербурга и Ленинградской области: аренда, продажа и строительство. Работаем с 2011 года.</p>
+        </div>
+        <nav class="site-footer__col" aria-label="Услуги">
+          <p class="site-footer__title">Услуги</p>
+          <ul>
+            <li><a href="/arenda/" data-astro-prefetch>Аренда недвижимости</a></li>
+            <li><a href="/prodazha/" data-astro-prefetch>Продажа недвижимости</a></li>
+            <li><a href="/stroitelstvo/" data-astro-prefetch>Строительство</a></li>
+            <li><a href="/development/" data-astro-prefetch>Девелопмент под ключ</a></li>
+            <li><a href="/redevelopment/" data-astro-prefetch>Редевелопмент</a></li>
+            <li><a href="/upravlenie/" data-astro-prefetch>Управление</a></li>
+            <li><a href="/consalting/" data-astro-prefetch>Промышленный консалтинг</a></li>
+            <li><a href="/trade-in/" data-astro-prefetch>Трейд-ин / Срочный выкуп</a></li>
+            <li><a href="/investcomp/" data-astro-prefetch>Инвестиции и финансирование</a></li>
+            <li><a href="/brokerage/" data-astro-prefetch>Подбор недвижимости</a></li>
+          </ul>
+        </nav>
+        <nav class="site-footer__col" aria-label="Компания">
+          <p class="site-footer__title">Компания</p>
+          <ul>
+            <li><a href="/about/" data-astro-prefetch>О компании</a></li>
+            <li><a href="/blog/" data-astro-prefetch>Публикации</a></li>
+            <li><a href="/contact/" data-astro-prefetch>Контакты</a></li>
+          </ul>
+        </nav>
+        <div class="site-footer__col">
+          <p class="site-footer__title">Контакты</p>
+          <a class="site-footer__phone" href="tel:88003331010">8 800 333 10 10</a>
+          <p class="site-footer__addr">Санкт-Петербург, ул. Савушкина, 125 к.6</p>
+          <div class="site-footer__social">
+            <a href="https://t.me/mm_prom1" aria-label="Телеграм-канал ММ Пром"><svg viewBox="0 0 24 24" width="22" height="22" fill="#229ED9" aria-hidden="true"><path d="M9.04 15.51l-.38 5.35c.54 0 .78-.23 1.06-.51l2.55-2.44 5.28 3.87c.97.53 1.66.25 1.92-.9l3.48-16.3c.31-1.43-.52-1.99-1.46-1.64L1.1 9.76c-1.39.54-1.37 1.32-.24 1.67l5.3 1.65L18.35 5.1c.57-.38 1.09-.17.66.21L9.04 15.51z"></path></svg></a>
+            <a href="https://max.ru/channel_MM_PROM" aria-label="Канал ММ Пром в MAX"><svg viewBox="0 0 24 24" width="22" height="22" fill="#5A3994" aria-hidden="true"><path d="M12 2C6.48 2 2 6.03 2 11c0 2.6 1.24 4.94 3.22 6.55L4 22l4.6-1.5c1.06.32 2.22.5 3.4.5 5.52 0 10-4.03 10-9S17.52 2 12 2z"></path></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="container site-footer__bottom">
+        <p>© 2011–2026 ММ Пром</p>
+        <span class="site-footer__link--disabled" aria-disabled="true" title="Документ готовится">Политика конфиденциальности</span>
+      </div>
+    </footer>
+    
+    <script defer src="/assets/menu.js?v=1"></script>
+    <script data-b24-form="click/34/0ph3wy" data-b24-form-telemetry-sign="v1:34:site.b62d3cf56414758a8a11ec9af534ac54810f3b8241a479ddb796adfd2f3d5e4c" data-skip-moving="true">(function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_34.js');</script>
+  </body>
+</html>

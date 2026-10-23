@@ -1,0 +1,55 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Слой анимаций сайта ММ Пром
+   Только transform/opacity, уважает prefers-reduced-motion
+   ═══════════════════════════════════════════════════════════════════ */
+:root{--ease-out:cubic-bezier(.22,.61,.36,1);--ease-soft:cubic-bezier(.4,0,.2,1)}
+
+/* Появление страницы */
+@keyframes pageIn{from{opacity:0}to{opacity:1}}
+body{animation:pageIn .45s var(--ease-out) both}
+
+/* Каскад в первом экране */
+@keyframes heroUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.b-hero__content > *{animation:heroUp .75s var(--ease-out) both}
+.b-hero__content > *:nth-child(1){animation-delay:.04s}
+.b-hero__content > *:nth-child(2){animation-delay:.10s}
+.b-hero__content > *:nth-child(3){animation-delay:.16s}
+.b-hero__content > *:nth-child(4){animation-delay:.22s}
+.b-hero__content > *:nth-child(5){animation-delay:.28s}
+.b-hero__content > *:nth-child(6){animation-delay:.34s}
+
+/* Шапка при скролле */
+.site-header{transition:box-shadow .35s var(--ease-soft),background-color .35s var(--ease-soft)}
+.site-header.is-scrolled{box-shadow:0 12px 34px rgba(11,27,51,.12)}
+
+/* Блик на золотых кнопках */
+.btn{position:relative;overflow:hidden}
+.btn--gold::after{content:"";position:absolute;top:-20%;left:-140%;width:55%;height:140%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);transition:left .65s var(--ease-soft);pointer-events:none}
+.btn--gold:hover::after{left:150%}
+
+/* Мягкое появление блоков, добавленных скриптом */
+.reveal{transition:opacity .6s var(--ease-out),transform .6s var(--ease-out);transition-delay:calc(var(--i,0) * 70ms)}
+
+/* Номер секции */
+.sec-index{transition:opacity .5s var(--ease-out),transform .5s var(--ease-out)}
+
+/* Карта: плавное проявление */
+.map-fade{opacity:0;transform:translateY(12px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+.map-fade.is-ready{opacity:1;transform:none}
+
+/* FAQ */
+@keyframes faqIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+details[open] .faq__a{animation:faqIn .35s var(--ease-out) both}
+
+/* Счётчики */
+.count-up{font-variant-numeric:tabular-nums}
+
+/* Иконки в карточках — мягкий отклик */
+.role-card__icon,.svc-tile__icon,.approach-card__icon,.other-card__icon,.value-card__icon,.contact-card__icon,.svc-card__icon{transition:background .25s var(--ease-soft),color .25s var(--ease-soft),transform .25s var(--ease-soft)}
+
+/* Уважение к настройкам пользователя */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
+  body{animation:none}
+  .map-fade{opacity:1;transform:none}
+}

@@ -1,0 +1,167 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   ММ ПРОМ — общие стили повторяющихся блоков страниц
+   Вынесено из inline-стилей 22 страниц (CR-2026-002, п. 21 / дельта W2.1).
+   Подключается в BaseLayout ПОСЛЕ base.css; стили блоков страниц здесь,
+   страничный CSS (hero, page-specific) остаётся inline. Кэш-бастинг — ?v=1.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Каркас: контейнер, секции, сетки ─────────────────────────────────── */
+.container{max-width:var(--container);margin:0 auto;padding:0 32px}
+@media (min-width:768px){.container{padding:0 32px}}
+@media (min-width:1024px){.container{padding:0 40px}}
+.section{padding:var(--space-section) 0}
+.section--tint{background:var(--surface)}
+.grid{display:grid;gap:16px}
+.grid--2,.grid--3,.grid--4{grid-template-columns:1fr}
+@media (min-width:768px){.grid{gap:24px}.grid--2,.grid--3,.grid--4{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1024px){.grid--3{grid-template-columns:repeat(3,1fr)}.grid--4{grid-template-columns:repeat(4,1fr)}}
+
+/* ── Marquee (золотая полоса) ─────────────────────────────────────────── */
+.b-marquee{background:var(--gold);border-bottom:1px solid var(--gold-deep);padding:14px 0;overflow:hidden}
+.b-marquee__track{display:flex;width:max-content;animation:b-marquee-roll 30s linear infinite}
+.b-marquee__seq{display:flex;align-items:center;flex:0 0 auto}
+.b-marquee__item{display:inline-flex;align-items:center;white-space:nowrap;font-weight:800;font-size:var(--fs-small);letter-spacing:.04em;text-transform:uppercase;color:var(--navy)}
+.b-marquee__item::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--purple);margin:0 24px}
+@keyframes b-marquee-roll{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  .b-marquee__track{animation:none;width:auto;flex-wrap:wrap;row-gap:4px}
+  .b-marquee__seq--dup{display:none}
+}
+
+/* ── Хлебные крошки ───────────────────────────────────────────────────── */
+.b-breadcrumbs{padding:18px 0 0}
+.b-breadcrumbs ol{display:flex;flex-wrap:wrap;gap:4px;list-style:none;margin:0;padding:0;font-size:var(--fs-small);color:var(--text-muted)}
+.b-breadcrumbs li{display:inline-flex;align-items:center}
+.b-breadcrumbs li+li::before{content:"/";margin:0 8px;color:var(--border)}
+.b-breadcrumbs a{display:inline-flex;align-items:center;min-height:44px;color:var(--text-muted);text-decoration:none}
+.b-breadcrumbs a:hover{color:var(--purple)}
+.b-breadcrumbs [aria-current="page"]{color:var(--text);font-weight:600}
+
+/* ── FAQ, вариант A — простой (страницы ролей) ────────────────────────── */
+.faq{display:grid;gap:12px;margin-top:8px;max-width:900px}
+.faq__item{border:1px solid var(--border);border-radius:var(--radius);background:#fff;overflow:hidden;transition:border-color .2s ease,box-shadow .2s ease}
+.faq__item[open]{border-color:var(--purple);box-shadow:var(--shadow-sm)}
+.faq__q{display:flex;align-items:center;gap:14px;padding:20px 22px;cursor:pointer;list-style:none;font-weight:700;font-size:1.02rem;line-height:1.4}
+.faq__q::-webkit-details-marker{display:none}
+.faq__q .material-symbols-outlined{font-size:22px;color:var(--purple);flex:0 0 auto;transition:transform .25s ease}
+.faq__item[open] .faq__q .material-symbols-outlined{transform:rotate(45deg)}
+.faq__a{padding:0 22px 22px 58px;color:var(--text-muted);line-height:1.7;font-size:.98rem}
+.faq__a p{margin:0}
+@media (max-width:640px){.faq__q{padding:16px 18px;font-size:.98rem}.faq__a{padding:0 18px 18px 18px}}
+
+/* ── FAQ, вариант B — панельный (index / atlas) ───────────────────────── */
+.b-faq__list{display:grid;gap:12px}
+.b-faq__item{background:#fff;border:1px solid var(--border);border-radius:var(--radius)}
+.b-faq__item summary{display:flex;align-items:center;gap:12px;min-height:58px;padding:16px 20px;font-weight:700;cursor:pointer;list-style:none}
+.b-faq__item summary::-webkit-details-marker{display:none}
+.b-faq__item summary > span:first-child{flex:1}
+.b-faq__item summary .material-symbols-outlined{color:var(--gold);transition:transform .2s ease}
+.b-faq__item[open] summary .material-symbols-outlined{transform:rotate(180deg)}
+.b-faq__item p{margin:0;padding:16px 20px 0;color:var(--text-muted)}
+.b-faq__item p + p{padding-top:8px}
+.b-faq__item p:last-child{padding-bottom:16px}
+.b-faq__panel{display:grid;gap:32px;align-items:start}
+.b-faq__intro h2{margin-bottom:.4em}
+.b-faq__intro > p{color:var(--text-muted);margin:0 0 26px}
+.b-faq__help{padding:26px;border-radius:var(--radius);background:linear-gradient(135deg,var(--purple) 0%,var(--navy) 100%);color:#fff;position:relative;overflow:hidden}
+.b-faq__help::after{content:"";position:absolute;width:70px;height:70px;right:-24px;bottom:-24px;border:2px solid rgba(235,184,30,.4);transform:rotate(15deg)}
+.b-faq__help-title{margin:0 0 6px;font-weight:800;font-size:1.1rem}
+.b-faq__help-sub{margin:0 0 16px;color:rgba(255,255,255,.75);font-size:var(--fs-small)}
+.b-faq__help-phone{display:inline-block;font-size:1.35rem;font-weight:800;color:var(--gold);text-decoration:none;margin-bottom:18px}
+@media (min-width:1024px){
+  .b-faq__panel{grid-template-columns:0.85fr 1.15fr;grid-template-areas:"intro list" "help list";gap:32px 56px}
+  .b-faq__intro{grid-area:intro}
+  .b-faq__list{grid-area:list}
+  .b-faq__help{grid-area:help}
+}
+
+/* ── Карточки ролей ───────────────────────────────────────────────────── */
+.b-tasks__grid{display:grid;gap:16px;margin-top:32px;grid-template-columns:1fr}
+.role-card{display:flex;flex-direction:column;gap:12px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:26px;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+.role-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
+.role-card h3{margin:0;display:flex;align-items:center;gap:10px;font-size:1.15rem}
+.role-card h3 .material-symbols-outlined{font-size:26px;color:var(--purple)}
+.role-card__list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.role-card__list li{position:relative;padding-left:22px;font-weight:500;font-size:1rem;color:var(--text-muted)}
+.role-card__list li::before{content:"";position:absolute;left:0;top:.6em;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.role-card__more{display:inline-flex;align-items:center;gap:6px;margin-top:auto;min-height:44px;font-weight:700;color:var(--purple);text-decoration:none}
+.role-card__more .material-symbols-outlined{font-size:20px;transition:transform .2s ease}
+.role-card__more:hover .material-symbols-outlined{transform:translateX(4px)}
+@media (min-width:768px){.b-tasks__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}}
+@media (min-width:1024px){.b-tasks__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.role-card{position:relative;padding:28px;gap:14px;overflow:hidden}
+.role-card::before{content:"";position:absolute;left:0;top:0;height:3px;width:0;background:var(--gold);transition:width .35s ease}
+.role-card:hover::before{width:100%}
+.role-card__icon{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:14px;background:var(--purple-soft);color:var(--purple);transition:background .22s ease,color .22s ease,transform .22s ease}
+.role-card:hover .role-card__icon{background:var(--purple);color:#fff;transform:translateY(-2px)}
+.role-card__icon .material-symbols-outlined{font-size:26px}
+.role-card h3{font-size:1.12rem;line-height:1.35}
+.role-card__list li{line-height:1.55}
+@media (max-width:767px){.role-card{padding:20px}}
+
+/* ── CTA-полоса ───────────────────────────────────────────────────────── */
+.b-cta{background:var(--purple-soft);color:var(--text);padding:clamp(40px,6vw,72px) 0}
+.b-cta h2{margin:0 0 8px}
+.b-cta p{color:var(--text-muted);max-width:70ch}
+.b-cta__row{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin-top:20px}
+.b-cta__phone{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:800;font-size:1.125rem;color:var(--text);text-decoration:none}
+.b-cta__phone .material-symbols-outlined{color:var(--purple)}
+.b-cta--grad{background:linear-gradient(120deg,var(--purple) 0%,var(--navy) 100%);color:#fff;position:relative;overflow:hidden}
+.b-cta--grad::after{content:"";position:absolute;width:140px;height:140px;right:-40px;bottom:-40px;border:2px solid rgba(235,184,30,.4);transform:rotate(15deg)}
+.b-cta--grad h2{color:#fff}
+.b-cta--grad p{color:rgba(255,255,255,.82)}
+.b-cta--grad .sec-index{color:rgba(255,255,255,.6)}
+.b-cta--grad .b-cta__phone{color:#fff}
+.b-cta--grad .b-cta__phone .material-symbols-outlined{color:var(--gold)}
+@media (max-width:767px){.b-cta--grad .b-cta__row{gap:10px}}
+
+/* ── Карточки услуг: хаб (svc-card) ───────────────────────────────────── */
+.svc-grid{display:grid;gap:16px;margin-top:32px;grid-template-columns:1fr}
+.svc-card{position:relative;display:flex;flex-direction:column;gap:10px;padding:26px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);text-decoration:none;color:var(--text);transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+.svc-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
+.svc-card__icon{display:inline-flex;align-items:center;justify-content:center;width:50px;height:50px;border-radius:12px;background:var(--purple-soft);color:var(--purple)}
+.svc-card__icon .material-symbols-outlined{font-size:26px}
+.svc-card h3{margin:0;font-size:1.15rem}
+.svc-card p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
+.svc-card__go{display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding-top:14px;font-weight:700;color:var(--purple)}
+.svc-card__go .material-symbols-outlined{font-size:20px;transition:transform .2s ease}
+.svc-card:hover .svc-card__go .material-symbols-outlined{transform:translateX(4px)}
+@media (min-width:768px){.svc-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}}
+@media (min-width:1024px){.svc-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* ── Карточки услуг: плитки роли (svc-tile) ───────────────────────────── */
+.svc-tiles{display:grid;gap:18px;grid-template-columns:1fr}
+.svc-tile{position:relative;display:flex;flex-direction:column;gap:12px;padding:26px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease}
+.svc-tile::before{content:"";position:absolute;left:0;top:0;height:3px;width:0;background:var(--gold);transition:width .35s ease}
+.svc-tile:hover::before{width:100%}
+.svc-tile:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-4px)}
+.svc-tile__icon{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:14px;background:var(--purple-soft);color:var(--purple);transition:background .22s ease,color .22s ease,transform .22s ease}
+.svc-tile:hover .svc-tile__icon{background:var(--purple);color:#fff;transform:translateY(-2px)}
+.svc-tile__icon .material-symbols-outlined{font-size:26px}
+.svc-tile h3{margin:0;font-size:1.08rem;line-height:1.35}
+.svc-tile p{margin:0;color:var(--text-muted);font-size:var(--fs-small);line-height:1.6}
+.svc-tile__link{display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding-top:10px;min-height:44px;color:var(--purple);font-weight:700;font-size:var(--fs-small);text-decoration:none}
+.svc-tile__link .material-symbols-outlined{font-size:18px;transition:transform .2s ease}
+.svc-tile:hover .svc-tile__link .material-symbols-outlined{transform:translateX(4px)}
+@media (min-width:640px){.svc-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1024px){.svc-tiles{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}}
+
+/* ── Секция карты объектов ────────────────────────────────────────────── */
+.b-map-sec__lead{margin:12px 0 0;max-width:70ch;color:var(--text-muted)}
+.b-map-sec__wrap{margin-top:28px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+.b-map-sec__canvas{width:100%;height:clamp(420px,55vh,620px);background:var(--surface)}
+.b-map-sec__bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-top:1px solid var(--border);background:#fff}
+.b-map-sec__hint{display:inline-flex;align-items:center;gap:8px;color:var(--text-muted);font-size:var(--fs-small)}
+.b-map-sec__hint .material-symbols-outlined{font-size:18px;color:var(--purple)}
+
+/* ── Баннер ТЗ ────────────────────────────────────────────────────────── */
+.b-tz-banner{grid-template-columns:minmax(0,1fr);align-items:center;gap:16px}
+.b-tz-banner__cta{justify-self:end}
+@media (min-width:1024px){.b-tz-banner{grid-template-columns:minmax(0,1fr) auto;gap:24px}}
+
+/* ── Мобильные отступы <768px (CR п. 20) ──────────────────────────────── */
+@media (max-width:767.98px){
+  :root{ --pad-hero-m:24px; --pad-side-m:16px; }
+  .container{ padding-left:var(--pad-side-m); padding-right:var(--pad-side-m); }
+  .container.b-hero__inner{ padding-left:var(--pad-hero-m); padding-right:var(--pad-hero-m); }
+}
