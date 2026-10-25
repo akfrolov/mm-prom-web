@@ -31,7 +31,11 @@
   "price": "по запросу",
   "image": "/assets/objects/volhonskoe/cover.webp",
   "images": [
-    "/assets/objects/volhonskoe/cover.webp"
+    "/assets/objects/volhonskoe/cover.webp",
+    "/assets/objects/volhonskoe/2.webp",
+    "/assets/objects/volhonskoe/3.webp",
+    "/assets/objects/volhonskoe/4.webp",
+    "/assets/objects/volhonskoe/5.webp"
   ],
   "external": "",
   "coords": [
