@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Зеркалирование dist/ на Beget по FTP.
+"""Зеркалирование dist/ на Beget по FTP — ПРОД, домен https://mm-prom.ru.
+
+Целевая папка на сервере: mm-prom-astro/public_html (корень FTP-аккаунта
+infommit_astro, поэтому BEGET_REMOTE_PATH=/). Заливать только прод-сборку:
+ASTRO_SITE=https://mm-prom.ru MMPROM_ENV=prod npm run build.
+Проверка после заливки — https://mm-prom.ru/ (canonical, Метрика, robots).
 
 Читает реквизиты из deploy/beget/secrets.env (в git не попадает).
 Текстовые файлы сравниваются по содержимому, бинарные — по размеру.
