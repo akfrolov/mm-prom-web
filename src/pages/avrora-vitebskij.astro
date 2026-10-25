@@ -494,8 +494,6 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
   .b-cta--grad .btn{width:100%;justify-content:center}
 }
 
-.b-scope__obj-title{margin:44px 0 0;font-size:var(--fs-h3);display:flex;align-items:center;gap:10px}
-.b-scope__obj-title::before{content:"";width:12px;height:12px;background:var(--gold);transform:rotate(45deg);flex:0 0 auto}
 .b-scope__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
     </style>
     <style is:inline>
@@ -509,12 +507,6 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 .obj-figure{margin:28px 0 0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:#fff}
 .obj-figure img{display:block;width:100%;height:auto}
 .obj-figure figcaption{padding:12px 16px;border-top:1px solid var(--border);color:var(--text-muted);font-size:var(--fs-small)}
-
-.obj-legend{display:grid;gap:10px;margin:20px 0 0;padding:0;list-style:none;grid-template-columns:1fr}
-.obj-legend li{display:flex;align-items:flex-start;gap:10px;color:var(--text-muted);font-size:var(--fs-small);line-height:1.5}
-.obj-legend i{flex:0 0 auto;width:16px;height:16px;margin-top:3px;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(14,0,40,.08)}
-@media (min-width:640px){.obj-legend{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (min-width:1024px){.obj-legend{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
 .obj-cols{display:grid;gap:20px;margin-top:28px;grid-template-columns:1fr}
 .obj-detail{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:26px}
@@ -597,7 +589,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 .obj-next h2{margin:0 0 6px;font-size:var(--fs-h3)}
 .obj-next p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
 
-/* ── Мастер-план: масштабирование ─────────────────────────────────── */
+/* ── План земельных участков: масштабирование ─────────────────────── */
 .mp{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:#fff;margin-top:28px}
 .mp__stage{position:relative;overflow:hidden;background:var(--surface);cursor:grab;touch-action:none;height:clamp(320px,52vh,560px);display:flex;align-items:center;justify-content:center}
 .mp__stage.is-dragging{cursor:grabbing}
@@ -739,12 +731,12 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
     <div class="container">
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">04</p>
-        <h2>Мастер-план</h2>
+        <h2>План земельных участков</h2>
         <p class="b-sec-head__lead">Участки от 1 га с инженерной подготовкой. План можно приблизить колесом мыши или кнопками.</p>
       </div>
       <div class="mp" data-mp>
         <div class="mp__stage" data-mp-stage>
-          <img class="mp__img" src="/assets/external/0390291a-masterplan_no_legend.webp" alt="Мастер-план индустриального парка Аврора Витебский" data-mp-img loading="lazy">
+          <img class="mp__img" src="/assets/objects/avrora-vitebsky/plan-zemelnyh-uchastkov.webp?v=1" alt="План земельных участков индустриального парка Аврора Витебский" data-mp-img loading="lazy">
         </div>
         <div class="mp__bar">
           <p class="mp__hint"><span class="material-symbols-outlined" aria-hidden="true">zoom_in</span>Колесо мыши — масштаб, перетаскивание — перемещение</p>
@@ -757,14 +749,6 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
           </div>
         </div>
       </div>
-      <h3 class="b-scope__obj-title">Условные обозначения</h3>
-      <ul class="obj-legend">
-        <li><i style="background:#4090C8"></i>Продажа земельных участков от 1 га</li>
-        <li><i style="background:#F7B4A3"></i>Зона возможной застройки</li>
-        <li><i style="background:#7FB3D5"></i>Проектируемые проезды</li>
-        <li><i style="background:#D8D8D8"></i>Проезды, площадки</li>
-        <li><i style="background:#58459C"></i>Обозначение въезда/выезда; зона установки шлагбаума</li>
-      </ul>
     </div>
   </section>
 
@@ -1002,7 +986,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
       <button class="mp__btn mp__btn--reset" type="button" data-mp-lb-reset>Сброс</button>
     </div>
     <div class="mp-lightbox__stage" data-mp-lb-stage>
-      <img class="mp-lightbox__img" src="/assets/external/0390291a-masterplan_no_legend.webp" alt="Мастер-план индустриального парка Аврора Витебский" data-mp-lb-img>
+      <img class="mp-lightbox__img" src="/assets/objects/avrora-vitebsky/plan-zemelnyh-uchastkov.webp?v=1" alt="План земельных участков индустриального парка Аврора Витебский" data-mp-lb-img>
     </div>
   </div>
 </div>
