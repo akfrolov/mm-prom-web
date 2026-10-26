@@ -62,6 +62,16 @@
       if (r.top < vh * 0.95 && r.bottom > 0) el.classList.add('is-visible');
     });
   }
+  /* Второй проход: через 500 мс снимаем .reveal с блоков выше вьюпорта,
+     которые так и не получили .is-visible — они уже не появятся, а
+     opacity:0 у них портит PageSpeed (LCP/CLS-эвристики). */
+  setTimeout(function () {
+    var limit = window.innerHeight || 800;
+    Array.prototype.forEach.call(document.querySelectorAll('.reveal:not(.is-visible)'), function (el) {
+      if (el.getBoundingClientRect().bottom <= 0) el.classList.remove('reveal');
+    });
+  }, 500);
+
   var revealTick = false;
   window.addEventListener('scroll', function () {
     if (revealTick) return;
