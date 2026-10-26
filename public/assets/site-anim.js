@@ -24,10 +24,14 @@
 
   var fresh = [];
   var vh = window.innerHeight || 800;
+  var candidates = [];
   Array.prototype.forEach.call(document.querySelectorAll(SELECTOR), function (el) {
     if (el.classList.contains('reveal')) return;
     var r = el.getBoundingClientRect();
     if (r.top < vh * 0.92) return;           // выше сгиба — не трогаем
+    candidates.push(el);
+  });
+  candidates.forEach(function (el) {
     el.classList.add('reveal');
     var parent = el.parentElement;
     if (parent) {

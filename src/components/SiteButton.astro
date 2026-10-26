@@ -19,7 +19,7 @@ const b24Form = b24 ? B24_FORMS[b24] : null;
 {b24 && b24Form ? (
   <Fragment>
     <B24Loader form={b24} />
-    <button class={cls} type="button" data-b24-form={b24Form.id} data-b24-form-telemetry-sign={b24Form.sign}><slot /></button>
+    <button class={cls} type="button" data-b24-form={b24Form.id} data-b24-form-telemetry-sign={b24Form.sign} data-b24-loader={b24Form.loader}><slot /></button>
   </Fragment>
 ) : (
   <a class={cls} href={href} {...linkAttrs}><slot /></a>

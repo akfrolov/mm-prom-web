@@ -10,13 +10,13 @@ body{animation:pageIn .45s var(--ease-out) both}
 
 /* Каскад в первом экране */
 @keyframes heroUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-.b-hero__content > *{animation:heroUp .75s var(--ease-out) both}
+.b-hero__content > *{animation:heroUp .5s var(--ease-out) both}
 .b-hero__content > *:nth-child(1){animation-delay:.04s}
-.b-hero__content > *:nth-child(2){animation-delay:.10s}
-.b-hero__content > *:nth-child(3){animation-delay:.16s}
-.b-hero__content > *:nth-child(4){animation-delay:.22s}
-.b-hero__content > *:nth-child(5){animation-delay:.28s}
-.b-hero__content > *:nth-child(6){animation-delay:.34s}
+.b-hero__content > *:nth-child(2){animation-delay:.075s}
+.b-hero__content > *:nth-child(3){animation-delay:.11s}
+.b-hero__content > *:nth-child(4){animation-delay:.145s}
+.b-hero__content > *:nth-child(5){animation-delay:.18s}
+.b-hero__content > *:nth-child(6){animation-delay:.18s}
 
 /* Шапка при скролле */
 .site-header{transition:box-shadow .35s var(--ease-soft),background-color .35s var(--ease-soft)}

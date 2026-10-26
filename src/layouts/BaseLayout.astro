@@ -1,5 +1,6 @@
 ---
 import B24Loader from '../components/B24Loader.astro';
+import { B24_FORMS } from '../lib/b24';
 import { Font } from 'astro:assets';
 import commonCss from '../styles/common.css?url';
 import baseCss from '../styles/base.css?raw';
@@ -26,10 +27,20 @@ const robots = !isProd || noindex ? 'noindex, follow' : 'index, follow';
 const ogImageRaw = ogImageProp ? new URL(ogImageProp, site).href : new URL('/mmprom-logo.png', site).href;
 const ogImage = ogImageRaw.replace(/\.(webp|avif)$/i, '.jpg');
 const metrika = `<script>
-(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
+(function(){
+  var started = false;
+  function init() {
+    if (started) return;
+    started = true;
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
+  }
+  if (document.readyState === "complete") setTimeout(init, 0);
+  else window.addEventListener("load", init, { once: true });
+  setTimeout(init, 3000);
+})();
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/109764749" style="position:absolute; left:-9999px;" alt="" /></div></noscript>`;
 ---
@@ -54,9 +65,6 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
     <meta name="robots" content={robots}>
     <link rel="icon" type="image/png" href="/mm-logo.png">
     <link rel="canonical" href={canonical}>
-    <link rel="preconnect" href="https://cdn-ru.bitrix24.ru" crossorigin>
-    <link rel="preconnect" href="https://mm-prom.bitrix24.ru" crossorigin>
-    <link rel="preconnect" href="https://fonts.bitrix24.ru" crossorigin>
     <meta property="og:type" content={ogType}>
     <meta property="og:site_name" content="ММ Пром">
     <meta property="og:title" content={title}>
@@ -68,6 +76,7 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
       cssVariable="--font-manrope"
       preload={[
         { subset: 'cyrillic', weight: 400 },
+        { subset: 'latin', weight: 400 },
         { subset: 'cyrillic', weight: 800 },
       ]}
     />
@@ -105,7 +114,7 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
         <div class="site-header__actions">
           <a class="site-header__phone" href="tel:88003331010">8 800 333 10 10</a>
           <B24Loader form="request" />
-          <button class="btn btn--purple site-header__cta" type="button" data-b24-form="click/36/skk415" data-b24-form-telemetry-sign="v1:36:site.a467aeed9d7582f9de1e8a4dfb29aea466dae483b5806ff9c02b839525a9d495">Оставить заявку</button>
+          <button class="btn btn--purple site-header__cta" type="button" data-b24-form="click/36/skk415" data-b24-form-telemetry-sign="v1:36:site.a467aeed9d7582f9de1e8a4dfb29aea466dae483b5806ff9c02b839525a9d495" data-b24-loader={B24_FORMS.request.loader}>Оставить заявку</button>
           <button class="site-header__burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu"><span class="material-symbols-outlined" aria-hidden="true">menu</span></button>
         </div>
       </div>
@@ -181,7 +190,7 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
           <div class="mobile-menu__actions">
             <a class="site-header__phone" href="tel:88003331010">8 800 333 10 10</a>
             <B24Loader form="request" />
-            <button class="btn btn--purple" type="button" data-b24-form="click/36/skk415" data-b24-form-telemetry-sign="v1:36:site.a467aeed9d7582f9de1e8a4dfb29aea466dae483b5806ff9c02b839525a9d495">Оставить заявку</button>
+            <button class="btn btn--purple" type="button" data-b24-form="click/36/skk415" data-b24-form-telemetry-sign="v1:36:site.a467aeed9d7582f9de1e8a4dfb29aea466dae483b5806ff9c02b839525a9d495" data-b24-loader={B24_FORMS.request.loader}>Оставить заявку</button>
           </div>
         </section>
       </div>
@@ -400,6 +409,7 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
       </div>
     </footer>
     <slot name="tail" />
+    <script is:inline defer src="/assets/b24-lazy.js?v=1"></script>
     <script is:inline defer src="/assets/menu.js?v=2"></script>
   </body>
 </html>

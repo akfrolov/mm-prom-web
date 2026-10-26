@@ -67,6 +67,7 @@ const cardMedia = d.media ?? (d.image ? { src: d.image, alt: d.title, caption: '
           aria-label={`Запросить презентацию: ${d.title}`}
           data-b24-form={presentationForm.id}
           data-b24-form-telemetry-sign={presentationForm.sign}
+          data-b24-loader={presentationForm.loader}
         >
           <span class="material-symbols-outlined" aria-hidden="true">description</span>Презентация
         </button>

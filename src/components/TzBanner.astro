@@ -27,7 +27,7 @@ const b24Form = b24 ? B24_FORMS[b24] : null;
   {ctaText && b24 && b24Form && (
     <>
       <B24Loader form={b24} />
-      <button class="btn btn--gold b-tz-banner__cta" type="button" data-b24-form={b24Form.id} data-b24-form-telemetry-sign={b24Form.sign}>{ctaText}</button>
+      <button class="btn btn--gold b-tz-banner__cta" type="button" data-b24-form={b24Form.id} data-b24-form-telemetry-sign={b24Form.sign} data-b24-loader={b24Form.loader}>{ctaText}</button>
     </>
   )}
   {!b24Form && ctaHref && ctaText && <SiteButton variant="gold" href={ctaHref} class="b-tz-banner__cta">{ctaText}</SiteButton>}

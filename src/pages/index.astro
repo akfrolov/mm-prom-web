@@ -13,6 +13,7 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
 ---
 <BaseLayout title="Единое окно промышленника — ММ Пром" description="ММ Пром — единое окно промышленника: комплексные решения и полный цикл услуг по промышленной недвижимости — аренда, покупка, управление и строительство объектов. С 2011 года: 200 000+ м² в управлении, 25+ проектов, 150+ компаний-резидентов.">
   <Fragment slot="head">
+  <link rel="preload" as="image" href="/assets/external/main-poster.webp?v=1" fetchpriority="high">
   <link rel="stylesheet" href="/assets/object-card.css?v=6">
     <style is:inline>
     /* ═══════════════════════════════════════════════════════════════════════
@@ -309,7 +310,7 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
       <div class="b-hero__media">
         <div class="b-hero__media-frame">
           <div class="img-placeholder" data-img="Видео: производственно-складской комплекс ММ Пром"><svg class="obj-meta-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>Видео: производственно-складской комплекс</div>
-          <video class="b-hero__video" muted autoplay loop playsinline preload="metadata" poster="/assets/external/main-poster.jpg" aria-label="Видео о компании ММ Пром">
+          <video class="b-hero__video" muted autoplay loop playsinline preload="metadata" poster="/assets/external/main-poster.webp?v=1" aria-label="Видео о компании ММ Пром">
             <source src="/mm-prom-hero.mp4" type="video/mp4">
           </video>
           <button class="b-hero__sound" type="button" aria-pressed="false">
@@ -605,7 +606,7 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
         </div>
       </div>
       <div class="b24-form-wrap">
-        <script is:inline data-b24-form="inline/34/0ph3wy" data-b24-form-telemetry-sign="v1:34:site.b62d3cf56414758a8a11ec9af534ac54810f3b8241a479ddb796adfd2f3d5e4c" data-skip-moving="true">(function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_34.js');</script>
+        <script is:inline data-b24-form="inline/34/0ph3wy" data-b24-form-telemetry-sign="v1:34:site.b62d3cf56414758a8a11ec9af534ac54810f3b8241a479ddb796adfd2f3d5e4c" data-b24-loader="https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_34.js" data-skip-moving="true"></script>
       </div>
     </div>
   </section>
