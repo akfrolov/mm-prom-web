@@ -33,8 +33,9 @@ Sitemap; staging (`MMPROM_ENV=staging`, `ASTRO_SITE=<staging>`) — noindex, б�
 1. Страницы = `src/pages/<slug>.astro` на `BaseLayout` (шапка/подвал/head/SEO
    живут в `src/layouts/BaseLayout.astro` — ЕДИНСТВО изменения: правка шапки
    один раз, grep-контроль не нужен). Стили и скрипты страницы — inline
-   (`is:inline`) в самой странице; общий CSS — в `src/styles/` (инлайн через
-   `?raw` в BaseLayout), общий JS — в `public/assets/`.
+   (`is:inline`) в самой странице; общий CSS — в `src/styles/` (в проде —
+   бандл `common.css` одним запросом, в dev — inline через `?raw`), общий JS —
+   в `public/assets/`.
 2. Каноническая таблица URL — источник правды маршрутов
    (`docs/change-requests/CR-2026-001-astro-migration.md`): directory-формат,
    слэш на конце, короткие слаги в духе WP-набора. Новые ссылки — только
@@ -138,7 +139,7 @@ main; untracked туда не попадают); `.kilo/` (планы/stейт) 
 | `src/content/objects/<id>.json` | Данные 27 объектов (id = имя файла; поля id в JSON нет) |
 | `src/content.config.ts` | zod-схема коллекции objects |
 | `src/pages/robots.txt.ts` | robots с env-разводкой (Sitemap — только прод) |
-| `src/styles/` | Общий CSS: `base.css`, `blocks.css`, `site-anim.css`, `hero.css`, `site-mobile.css` (инлайн `?raw`) |
+| `src/styles/` | Общий CSS: `base.css`, `blocks.css`, `site-anim.css` (бандл `common.css`), `hero.css`, `site-mobile.css` (inline после `slot=head`) |
 | `src/assets/images/` | Картинки страниц для `astro:assets` (atlas, avrora, consalting) |
 | `public/assets/` | Общий JS: `site-anim.js`, `ymaps-lazy.js`, `catalog.js`, `svc-map.js`; `object-card.css`, шрифт иконок |
 | `public/` | Логотип (1x/2x), локальные фото объектов и content JSON, CNAME |
