@@ -5,7 +5,7 @@
 Сайт компании «ММ Пром» (промышленная недвижимость): услуги, каталог объектов,
 роли аудиторий, брендбуки объектов. Стек: **Astro 7 (static)** + ванильные
 CSS/JS; данные объектов — content collection; Яндекс.Карты JS API (два ключа);
-Google Fonts (Inter, Material Symbols). История миграции с чистого HTML:
+шрифты Inter/Manrope и сабсет Material Symbols — self-host (Astro Fonts API). История миграции с чистого HTML:
 `docs/change-requests/CR-2026-001-astro-migration.md`.
 
 Требование «работает по file://» снято решением владельца: разработка через
@@ -33,7 +33,8 @@ Sitemap; staging (`MMPROM_ENV=staging`, `ASTRO_SITE=<staging>`) — noindex, б�
 1. Страницы = `src/pages/<slug>.astro` на `BaseLayout` (шапка/подвал/head/SEO
    живут в `src/layouts/BaseLayout.astro` — ЕДИНСТВО изменения: правка шапки
    один раз, grep-контроль не нужен). Стили и скрипты страницы — inline
-   (`is:inline`) в самой странице; переиспользуемое — в `public/assets/`.
+   (`is:inline`) в самой странице; общий CSS — в `src/styles/` (инлайн через
+   `?raw` в BaseLayout), общий JS — в `public/assets/`.
 2. Каноническая таблица URL — источник правды маршрутов
    (`docs/change-requests/CR-2026-001-astro-migration.md`): directory-формат,
    слэш на конце, короткие слаги в духе WP-набора. Новые ссылки — только
@@ -41,12 +42,14 @@ Sitemap; staging (`MMPROM_ENV=staging`, `ASTRO_SITE=<staging>`) — noindex, б�
 3. Карточки объектов — только `src/components/ObjectCard.astro` (канон
    `.obj-card`); данные — только content collection `src/content/objects/`
    (id = имя файла; zod-схема в `src/content.config.ts`).
-4. Анимации — через `public/assets/site-anim.*`; уважать
-   `prefers-reduced-motion: reduce`.
+4. Анимации — CSS `src/styles/site-anim.css` + JS
+   `public/assets/site-anim.js`; уважать `prefers-reduced-motion: reduce`.
 5. Новые секреты в git не заводить: ключи Яндекс.Карт уже встроены
    (согласованное решение проекта).
 6. Фото объектов — прямые ссылки на invest-platforma.com / mm-prom.ru;
-   локальные ассеты — в `public/` (подключение с cache-busting `?v=`).
+   картинки страниц (atlas, avrora, consalting) — в `src/assets/images/` через
+   `astro:assets` (srcset); URL из content JSON и прочие локальные ассеты — в
+   `public/` (cache-busting `?v=`).
 7. Битых ссылок нет: CTA заявок открывают Bitrix24-попапы
    (`src/lib/b24.ts`), бейдж «Презентация» в `ObjectCard` — форму 34
    «Свяжитесь с нами». Целей `/modalka-zayavki/`, `/kartochka-obekta/`,
@@ -56,8 +59,14 @@ Sitemap; staging (`MMPROM_ENV=staging`, `ASTRO_SITE=<staging>`) — noindex, б�
 
 - Astro static, без клиентских JS-фреймворков и islands: интерактив —
   ванильные скрипты из `public/assets/*.js` (defer, ждут
-  `DOMContentLoaded`/`ymaps.ready`), данные — `window.MMPROM_*` через
+  `DOMContentLoaded`; карты — `window.mmEnsureYmaps` из
+  `public/assets/ymaps-lazy.js`), данные — `window.MMPROM_*` через
   `define:vars`.
+- Шрифты — только через `fonts` в `astro.config.mjs`; внешние
+  `fonts.googleapis.com`/`fonts.gstatic.com` в head не подключать. Иконки —
+  self-host сабсет `public/assets/fonts/material-symbols-outlined.woff2`;
+  новый icon-глиф добавлять в `docs/features/perf/material-symbols-list.txt`
+  и пересобирать сабсет.
 - Инлайн `<style>`/`<script>` в страницах — всегда `is:inline` (не бандлится,
   не scoped).
 - `compressHTML: false` обязателен: выход механически близок к исходнику.
@@ -129,8 +138,10 @@ main; untracked туда не попадают); `.kilo/` (планы/stейт) 
 | `src/content/objects/<id>.json` | Данные 27 объектов (id = имя файла; поля id в JSON нет) |
 | `src/content.config.ts` | zod-схема коллекции objects |
 | `src/pages/robots.txt.ts` | robots с env-разводкой (Sitemap — только прод) |
-| `public/assets/` | Общий JS/CSS: `site-anim.*`, `catalog.js`, `svc-map.js`, `object-card.css` |
-| `public/` | Логотип, локальные фото объектов, CNAME (при вкл. кастомного домена) |
+| `src/styles/` | Общий CSS: `base.css`, `blocks.css`, `site-anim.css`, `hero.css`, `site-mobile.css` (инлайн `?raw`) |
+| `src/assets/images/` | Картинки страниц для `astro:assets` (atlas, avrora, consalting) |
+| `public/assets/` | Общий JS: `site-anim.js`, `ymaps-lazy.js`, `catalog.js`, `svc-map.js`; `object-card.css`, шрифт иконок |
+| `public/` | Логотип (1x/2x), локальные фото объектов и content JSON, CNAME |
 | `docs/` | Проектные документы (см. «Документация»); `.github/workflows/deploy.yml` — staging |
 
 ## Именование

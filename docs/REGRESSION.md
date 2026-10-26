@@ -2,9 +2,9 @@
 
 > Полный проход по Astro-сайту (CR-2026-001): все маршруты, навигация,
 > консоль, анимации, карты, каталог. Запуск — Playwright по `astro preview`
-> (`http://localhost:4321`, `skill('webapp-testing')`); сеть нужна внешним
-> ресурсам: Google Fonts (Inter, Material Symbols), фото `invest-platforma.com`
-> / `mm-prom.ru`, Яндекс.Картам.
+> (`http://localhost:4321`, `skill('webapp-testing')`); сеть нужна фото
+> `invest-platforma.com` / `mm-prom.ru` и Яндекс.Картам. Шрифты Inter/Manrope
+> и иконки Material Symbols — self-host, внешняя сеть для них не нужна.
 
 ## Маршруты (каноническая таблица URL — источник правды)
 
@@ -16,7 +16,7 @@
 
 ## Ожидаемое поведение среды
 
-- Ошибки внешних ресурсов (шрифты, фото, карты без сети) — ожидаемы; ошибки
+- Ошибки внешних ресурсов (фото, карты без сети) — ожидаемы; ошибки
   Метрики `mc.yandex.ru` в локальных окружениях с перехватывающим прокси
   (`ERR_CERT_AUTHORITY_INVALID`) — ожидаемы, не дефект страницы.
 - Ожидание рендера: `document.fonts.ready` перед скриншотами.
@@ -39,11 +39,12 @@
    `/modalka-zayavki/`, `/kartochka-obekta/`, `/gejt-broshury/`, `/gejt-tz/`.
 5. Мега-меню: наведение по каждой роли открывает свой блок, ссылки
    кликабельны; без «мёртвых» кнопок.
-6. Карты: живые на 15 страницах — `/katalog/` (режим «Карта», кнопки на
-   карточках, модалка по метке) и 14 страниц услуг/ролей (`svc-map.js`,
-   лениво по IntersectionObserver). На брендбуках код карты с guard-проверкой
-   и без контейнера — мёртвый код, паритет с исходником (до WP-замены).
-   Два ключа Яндекс.Карт: `2ae53810…` (15 страниц), `5971e07b…` (брендбуки).
+6. Карты: API Яндекс.Карт подключается лениво через
+   `window.mmEnsureYmaps` (`public/assets/ymaps-lazy.js`) — до приближения
+   контейнера (IO) или переключения вида «Карта» запросов к
+   `api-maps.yandex.ru/2.1` нет. Живые: `/katalog/` (режим «Карта», кнопки на
+   карточках, модалка по метке), 9 страниц услуг/ролей (`svc-map.js`),
+   `/atlas-garazhnyj/`, `/avrora-vitebskij/`, `/obekt/<id>/`.
 7. Каталог `/katalog/`: фильтры (сделка/тип/площадь/локация), поиск,
    сортировка по площади, счётчик, «Ничего не нашлось», сброс; карточки
    каноничны `.obj-card` (`.obj-card--cat`); `busy`-бейдж («Нет площадей»);
@@ -54,6 +55,16 @@
 9. `prefers-reduced-motion: reduce`: reveal отключены, скролл работает.
 10. Сверка шапки/подвала: единый источник — `src/layouts/BaseLayout.astro`
     (дублирования по страницам больше нет).
+11. Шрифты/иконки: в `<head>` нет ссылок на `fonts.googleapis.com` и
+    `fonts.gstatic.com`; computed `font-family` у `body` начинается с
+    хешированного семейства `Manrope-…` (Astro Fonts API), а
+    `document.fonts.check('24px "Material Symbols Outlined"')` — true;
+    иконки рендерятся глифами (ширина ≈ font-size), а не текстовыми
+    лигатурами. Сабсет иконок — `docs/features/perf/material-symbols-list.txt`.
+12. Картинки страниц (atlas/avrora/consalting) отдаются из `/_astro/` с
+    `srcset`/`sizes`, без 404; логотип в шапке/подвале — `mmprom-logo-1x.png`
+    с `srcset` 2x. HTML не кешируется, статика — `Expires 1 year` через
+    `public/.htaccess` (проверять на Beget, preview кеш-заголовки не отдаёт).
 
 ## Прогоны
 
