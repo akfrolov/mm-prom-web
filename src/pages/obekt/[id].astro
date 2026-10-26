@@ -68,21 +68,73 @@ const isMultiGallery = photoList.length > 1;
 const ogImage = gallery[0] ?? d.image ?? undefined;
 const pageTitle = `${d.title} — карточка объекта — ММ Пром`;
 const pageDescription = heroText ?? d.desc;
-// Ключевые параметры: площадь выводится отдельной плиткой, поэтому строки
-// specs с тем же значением (обычно «Общая площадь»/«Площадь») не дублируем.
+// Ключевые параметры: площадь выводится одной плиткой, поэтому строка specs
+// с площадью («Общая площадь»/«Площадь»/«Площадь участка»…) не дублируется.
+// Если в ней есть уточнение («16 000 м², вакантно от 877 м²»), оно становится
+// значением плитки «Площадь»; уточнения после двоеточия/запятой сохраняются.
 const areaValue = d.area.trim();
-const keySpecs = d.specs.filter(([, , value]) => value.trim() !== areaValue).slice(0, 3);
+const isAreaValue = (value) => {
+  const v = value.trim();
+  return v === areaValue || (v.startsWith(areaValue) && /^[,\s:—–-]/.test(v.slice(areaValue.length)));
+};
+const areaSpec = d.specs.find(([, label]) => /площад/i.test(label));
+const areaSpecValue = areaSpec && isAreaValue(areaSpec[2]) ? areaSpec[2].trim() : areaValue;
+const keySpecs = d.specs.filter((s) => s !== areaSpec).slice(0, 3);
 const price = d.price.trim() || 'по запросу';
 const placeholderText = d.placeholder ?? d.title;
 const singlePhoto = photoList.length === 1;
 const caption = d.media?.caption && singlePhoto ? d.media.caption : '';
 const ctaTitle = d.cta?.title ?? 'Нужна консультация по объекту?';
 const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуникациям и срокам заезда. Покажем объект в удобное время.';
+// Микроразметка: хлебные крошки + карточка объекта (адрес, гео, площадь, specs).
+// Цена во всех объектах «по запросу», поэтому Offer не выводим.
+const siteUrl = Astro.site ?? new URL('https://mm-prom.ru');
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+const jsonLdImage = new URL(ogImage ?? '/mmprom-logo.png', siteUrl).href;
+// Регион — по адресу: поле location в данных местами помечает объекты ЛО как spb.
+const addressIsSpb = /^(Санкт-Петербург|г\.\s*Пушкин|Московское шоссе)/i.test(d.address);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Главная', item: new URL('/', siteUrl).href },
+        { '@type': 'ListItem', position: 2, name: 'Каталог', item: new URL('/katalog/', siteUrl).href },
+        { '@type': 'ListItem', position: 3, name: d.title, item: canonicalUrl },
+      ],
+    },
+    {
+      '@type': 'RealEstateListing',
+      name: d.title,
+      description: pageDescription,
+      url: canonicalUrl,
+      image: [jsonLdImage],
+      about: {
+        '@type': 'Place',
+        name: d.title,
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: d.address,
+          addressLocality: addressIsSpb ? 'Санкт-Петербург' : d.district,
+          addressRegion: addressIsSpb ? 'Санкт-Петербург' : 'Ленинградская область',
+          addressCountry: 'RU',
+        },
+        geo: { '@type': 'GeoCoordinates', latitude: d.coords[0], longitude: d.coords[1] },
+        ...(d.areaNum
+          ? { floorSize: { '@type': 'QuantitativeValue', value: d.areaNum, unitCode: 'MTK' } }
+          : {}),
+      },
+      additionalProperty: d.specs.map(([, name, value]) => ({ '@type': 'PropertyValue', name, value })),
+    },
+  ],
+};
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} ogImage={ogImage}>
   <Fragment slot="head">
     <link rel="stylesheet" href="/assets/object-card.css?v=6">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
     <style is:inline>
     /* ═══════════════════════════════════════════════════════════════════════
        ММ ПРОМ — карточка объекта /obekt/<id>/ (SPEC object-pages, блок B1)
@@ -173,16 +225,11 @@ const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуни
     /* ── Описание ───────────────────────────────────────────────────────── */
     .b-about p{margin:0;max-width:72ch;color:var(--text-muted)}
 
-    /* ── Расположение: карта во всю ширину + мета-строка под ней ─────────── */
+    /* ── Расположение: карта во всю ширину контентной колонки ───────────── */
     .b-location h2,.b-similar h2{margin:0 0 12px}
     .obj-map-canvas{position:relative;min-height:320px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
     @media (min-width:768px){.obj-map-canvas{min-height:420px}}
     @media (min-width:1024px){.obj-map-canvas{min-height:480px}}
-    .loc-meta{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:10px 24px;align-content:start}
-    .loc-meta li{display:flex;align-items:flex-start;gap:8px;color:var(--text-muted);font-size:var(--fs-small);line-height:1.45}
-    .loc-meta li .material-symbols-outlined{font-size:18px;color:var(--purple);flex:0 0 auto;margin-top:2px}
-    .loc-meta li strong{color:var(--text)}
-    @media (min-width:768px){.loc-meta{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
     /* ── Похожие объекты ────────────────────────────────────────────────── */
     .b-similar{padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
@@ -260,7 +307,7 @@ const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуни
           {d.busy && <span class="badge badge--busy">Нет площадей</span>}
         </div>
         <h1>{heroTitle}</h1>
-        <p class="obj-head__meta">{d.address}</p>
+        <p class="obj-head__meta">{d.address} · {d.district}</p>
         <p class="obj-head__desc">{d.desc}</p>
       </section>
 
@@ -275,7 +322,7 @@ const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуни
           ))}
           <div class="price-item">
             <dt><span class="material-symbols-outlined" aria-hidden="true">square_foot</span>Площадь</dt>
-            <dd>{d.area}</dd>
+            <dd>{areaSpecValue}</dd>
           </div>
           <div class="price-item">
             <dt><span class="material-symbols-outlined" aria-hidden="true">payments</span>Цена</dt>
@@ -301,24 +348,16 @@ const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуни
         </div>
       </section>
 
-      <section id="about" class="b-about">
-        <h2>Об объекте</h2>
-        <p>{heroText ?? d.desc}</p>
-      </section>
+      {heroText && (
+        <section id="about" class="b-about">
+          <h2>Об объекте</h2>
+          <p>{heroText}</p>
+        </section>
+      )}
 
       <section id="location" class="b-location">
         <h2>Расположение на карте</h2>
         <div id="obj-map-canvas" class="obj-map-canvas" role="region" aria-label={`Карта: ${d.address}`}></div>
-        <ul class="loc-meta">
-          <li>
-            <span class="material-symbols-outlined" aria-hidden="true">place</span>
-            <span><strong>Адрес:</strong> {d.address}</span>
-          </li>
-          <li>
-            <span class="material-symbols-outlined" aria-hidden="true">location_city</span>
-            <span><strong>Район:</strong> {d.district}</span>
-          </li>
-        </ul>
       </section>
 
       <section id="similar" class="b-similar section--tint" aria-labelledby="similar-title">

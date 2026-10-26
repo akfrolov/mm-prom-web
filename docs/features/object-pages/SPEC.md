@@ -107,6 +107,23 @@ CR задаёт минимальный состав страницы: первы
 Обрезки текста нет: `desc` у записей — 1–2 предложения, ок как
 meta-description; полировка SEO-текстов — правка данных владельцем, не код.
 
+### 3.4 Микроразметка (JSON-LD)
+
+В `<Fragment slot="head">` страницы выводится один блок
+`application/ld+json` с `@graph`:
+
+- `BreadcrumbList`: Главная → Каталог → объект (последний пункт — canonical страницы).
+- `RealEstateListing`: `name`, `description` (как meta-description), `url`, `image`
+  (OG-изображение), `about` → `Place` с `PostalAddress` (`streetAddress` = `address`,
+  регион — по префиксу адреса: `Санкт-Петербург`/`г. Пушкин`/`Московское шоссе` →
+  СПб, иначе Ленинградская область; поле `location` в данных для этого не годится —
+  часть объектов ЛО помечена как `spb`; `addressCountry: RU`), `GeoCoordinates` из `coords` и
+  `floorSize` из `areaNum` (m², `unitCode: MTK`; при `null` — не выводится),
+  `additionalProperty` — `PropertyValue` по всем `specs` (name/value).
+
+`Offer` не выводится: цена у всех объектов «по запросу»; при появлении
+числовых цен — добавить `offers` в тот же блок.
+
 ## 4. Целевая структура страницы (по мокапу `docs/mockups/kartochka_obekta.html`)
 
 Разметка и стили страницы — внутри `[id].astro` (`is:inline`), данные —
@@ -124,11 +141,11 @@ price-params) отличается — CR приоритетнее мокапа 
 |---|--------|-----------|------|----------------------|
 | 1 | Хлебные крошки | `#breadcrumbs` | B1 | компонент `Breadcrumbs.astro` (создаётся фичей `site-pages`); цепочка: Главная `/` → Каталог `/katalog/` → название записи; при отсутствии компонента — собственная разметка `.b-breadcrumbs` (та же структура §1.5 site-pages) |
 | 2 | Первый экран — фото | `#gallery` | B2 (ветка «одно фото»/«заглушка» — уже в B1) | галерея из `images` / одно фото + подпись / заглушка; см. §6 |
-| 3 | Заголовок объекта | `#object-head` | B1 | чип типа (`badge--<type>` из `object-card.css`, текст `typeLabel`, цвета п. 15 — канон object-card), h1 (`hero.title` ?? `d.title`), мета-строка: адрес · сделки (`deal`, разделитель « / »), краткое описание `desc` |
-| 4 | Ключевые параметры | `#key-params` | B1 | meta-лист из первых 3 записей `specs` (иконка Material Symbols + подпись + значение), строки `specs` с тем же значением, что и `area` (обычно «Общая площадь»/«Площадь»), отбрасываются — площадь выводится одной плиткой; + «Площадь» (`area`) и «Цена» (`price`, `"по запросу"` при пустом); busy: примечание «Нет свободных площадей» |
+| 3 | Заголовок объекта | `#object-head` | B1 | чип типа (`badge--<type>` из `object-card.css`, текст `typeLabel`, цвета п. 15 — канон object-card), h1 (`hero.title` ?? `d.title`), мета-строка: адрес · район (`address` · `district`), лид — краткое описание `desc` (единственное место короткого описания на странице) |
+| 4 | Ключевые параметры | `#key-params` | B1 | meta-лист из первых 3 записей `specs` (иконка Material Symbols + подпись + значение; имя иконки — только из набора Material Symbols, иначе рендерится текст лигатуры); строка `specs` с площадью (подпись содержит «площад», значение совпадает с `area` или начинается с него и уточнения через `,`/`:`/тире) отбрасывается — площадь выводится одной плиткой, её уточнение («16 000 м², вакантно от 877 м²») переносится в значение плитки «Площадь»; иначе плитка показывает `area`; + «Цена» (`price`, `"по запросу"` при пустом); busy: примечание «Нет свободных площадей» |
 | 5 | Характеристики | `#specs` | B1 | таблица `.specs-table` по мокапу (th = label, td = value; `< 768` — карточки-пары, как в мокапе); иконка из specs в таблице не рендерится (декор мета-листа №4 — решение на ревью) |
-| 6 | Описание | `#about` | B1 | «Об объекте»: `desc` (полный текст, h2 «Об объекте»); при `hero.text` — он |
-| 7 | Расположение | `#location` | B2 | карта во всю ширину контентной колонки + мета-строка под ней в 3 колонки ≥768 (адрес `address`, район `district`, сделки `deal`; площадь не повторяется — она в ключевых параметрах); карта — §7 |
+| 6 | Описание | `#about` | B1 | «Об объекте»: только при заполненном `hero.text` (уникальный полный текст, h2 «Об объекте»); без него секция не выводится — `desc` уже показан лидом в шапке, один абзац дважды не дублируется |
+| 7 | Расположение | `#location` | B2 | карта во всю ширину контентной колонки; адрес и район под картой не повторяются — они в шапке (`#object-head`), площадь — в ключевых параметрах; карта — §7 |
 | 8 | CTA-панель заявки | `#cta` (aside `.cta-card` / моб. `.cta-bar`) | B1 | заголовок/текст (`cta.title`/`cta.text`, дефолт — «Нужна консультация по объекту?» / «Ответим по ставке, коммуникациям и срокам заезда» по мокапу), кнопка «Получить консультацию» → форма №34, телефон `tel:88003331010`; скрытая передача объекта в форму — вне CR (§9) |
 | 9 | Похожие объекты | `#similar` | B2 | «Похожие объекты» (мокап `section--tint`): сетка до 2 карточек `ObjectCard` (`showMap=false`, ленточная ветка), внизу «Смотреть все объекты» → `/katalog/`; логика выбора — §8 |
 
@@ -189,8 +206,9 @@ price-params) отличается — CR приоритетнее мокапа 
 ## 7. Карта объекта (B2) — «расположение на карте»
 
 - Секция `#location`: холст карты `#obj-map-canvas` (мокап-пропорции
-  `gallery-media`: высота ≈260/380/440px) + мета-колонка (адрес, район,
-  площадь, сделки) по мокапу `grid--2`.
+  `gallery-media`: высота ≈260/380/440px) во всю ширину контентной колонки;
+  мета-строки под картой нет — адрес и район уже в `#object-head`, площадь
+  и сделки — в ключевых параметрах и чипах шапки.
 - Карта Яндекс JS API, **общий ключ** `2ae53810-…` (у страницы объектов
   отдельного ключа нет); инициализация ленивая — `IntersectionObserver`
   (порог видимости секции ≈ rootMargin 250px) → `ymaps.ready` →
@@ -250,8 +268,8 @@ price-params) отличается — CR приоритетнее мокапа 
 | # | Работа | Детали |
 |---|--------|--------|
 | B1.1 | Файл маршрута | `src/pages/obekt/[id].astro`; `getStaticPaths` → `getCollection('objects')`, фильтр исключений `atlas-garazhny`/`avrora-vitebsky`; в props записи передана вся запись (`entry.data`, id) |
-| B1.2 | Каркас и контент секций B1 | каркас `.object-shell` (main + sticky aside) по мокапу; секции `#breadcrumbs` (компонент `Breadcrumbs` из site-pages), `#gallery` (минимум: главное фото/заглушка — §6 ветки «одно/нет»), `#object-head`, `#key-params`, `#specs`, `#about`, `#cta` (§9); inline-стили/скрипты страницы, токены страниц текущие (navy/purple/gold), шрифт — стек Manrope+Inter (появится с site-pages); `prefers-reduced-motion` учитывается |
-| B1.3 | SEO | вызов `<BaseLayout title={…} description={…} ogImage={…}>` по §3.3; og:image — первое фото (§3.2); og:type не передаётся (website); canonical — авто по pathname; noindex — не ставить |
+| B1.2 | Каркас и контент секций B1 | каркас `.object-shell` (main + sticky aside) по мокапу; секции `#breadcrumbs` (компонент `Breadcrumbs` из site-pages), `#gallery` (минимум: главное фото/заглушка — §6 ветки «одно/нет»), `#object-head`, `#key-params`, `#specs`, `#about` (только при `hero.text`), `#cta` (§9); inline-стили/скрипты страницы, токены страниц текущие (navy/purple/gold), шрифт — стек Manrope+Inter (появится с site-pages); `prefers-reduced-motion` учитывается |
+| B1.3 | SEO | вызов `<BaseLayout title={…} description={…} ogImage={…}>` по §3.3; og:image — первое фото (§3.2); og:type не передаётся (website); canonical — авто по pathname; noindex — не ставить; JSON-LD `BreadcrumbList` + `RealEstateListing` по §3.4 |
 | B1.4 | OG-пропсы BaseLayout | `Props` + `ogImage?`, `ogType?`; `og:image` = `new URL(props.ogImage ?? '/mmprom-logo.png', site)`, `og:type` = props `ogType ?? 'website'`. Прочее в BaseLayout не меняется; согласование с site-shell/articles по одному файлу |
 | B1.5 | 404 | ничего не писать: статика отдаёт `404.astro`; проверка в preview (HTTP 404 для `/obekt/unknown/` и `/obekt/atlas-garazhny/`) |
 | B1.6 | Проверка | `npm run build` + `npx astro check`; grep-якоря B1 (нижеследующие); `astro preview` + Playwright: `/obekt/rabochaya/` или `/obekt/voyskovitsy/` → 200, `/obekt/unknown/` → 404 (HTTP и HTML `404.astro`, noindex); консоль без ошибок; sitemap после build содержит `/obekt/` (счёт = (число записей коллекции) − 2; 31 — после objects-data) |
@@ -260,8 +278,9 @@ DOM-якоря B1 (grep):
 
 - `src/pages/obekt/[id].astro`: `getStaticPaths`, `getCollection('objects')`,
   `atlas-garazhny`, `avrora-vitebsky`, `#breadcrumbs`, `#object-head`,
-  `#key-params`, `#specs`, `#about`, `#cta`, `tel:88003331010`, `b24`/`loader_34`,
-  **нет** `modalka-zayavki` и `gejt-broshury`;
+  `#key-params`, `#specs`, `heroText &&` (условный `#about`), `#location`,
+  `application/ld+json`, `#cta`, `tel:88003331010`, `b24`/`loader_34`,
+  **нет** `loc-meta`, `modalka-zayavki` и `gejt-broshury`;
 - `src/layouts/BaseLayout.astro`: `ogImage`, `ogType`;
 - build: `dist/obekt/*/index.html` — count = N(коллекция) − 2; sitemap: 31
   `/obekt/<id>/` (после objects-data);
@@ -273,7 +292,7 @@ DOM-якоря B1 (grep):
 | # | Работа | Детали |
 |---|--------|--------|
 | B2.1 | Галерея | ветки §6 по данным; превью-лента `.gallery-thumb[aria-pressed]`, переключение inline-скриптом (данные через `define:vars`), подпись `media.caption` в одиночной ветке, заглушка и `is-broken`; alt-тексты |
-| B2.2 | Карта | секция `#location` по §7: `#obj-map-canvas`, ленивый IntersectionObserver → `ymaps.ready`, общий ключ, метка `coords`, подпись адреса; `reducedMotion` |
+| B2.2 | Карта | секция `#location` по §7: `#obj-map-canvas`, ленивый IntersectionObserver → `ymaps.ready`, общий ключ, метка `coords`, без мета-строки под картой; `reducedMotion` |
 | B2.3 | Похожие | секция `#similar` по §8: до 2 карточек (ленточная ObjectCard), логика выбора, «Смотреть все объекты» → `/katalog/`; всё статично на билде |
 | B2.4 | Проверка | build + astro check; grep-якоря B2; preview + Playwright на записи трёх веток: мульти-галерея (новая запись — например `/obekt/rabochaya/`), одно фото (например `/obekt/lagolovo/`), ветка-заглушка (grep ветвления — данных нет); карта отрисовывается на скролле (консоль без ошибок), похожие показывают 2 карточки, сам объект в них отсутствует; ширины 360/768/1024/1366, `reducedMotion:'reduce'` |
 
