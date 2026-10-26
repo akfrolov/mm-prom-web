@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteButton from '../components/SiteButton.astro';
+import TzBanner from '../components/TzBanner.astro';
+import B24Loader from '../components/B24Loader.astro';
 ---
 <BaseLayout title="Аврора Витебский — индустриальный парк на Витебском проспекте | ММ Пром" description="Аврора Витебский — новый индустриальный парк на Витебском проспекте: 38 га, участки от 1 га, мощности 1–25 МВт, строительство под ключ.">
   <Fragment slot="head">
@@ -315,11 +317,18 @@ import SiteButton from '../components/SiteButton.astro';
     .b-progress__bar{height:8px;border-radius:999px;background:var(--surface);margin-top:16px;overflow:hidden}
     .b-progress__bar span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--purple) 0%,var(--gold) 100%)}
 
-    .tz-panel{background:linear-gradient(120deg,var(--purple) 0%,var(--navy) 100%);border-radius:var(--radius);padding:30px;color:#fff;position:relative;overflow:hidden;margin-top:20px}
+    .tz-panel{background:linear-gradient(120deg,var(--purple) 0%,var(--navy) 100%);border-radius:var(--radius);padding:30px;color:#fff;position:relative;overflow:clip;margin-top:20px}
     .tz-panel::after{content:"";position:absolute;width:90px;height:90px;right:-30px;bottom:-30px;border:2px solid rgba(235,184,30,.4);transform:rotate(15deg)}
     .tz-panel h3{margin:0 0 8px;color:#fff}
     .tz-panel p{margin:0 0 4px}
     .tz-panel p.muted{color:rgba(255,255,255,.7)}
+    .tz-panel .b-cta__phone{display:inline-flex;margin-top:12px;color:#fff}
+    .tz-panel .b-cta__phone .material-symbols-outlined{color:var(--gold)}
+    .tz-panel .b-cta__phone:hover{color:var(--gold)}
+    @media (min-width:1024px){
+      .tz-panel .b-tz-banner{align-items:start}
+      .tz-panel .b-tz-banner > div:first-child{position:sticky;top:96px}
+    }
 
     /* ── Контакты ────────────────────────────────────────────────────────── */
     .b-contacts__inner{display:grid;gap:32px;margin-top:36px}
@@ -750,6 +759,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
           </div>
         </div>
       </div>
+      <div class="b-scope__cta"><SiteButton variant="gold" b24="plot">Подобрать участок</SiteButton></div>
     </div>
   </section>
 
@@ -885,18 +895,27 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         </ol>
       </div>
       <p style="margin:18px 0 0;color:var(--text-muted);font-size:var(--fs-small);max-width:80ch">Сроки каждого этапа фиксируем в дорожной карте после оценки ТЗ. Эксплуатация нашей управляющей компанией — по согласованию.</p>
+      <div class="b-scope__cta"><SiteButton variant="gold" b24="roadmap">Обсудить дорожную карту</SiteButton></div>
     </div>
   </section>
 
-  <section id="cta" class="b-cta b-cta--grad">
+  <section id="cta" class="section">
     <div class="container">
-      <p class="sec-index sec-index--light" aria-hidden="true">09</p>
-      <h2>Получите предварительную оценку вашего проекта</h2>
-      <p>Расскажите о производстве. Оценим возможность размещения, инженерную модель и дальнейшие шаги.</p>
-      <div class="b-cta__row">
-        <SiteButton variant="gold" b24="request">Оставить заявку</SiteButton>
-        <a class="btn btn--ghost-light" href="/katalog/">Смотреть каталог</a>
-        <a class="b-cta__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
+      <div class="tz-panel">
+        <TzBanner>
+          <p class="sec-index sec-index--light" aria-hidden="true">09</p>
+          <h3>Получите предварительную оценку вашего проекта</h3>
+          <p style="color:rgba(255,255,255,.75)">Расскажите о производстве. Оценим возможность размещения, инженерную модель и дальнейшие шаги.</p>
+          <div class="b-cta__row">
+            <SiteButton variant="gold" b24="request">Оставить заявку</SiteButton>
+            <a class="btn btn--ghost-light" href="/katalog/">Смотреть каталог</a>
+          </div>
+          <a class="b-cta__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
+
+          <div slot="aside" class="b24-form-wrap">
+            <B24Loader form="estimateInline" />
+          </div>
+        </TzBanner>
       </div>
     </div>
   </section>

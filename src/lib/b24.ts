@@ -9,7 +9,12 @@ export type B24FormKey =
   | 'request'
   | 'contact'
   | 'offer'
-  | 'roadmap';
+  | 'roadmap'
+  | 'placement'
+  | 'plan'
+  | 'planInline'
+  | 'plot'
+  | 'estimateInline';
 
 export interface B24Form {
   id: string;
@@ -47,6 +52,31 @@ export const B24_FORMS: Record<B24FormKey, B24Form> = {
     id: 'click/30/vkhnin',
     sign: 'v1:30:site.890147be3447dce8b7bf7cca394c2eaf0614b43858fc0fb55ffda036f202bb22',
     loader: 'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_30.js',
+  },
+  placement: {
+    id: 'click/24/n783uf',
+    sign: 'v1:24:site.3b4e323fab4e65c363e6c71df8d2d6f8700bc8ae8a6372e7c238a5a4bfa10e8d',
+    loader: 'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_24.js',
+  },
+  plan: {
+    id: 'click/42/fimzn2',
+    sign: 'v1:42:site.5b6cde07e6b6d5d39ec8f8e31d5cf98f0837300e11d3f92596443124f1590157',
+    loader: 'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_42.js',
+  },
+  planInline: {
+    id: 'inline/42/fimzn2',
+    sign: 'v1:42:site.5b6cde07e6b6d5d39ec8f8e31d5cf98f0837300e11d3f92596443124f1590157',
+    loader: 'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_42.js',
+  },
+  plot: {
+    id: 'click/44/ochpio',
+    sign: 'v1:44:site.6938e96e2cfec8ba88a2524a838c6197db21304c4cba243ee55a0e9ced2b01c1',
+    loader: 'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_44.js',
+  },
+  estimateInline: {
+    id: 'inline/50/0xfj5g',
+    sign: 'v1:50:site.a18d848e12aec447604a19ea45efef2556b61737090d5309c65429d4323df164',
+    loader: 'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_50.js',
   },
 };
 

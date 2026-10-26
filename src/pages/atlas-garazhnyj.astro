@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import TzBanner from '../components/TzBanner.astro';
 import FaqSection from '../components/FaqSection.astro';
 import SiteButton from '../components/SiteButton.astro';
+import B24Loader from '../components/B24Loader.astro';
 ---
 <BaseLayout title="Атлас Гаражный — технопарк в Обухово | ММ Пром" description="Атлас Гаражный — технопарк в Обухово: общая площадь здания 10 719 м², 4 этажа производственно-складских помещений, кран-балки 10 т, 1 МВт, 5 минут до КАД.">
   <Fragment slot="head">
@@ -535,8 +536,8 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 .obj-table th{background:var(--surface);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted)}
 .obj-table tr:last-child td{border-bottom:0}
 .obj-table td strong{display:block;font-size:1rem}
-.obj-table a{color:var(--purple);font-weight:700;text-decoration:none;white-space:nowrap}
-.obj-table a:hover{text-decoration:underline}
+.obj-table a,.obj-table button{color:var(--purple);font-weight:700;text-decoration:none;white-space:nowrap;background:none;border:0;padding:0;font:inherit;cursor:pointer}
+.obj-table a:hover,.obj-table button:hover{text-decoration:underline}
 @media (max-width:767px){
   .obj-table thead{display:none}
   .obj-table tr{display:block;border-bottom:1px solid var(--border)}
@@ -744,6 +745,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         <h2>Варианты размещения</h2>
         <p class="b-sec-head__lead">Доступность уточняется по запросу.</p>
       </div>
+      <B24Loader form="placement" />
       <div class="obj-table-wrap">
         <table class="obj-table">
           <thead><tr><th>Формат</th><th>Площадь</th><th>Сценарий</th><th></th></tr></thead>
@@ -752,19 +754,19 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
               <td data-label="Формат"><strong>Отдельная секция</strong></td>
               <td data-label="Площадь">от 1 300 м²</td>
               <td data-label="Сценарий">Производство и вспомогательные помещения</td>
-              <td><a href="#cta">Подобрать ↗</a></td>
+              <td><button type="button" data-b24-form="click/24/n783uf" data-b24-form-telemetry-sign="v1:24:site.3b4e323fab4e65c363e6c71df8d2d6f8700bc8ae8a6372e7c238a5a4bfa10e8d">Подобрать ↗</button></td>
             </tr>
             <tr>
               <td data-label="Формат"><strong>Несколько секций</strong></td>
               <td data-label="Площадь">Под ваше ТЗ</td>
               <td data-label="Сценарий">Объединение площадей под технологию</td>
-              <td><a href="#cta">Подобрать ↗</a></td>
+              <td><button type="button" data-b24-form="click/24/n783uf" data-b24-form-telemetry-sign="v1:24:site.3b4e323fab4e65c363e6c71df8d2d6f8700bc8ae8a6372e7c238a5a4bfa10e8d">Подобрать ↗</button></td>
             </tr>
             <tr>
               <td data-label="Формат"><strong>Здание целиком</strong></td>
               <td data-label="Площадь">10 719 м²</td>
               <td data-label="Сценарий">Производство, склад и административный блок</td>
-              <td><a href="#cta">Подобрать ↗</a></td>
+              <td><button type="button" data-b24-form="click/24/n783uf" data-b24-form-telemetry-sign="v1:24:site.3b4e323fab4e65c363e6c71df8d2d6f8700bc8ae8a6372e7c238a5a4bfa10e8d">Подобрать ↗</button></td>
             </tr>
           </tbody>
         </table>
@@ -860,7 +862,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
       <ul class="obj-tags">
         <li>Производство</li><li>Склад</li><li>Офис</li><li>Шоу-рум</li>
       </ul>
-      <div class="b-scope__cta"><a class="btn btn--gold" href="#cta">Получить планировку под мою задачу</a></div>
+      <div class="b-scope__cta"><SiteButton variant="gold" b24="plan">Получить планировку под мою задачу</SiteButton></div>
       </div>
       </div>
     </div>
@@ -975,7 +977,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
             <a class="b-cta__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
 
       <div slot="aside" class="b24-form-wrap">
-        <script is:inline data-b24-form="inline/34/0ph3wy" data-b24-form-telemetry-sign="v1:34:site.b62d3cf56414758a8a11ec9af534ac54810f3b8241a479ddb796adfd2f3d5e4c" data-skip-moving="true">(function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_34.js');</script>
+        <B24Loader form="planInline" />
       </div>
       </TzBanner>
     </div>
