@@ -1,5 +1,10 @@
 ---
 import B24Loader from '../components/B24Loader.astro';
+import baseCss from '../styles/base.css?raw';
+import blocksCss from '../styles/blocks.css?raw';
+import animCss from '../styles/site-anim.css?raw';
+import heroCss from '../styles/hero.css?raw';
+import mobileCss from '../styles/site-mobile.css?raw';
 
 interface Props {
   title: string;
@@ -57,12 +62,12 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/base.css?v=4">
-    <link rel="stylesheet" href="/assets/blocks.css?v=1">
-    <link rel="stylesheet" href="/assets/site-anim.css?v=1">
+    <style is:inline set:html={baseCss}></style>
+    <style is:inline set:html={blocksCss}></style>
+    <style is:inline set:html={animCss}></style>
     <slot name="head" />
-    <link rel="stylesheet" href="/assets/hero.css?v=1">
-    <link rel="stylesheet" href="/assets/site-mobile.css?v=1">
+    <style is:inline set:html={heroCss}></style>
+    <style is:inline set:html={mobileCss}></style>
     {isProd && <Fragment set:html={metrika} />}
   </head>
   <body>
