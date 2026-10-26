@@ -41,7 +41,7 @@
    opsz 24 / wght 500 / GRAD 0, FILL 0..1 — файл ~15 КиБ вместо ~3,9 МБ.
    font-display:block обязателен: при swap до загрузки видны текстовые
    лигатуры вместо глифов. ─────────────────────────────────────────────── */
-@font-face{font-family:'Material Symbols Outlined';font-style:normal;font-weight:500;font-display:block;src:url(/assets/fonts/material-symbols-outlined.woff2) format('woff2')}
+@font-face{font-family:'Material Symbols Outlined';font-style:normal;font-weight:500;font-display:block;src:url(/assets/fonts/material-symbols-outlined.woff2?v=1) format('woff2')}
 
 /* ── Базовые элементы ────────────────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box}
