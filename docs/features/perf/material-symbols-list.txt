@@ -15,6 +15,7 @@ calendar_today
 call
 campaign
 check_circle
+checklist
 close
 construction
 description
@@ -30,6 +31,7 @@ fire_extinguisher
 foundation
 fullscreen
 gavel
+grid_4x4
 grid_on
 grid_view
 groups
@@ -44,8 +46,10 @@ insights
 inventory_2
 key
 landscape
+layers
 local_fire_department
 local_parking
+local_shipping
 location_on
 mail
 map
@@ -77,6 +81,7 @@ tune
 verified
 verified_user
 view_list
+view_week
 volume_off
 volume_up
 warehouse
