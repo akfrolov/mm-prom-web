@@ -1,5 +1,6 @@
 ---
 import B24Loader from '../components/B24Loader.astro';
+import { Font } from 'astro:assets';
 import baseCss from '../styles/base.css?raw';
 import blocksCss from '../styles/blocks.css?raw';
 import animCss from '../styles/site-anim.css?raw';
@@ -58,9 +59,14 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
     <meta property="og:url" content={canonical}>
     <meta property="og:image" content={ogImage}>
     <meta property="og:locale" content="ru_RU">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <Font
+      cssVariable="--font-manrope"
+      preload={[
+        { subset: 'cyrillic', weight: 400 },
+        { subset: 'cyrillic', weight: 800 },
+      ]}
+    />
+    <Font cssVariable="--font-inter" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
     <style is:inline set:html={baseCss}></style>
     <style is:inline set:html={blocksCss}></style>

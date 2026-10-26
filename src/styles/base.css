@@ -21,7 +21,7 @@
   --text-muted:#5C5C66;
   --surface:#F7F7F8;
   --border:#E6E3EE;
-  --font:"Manrope","Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --font:var(--font-manrope),var(--font-inter),-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
   --fs-h1:clamp(1.75rem,1.2rem + 2.6vw,3rem);
   --fs-h2:clamp(1.4rem,1.1rem + 1.6vw,2.125rem);
   --fs-h3:clamp(1.15rem,1rem + 0.8vw,1.5rem);
