@@ -12,7 +12,7 @@ export type B24FormKey =
   | 'roadmap'
   | 'placement'
   | 'plan'
-  | 'planInline'
+  | 'planGarageInline'
   | 'plot'
   | 'estimateInline';
 
@@ -63,10 +63,10 @@ export const B24_FORMS: Record<B24FormKey, B24Form> = {
     sign: 'v1:42:site.5b6cde07e6b6d5d39ec8f8e31d5cf98f0837300e11d3f92596443124f1590157',
     loader: 'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_42.js',
   },
-  planInline: {
-    id: 'inline/42/fimzn2',
-    sign: 'v1:42:site.5b6cde07e6b6d5d39ec8f8e31d5cf98f0837300e11d3f92596443124f1590157',
-    loader: 'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_42.js',
+  planGarageInline: {
+    id: 'inline/26/s0inop',
+    sign: 'v1:26:direct_link.f82970317622e209a692cc371fc89979c232196d87a2d6ebc5343ea30bb73592',
+    loader: 'https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_26.js',
   },
   plot: {
     id: 'click/44/ochpio',

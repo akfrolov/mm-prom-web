@@ -326,9 +326,18 @@ import B24Loader from '../components/B24Loader.astro';
     .tz-panel .b-cta__phone{display:inline-flex;margin-top:12px;color:#fff}
     .tz-panel .b-cta__phone .material-symbols-outlined{color:var(--gold)}
     .tz-panel .b-cta__phone:hover{color:var(--gold)}
+    .tz-copy{display:flex;flex-direction:column;height:100%}
+    .tz-copy__lead{margin:0;color:rgba(255,255,255,.75);max-width:48ch}
+    .tz-benefits{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:10px;max-width:560px}
+    .tz-benefits li{display:flex;align-items:center;gap:14px;padding:12px 14px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:rgba(255,255,255,.05)}
+    .tz-benefits__icon{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex:0 0 auto;border-radius:10px;background:rgba(235,184,30,.16);color:var(--gold);font-size:22px}
+    .tz-benefits__text{display:grid;gap:2px}
+    .tz-benefits__text strong{font-size:.95rem;font-weight:700;color:#fff}
+    .tz-benefits__text span{font-size:.82rem;line-height:1.35;color:rgba(255,255,255,.66)}
+    .tz-copy__footer{margin-top:auto;padding-top:22px}
+    .tz-panel .tz-copy__footer .b-cta__row{margin-top:0}
     @media (min-width:1024px){
-      .tz-panel .b-tz-banner{align-items:start}
-      .tz-panel .b-tz-banner > div:first-child{position:sticky;top:96px}
+      .tz-panel .b-tz-banner{align-items:stretch}
     }
 
     /* ── Контакты ────────────────────────────────────────────────────────── */
@@ -963,21 +972,35 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
   <div class="container">
     <div class="tz-panel">
       <TzBanner>
-            <p class="sec-index sec-index--light">Следующий шаг</p>
-            <h3>Получите планировки, площади и условия</h3>
-            <p style="color:rgba(255,255,255,.75)">Укажите формат сделки и параметры объекта — подготовим предложение под вашу задачу.</p>
-            <ul class="obj-lead__list">
-              <li>Планировки под вашу площадь</li>
-              <li>Технические параметры объекта</li>
-            </ul>
+        <div class="tz-copy">
+          <p class="sec-index sec-index--light">Следующий шаг</p>
+          <h3>Получите планировки, площади и условия</h3>
+          <p class="tz-copy__lead">Укажите формат сделки и параметры объекта — подготовим предложение под вашу задачу.</p>
+          <ul class="tz-benefits">
+            <li>
+              <span class="tz-benefits__icon material-symbols-outlined" aria-hidden="true">square_foot</span>
+              <span class="tz-benefits__text"><strong>Планировки под вашу площадь</strong><span>Секции, этажи и доработка по техническому заданию</span></span>
+            </li>
+            <li>
+              <span class="tz-benefits__icon material-symbols-outlined" aria-hidden="true">engineering</span>
+              <span class="tz-benefits__text"><strong>Технические параметры объекта</strong><span>Нагрузки, высоты, мощности и инженерия</span></span>
+            </li>
+            <li>
+              <span class="tz-benefits__icon material-symbols-outlined" aria-hidden="true">handshake</span>
+              <span class="tz-benefits__text"><strong>Условия аренды и покупки</strong><span>Сроки, платежи и варианты сделки</span></span>
+            </li>
+          </ul>
+          <div class="tz-copy__footer">
             <div class="b-cta__row">
               <SiteButton variant="gold" b24="request">Оставить заявку</SiteButton>
               <a class="btn btn--ghost-light" href="/katalog/">В каталог</a>
             </div>
             <a class="b-cta__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
+          </div>
+        </div>
 
       <div slot="aside" class="b24-form-wrap">
-        <B24Loader form="planInline" />
+        <B24Loader form="planGarageInline" />
       </div>
       </TzBanner>
     </div>
