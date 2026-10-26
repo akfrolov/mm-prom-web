@@ -91,8 +91,6 @@ const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуни
 const siteUrl = Astro.site ?? new URL('https://mm-prom.ru');
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 const jsonLdImage = new URL(ogImage ?? '/mmprom-logo.png', siteUrl).href;
-// Регион — по адресу: поле location в данных местами помечает объекты ЛО как spb.
-const addressIsSpb = /^(Санкт-Петербург|г\.\s*Пушкин|Московское шоссе)/i.test(d.address);
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -116,8 +114,8 @@ const jsonLd = {
         address: {
           '@type': 'PostalAddress',
           streetAddress: d.address,
-          addressLocality: addressIsSpb ? 'Санкт-Петербург' : d.district,
-          addressRegion: addressIsSpb ? 'Санкт-Петербург' : 'Ленинградская область',
+          addressLocality: d.location === 'spb' ? 'Санкт-Петербург' : d.district,
+          addressRegion: d.location === 'spb' ? 'Санкт-Петербург' : 'Ленинградская область',
           addressCountry: 'RU',
         },
         geo: { '@type': 'GeoCoordinates', latitude: d.coords[0], longitude: d.coords[1] },

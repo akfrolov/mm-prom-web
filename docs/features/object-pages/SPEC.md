@@ -115,9 +115,8 @@ meta-description; полировка SEO-текстов — правка дан�
 - `BreadcrumbList`: Главная → Каталог → объект (последний пункт — canonical страницы).
 - `RealEstateListing`: `name`, `description` (как meta-description), `url`, `image`
   (OG-изображение), `about` → `Place` с `PostalAddress` (`streetAddress` = `address`,
-  регион — по префиксу адреса: `Санкт-Петербург`/`г. Пушкин`/`Московское шоссе` →
-  СПб, иначе Ленинградская область; поле `location` в данных для этого не годится —
-  часть объектов ЛО помечена как `spb`; `addressCountry: RU`), `GeoCoordinates` из `coords` и
+  регион по `location` (значения в данных сверены с адресами),
+  `addressCountry: RU`), `GeoCoordinates` из `coords` и
   `floorSize` из `areaNum` (m², `unitCode: MTK`; при `null` — не выводится),
   `additionalProperty` — `PropertyValue` по всем `specs` (name/value).
 
