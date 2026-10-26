@@ -9,7 +9,7 @@ import ObjectCard from '../components/ObjectCard.astro';
 import { getCollection } from 'astro:content';
 const objects = (await getCollection('objects')).sort((a, b) => a.data.sort - b.data.sort);
 const objById = Object.fromEntries(objects.map((o) => [o.id, o]));
-const rentObjects = ['atlas-garazhny', 'avrora-vitebsky', 'voyskovitsy', 'kolpino', 'antares', 'metallostroy', 'murino', 'rabochaya'].map((id) => objById[id]);
+const rentObjects = ['atlas-garazhny', 'atlas-garazhny-3', 'avrora-vitebsky', 'voyskovitsy', 'kolpino', 'antares', 'metallostroy', 'murino', 'rabochaya'].map((id) => objById[id]);
 const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coords: data.coords, address: data.address, area: data.area }));
 ---
 <BaseLayout title="Аренда промышленной недвижимости — ММ Пром" description="Сдадим ваш объект надежным арендаторам или найдем готовую площадку для запуска вашего предприятия.">
