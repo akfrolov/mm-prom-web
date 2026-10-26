@@ -1072,7 +1072,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 </div>
 
   <Fragment slot="tail">
-    <script is:inline id="mmprom-yamap-api-js" src="https://api-maps.yandex.ru/2.1/?apikey=2ae53810-6967-43df-9165-4003eeb71cbf&amp;lang=ru_RU&amp;ver=2.1.0"></script>
+    <script is:inline src="/assets/ymaps-lazy.js?v=1" defer></script>
     <script is:inline>
     (function(){
       'use strict';
@@ -1169,10 +1169,9 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
     return ymaps.templateLayoutFactory.createClass(html);
   }
   function start(){
-    if (started) return;
-    if (!window.ymaps) { setTimeout(start, 250); return; }
+    if (started || !window.mmEnsureYmaps) return;
     started = true;
-    ymaps.ready(function(){
+    window.mmEnsureYmaps(function(){
       var map = new ymaps.Map('atlas-map-canvas', {
         center: [59.846, 30.447], zoom: 14, controls: ['zoomControl','fullscreenControl']
       }, { suppressMapOpenBlock: true });

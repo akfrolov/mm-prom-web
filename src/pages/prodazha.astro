@@ -637,8 +637,8 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
 
   <MapSection objects={mapObjects} secIndex="06" />
 
-  <script is:inline src="https://api-maps.yandex.ru/2.1/?apikey=2ae53810-6967-43df-9165-4003eeb71cbf&lang=ru_RU" type="text/javascript"></script>
-    <script is:inline src="/assets/svc-map.js?v=1" defer></script>
+  <script is:inline src="/assets/ymaps-lazy.js?v=1" defer></script>
+    <script is:inline src="/assets/svc-map.js?v=2" defer></script>
 
   <CtaBand variant="grad" id="cta" secIndex="07" heading="Обсудим вашу задачу" lede="Оставьте заявку, и мы свяжемся с вами в течение рабочего дня, чтобы обсудить вашу задачу." buttons={[
           { variant: "gold", b24: "request", label: "Оставить заявку" },

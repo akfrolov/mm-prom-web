@@ -241,8 +241,8 @@ document.addEventListener('DOMContentLoaded', function () {
       var CLUSTER_ICON = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(CLUSTER_SVG);
 
       function initMap(){
-        if (map || !window.ymaps) return;
-        ymaps.ready(function(){
+        if (map || !window.mmEnsureYmaps) return;
+        window.mmEnsureYmaps(function(){
           if (map) return;
           map = new ymaps.Map('cat-map-canvas', {
             center: [59.85, 30.35], zoom: 9, controls: ['zoomControl','fullscreenControl','geolocationControl']

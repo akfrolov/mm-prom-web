@@ -609,8 +609,8 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
 
   <MapSection objects={mapObjects} secIndex="04" />
 
-  <script is:inline src="https://api-maps.yandex.ru/2.1/?apikey=2ae53810-6967-43df-9165-4003eeb71cbf&lang=ru_RU" type="text/javascript"></script>
-    <script is:inline src="/assets/svc-map.js?v=1" defer></script>
+  <script is:inline src="/assets/ymaps-lazy.js?v=1" defer></script>
+    <script is:inline src="/assets/svc-map.js?v=2" defer></script>
 
   <FaqSection variant="simple" id="faq" secIndex="05" title="Частые вопросы" lead="" items={[
       { q: "Не хочу заниматься операционкой. Какой формат подойдёт?", a: "Вам подойдёт «пенсионный» формат: помогаем приобрести действующий бизнес, а всю операционную работу и контроль процессов берём на себя. У вас остаются прозрачная отчётность и ключевые показатели — вы видите, как работает капитал, не погружаясь в рутину. Подробнее — в разделе «Инвестиции и финансирование»." },
