@@ -103,16 +103,6 @@
       if (e.key === 'Tab') trapTab(mobilePanel, e);
     });
 
-    /* Аккордеон «Услуги» */
-    var mToggle = mobilePanel.querySelector('.mobile-menu__toggle');
-    var mSub = mobilePanel.querySelector('.mobile-menu__sub');
-    if (mToggle && mSub) {
-      mToggle.addEventListener('click', function () {
-        var open = mSub.classList.toggle('is-open');
-        mToggle.classList.toggle('is-open', open);
-        mToggle.setAttribute('aria-expanded', String(open));
-      });
-    }
     /* Аккордеон ролей: data-mrole → data-mpanel */
     Array.prototype.forEach.call(mobilePanel.querySelectorAll('.mobile-menu__role'), function (role) {
       role.addEventListener('click', function () {

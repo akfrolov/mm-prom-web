@@ -57,7 +57,7 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/base.css?v=3">
+    <link rel="stylesheet" href="/assets/base.css?v=4">
     <link rel="stylesheet" href="/assets/blocks.css?v=1">
     <link rel="stylesheet" href="/assets/site-anim.css?v=1">
     <slot name="head" />
@@ -89,7 +89,7 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
       </div>
     </header>
 
-    <!-- ═══ Мобильное меню: drawer слева (W2.2) ═══ -->
+    <!-- ═══ Мобильное меню: drawer справа (W2.2) ═══ -->
     <div class="mobile-overlay" id="mobile-overlay" hidden>
       <div class="mobile-overlay__backdrop" data-mobile-close></div>
       <div class="mobile-overlay__holder">
@@ -99,11 +99,10 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
           </div>
           <nav class="mobile-menu__nav" aria-label="Мобильное меню">
             <div class="mobile-menu__item">
-              <button class="mobile-menu__toggle" type="button" aria-expanded="false">
+              <div class="mobile-menu__heading">
                 <span class="mobile-menu__toggle-name"><span class="material-symbols-outlined" aria-hidden="true">widgets</span>Услуги</span>
-                <span class="material-symbols-outlined mobile-menu__arrow" aria-hidden="true">expand_more</span>
-              </button>
-              <div class="mobile-menu__sub">
+              </div>
+              <div class="mobile-menu__sub is-open">
                 <button class="mobile-menu__role" type="button" data-mrole="prod" aria-expanded="false">Производствам<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button>
                 <div class="mobile-menu__services" data-mpanel="prod">
                   <a href="/brokerage/">Подбор недвижимости</a>
@@ -379,6 +378,6 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
       </div>
     </footer>
     <slot name="tail" />
-    <script is:inline defer src="/assets/menu.js?v=1"></script>
+    <script is:inline defer src="/assets/menu.js?v=2"></script>
   </body>
 </html>

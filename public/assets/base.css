@@ -212,19 +212,19 @@ p{margin:0 0 1em}
 .site-header__burger{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:0;background:none;color:var(--navy);cursor:pointer}
 .site-header__burger .material-symbols-outlined{font-size:28px}
 
-/* ── Мобильное меню: drawer слева (W2.2) ───────────────────────────────
+/* ── Мобильное меню: drawer справа (W2.2) ──────────────────────────────
    До 1024px — единственное меню; ≥1024 не активируется (мега-оверлей).
    Геометрия — docs/mockups/mobilnoe_menu.html:152–230. */
 .mobile-overlay{position:fixed;inset:0;z-index:60}
 .mobile-overlay[hidden]{display:none}
 .mobile-overlay__backdrop{position:absolute;inset:0;background:rgba(22,21,25,.52);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);animation:mobileFade .25s ease-out both}
 /* Холдер пропускает клики мимо панели к подложке (закрытие «кликом вне») */
-.mobile-overlay__holder{position:absolute;inset:0;display:flex;justify-content:flex-start;pointer-events:none}
-.mobile-menu{pointer-events:auto;position:relative;display:flex;flex-direction:column;width:85%;max-width:420px;min-height:72vh;max-height:100vh;background:#fff;border:1px solid var(--border);border-left:0;box-shadow:24px 0 64px rgba(22,21,25,.35);overflow-y:auto;animation:mobileDrawerIn .25s ease-out both}
-@keyframes mobileDrawerIn{from{transform:translateX(-100%)}to{transform:none}}
+.mobile-overlay__holder{position:absolute;inset:0;display:flex;justify-content:flex-end;pointer-events:none}
+.mobile-menu{pointer-events:auto;position:relative;display:flex;flex-direction:column;width:85%;max-width:420px;min-height:72vh;max-height:100vh;background:#fff;border:1px solid var(--border);border-right:0;box-shadow:-24px 0 64px rgba(22,21,25,.35);overflow-y:auto;animation:mobileDrawerIn .25s ease-out both}
+@keyframes mobileDrawerIn{from{transform:translateX(100%)}to{transform:none}}
 @keyframes mobileFade{from{opacity:0}to{opacity:1}}
 @media (min-width:768px){
-  .mobile-menu{width:380px;height:640px;min-height:0;max-height:calc(100vh - 160px);border-left:1px solid var(--border);border-radius:0 var(--radius) var(--radius) 0}
+  .mobile-menu{width:380px;height:640px;min-height:0;max-height:calc(100vh - 160px);border-right:1px solid var(--border);border-radius:var(--radius) 0 0 var(--radius)}
 }
 @media (min-width:1024px){
   .mobile-menu{width:400px;height:680px}
@@ -246,15 +246,12 @@ p{margin:0 0 1em}
 .mobile-menu__actions .btn{width:100%}
 .mobile-menu__actions .site-header__phone{display:inline-flex}
 
-/* Мобильное меню: аккордеон «Услуги» по ролям */
+/* Мобильное меню: «Услуги» всегда развёрнуты, роли — аккордеон */
 .mobile-menu__item{border-bottom:1px solid var(--border)}
-.mobile-menu__toggle{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:48px;padding:10px 16px;border:0;background:none;color:var(--text);font:inherit;font-weight:600;cursor:pointer}
+.mobile-menu__heading{display:flex;align-items:center;min-height:48px;padding:10px 16px;color:var(--text);font-weight:600}
 .mobile-menu__toggle-name{display:inline-flex;align-items:center;gap:12px;font-size:1rem}
 .mobile-menu__toggle-name .material-symbols-outlined{font-size:22px;color:var(--purple)}
-.mobile-menu__arrow{transition:transform .25s ease}
-.mobile-menu__toggle.is-open .mobile-menu__arrow{transform:rotate(180deg);color:var(--purple)}
-.mobile-menu__sub{display:none;padding:0 0 8px}
-.mobile-menu__sub.is-open{display:block}
+.mobile-menu__sub{display:block;padding:0 0 8px}
 .mobile-menu__role{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:44px;padding:8px 16px 8px 24px;border:0;background:none;color:var(--text);font:inherit;font-weight:600;cursor:pointer}
 .mobile-menu__role .material-symbols-outlined{transition:transform .25s ease;color:var(--text-muted)}
 .mobile-menu__role.is-open .material-symbols-outlined{transform:rotate(180deg);color:var(--purple)}
