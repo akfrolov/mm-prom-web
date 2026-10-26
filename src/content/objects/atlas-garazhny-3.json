@@ -86,7 +86,10 @@
   "price": "по запросу",
   "image": "/assets/objects/atlas-garazhny-3/cover.webp",
   "images": [
-    "/assets/objects/atlas-garazhny-3/cover.webp"
+    "/assets/objects/atlas-garazhny-3/cover.webp",
+    "/assets/objects/atlas-garazhny-3/2.webp",
+    "/assets/objects/atlas-garazhny-3/3.webp",
+    "/assets/objects/atlas-garazhny-3/4.webp"
   ],
   "coords": [
     59.846744,
