@@ -1,5 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import ImgHero from '../assets/images/12985856-hero-atlas.webp';
+import ImgPlan from '../assets/images/1fe7f07a-screot_1-optimized.webp';
+import ImgArea from '../assets/images/e0930b8e-ploshad-obekta.webp';
+import ImgSpecs from '../assets/images/ad44f319-12-optimized.webp';
+import ImgSection from '../assets/images/a328c1dc-13-optimized.webp';
+import ImgDeal from '../assets/images/56ff6f96-formy-sdelki.webp';
+import ImgContacts from '../assets/images/045eca12-contacts-photo.webp';
 import TzBanner from '../components/TzBanner.astro';
 import FaqSection from '../components/FaqSection.astro';
 import SiteButton from '../components/SiteButton.astro';
@@ -660,7 +668,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         <ul class="b-hero__metrics"><li><strong>10 719 м²</strong><span>общая площадь здания</span></li><li><strong>5 минут</strong><span>до КАД</span></li><li><strong>10 минут</strong><span>до метро «Обухово» пешком</span></li><li><strong>25 минут</strong><span>до центра Петербурга</span></li></ul>
       </div>
       <figure class="obj-hero__media">
-        <img src="/assets/external/12985856-hero-atlas.webp" alt="Атлас Гаражный — технопарк в Обухово" loading="eager">
+        <Image src={ImgHero} widths={[640, 960, 1280, 1920]} sizes="(max-width: 1023px) 100vw, 50vw" alt="Атлас Гаражный — технопарк в Обухово" loading="eager" fetchpriority="high" />
       </figure>
     </div>
   </section>
@@ -691,7 +699,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
       </div>
       <div class="mp" data-mp>
         <div class="mp__stage" data-mp-stage>
-          <img class="mp__img" src="/assets/external/1fe7f07a-screot_1-optimized.webp" alt="Генеральный план территории Атлас Гаражный" data-mp-img loading="lazy">
+          <Image class="mp__img" src={ImgPlan} widths={[640, 960, 1280]} sizes="(max-width: 1023px) 100vw, 662px" alt="Генеральный план территории Атлас Гаражный" loading="lazy" />
         </div>
         <div class="mp__bar">
           <p class="mp__hint"><span class="material-symbols-outlined" aria-hidden="true">zoom_in</span>Колесо мыши — масштаб, перетаскивание — перемещение</p>
@@ -741,7 +749,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         </div>
       </div>
       <figure class="obj-figure">
-        <img src="/assets/external/e0930b8e-ploshad-obekta.webp" alt="Площадь объекта Атлас Гаражный" loading="lazy">
+        <Image src={ImgArea} widths={[480, 720, 1080]} sizes="(max-width: 1023px) 100vw, 634px" alt="Площадь объекта Атлас Гаражный" loading="lazy" />
       </figure>
       </div>
     </div>
@@ -844,7 +852,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         </article>
       </div>
       <figure class="obj-figure">
-        <img src="/assets/external/ad44f319-12-optimized.webp" alt="Характеристики объекта Атлас Гаражный" loading="lazy">
+        <Image src={ImgSpecs} widths={[640, 960, 1349]} sizes="(max-width: 1023px) 100vw, 634px" alt="Характеристики объекта Атлас Гаражный" loading="lazy" />
       </figure>
       </div>
     </div>
@@ -859,7 +867,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
       </div>
       <div class="obj-split obj-split--media-left">
       <figure class="obj-figure">
-        <img src="/assets/external/a328c1dc-13-optimized.webp" alt="Разрез здания Атлас Гаражный" loading="lazy">
+        <Image src={ImgSection} widths={[640, 960, 1280, 2017]} sizes="(max-width: 1023px) 100vw, 760px" alt="Разрез здания Атлас Гаражный" loading="lazy" />
       </figure>
       <div class="obj-split__body">
       <div class="obj-floors">
@@ -961,7 +969,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         </article>
       </div>
       <figure class="obj-figure">
-        <img src="/assets/external/56ff6f96-formy-sdelki.webp" alt="Формы сделки" loading="lazy">
+        <Image src={ImgDeal} widths={[400, 600, 800]} sizes="(max-width: 1023px) 100vw, 634px" alt="Формы сделки" loading="lazy" />
       </figure>
     </div>
   </div>
@@ -1032,7 +1040,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
           <h2>Свяжитесь с нами и станьте резидентом технопарка</h2>
           <p>Покажем объект, ответим на вопросы по инженерии и условиям, подготовим расчёт под вашу задачу.</p>
           <figure class="obj-contact__media">
-            <img src="/assets/external/045eca12-contacts-photo.webp" alt="Контакты ММ Пром" loading="lazy">
+            <Image src={ImgContacts} widths={[480, 720, 1080]} sizes="(max-width: 1023px) 100vw, 560px" alt="Контакты ММ Пром" loading="lazy" />
           </figure>
         </div>
         <div class="obj-contact__form">
@@ -1066,7 +1074,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
       <button class="mp__btn mp__btn--reset" type="button" data-mp-lb-reset>Сброс</button>
     </div>
     <div class="mp-lightbox__stage" data-mp-lb-stage>
-      <img class="mp-lightbox__img" src="/assets/external/1fe7f07a-screot_1-optimized.webp" alt="Генеральный план территории Атлас Гаражный" data-mp-lb-img>
+        <Image class="mp-lightbox__img" src={ImgPlan} alt="Генеральный план территории Атлас Гаражный" loading="lazy" />
     </div>
   </div>
 </div>
@@ -1263,7 +1271,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
   var mp = document.querySelector('[data-mp]');
   if (mp) {
     var stage = mp.querySelector('[data-mp-stage]');
-    var img = mp.querySelector('[data-mp-img]');
+    var img = mp.querySelector('.mp__img');
     var scaleEl = mp.querySelector('[data-mp-scale]');
     var z = makeZoom(stage, img, scaleEl, 1, 6);
     mp.querySelector('[data-mp-in]').addEventListener('click', z.zoomIn);
@@ -1275,7 +1283,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
   var expand = document.querySelector('[data-mp-expand]');
   if (lb && expand) {
     var lbStage = lb.querySelector('[data-mp-lb-stage]');
-    var lbImg = lb.querySelector('[data-mp-lb-img]');
+    var lbImg = lb.querySelector('.mp-lightbox__img');
     var lbScale = lb.querySelector('[data-mp-lb-scale]');
     var lz = makeZoom(lbStage, lbImg, lbScale, 0.5, 8);
     function open(){

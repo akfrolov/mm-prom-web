@@ -1,5 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import ImgHero from '../assets/images/8cc2b044-1-optimized.webp';
+import ImgDeal from '../assets/images/7059d919-10-scaled-e1789043660933-optimized.webp';
+import ImgAdv from '../assets/images/ecd455b5-11-optimized.webp';
+import ImgContacts from '../assets/images/b929d920-contacts-photo-new.webp';
 import SiteButton from '../components/SiteButton.astro';
 import TzBanner from '../components/TzBanner.astro';
 import B24Loader from '../components/B24Loader.astro';
@@ -663,7 +668,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         <ul class="b-hero__metrics"><li><strong>38 га</strong><span>территория парка</span></li><li><strong>200 000+ м²</strong><span>возможная застройка</span></li><li><strong>1–25 МВт</strong><span>энергетические мощности</span></li><li><strong>10 минут</strong><span>до метро «Купчино»</span></li></ul>
       </div>
       <figure class="obj-hero__media">
-        <img src="/assets/external/8cc2b044-1-optimized.webp" alt="Аврора Витебский — индустриальный парк на Витебском проспекте" loading="eager">
+        <Image src={ImgHero} widths={[640, 960, 1190]} sizes="(max-width: 1023px) 100vw, 50vw" alt="Аврора Витебский — индустриальный парк на Витебском проспекте" loading="eager" fetchpriority="high" />
       </figure>
     </div>
   </section>
@@ -804,7 +809,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         </article>
       </div>
       <figure class="obj-figure">
-        <img src="/assets/external/7059d919-10-scaled-e1789043660933-optimized.webp" alt="Формы сделки" loading="lazy">
+        <Image src={ImgDeal} widths={[640, 960, 1280]} sizes="(max-width: 1023px) 100vw, 760px" alt="Формы сделки" loading="lazy" />
       </figure>
       </div>
     </div>
@@ -837,7 +842,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
           <p>Подходит для размещения производств любого профиля, включая пищевые и фармацевтические<br>Размещение производств 3–4–5 классов опасности</p>
         </article>
         <figure class="adv-media reveal" style="--i:3">
-          <img src="/assets/external/ecd455b5-11-optimized.webp" alt="Индустриальный парк Аврора Витебский" loading="lazy">
+          <Image src={ImgAdv} widths={[400, 600, 900]} sizes="(max-width: 767px) 100vw, 33vw" alt="Индустриальный парк Аврора Витебский" loading="lazy" />
         </figure>
       </div>
     </div>
@@ -972,7 +977,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
           <h2>Свяжитесь с нами и станьте резидентом индустриального парка</h2>
           <p>Покажем парк, ответим на вопросы по инженерии и условиям, подготовим предварительную оценку проекта.</p>
           <figure class="obj-contact__media">
-            <img src="/assets/external/b929d920-contacts-photo-new.webp" alt="Контакты ММ Пром" loading="lazy">
+            <Image src={ImgContacts} widths={[480, 720, 1002]} sizes="(max-width: 1023px) 100vw, 560px" alt="Контакты ММ Пром" loading="lazy" />
           </figure>
         </div>
         <div class="obj-contact__form">

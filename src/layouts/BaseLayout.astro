@@ -41,6 +41,7 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
       document.addEventListener('error', function (e) {
         var img = e.target;
         if (!img || img.tagName !== 'IMG' || img.dataset.fb) return;
+        if (img.src.indexOf('/_astro/') !== -1) return;
         if (!/\.(webp|avif)(?=\?|$)/.test(img.src)) return;
         e.stopPropagation();
         img.dataset.fb = '1';
@@ -83,7 +84,7 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
     <header class="site-header">
       <div class="container site-header__inner">
         <a class="site-header__logo" href="/">
-          <img src="/mmprom-logo.png" alt="ММ Пром">
+          <img src="/mmprom-logo-1x.png?v=1" srcset="/mmprom-logo-1x.png?v=1 1x, /mmprom-logo.png?v=1 2x" width="201" height="58" alt="ММ Пром">
         </a>
         <nav class="site-header__nav" aria-label="Основное меню">
           <div class="nav-item nav-item--has-mega">
@@ -350,7 +351,7 @@ ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true
       </div>
       <div class="container site-footer__inner">
         <div class="site-footer__brand">
-          <img src="/mmprom-logo.png" alt="ММ Пром">
+          <img src="/mmprom-logo-1x.png?v=1" srcset="/mmprom-logo-1x.png?v=1 1x, /mmprom-logo.png?v=1 2x" width="201" height="58" alt="ММ Пром">
           <p>Промышленная недвижимость Санкт-Петербурга и Ленинградской области: аренда, продажа и строительство. Работаем с 2011 года.</p>
         </div>
         <nav class="site-footer__col" aria-label="Услуги">

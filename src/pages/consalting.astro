@@ -4,6 +4,8 @@ import RoleCard from '../components/RoleCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import SiteButton from '../components/SiteButton.astro';
+import { Image } from 'astro:assets';
+import ImgHero from '../assets/images/inner-optimized.webp';
 ---
 <BaseLayout title="Промышленный консалтинг — ММ Пром" description="Промышленный консалтинг ММ Пром: помогаем собственникам и инвесторам принять взвешенное решение о развитии активов. Оцениваем градостроительный потенциал земли, виды разрешённого использования (ВРИ) и финансовую эффективность сценариев застройки перед покупкой, продажей, сдачей в аренду или стартом стройки.">
   <Fragment slot="head">
@@ -552,7 +554,7 @@ import SiteButton from '../components/SiteButton.astro';
         <div class="b-hero__media-frame">
           <picture>
             <source media="(max-width: 1023px)" srcset="/assets/external/consalting-sm.avif">
-            <img src="/assets/external/inner-optimized.webp" alt="Консалтинг по промышленной недвижимости">
+            <Image src={ImgHero} widths={[640, 960, 1280, 1920]} sizes="(max-width: 1023px) 100vw, 640px" alt="Консалтинг по промышленной недвижимости" loading="eager" fetchpriority="high" />
           </picture>
         </div>
       </div>
