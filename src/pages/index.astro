@@ -7,7 +7,7 @@ import ObjectCard from '../components/ObjectCard.astro';
 import { getCollection } from 'astro:content';
 const objects = (await getCollection('objects')).sort((a, b) => a.data.sort - b.data.sort);
 const objById = Object.fromEntries(objects.map((o) => [o.id, o]));
-const ribbonParks = ['atlas-garazhny', 'atlas-garazhny-3', 'avrora-vitebsky', 'antares'].map((id) => objById[id]);
+const ribbonParks = ['atlas-garazhny', 'avrora-vitebsky', 'antares'].map((id) => objById[id]);
 const ribbonProduction = ['voyskovitsy', 'volhonskoe', 'parnas'].map((id) => objById[id]);
 const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id) => objById[id]);
 ---
