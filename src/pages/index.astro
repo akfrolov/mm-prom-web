@@ -123,13 +123,10 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
     .b-conveyor{position:relative}
     .b-conveyor__line{position:absolute;top:22px;left:0;right:0;height:2px;background:repeating-linear-gradient(90deg,var(--purple) 0 10px,transparent 10px 20px);opacity:.35;pointer-events:none;display:none}
     .b-conveyor__runner{position:absolute;top:18px;left:0;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(235,184,30,.25);pointer-events:none;display:none;transform:translate3d(0,0,0);will-change:transform,opacity}
-    .b-conveyor__note{display:inline-flex;align-items:center;gap:10px;margin:28px 0 0;padding:14px 20px;border-radius:var(--radius-sm);background:var(--purple-soft);color:var(--purple);font-weight:700;font-size:var(--fs-small)}
-    .b-conveyor__note .material-symbols-outlined{font-size:20px}
     /* Компактный второй блок (на один экран) */
     .b-advantages--compact{padding:clamp(32px,5vw,56px) 0}
     .b-advantages--compact h2{margin-bottom:.3em}
     .b-advantages--compact .b-advantages__lead{margin-bottom:24px}
-    .b-advantages--compact .b-conveyor__note{margin-top:20px}
     /* Этап «пройден» при прохождении бегунка */
     .b-steps--conveyor .b-steps__item.is-passed .b-steps__num{color:var(--gold);-webkit-text-stroke-color:transparent}
     .b-steps--conveyor .b-steps__item.is-passed .b-steps__icon{color:var(--gold)}
@@ -219,6 +216,15 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
     .tz-panel h3{margin:0 0 8px;color:#fff}
     .tz-panel p{margin:0 0 4px}
     .tz-panel p.muted{color:rgba(255,255,255,.7)}
+
+    /* ── Консультация ────────────────────────────────────────────────────── */
+    .b-consult__inner{display:grid;gap:32px;margin-top:36px;align-items:start}
+    .b-consult__intro h2{max-width:22ch}
+    .b-consult__intro p{color:var(--text-muted);max-width:46ch;margin:0}
+    .b-consult .b24-form-wrap{min-width:0}
+    @media (min-width:1024px){
+      .b-consult__inner{grid-template-columns:1fr 1fr;gap:56px}
+    }
 
     /* ── Контакты ────────────────────────────────────────────────────────── */
     .b-contacts__inner{display:grid;gap:32px;margin-top:36px}
@@ -413,7 +419,6 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
         </li>
         </ol>
       </div>
-      <p class="b-conveyor__note"><span class="material-symbols-outlined" aria-hidden="true">sync_alt</span>От подбора площадки до ввода в эксплуатацию — весь цикл на нас</p>
     </div>
   </section>
 
@@ -434,19 +439,19 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
         </a>
         <a class="b-clients__card reveal" href="/sobstvennikam-zdaniy/">
           <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">apartment</span></span>
-          <h3>Собственникам зданий</h3>
+          <h3>Собственники зданий</h3>
           <p>Повышение капитализации, аренда/продажа, услуги Управляющей компании</p>
           <span class="b-clients__go">Перейти<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
         </a>
         <a class="b-clients__card reveal" href="/sobstvennikam-uchastkov/">
           <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">landscape</span></span>
-          <h3>Собственникам участков</h3>
+          <h3>Собственники участков</h3>
           <p>Развитие и повышение эффективности активов. Повышаем стоимость и доходность через совместный девелопмент и реализацию индустриальных проектов</p>
           <span class="b-clients__go">Перейти<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
         </a>
         <a class="b-clients__card reveal" href="/investoram/">
           <span class="b-advantages__icon"><span class="material-symbols-outlined" aria-hidden="true">savings</span></span>
-          <h3>Инвесторам</h3>
+          <h3>Инвесторы</h3>
           <p>Инвестиции в индустриальную недвижимость. Готовые решения для инвесторов с различным объёмом капитала. Промышленная недвижимость — стабильный и прогнозируемый актив</p>
           <span class="b-clients__go">Перейти<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
         </a>
@@ -533,7 +538,7 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
     <div class="container">
       <p class="sec-index" aria-hidden="true">05</p>
       <h2>Стандарты строительства</h2>
-      <p style="max-width:58ch;color:var(--text-muted)">Контролируем качество на каждом этапе — от проектирования до ввода в эксплуатацию. Строительство ведёт наша команда экспертов.</p>
+      <p style="max-width:58ch;color:var(--text-muted)">Контроль качества на всех этапах реализации индустриальных проектов. Сопровождение нашей командой экспертов.</p>
       <div class="b-split">
         <figure class="b-media b-split__media reveal">
           <img src="/assets/external/quality.avif" alt="Строительство индустриального объекта под контролем ММ Пром" loading="lazy">
@@ -583,30 +588,45 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
       { q: "Какие гарантии качества и сроков?", a: "Мы фиксируем сроки и стандарты качества в договоре. Все работы выполняются под технический и авторский надзор, а при строительстве действуют штрафные санкции за нарушение сроков. Также предоставляем гарантии на строительные и инженерные работы, поэтому вы защищены и по срокам, и по качеству" }
     ]} />
 
+  <!-- ═══ Консультация ═══ -->
+  <section id="consultation" class="b-consult section">
+    <div class="container">
+      <div class="b-consult__inner">
+        <div class="b-consult__intro">
+          <p class="sec-index" aria-hidden="true">07</p>
+          <h2>Планируете запуск производственной площадки?</h2>
+          <p>Поможем подобрать объект, привлечь финансирование и реализовать индустриальный проект под ключ</p>
+        </div>
+        <div class="b24-form-wrap">
+          <script is:inline data-b24-form="inline/34/0ph3wy" data-b24-form-telemetry-sign="v1:34:site.b62d3cf56414758a8a11ec9af534ac54810f3b8241a479ddb796adfd2f3d5e4c" data-b24-loader="https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_34.js" data-skip-moving="true"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══ Контакты ═══ -->
   <section id="contacts" class="b-contacts section section--tint">
-    <div class="container b-contacts__inner">
-      <div class="b-contacts__info">
-        <p class="sec-index" aria-hidden="true">07</p>
-        <h2>Свяжитесь с нами</h2>
-        <p style="max-width:58ch;color:var(--text-muted);margin:0">Выберите удобный способ — позвоните, напишите или приезжайте в наш офис.</p>
-        <dl class="b-contacts__list" style="margin-top:28px">
-          <dt>Адрес</dt><dd>Санкт-Петербург, ул. Савушкина, 125 к.6</dd>
-          <dt>Телефон</dt><dd><a href="tel:88003331010">8 800 333 10 10</a></dd>
-          <dt>Email</dt><dd><a href="mailto:info@mm-prom.ru">info@mm-prom.ru</a></dd>
-        </dl>
-        <div class="b-mess-row">
-          <a class="b-mess b-mess--label" href="https://t.me/mm_prom1" aria-label="Телеграм-канал ММ Пром"><svg viewBox="0 0 24 24" width="22" height="22" fill="#229ED9" aria-hidden="true"><path d="M9.04 15.51l-.38 5.35c.54 0 .78-.23 1.06-.51l2.55-2.44 5.28 3.87c.97.53 1.66.25 1.92-.9l3.48-16.3c.31-1.43-.52-1.99-1.46-1.64L1.1 9.76c-1.39.54-1.37 1.32-.24 1.67l5.3 1.65L18.35 5.1c.57-.38 1.09-.17.66.21L9.04 15.51z"/></svg><span>Телеграм</span></a>
-          <a class="b-mess b-mess--label" href="https://max.ru/channel_MM_PROM" aria-label="Канал ММ Пром в MAX"><img src="/assets/max-logo.svg" width="22" height="22" alt="" aria-hidden="true" loading="lazy"><span>Макс</span></a>
-          <a class="b-mess b-mess--label" href="https://www.avito.ru/brands/mmprom/all/nedvizhimost" aria-label="Авито — объявления ММ Пром"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="7.03" cy="7.03" r="3.79" fill="#00AAFF"/><circle cx="16.03" cy="7.03" r="3" fill="#FF6062"/><circle cx="6.95" cy="15.95" r="2.13" fill="#A069F7"/><circle cx="16.03" cy="16.03" r="4.74" fill="#96CF25"/></svg><span>Авито</span></a>
-          <a class="b-mess b-mess--label" href="https://www.cian.ru/company/62039710" aria-label="ЦИАН — объявления ММ Пром"><img src="/assets/cian-logo.png?v=1" width="22" height="22" alt="" aria-hidden="true" loading="lazy"><span>ЦИАН</span></a>
+    <div class="container">
+      <p class="sec-index" aria-hidden="true">08</p>
+      <h2>Свяжитесь с нами</h2>
+      <p style="max-width:58ch;color:var(--text-muted);margin:0">Выберите удобный способ — позвоните, напишите или приезжайте в наш офис.</p>
+      <div class="b-contacts__inner">
+        <div class="b-contacts__info">
+          <dl class="b-contacts__list">
+            <dt>Адрес</dt><dd>Санкт-Петербург, ул. Савушкина, 125 к.6</dd>
+            <dt>Телефон</dt><dd><a href="tel:88003331010">8 800 333 10 10</a></dd>
+            <dt>Email</dt><dd><a href="mailto:info@mm-prom.ru">info@mm-prom.ru</a></dd>
+          </dl>
+          <div class="b-mess-row">
+            <a class="b-mess b-mess--label" href="https://t.me/mm_prom1" aria-label="Телеграм-канал ММ Пром"><svg viewBox="0 0 24 24" width="22" height="22" fill="#229ED9" aria-hidden="true"><path d="M9.04 15.51l-.38 5.35c.54 0 .78-.23 1.06-.51l2.55-2.44 5.28 3.87c.97.53 1.66.25 1.92-.9l3.48-16.3c.31-1.43-.52-1.99-1.46-1.64L1.1 9.76c-1.39.54-1.37 1.32-.24 1.67l5.3 1.65L18.35 5.1c.57-.38 1.09-.17.66.21L9.04 15.51z"/></svg><span>Телеграм</span></a>
+            <a class="b-mess b-mess--label" href="https://max.ru/channel_MM_PROM" aria-label="Канал ММ Пром в MAX"><img src="/assets/max-logo.svg" width="22" height="22" alt="" aria-hidden="true" loading="lazy"><span>Макс</span></a>
+            <a class="b-mess b-mess--label" href="https://www.avito.ru/brands/mmprom/all/nedvizhimost" aria-label="Авито — объявления ММ Пром"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="7.03" cy="7.03" r="3.79" fill="#00AAFF"/><circle cx="16.03" cy="7.03" r="3" fill="#FF6062"/><circle cx="6.95" cy="15.95" r="2.13" fill="#A069F7"/><circle cx="16.03" cy="16.03" r="4.74" fill="#96CF25"/></svg><span>Авито</span></a>
+            <a class="b-mess b-mess--label" href="https://www.cian.ru/company/62039710" aria-label="ЦИАН — объявления ММ Пром"><img src="/assets/cian-logo.png?v=1" width="22" height="22" alt="" aria-hidden="true" loading="lazy"><span>ЦИАН</span></a>
+          </div>
         </div>
         <div class="b-map">
           <iframe src="https://yandex.ru/map-widget/v1/?ll=30.221877%2C59.989112&z=15&pt=30.221877,59.989112,pm2vvm" title="Карта: офис ММ Пром" loading="lazy" allowfullscreen></iframe>
         </div>
-      </div>
-      <div class="b24-form-wrap">
-        <script is:inline data-b24-form="inline/34/0ph3wy" data-b24-form-telemetry-sign="v1:34:site.b62d3cf56414758a8a11ec9af534ac54810f3b8241a479ddb796adfd2f3d5e4c" data-b24-loader="https://cdn-ru.bitrix24.ru/b34096010/crm/form/loader_34.js" data-skip-moving="true"></script>
       </div>
     </div>
   </section>
