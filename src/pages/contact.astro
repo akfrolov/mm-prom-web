@@ -32,57 +32,6 @@ import SiteButton from '../components/SiteButton.astro';
 
     /* Мобильное меню: аккордеон «Услуги» по ролям */
 
-    /* ── Герой (светлый, геометрический паттерн) ─────────────────────────── */
-    .b-hero{background:linear-gradient(180deg,#fff 0%,var(--surface) 100%);color:var(--text);position:relative;overflow:hidden}
-    .b-hero__glow{position:absolute;width:520px;height:520px;border-radius:50%;filter:blur(120px);opacity:.5;pointer-events:none}
-    .b-hero__glow--purple{background:var(--purple-soft);top:-160px;right:-80px}
-    .b-hero__glow--gold{background:rgba(235,184,30,.28);bottom:-200px;left:-100px}
-    .b-hero__glow--purple{animation:b-glow-pulse 9s ease-in-out infinite}
-    .b-hero__glow--gold{animation:b-glow-pulse 12s ease-in-out infinite reverse}
-    @keyframes b-glow-pulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.18);opacity:.75}}
-    .b-hero__particles{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
-    .b-hero__particles span{position:absolute;bottom:-24px;border-radius:2px;opacity:0;animation:b-rise linear infinite}
-    .b-hero__particles span:nth-child(1){left:8%;width:10px;height:10px;background:rgba(90,57,148,.35);animation-duration:14s;animation-delay:0s}
-    .b-hero__particles span:nth-child(2){left:22%;width:6px;height:6px;background:rgba(235,184,30,.4);animation-duration:18s;animation-delay:2s}
-    .b-hero__particles span:nth-child(3){left:38%;width:12px;height:12px;background:rgba(185,166,216,.4);animation-duration:16s;animation-delay:4s}
-    .b-hero__particles span:nth-child(4){left:55%;width:7px;height:7px;background:rgba(168,198,134,.4);animation-duration:20s;animation-delay:1s}
-    .b-hero__particles span:nth-child(5){left:72%;width:9px;height:9px;background:rgba(217,192,138,.4);animation-duration:15s;animation-delay:3s}
-    .b-hero__particles span:nth-child(6){left:88%;width:5px;height:5px;background:rgba(90,57,148,.3);animation-duration:22s;animation-delay:5s}
-    @keyframes b-rise{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.7}90%{opacity:.5}100%{transform:translateY(-110vh) rotate(180deg);opacity:0}}
-    @media (prefers-reduced-motion:reduce){
-      .b-hero__glow--purple,.b-hero__glow--gold,.b-hero__particles span{animation:none}
-      .b-hero__particles span{opacity:0}
-    }
-    .b-hero__inner{position:relative;z-index:2;display:grid;gap:40px;padding:clamp(40px,6vw,72px) 0}
-    .b-hero__eyebrow{display:inline-flex;align-items:center;gap:10px;margin:0 0 20px;font-size:var(--fs-small);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple)}
-    .b-hero__eyebrow::before{content:"";width:34px;height:3px;border-radius:2px;background:var(--gold)}
-    .b-hero h1{color:var(--navy);margin-bottom:.35em}
-    .b-hero h1 .accent{color:var(--purple)}
-    .b-hero__lead{color:var(--text-muted);max-width:56ch;font-size:1.08em}
-    .b-hero__actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:20px 0 28px}
-    .b-hero__metrics{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:22px 18px}
-    .b-hero__metrics li{border-top:3px solid var(--gold);padding-top:14px}
-    .b-hero__metrics strong{display:block;font-size:clamp(1.1rem,1rem + .6vw,1.5rem);color:var(--purple);font-weight:800;white-space:nowrap}
-    .b-hero__metrics span{display:block;color:var(--text-muted);font-size:var(--fs-small)}
-    .b-hero__media{min-width:0;position:relative}
-    .b-hero__media-frame{padding:3px;background:linear-gradient(135deg,var(--gold) 0%,var(--purple) 100%);position:relative;overflow:hidden;border-radius:0}
-    .b-hero__media-frame .img-placeholder{width:100%;aspect-ratio:16/9;border:0;border-radius:0;background:var(--surface);color:var(--text-muted)}
-    .b-hero__video{position:absolute;top:3px;left:3px;width:calc(100% - 6px);height:calc(100% - 6px);object-fit:cover;display:block}
-    .b-hero__sound{position:absolute;right:16px;bottom:16px;z-index:2;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.9);color:var(--navy);font:inherit;font-size:var(--fs-small);font-weight:600;cursor:pointer;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);box-shadow:0 4px 14px rgba(11,27,51,.1)}
-    .b-hero__sound:hover{background:#fff}
-    @media (min-width:768px){
-      .b-hero{min-height:calc(100vh - var(--header-h) - var(--marquee-h));display:flex;align-items:center}
-      @supports (min-height:100svh){.b-hero{min-height:calc(100svh - var(--header-h) - var(--marquee-h))}}
-      .b-hero__inner{flex:1 1 auto;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
-      .b-hero__metrics{grid-template-columns:repeat(2,1fr)}
-      .b-hero__media{max-width:calc(100vh - var(--header-h) - var(--marquee-h) - 48px)}
-    }
-    @media (min-width:1024px){
-      .b-hero__inner{gap:56px}
-      .b-hero__metrics{grid-template-columns:repeat(4,1fr)}
-      .b-hero__media-frame .img-placeholder{aspect-ratio:16/9}
-    }
-
     /* ── Заголовки секций ────────────────────────────────────────────────── */
     .sec-index{display:inline-flex;align-items:center;gap:10px;margin:0 0 16px;font-size:var(--fs-small);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)}
     .sec-index::before{content:"";width:30px;height:3px;border-radius:2px;background:var(--gold)}
@@ -361,7 +310,7 @@ import SiteButton from '../components/SiteButton.astro';
     .contacts-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:24px}
     .contacts-head__text{max-width:70ch}
     .contacts-head .sec-index{margin-bottom:14px}
-    .contacts-head h2{margin:0 0 8px}
+    .contacts-head h1,.contacts-head h2{margin:0 0 8px}
     .contacts-head__lead{margin:0;color:var(--text-muted);font-size:1.05rem;line-height:1.68}
     @media (max-width:639px){.contacts-head .btn{width:100%}}
 
@@ -399,10 +348,6 @@ import SiteButton from '../components/SiteButton.astro';
     @media (prefers-reduced-motion:reduce){
       html.js .reveal{opacity:1;transform:none;transition:none}
     }
-
-    .b-hero--service .b-hero__inner{grid-template-columns:minmax(0,1fr);gap:0}
-    .b-hero--service .b-hero__lead{max-width:70ch}
-    .b-hero--service .b-hero__metrics{margin-top:8px}
 
     .b-tasks__lead,.b-scope__lead,.b-approach__lead,.b-projects__lead{margin:12px 0 0;max-width:70ch;color:var(--text-muted)}
 
@@ -464,10 +409,6 @@ import SiteButton from '../components/SiteButton.astro';
     @media (min-width:1024px){.b-others__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
     /* ═══ Контакты ═══ */
-    .b-hero.contacts-hero{min-height:0}
-    .contacts-hero .b-hero__inner{grid-template-columns:minmax(0,1fr);padding-block:clamp(32px,4vw,48px)}
-    .contacts-hero .b-hero__lead{max-width:62ch}
-
     .contact-cards{display:grid;gap:16px;margin-top:8px;grid-template-columns:1fr}
     .contact-card{display:flex;flex-direction:column;gap:10px;padding:24px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
     .contact-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
@@ -507,25 +448,12 @@ import SiteButton from '../components/SiteButton.astro';
 
   <Breadcrumbs items={[{ href: "/", label: "Главная" }, { label: "Контакты" }]} />
 
-  <section id="hero" class="b-hero b-hero--service contacts-hero">
-    <div class="b-hero__glow b-hero__glow--purple"></div>
-    <div class="b-hero__glow b-hero__glow--gold"></div>
-    <div class="b-hero__particles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-    <div class="container b-hero__inner">
-      <div class="b-hero__content">
-        <p class="b-hero__eyebrow">ММ Пром · Санкт-Петербург</p>
-        <h1>Контакты</h1>
-        <p class="b-hero__lead">Офис в СПб, ул. Савушкина, 125 к.6 — телефон, почта и мессенджеры. Выберите удобный способ или оставьте заявку — перезвоним, уточним задачу и предложим решение.</p>
-      </div>
-    </div>
-  </section>
-
   <section id="contacts" class="section section--tint">
     <div class="container">
       <div class="contacts-head reveal">
         <div class="contacts-head__text">
-          <p class="sec-index" aria-hidden="true">02</p>
-          <h2>Как с нами связаться</h2>
+          <p class="sec-index" aria-hidden="true">01</p>
+          <h1>Как с нами связаться</h1>
           <p class="contacts-head__lead">Позвоните, напишите в мессенджер или оставьте заявку — ответим в рабочее время.</p>
         </div>
         <SiteButton variant="gold" b24="request">Оставить заявку</SiteButton>
@@ -573,7 +501,7 @@ import SiteButton from '../components/SiteButton.astro';
 
   <section id="office" class="section">
     <div class="container">
-      <p class="sec-index" aria-hidden="true">03</p>
+      <p class="sec-index" aria-hidden="true">02</p>
       <h2>Офис в Санкт-Петербурге</h2>
       <div class="office">
         <div class="office__info">
@@ -599,7 +527,7 @@ import SiteButton from '../components/SiteButton.astro';
     </div>
   </section>
 
-  <CtaBand variant="plain" id="cta" secIndex="04" heading="Удобнее, если мы позвоним?" lede="Оставьте номер — перезвоним в рабочее время, уточним задачу и подскажем, какие объекты подходят." buttons={[
+  <CtaBand variant="plain" id="cta" secIndex="03" heading="Удобнее, если мы позвоним?" lede="Оставьте номер — перезвоним в рабочее время, уточним задачу и подскажем, какие объекты подходят." buttons={[
           { variant: "purple", b24: "callback", label: "Заказать обратный звонок" }
         ]}>
   </CtaBand>
