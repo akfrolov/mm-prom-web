@@ -1172,6 +1172,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
   var el = document.getElementById('atlas-map-canvas');
   if (!el) return;
   var started = false;
+  var MAX_FIT_ZOOM = 15;
   var PINS = [{"coords": [59.846744, 30.441623], "title": "Атлас Гаражный", "sub": "Гаражный проезд, 1", "main": true}, {"coords": [59.8487, 30.4577], "title": "Метро «Обухово»", "sub": "15 минут пешком"}, {"coords": [59.845301, 30.457701], "title": "5 минут до КАД", "sub": ""}, {"coords": [59.843589, 30.435506], "title": "25 минут до центра", "sub": "Петербург"}];
   function labelLayout(pin){
     var cls = pin.main ? 'ymap-label ymap-label--main' : 'ymap-label';
@@ -1203,7 +1204,11 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
       });
       if (PINS.length > 1) {
         var bounds = ymaps.geoQuery(map.geoObjects).getBounds();
-        if (bounds) map.setBounds(bounds, { checkZoomRange: true, zoomMargin: 60 });
+        if (bounds) {
+          map.setBounds(bounds, { checkZoomRange: true, zoomMargin: 60 }).then(function(){
+            if (map.getZoom() > MAX_FIT_ZOOM) map.setZoom(MAX_FIT_ZOOM);
+          });
+        }
       }
     });
   }

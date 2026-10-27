@@ -175,7 +175,9 @@ __scale`, `mp-lightbox`, `ymap-label(-__dot/__body, --main)`, `b-map-sec*`,
   как у каталога/услуг, НЕ брендбук-ключ), лениво через
   `IntersectionObserver(rootMargin: 250px)`, `ymaps.ready`, метки через
   `ymaps.templateLayoutFactory` + `iconShape` Rectangle, `setBounds`
-  (checkZoomRange, zoomMargin 60); клик по метке не перехватывается —
+  (checkZoomRange, zoomMargin 60); для «Атласа» после автоподбора зум
+  ограничен 15 (вид не меняется при разном масштабе страницы); клик по метке
+  не перехватывается —
   открывается hint/balloon (сейчас попап-ссылок на объект нет и не требуется:
   зритель уже на странице объекта).
 - Мастер-план: функция `makeZoom(stage, img, scaleEl, minS, maxS)` — колесо мыши
