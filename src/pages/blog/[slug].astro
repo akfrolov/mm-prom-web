@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import SiteButton from '../../components/SiteButton.astro';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
-import { formatArticleDate, readingMinutes } from '../../lib/articles';
+import { articleCategoryLabel, formatArticleDate, readingMinutes } from '../../lib/articles';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles');
@@ -19,7 +19,8 @@ interface Props {
 
 const { article } = Astro.props;
 const { Content } = await render(article);
-const { title: articleTitle, lead, date, source, cover } = article.data;
+const { title: articleTitle, lead, date, category, source, cover } = article.data;
+const categoryLabel = articleCategoryLabel(category);
 const pageTitle = `${articleTitle} — публикации ММ Пром`;
 const minutes = readingMinutes(article.body);
 ---
@@ -34,6 +35,10 @@ const minutes = readingMinutes(article.body);
     /* ── Шапка статьи: h1, лид, мета (дата, время чтения) ──────────────── */
     .b-article-head{padding:clamp(16px,3vw,32px) 0 0}
     .article-head__inner{max-width:76ch}
+    .article-head__tags{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+    .tag{display:inline-flex;align-items:center;min-height:24px;padding:2px 10px;border-radius:999px;background:rgba(90,57,148,.08);color:var(--purple);font-size:var(--fs-small);font-weight:600}
+    .tag--cases{background:rgba(201,150,15,.14);color:var(--gold-deep)}
+    .tag--news{background:rgba(235,184,30,.18);color:var(--navy)}
     .article-head__inner h1{margin:0 0 12px}
     .article-lead{margin:0 0 20px;font-size:1.0625rem;color:var(--text-muted)}
     .article-meta{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding:16px 0;margin:0 0 24px;border-top:1px solid var(--border)}
@@ -57,6 +62,12 @@ const minutes = readingMinutes(article.body);
     .article-body h2{margin:1.6em 0 .5em;font-size:var(--fs-h3)}
     .article-body h2::after{content:"";display:block;width:48px;height:4px;border-radius:2px;background:var(--gold);margin-top:8px}
     .article-body strong{color:var(--navy)}
+
+    /* ── Иллюстрации в теле статьи ──────────────────────────────────────── */
+    .article-figure{margin:1.6em 0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+    .article-figure img{display:block;width:100%;height:auto}
+    .article-figure figcaption{padding:10px 16px;font-size:var(--fs-small);color:var(--text-muted)}
+    .article-figure--portrait{max-width:520px;margin-left:auto;margin-right:auto}
 
     /* ── Первоисточник (стиль article-note макета) ─────────────────────── */
     .article-note{display:flex;align-items:flex-start;gap:8px;margin:28px 0 0;padding:12px 16px;background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius);font-size:var(--fs-small);color:var(--text-muted)}
@@ -94,6 +105,9 @@ const minutes = readingMinutes(article.body);
     <section id="article-head" class="b-article-head">
       <div class="container">
         <div class="article-head__inner">
+          <div class="article-head__tags">
+            <span class:list={["tag", `tag--${category}`]}>{categoryLabel}</span>
+          </div>
           <h1>{articleTitle}</h1>
           <p class="article-lead">{lead}</p>
           <div class="article-meta">
@@ -114,10 +128,12 @@ const minutes = readingMinutes(article.body);
         <div class="article-body">
           <Content />
 
-          <p class="article-note">
-            <span class="material-symbols-outlined" aria-hidden="true">info</span>
-            <span>Подробнее: <a href={source.url} target="_blank" rel="noopener">{source.label}<span class="material-symbols-outlined" aria-hidden="true">open_in_new</span></a></span>
-          </p>
+          {source && (
+            <p class="article-note">
+              <span class="material-symbols-outlined" aria-hidden="true">info</span>
+              <span>Подробнее: <a href={source.url} target="_blank" rel="noopener">{source.label}<span class="material-symbols-outlined" aria-hidden="true">open_in_new</span></a></span>
+            </p>
+          )}
         </div>
       </div>
     </section>

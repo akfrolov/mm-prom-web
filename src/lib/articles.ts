@@ -2,6 +2,23 @@
 // Формат даты и формула времени чтения едины для списка и страницы статьи
 // (SPEC articles, §2.4 п. 4 и §2.5 п. 10).
 
+// Рубрики раздела «Публикации». id совпадает со значением поля category
+// в коллекции articles; порядок — как в макете docs/mockups/blog.html.
+export const ARTICLE_CATEGORIES = [
+  { id: 'all', label: 'Все материалы' },
+  { id: 'cases', label: 'Кейсы проектов' },
+  { id: 'analytics', label: 'Аналитика рынка' },
+  { id: 'guides', label: 'Гайды и инструкции' },
+  { id: 'news', label: 'Новости компании' },
+] as const;
+
+export type ArticleCategory = Exclude<(typeof ARTICLE_CATEGORIES)[number]['id'], 'all'>;
+
+/** id рубрики → подпись для карточки и страницы статьи. */
+export function articleCategoryLabel(id: ArticleCategory): string {
+  return ARTICLE_CATEGORIES.find((category) => category.id === id)?.label ?? id;
+}
+
 const MONTHS = [
   'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
   'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря',

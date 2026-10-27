@@ -58,17 +58,20 @@ const objects = defineCollection({
   }),
 });
 
-// Коллекция статей (CR-2026-002, п. 28): 4 md-файла src/content/articles/<slug>.md.
+// Коллекция статей (CR-2026-002, п. 28): md-файлы src/content/articles/<slug>.md.
 // id = имя файла = слаг маршрута /blog/<slug>/. Время чтения не хранится —
 // вычисляется на build по объёму тела (~200 слов/мин). Дата необязательна:
-// у материала без даты в интерфейсе не выводится.
+// у материала без даты в интерфейсе не выводится. Рубрика используется
+// фильтром на /blog/; source необязателен — у новостей компании нет
+// внешнего первоисточника.
 const articles = defineCollection({
   loader: glob({ base: './src/content/articles', pattern: '**/*.md' }),
   schema: z.object({
     title: z.string(),
     lead: z.string(),
     date: z.string().optional(),
-    source: z.object({ label: z.string(), url: z.string() }),
+    category: z.enum(['cases', 'analytics', 'guides', 'news']),
+    source: z.object({ label: z.string(), url: z.string() }).optional(),
     cover: z.string(),
   }),
 });

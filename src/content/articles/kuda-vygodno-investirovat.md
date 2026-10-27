@@ -1,6 +1,7 @@
 ---
 title: "Куда выгодно инвестировать в недвижимость: советы эксперта"
 lead: "Недвижимость остаётся надёжным инструментом для сохранения и приумножения капитала: она защищает от инфляции и даёт стабильный доход от аренды."
+category: guides
 source:
   label: "Rustempo.ru"
   url: "https://rustempo.ru/property/Nedvijimost-dlya-jizni-i-dohoda.php"
