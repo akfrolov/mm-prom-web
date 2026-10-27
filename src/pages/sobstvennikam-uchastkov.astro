@@ -547,9 +547,9 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     <div class="b-hero__particles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
     <div class="container b-hero__inner">
       <div class="b-hero__content">
-        <p class="b-hero__eyebrow">Роль · Собственникам участков</p>
+        <p class="b-hero__eyebrow">Собственникам участков</p>
         <h1>Собственникам земельных участков.</h1>
-        <p class="b-hero__lead">Оценка, застройка, девелопмент под ключ, консалтинг и финансирование — один партнёр, чтобы земля работала: приносила доход или была продана по справедливой цене.</p>
+        <p class="b-hero__lead">Оказываем весь комплекс услуг от аудита объекта до продажи или девелопмента на вашем участке.</p>
         <div class="b-hero__actions">
           <SiteButton variant="gold" b24="offer">Обсудить задачу</SiteButton>
           <SiteButton variant="outline" href="/katalog/">Смотреть объекты</SiteButton>
@@ -564,18 +564,15 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">02</p>
         <h2>Услуги для собственников земельных участков</h2>
-        <p class="b-sec-head__lead">Восемь сценариев работы с вашей землёй: от объективной оценки и выбора стратегии до строительства и ввода объекта в эксплуатацию.</p>
+        <p class="b-sec-head__lead">Шесть сценариев работы с вашей землёй: от объективной оценки и выбора стратегии до строительства и ввода объекта в эксплуатацию.</p>
       </div>
       <div class="svc-tiles">
-        <ServiceCard variant="tile" href="/brokerage/" icon="search" title="Подбор недвижимости" text="Оценим участок и подберём формат: продажа, застройка под ключ или совместный проект." index={0} />
-        <ServiceCard variant="tile" href="/arenda/" icon="check_circle" title="Аренда недвижимости" text="Сдача ваших площадей в аренду под управлением ММ Пром." index={1} />
-        <ServiceCard variant="tile" href="/prodazha/" icon="check_circle" title="Продажа недвижимости" text="Рынок меняется каждый месяц: объективная оценка на детальной аналитике и сценарии — продавать или развивать." index={2} />
-        <ServiceCard variant="tile" href="/trade-in/" icon="check_circle" title="Трейд-ин / Срочный выкуп" text="Быстрый выход из актива: выкуп участка со строениями или без." index={3} />
-        <ServiceCard variant="tile" href="/stroitelstvo/" icon="check_circle" title="Строительство" text="Что строить и с кем: градостроительный аудит, ВРИ и финмодель застройки — до принятия обязательств." index={4} />
-        <ServiceCard variant="tile" href="/development/" icon="check_circle" title="Девелопмент под ключ" text="Стройку полностью берём на себя: готовый арендный бизнес или цех точно в срок — без долгостроя." index={5} />
-        <ServiceCard variant="tile" href="/redevelopment/" icon="check_circle" title="Редевелопмент" text="Превращение площадей с историей в работающие объекты." index={6} />
-        <ServiceCard variant="tile" href="/consalting/" icon="check_circle" title="Промышленный консалтинг" text="Реальный потенциал земли и форматы с максимальной маржой — стратегия монетизации до сделки, без токсичных активов." index={7} />
-        <ServiceCard variant="tile" href="/investcomp/" icon="check_circle" title="Инвестиции и финансирование" text="Банки отказывают или ставки убивают проект: альтернативные пути и льготное финансирование по госпрограммам." index={8} />
+        <ServiceCard variant="tile" href="/prodazha/" icon="check_circle" title="Продажа недвижимости" text="Найдём покупателя и продадим ваш участок по рыночной цене." index={0} />
+        <ServiceCard variant="tile" href="/trade-in/" icon="check_circle" title="Трейд-ин / Срочный выкуп" text="Быстрый выход из актива: выкуп участка со строениями или без." index={1} />
+        <ServiceCard variant="tile" href="/stroitelstvo/" icon="check_circle" title="Строительство" text="Если вы приняли решение о строительстве промышленного объекта на участке, проведём градостроительный аудит, определим ВРИ, сделаем финмодель застройки, найдём надёжных подрядчиков, организуем строительный надзор." index={2} />
+        <ServiceCard variant="tile" href="/development/" icon="check_circle" title="Девелопмент под ключ" text="Построим под ключ готовый арендный бизнес или цех — точно в срок и в рамках согласованного бюджета." index={3} />
+        <ServiceCard variant="tile" href="/consalting/" icon="check_circle" title="Промышленный консалтинг" text="Оценим реальный потенциал земли и разработаем стратегию монетизации." index={4} />
+        <ServiceCard variant="tile" href="/investcomp/" icon="check_circle" title="Инвестиции и финансирование" text="Работа с банками и льготное финансирование по госпрограммам." index={5} />
       </div>
     </div>
   </section>
