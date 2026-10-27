@@ -6,7 +6,7 @@ date: "2026-09-18"
 source:
   label: "Анатомия бизнеса"
   url: "https://biz-anatomy.ru/biznes-idei/industrialnyy-beton-lvinaya-dolya-prirosta-nezhilyh-ploschadey-prihoditsya-na-promyshlennye-obekty"
-cover: "/assets/articles/razbor-trendov-promyshlennoj-nedvizhimosti.webp"
+cover: "../../assets/articles/razbor-trendov-promyshlennoj-nedvizhimosti.webp"
 ---
 
 В материале на портале biz-anatomy.ru операционный директор ГК «ММ ПРОМ» Евгений Мутовкин анализирует парадокс текущего рынка.

@@ -66,14 +66,15 @@ const objects = defineCollection({
 // внешнего первоисточника.
 const articles = defineCollection({
   loader: glob({ base: './src/content/articles', pattern: '**/*.md' }),
-  schema: z.object({
-    title: z.string(),
-    lead: z.string(),
-    date: z.string().optional(),
-    category: z.enum(['cases', 'analytics', 'guides', 'news']),
-    source: z.object({ label: z.string(), url: z.string() }).optional(),
-    cover: z.string(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      lead: z.string(),
+      date: z.string().optional(),
+      category: z.enum(['cases', 'analytics', 'guides', 'news']),
+      source: z.object({ label: z.string(), url: z.string() }).optional(),
+      cover: image(),
+    }),
 });
 
 export const collections = { objects, articles };

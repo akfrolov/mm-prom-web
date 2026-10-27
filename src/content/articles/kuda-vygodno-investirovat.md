@@ -5,7 +5,7 @@ category: guides
 source:
   label: "Rustempo.ru"
   url: "https://rustempo.ru/property/Nedvijimost-dlya-jizni-i-dohoda.php"
-cover: "/assets/articles/kuda-vygodno-investirovat.webp"
+cover: "../../assets/articles/kuda-vygodno-investirovat.webp"
 ---
 
 Недвижимость остаётся надёжным инструментом для сохранения и приумножения капитала: она защищает от инфляции и даёт стабильный доход от аренды.

@@ -17,8 +17,8 @@
 
 ## Область и границы фичи
 
-**Входит:** коллекция `articles` (4 файла `src/content/articles/*.md` + схема в
-`src/content.config.ts`); обложки статей в `public/assets/articles/`; страница
+**Входит:** коллекция `articles` (5 файлов `src/content/articles/*.md` + схема в
+`src/content.config.ts`); обложки статей в `src/assets/articles/` (astro:assets); страница
 списка `src/pages/blog.astro` (замена заглушки); шаблон статьи
 `src/pages/blog/[slug].astro`; снятие noindex раздела; появление раздела и
 статей в sitemap; OG-изображение/og:type для статей (минимальное расширение
@@ -145,7 +145,7 @@ as-is (фиксирует п. 24), URL Макса (реш. 7: `max.ru/channel_MM
 | `category` | `'cases' \| 'analytics' \| 'guides' \| 'news'` | Рубрика для табов `/blog/`; подписи — `ARTICLE_CATEGORIES` в `src/lib/articles.ts` |
 | `date` | string, optional | ISO-дата публикации; отсутствует → в интерфейсе не выводится (п. 28) |
 | `source` | `{ label: string, url: string }`, optional | Первоисточник: издание и абсолютная ссылка (гиперссылка из строки «Подробнее» заметки); у новостей компании отсутствует |
-| `cover` | string | Путь к обложке: `/assets/articles/<slug>.webp` |
+| `cover` | `image()` | Обложка из `src/assets/articles/<slug>.webp`: Astro Images API (`Image`, `getImage` для OG-JPEG) |
 
 Тело md-файла — текст заметки (§1.4) как есть, **кроме** frontmatter, строки
 «Подробнее …» (реализуется блоком первоисточника, §2.5) и служебной
@@ -154,19 +154,27 @@ md-разметки заголовка. Время чтения **не хран�
 
 ### 2.2 Обложки
 
-PNG из `docs/notes` копируются при реализации B1 в `public/assets/articles/`
-под именами слагов (исходники `docs/notes/` не меняются и в сайт не подключаются
-напрямую — `docs/` не отдаётся статикой):
+PNG из `docs/notes` копируются в `src/assets/articles/` под именами слагов
+(исходники `docs/notes/` не меняются и в сайт не подключаются напрямую —
+`docs/` не отдаётся статикой). Astro собирает из них адаптивные WebP-варианты
+через `astro:assets`, а для OG генерирует JPEG 1200×630 через `getImage()`:
 
 | Целевой файл | Из исходника (docs/notes) |
 |--------------|---------------------------|
-| `public/assets/articles/kuda-vygodno-investirovat.webp` | «Куда выгодно инвестировать в недвижимость.png» |
-| `public/assets/articles/promyshlennaya-ipoteka-probuksovyvaet.webp` | «Промышленная ипотека пробуксовывает.png» |
-| `public/assets/articles/razbor-trendov-promyshlennoj-nedvizhimosti.webp` | «Разбор трендов промышленной недвижимости.png» |
-| `public/assets/articles/stroitelnyj-rynok-pod-davleniem.webp` | «Строительный рынок под давлением.png» |
+| `src/assets/articles/kuda-vygodno-investirovat.webp` | «Куда выгодно инвестировать в недвижимость.png» |
+| `src/assets/articles/promyshlennaya-ipoteka-probuksovyvaet.webp` | «Промышленная ипотека пробуксовывает.png» |
+| `src/assets/articles/razbor-trendov-promyshlennoj-nedvizhimosti.webp` | «Разбор трендов промышленной недвижимости.png» |
+| `src/assets/articles/stroitelnyj-rynok-pod-davleniem.webp` | «Строительный рынок под давлением.png» |
+| `src/assets/articles/gk-mm-prom-na-forume-v-omske.webp` | «Новые фото/i (13).jpeg» (новость компании) |
 
-Подключение — с cache-busting `?v=1` (правило 6 AGENTS.md). Обложка
-используется: карточка списка, шапка статьи, `og:image` статьи.
+Подключение — через `astro:assets` (`<Image>` с `widths`/`sizes`); для
+`og:image` — `getImage()` в JPEG 1200×630. Обложка используется: карточка
+списка, шапка статьи, OG статьи.
+
+Иллюстрации в теле новости лежат в `public/assets/articles/` адаптивными
+вариантами (`<slug>-N-<width>.webp`): `public/` не проходит обработку
+`astro:assets`, поэтому ширины 480/640/960/1280 подготовлены заранее и
+подключены через `srcset`/`sizes` с cache-busting `?v=1`.
 
 ### 2.3 План блоков реализации
 
@@ -177,22 +185,22 @@ PNG из `docs/notes` копируются при реализации B1 в `pu
 
 ### 2.4 Блок B1 «Коллекция и список» (п. 28 + каналы п. 24)
 
-1. **Коллекция.** `src/content/articles/` — 4 md-файла (слаги §2.1) со схемой
+1. **Коллекция.** `src/content/articles/` — 5 md-файлов (слаги §2.1) со схемой
    §2.1 в `src/content.config.ts`; пост-чек плана требует литерал `articles` в
-   схеме. 4 обложки — в `public/assets/articles/` (§2.2).
+   схеме. Обложки — в `src/assets/articles/`, поле `cover` — `image()` (§2.2).
 2. **`/blog/` перезаписывается** (заглушка `#wip` и её CSS уходят): мета по
    макету — `title="Публикации — статьи и кейсы ММ Пром"`, description по lead
    макета («Экспертные статьи и кейсы об индустриальной недвижимости…»);
    проп `noindex` **удаляется** → на проде `robots: index, follow`.
 3. **Шапка списка** (по макету `#filters`): крошки «Главная → Публикации»
    (2 звена, as-is), h1 «Статьи и кейсы» с жёлтым подчёркиванием, lead макета.
-4. **Лента** (по макету `#feed`, сетка 1 → 2 (≥768) → 3 (≥1024)): 4 карточки
+4. **Лента** (по макету `#feed`, сетка 1 → 2 (≥768) → 3 (≥1024)): карточки
    `.post-card` — обложка (§2.2), заголовок-ссылка → `/blog/<slug>/`,
    excerpt = `lead`, мета: иконка `calendar_today` + дата (если есть;
    формат «14 июля 2026», без ведущего нуля) **и** иконка `schedule` +
    «N мин чтения» (§2.5). Материал без даты (`kuda-vygodno-investirovat`) —
-   без элемента даты. Порядок карточек — по дате убыв. (2026-09-18 → 2026-08-06 →
-   2026-07-14 → без даты последней).
+   без элемента даты. Порядок карточек — по дате убыв. (2026-10-27 → 2026-09-18 →
+   2026-08-06 → 2026-07-14 → без даты последней).
 5. **Рубрики-табы и поиск** (по макету `#filters`, добавлено 2026-10-27):
    табы «Все материалы», «Кейсы проектов», «Аналитика рынка», «Гайды и
    инструкции», «Новости компании» фильтруют карточки по `category`; поле
@@ -204,10 +212,10 @@ PNG из `docs/notes` копируются при реализации B1 в `pu
    рядом «Канал в MAX» → **`https://max.ru/channel_MM_PROM`** (п. 24 «в разделе
    публикаций Макс рядом с Телеграм» + реш. 7; битый URL из макета не
    переносится). Видимые тексты — «Телеграм» кириллицей.
-7. **Sitemap:** раздел и 4 статьи появляются в `dist/sitemap-*.xml`
+7. **Sitemap:** раздел и 5 статей появляются в `dist/sitemap-*.xml`
    автоматически (интеграция sitemap без фильтра); на проверке после B1 —
-   `/blog/` в sitemap присутствует (критерий CR «sitemap содержит … 4
-   `/blog/.../`» закрывается после B2).
+   `/blog/` в sitemap присутствует; все страницы статей попадают в sitemap
+   автоматически.
 8. **Страница статьи на шаге B1 не создаётся** (блок B2, §2.5).
 
 ### 2.5 Блок B2 «Страница статьи» (п. 28, макет `statya_ili_keys.html`)

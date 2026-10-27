@@ -2,7 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import SiteButton from '../components/SiteButton.astro';
+import type { ImageMetadata } from 'astro';
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import { ARTICLE_CATEGORIES, articleCategoryLabel, formatArticleDate, readingMinutes } from '../lib/articles';
 
 const articles = (await getCollection('articles'))
@@ -13,7 +15,7 @@ const articles = (await getCollection('articles'))
     date: entry.data.date,
     category: entry.data.category,
     categoryLabel: articleCategoryLabel(entry.data.category),
-    cover: entry.data.cover,
+    cover: entry.data.cover as ImageMetadata,
     minutes: readingMinutes(entry.body),
   }))
   // Порядок: по дате убыв., материал без даты — последним (§2.4 п. 4).
@@ -132,7 +134,12 @@ const articles = (await getCollection('articles'))
         {articles.map((article) => (
           <article class="post-card reveal" data-category={article.category}>
             <div class="post-card__media">
-              <img src={`${article.cover}?v=1`} alt={`Обложка: ${article.title}`} loading="lazy" decoding="async">
+              <Image
+                src={article.cover}
+                widths={[400, 640, 960]}
+                sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                alt={`Обложка: ${article.title}`}
+              />
             </div>
             <div class="post-card__body">
               <div class="post-card__tags">

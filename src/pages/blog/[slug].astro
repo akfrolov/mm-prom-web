@@ -2,7 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import SiteButton from '../../components/SiteButton.astro';
+import type { ImageMetadata } from 'astro';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
 import { articleCategoryLabel, formatArticleDate, readingMinutes } from '../../lib/articles';
 
 export async function getStaticPaths() {
@@ -19,13 +21,26 @@ interface Props {
 
 const { article } = Astro.props;
 const { Content } = await render(article);
-const { title: articleTitle, lead, date, category, source, cover } = article.data;
+const { title: articleTitle, lead, date, category, source } = article.data;
+const cover = article.data.cover as ImageMetadata;
 const categoryLabel = articleCategoryLabel(category);
 const pageTitle = `${articleTitle} — публикации ММ Пром`;
 const minutes = readingMinutes(article.body);
+
+// Astro Images API: обложка отдаётся адаптивными WebP-вариантами, а для OG
+// генерируется отдельный JPEG 1200×630 (соцсети не любят WebP/Avif).
+const coverWidths = [480, 640, 960, 1280].filter((width) => width <= cover.width);
+if (!coverWidths.length) coverWidths.push(cover.width);
+const ogCover = await getImage({
+  src: cover,
+  width: 1200,
+  height: 630,
+  fit: 'cover',
+  format: 'jpg',
+});
 ---
 
-<BaseLayout title={pageTitle} description={lead} ogType="article" ogImage={cover}>
+<BaseLayout title={pageTitle} description={lead} ogType="article" ogImage={ogCover.src}>
   <Fragment slot="head">
     <style is:inline>
     /* ═══ Страница статьи (/blog/<slug>/): шапка, обложка, тело,
@@ -63,7 +78,7 @@ const minutes = readingMinutes(article.body);
     .article-body h2::after{content:"";display:block;width:48px;height:4px;border-radius:2px;background:var(--gold);margin-top:8px}
     .article-body strong{color:var(--navy)}
 
-    /* ── Иллюстрации в теле статьи ──────────────────────────────────────── */
+    /* ── Иллюстрации в теле статьи (адаптивные варианты из public) ─────── */
     .article-figure{margin:1.6em 0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
     .article-figure img{display:block;width:100%;height:auto}
     .article-figure figcaption{padding:10px 16px;font-size:var(--fs-small);color:var(--text-muted)}
@@ -118,7 +133,14 @@ const minutes = readingMinutes(article.body);
           </div>
         </div>
         <figure class="article-cover">
-          <img src={`${cover}?v=1`} alt={`Обложка: ${articleTitle}`} decoding="async" fetchpriority="high">
+          <Image
+            src={cover}
+            widths={coverWidths}
+            sizes="(max-width: 1023px) 100vw, 1200px"
+            alt={`Обложка: ${articleTitle}`}
+            loading="eager"
+            fetchpriority="high"
+          />
         </figure>
       </div>
     </section>

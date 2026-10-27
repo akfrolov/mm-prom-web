@@ -6,7 +6,7 @@ date: "2026-07-14"
 source:
   label: "Российская газета"
   url: "https://rg.ru/2026/07/14/reg-szfo/v-kaliningradskoj-oblasti-hotiat-zapustit-promyshlennuiu-ipoteku-dlia-biznesa.html"
-cover: "/assets/articles/promyshlennaya-ipoteka-probuksovyvaet.webp"
+cover: "../../assets/articles/promyshlennaya-ipoteka-probuksovyvaet.webp"
 ---
 
 «Российская газета» обратилась к экспертам за ответом, среди которых присутствовала и директор по развитию группы компаний «ММ Пром» Мария Сиротникова.

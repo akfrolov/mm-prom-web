@@ -3,7 +3,7 @@ title: "ГК «ММ ПРОМ» на форуме в Омске"
 lead: "В Омске состоялся международный форум InRussia 2026, посвящённый развитию промышленности и промышленной инфраструктуры."
 category: news
 date: "2026-10-27"
-cover: "/assets/articles/gk-mm-prom-na-forume-v-omske.webp"
+cover: "../../assets/articles/gk-mm-prom-na-forume-v-omske.webp"
 ---
 
 В Омске состоялся международный форум InRussia 2026, посвящённый развитию промышленности и промышленной инфраструктуры.
@@ -11,7 +11,12 @@ cover: "/assets/articles/gk-mm-prom-na-forume-v-omske.webp"
 Группа компаний «ММ ПРОМ» приняла активное участие в деловой программе, где одним из ключевых стал вопрос интеграции проектирования и строительства: как связать чертежи с реальным монтажом и эксплуатацией объекта.
 
 <figure class="article-figure article-figure--portrait">
-  <img src="/assets/articles/gk-mm-prom-na-forume-v-omske-3.webp?v=1" alt="На площадке форума InRussia 2026" loading="lazy" decoding="async">
+  <img
+    src="/assets/articles/gk-mm-prom-na-forume-v-omske-3-640.webp?v=1"
+    srcset="/assets/articles/gk-mm-prom-na-forume-v-omske-3-480.webp?v=1 480w, /assets/articles/gk-mm-prom-na-forume-v-omske-3-640.webp?v=1 640w, /assets/articles/gk-mm-prom-na-forume-v-omske-3-960.webp?v=1 960w"
+    sizes="(max-width: 640px) 100vw, 520px"
+    width="960" height="1280"
+    alt="На площадке форума InRussia 2026" loading="lazy" decoding="async">
   <figcaption>На площадке форума InRussia 2026</figcaption>
 </figure>
 
@@ -22,7 +27,12 @@ cover: "/assets/articles/gk-mm-prom-na-forume-v-omske.webp"
 Параллельно управляющий партнёр Евгений Мутовкин провёл серию встреч для установления новых деловых контактов и развития профессиональных связей.
 
 <figure class="article-figure">
-  <img src="/assets/articles/gk-mm-prom-na-forume-v-omske-2.webp?v=1" alt="Деловая программа форума InRussia 2026" loading="lazy" decoding="async">
+  <img
+    src="/assets/articles/gk-mm-prom-na-forume-v-omske-2-960.webp?v=1"
+    srcset="/assets/articles/gk-mm-prom-na-forume-v-omske-2-640.webp?v=1 640w, /assets/articles/gk-mm-prom-na-forume-v-omske-2-960.webp?v=1 960w, /assets/articles/gk-mm-prom-na-forume-v-omske-2-1280.webp?v=1 1280w"
+    sizes="(max-width: 900px) 100vw, 760px"
+    width="1280" height="853"
+    alt="Деловая программа форума InRussia 2026" loading="lazy" decoding="async">
   <figcaption>Деловая программа форума InRussia 2026</figcaption>
 </figure>
 
