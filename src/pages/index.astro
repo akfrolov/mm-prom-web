@@ -224,24 +224,26 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
     .b-consult .b24-form-wrap{min-width:0}
     @media (min-width:1024px){
       .b-consult__inner{grid-template-columns:1fr 1fr;gap:56px}
+      .b-consult__intro{position:sticky;top:96px;align-self:start}
     }
 
     /* ── Контакты ────────────────────────────────────────────────────────── */
-    .b-contacts__inner{display:grid;gap:32px;margin-top:36px}
+    .b-contacts__inner{display:grid;gap:32px}
+    .b-contacts__lead{margin:0 0 28px;max-width:58ch;color:var(--text-muted)}
     .b-contacts__list{margin:0 0 24px;display:grid;grid-template-columns:auto 1fr;gap:10px 18px}
     .b-contacts__list dt{color:var(--text-muted);font-size:var(--fs-small)}
     .b-contacts__list dd{margin:0;font-weight:600}
     .b-contacts__list dd a{color:inherit;text-decoration:none}
     .b-contacts__list dd a:hover{color:var(--purple)}
     .b-contacts .img-placeholder{min-height:260px}
-    @media (min-width:1024px){.b-contacts__inner{grid-template-columns:1fr 1fr;align-items:start}}
+    @media (min-width:1024px){.b-contacts__inner{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:stretch}}
 
     /* Форма Битрикс24 — полностью видна */
     .b24-form-wrap{max-height:none;overflow:visible}
 
     /* ── Карта с жёлтой меткой офиса ─────────────────────────────────────── */
-    .b-map{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);min-height:280px}
-    .b-map iframe{width:100%;height:100%;border:0;display:block;min-height:280px}
+    .b-map{position:relative;display:flex;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);min-height:280px}
+    .b-map iframe{flex:1 1 auto;width:100%;height:100%;border:0;display:block;min-height:280px}
 
     /* ── Иконки мессенджеров ─────────────────────────────────────────────── */
     .b-mess{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:var(--purple-soft);transition:background .2s ease,transform .2s ease}
@@ -607,11 +609,11 @@ const ribbonLand = ['land-volosovo', 'land-koltushi', 'land-tervolovo'].map((id)
   <!-- ═══ Контакты ═══ -->
   <section id="contacts" class="b-contacts section section--tint">
     <div class="container">
-      <p class="sec-index" aria-hidden="true">08</p>
-      <h2>Свяжитесь с нами</h2>
-      <p style="max-width:58ch;color:var(--text-muted);margin:0">Выберите удобный способ — позвоните, напишите или приезжайте в наш офис.</p>
       <div class="b-contacts__inner">
         <div class="b-contacts__info">
+          <p class="sec-index" aria-hidden="true">08</p>
+          <h2>Свяжитесь с нами</h2>
+          <p class="b-contacts__lead">Выберите удобный способ — позвоните, напишите или приезжайте в наш офис.</p>
           <dl class="b-contacts__list">
             <dt>Адрес</dt><dd>Санкт-Петербург, ул. Савушкина, 125 к.6</dd>
             <dt>Телефон</dt><dd><a href="tel:88003331010">8 800 333 10 10</a></dd>
