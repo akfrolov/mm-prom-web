@@ -4,19 +4,19 @@
    ═══════════════════════════════════════════════════════════════════ */
 :root{--ease-out:cubic-bezier(.22,.61,.36,1);--ease-soft:cubic-bezier(.4,0,.2,1)}
 
-/* Появление страницы */
-@keyframes pageIn{from{opacity:0}to{opacity:1}}
+/* Появление страницы: старт .1, а не 0 — opacity:0 задерживает LCP-кандидатов */
+@keyframes pageIn{from{opacity:.1}to{opacity:1}}
 body{animation:pageIn .45s var(--ease-out) both}
 
 /* Каскад в первом экране */
-@keyframes heroUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes heroUp{from{opacity:.1;transform:translateY(20px)}to{opacity:1;transform:none}}
 .b-hero__content > *{animation:heroUp .5s var(--ease-out) both}
-.b-hero__content > *:nth-child(1){animation-delay:.04s}
-.b-hero__content > *:nth-child(2){animation-delay:.075s}
-.b-hero__content > *:nth-child(3){animation-delay:.11s}
-.b-hero__content > *:nth-child(4){animation-delay:.145s}
-.b-hero__content > *:nth-child(5){animation-delay:.18s}
-.b-hero__content > *:nth-child(6){animation-delay:.18s}
+.b-hero__content > *:nth-child(1){animation-delay:.02s}
+.b-hero__content > *:nth-child(2){animation-delay:.04s}
+.b-hero__content > *:nth-child(3){animation-delay:.06s}
+.b-hero__content > *:nth-child(4){animation-delay:.08s}
+.b-hero__content > *:nth-child(5){animation-delay:.1s}
+.b-hero__content > *:nth-child(6){animation-delay:.1s}
 
 /* Шапка при скролле */
 .site-header{transition:box-shadow .35s var(--ease-soft),background-color .35s var(--ease-soft)}
@@ -51,5 +51,6 @@ details[open] .faq__a{animation:faqIn .35s var(--ease-out) both}
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
   body{animation:none}
+  .b-hero__content > *{animation:none}
   .map-fade{opacity:1;transform:none}
 }

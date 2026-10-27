@@ -2,13 +2,15 @@
 (function () {
   'use strict';
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var wideViewport = window.innerWidth > 768;
   document.documentElement.classList.add('js');
 
   /* ── Шапка при скролле ─────────────────────────────────────────── */
   var header = document.querySelector('.site-header');
   if (header) {
     var onScroll = function () {
-      header.classList.toggle('is-scrolled', window.scrollY > 8);
+      var scrolled = window.scrollY > 8;
+      if (header.classList.contains('is-scrolled') !== scrolled) header.classList.toggle('is-scrolled', scrolled);
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -89,6 +91,7 @@
   var COUNTERS = '.b-hero__metrics strong, .b-hero__metrics li > span:last-child, .cat-head__stats strong, .about-stat strong';
   var counters = [];
   Array.prototype.forEach.call(document.querySelectorAll(COUNTERS), function (el) {
+    if (el.getBoundingClientRect().top < vh * 0.95) return; // на первом экране — текст из HTML, без перерисовки LCP
     var text = (el.textContent || '').trim();
     var m = text.match(/^(\d[\d\s\u00a0]*)(.*)$/);
     if (!m) return;
@@ -129,7 +132,7 @@
 
   /* ── Лёгкий параллакс декоративных пятен ───────────────────────── */
   var glows = Array.prototype.slice.call(document.querySelectorAll('.b-hero__glow'));
-  if (glows.length && !reduce && window.innerWidth > 768) {
+  if (glows.length && !reduce && wideViewport) {
     var ticking = false;
     var move = function () {
       var y = window.scrollY;

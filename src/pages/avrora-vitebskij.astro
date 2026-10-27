@@ -668,7 +668,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         <ul class="b-hero__metrics"><li><strong>38 га</strong><span>территория парка</span></li><li><strong>200 000+ м²</strong><span>возможная застройка</span></li><li><strong>1–25 МВт</strong><span>энергетические мощности</span></li><li><strong>10 минут</strong><span>до метро «Купчино»</span></li></ul>
       </div>
       <figure class="obj-hero__media">
-        <Image src={ImgHero} widths={[640, 960, 1190]} sizes="(max-width: 1023px) 100vw, 640px" alt="Аврора Витебский — индустриальный парк на Витебском проспекте" loading="eager" fetchpriority="high" />
+        <Image src={ImgHero} widths={[640, 800, 960, 1190]} sizes="(max-width: 1023px) 100vw, 640px" alt="Аврора Витебский — индустриальный парк на Витебском проспекте" loading="eager" fetchpriority="high" />
       </figure>
     </div>
   </section>
@@ -1011,7 +1011,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
       <button class="mp__btn mp__btn--reset" type="button" data-mp-lb-reset>Сброс</button>
     </div>
     <div class="mp-lightbox__stage" data-mp-lb-stage>
-      <img class="mp-lightbox__img" src="/assets/objects/avrora-vitebsky/plan-zemelnyh-uchastkov.webp?v=1" alt="План земельных участков индустриального парка Аврора Витебский" data-mp-lb-img>
+      <img class="mp-lightbox__img" data-src="/assets/objects/avrora-vitebsky/plan-zemelnyh-uchastkov.webp?v=1" alt="План земельных участков индустриального парка Аврора Витебский" data-mp-lb-img>
     </div>
   </div>
 </div>
@@ -1240,6 +1240,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
     var lbScale = lb.querySelector('[data-mp-lb-scale]');
     var lz = makeZoom(lbStage, lbImg, lbScale, 0.5, 8);
     function open(){
+      if (!lbImg.getAttribute('src')) lbImg.src = lbImg.getAttribute('data-src');
       lb.classList.add('is-open'); lb.setAttribute('aria-hidden','false');
       document.body.style.overflow = 'hidden'; lz.reset();
     }
@@ -1257,6 +1258,6 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 })();
     </script>
 
-    <script is:inline src="/assets/site-anim.js?v=4" defer></script>
+    <script is:inline src="/assets/site-anim.js?v=5" defer></script>
   </Fragment>
 </BaseLayout>

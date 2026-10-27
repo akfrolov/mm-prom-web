@@ -37,9 +37,13 @@ const metrika = `<script>
     (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
     ym(109764749, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
   }
-  if (document.readyState === "complete") setTimeout(init, 0);
-  else window.addEventListener("load", init, { once: true });
-  setTimeout(init, 3000);
+  var events = ["pointerdown", "keydown", "wheel", "touchstart", "scroll"];
+  function onIntent() {
+    events.forEach(function (e) { window.removeEventListener(e, onIntent); });
+    init();
+  }
+  events.forEach(function (e) { window.addEventListener(e, onIntent, { once: true, passive: true }); });
+  setTimeout(init, 15000);
 })();
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/109764749" style="position:absolute; left:-9999px;" alt="" /></div></noscript>`;
