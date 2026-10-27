@@ -426,7 +426,11 @@ const jsonLd = {
         var visible = !('IntersectionObserver' in window);
         var started = false;
         function start() {
-          if (!visible || started || !window.mmEnsureYmaps) return;
+          if (!visible || started) return;
+          if (!window.mmEnsureYmaps) {
+            document.addEventListener('DOMContentLoaded', start, { once: true });
+            return;
+          }
           started = true;
           window.mmEnsureYmaps(function () {
             var center = [coords[0], coords[1]];
