@@ -1,13 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import RoleCard from '../components/RoleCard.astro';
 import CtaBand from '../components/CtaBand.astro';
+import FaqSection from '../components/FaqSection.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import SiteButton from '../components/SiteButton.astro';
 import { Image } from 'astro:assets';
 import ImgHero from '../assets/images/inner-optimized.webp';
 ---
-<BaseLayout title="Промышленный консалтинг — ММ Пром" description="Промышленный консалтинг ММ Пром: помогаем собственникам и инвесторам принять взвешенное решение о развитии активов. Оцениваем градостроительный потенциал земли, виды разрешённого использования (ВРИ) и финансовую эффективность сценариев застройки перед покупкой, продажей, сдачей в аренду или стартом стройки.">
+<BaseLayout title="Консалтинг по промышленной недвижимости — ММ Пром" description="Консалтинг по промышленной недвижимости ММ Пром: аудит объектов, техническое задание, финансовая модель и дорожная карта проекта.">
   <Fragment slot="head">
     <style is:inline>
     /* ═══════════════════════════════════════════════════════════════════════
@@ -415,6 +415,13 @@ import ImgHero from '../assets/images/inner-optimized.webp';
     @media (min-width:768px){.b-projects__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media (min-width:1024px){.b-projects__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
+    .b-subhead{margin:40px 0 18px;font-size:var(--fs-h3);line-height:1.3}
+    .b-subhead:first-of-type{margin-top:0}
+    .b-results{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+    .b-results li{position:relative;padding-left:30px;font-weight:500;line-height:1.55}
+    .b-results li::before{content:"";position:absolute;left:0;top:.45em;width:14px;height:14px;background:var(--gold);transform:rotate(45deg)}
+    @media (min-width:768px){.b-results{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px}}
+
     .b-scope__grid{display:grid;gap:16px;margin-top:32px;grid-template-columns:1fr}
     .scope-card{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
     .scope-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
@@ -423,6 +430,7 @@ import ImgHero from '../assets/images/inner-optimized.webp';
     .scope-card p{margin:0;font-weight:500;font-size:1rem}
     @media (min-width:768px){.b-scope__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}}
     @media (min-width:1024px){.b-scope__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media (min-width:1024px){.b-scope__grid--two{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
     .b-approach__grid{display:grid;gap:16px;margin-top:32px;grid-template-columns:1fr}
     .approach-card{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:26px;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
@@ -533,7 +541,7 @@ import ImgHero from '../assets/images/inner-optimized.webp';
 
 <main>
 
-  <Breadcrumbs items={[{ href: "/", label: "Главная" }, { href: "/uslugi/", label: "Услуги" }, { label: "Промышленный консалтинг" }]} />
+  <Breadcrumbs items={[{ href: "/", label: "Главная" }, { href: "/uslugi/", label: "Услуги" }, { label: "Консалтинг по промышленной недвижимости" }]} />
 
   <section id="hero" class="b-hero b-hero--service consalting-hero">
     <div class="b-hero__glow b-hero__glow--purple"></div>
@@ -541,14 +549,12 @@ import ImgHero from '../assets/images/inner-optimized.webp';
     <div class="b-hero__particles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
     <div class="container b-hero__inner">
       <div class="b-hero__content">
-        <p class="b-hero__eyebrow">Услуга · Промышленный консалтинг</p>
-        <h1>Промышленный <span class="accent">консалтинг</span></h1>
-        <p class="b-hero__lead">Промышленный консалтинг и аналитика территорий: помогаем собственникам и инвесторам принять взвешенное решение о развитии активов. Оцениваем градостроительный потенциал земли, виды разрешённого использования (ВРИ) и финансовую эффективность различных сценариев застройки — перед покупкой, продажей, сдачей в аренду или стартом стройки.</p>
+        <p class="b-hero__eyebrow">Услуга · Консалтинг</p>
+        <h1>Консалтинг по промышленной <span class="accent">недвижимости</span></h1>
+        <p class="b-hero__lead">Не знаете, с чего начать проект — превращаем задачу в понятный и безопасный план: аудит, техническое задание, финансовая модель и дорожная карта.</p>
         <div class="b-hero__actions">
           <SiteButton variant="gold" b24="offer">Обсудить проект</SiteButton>
-          <SiteButton variant="outline" href="/katalog/">Смотреть объекты</SiteButton>
         </div>
-        <ul class="b-hero__metrics"><li><span class="material-symbols-outlined" aria-hidden="true">verified</span><span>с 2011 года</span></li><li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>200 000+ м²</span></li><li><span class="material-symbols-outlined" aria-hidden="true">apartment</span><span>25+ проектов</span></li><li><span class="material-symbols-outlined" aria-hidden="true">groups</span><span>150+ арендаторов</span></li></ul>
       </div>
       <div class="b-hero__media">
         <div class="b-hero__media-frame">
@@ -561,79 +567,46 @@ import ImgHero from '../assets/images/inner-optimized.webp';
     </div>
   </section>
 
-  <section id="roli" class="b-tasks section section--tint">
-    <div class="container">
-      <div class="b-sec-head reveal">
-        <p class="sec-index" aria-hidden="true">02</p>
-        <h2>Под разные задачи — разный консалтинг</h2>
-        <p class="b-sec-head__lead">Для каждой роли — свой фокус: одному нужна себестоимость, другому доходность, третьему потенциал участка.</p>
-      </div>
-      <div class="b-tasks__grid">
-        <RoleCard icon="factory" title="Производствам" index={0} items={["Неэффективные зоны и избыточные затраты: высокая себестоимость площадей, логистики, ресурсного обеспечения", "Анализируем использование помещений, находим точки снижения себестоимости", "Конкретные решения: переформатирование производства, редевелопмент площадей, своё здание или локация у сырьевой базы", "Покажем, где теряются деньги и как это исправить"]} />
-        <RoleCard icon="apartment" title="Собственникам зданий" index={1} items={["Доходность объекта ниже возможной, скрытые точки роста не видны", "В структуре затрат есть неэффективные статьи", "Анализ доходов и расходов, оптимизация эксплуатационных расходов — как правило, минимум на 15 % без потери качества", "Варианты роста доходности: загрузка площадей, энергоэффективность"]} />
-        <RoleCard icon="terrain" title="Собственникам участков" index={2} items={["Как понять реальный потенциал земли?", "Какие форматы бизнеса дадут максимальную маржу именно на этом участке?", "Риск купить токсичный актив с юридическими обременениями", "Оценим потенциал и форматы, выберем стратегию монетизации ещё до сделки"]} />
-      </div>
-    </div>
-  </section>
-
   <section id="sostav" class="b-scope section section--tint">
     <div class="container">
       <div class="b-sec-head reveal">
-        <p class="sec-index" aria-hidden="true">03</p>
-        <h2>Что входит в консалтинг</h2>
-        <p class="b-sec-head__lead">Не знаете, с чего начать проект, как сформулировать техническое задание и избежать ошибок в расчётах? Сомневаетесь, какое решение выбрать — покупку, аренду или строительство объекта?</p>
+        <p class="sec-index" aria-hidden="true">02</p>
+        <h2>Услуги</h2>
+        <p class="b-sec-head__lead">Не знаете, с чего начать проект — превращаем задачу в понятный и безопасный план.</p>
       </div>
-      <div class="b-scope__grid">
+      <h3 class="b-subhead reveal">В результате вы получаете</h3>
+      <ul class="b-results reveal">
+        <li>Решение или стратегию по вашему объекту</li>
+        <li>Увеличение эффективности объекта</li>
+        <li>Прозрачный бюджет и сроки реализации</li>
+        <li>Готовое техническое задание для проектировщиков и подрядчиков</li>
+        <li>Экономию времени и денег за счёт отсутствия ошибок</li>
+        <li>Оптимизацию затрат на ФОТ посредством экспертизы команды ММ Пром</li>
+      </ul>
+      <h3 class="b-subhead reveal">Что входит в консалтинг</h3>
+      <p class="b-sec-head__lead reveal" style="margin-bottom:32px">Как сформулировать техническое задание и избежать ошибок в расчётах? Сомневаетесь, какое решение выбрать — покупку, аренду или строительство объекта? Мы понимаем ключевые риски и неопределённости на старте проекта и помогаем системно их устранить, превращая разрозненные задачи в понятный план действий.</p>
+      <div class="b-scope__grid b-scope__grid--two">
         <div class="scope-card reveal" style="--i:1">
           <span class="scope-card__num" aria-hidden="true">01</span>
           <p>Аудит текущих объектов и бизнес-анализ потребностей</p>
         </div>        <div class="scope-card reveal" style="--i:2">
           <span class="scope-card__num" aria-hidden="true">02</span>
-          <p>Анализ градостроительного потенциала земли и видов разрешённого использования (ВРИ)</p>
+          <p>Подготовка технического задания для повышения эффективности объекта</p>
         </div>        <div class="scope-card reveal" style="--i:3">
           <span class="scope-card__num" aria-hidden="true">03</span>
           <p>Финансовая модель с прогнозом инвестиций и доходности</p>
         </div>        <div class="scope-card reveal" style="--i:4">
           <span class="scope-card__num" aria-hidden="true">04</span>
-          <p>Оценка финансовой эффективности сценариев: покупка, продажа, аренда или стройка</p>
-        </div>        <div class="scope-card reveal" style="--i:5">
-          <span class="scope-card__num" aria-hidden="true">05</span>
-          <p>Подготовка технического задания для повышения эффективности объекта</p>
-        </div>        <div class="scope-card reveal" style="--i:6">
-          <span class="scope-card__num" aria-hidden="true">06</span>
           <p>Дорожная карта проекта с поэтапным запуском</p>
         </div>
       </div>
-
     </div>
   </section>
 
-  <section id="podhod" class="b-approach section">
+  <section id="etapy" class="b-steps-sec section">
     <div class="container">
       <div class="b-sec-head reveal">
-        <p class="sec-index" aria-hidden="true">04</p>
-        <h2>Наш подход</h2>
-        <p class="b-sec-head__lead">Мы понимаем ключевые риски и неопределённости на старте проекта и помогаем системно их устранить, превращая разрозненные задачи в понятный план действий.</p>
-      </div>
-      <div class="b-approach__grid">
-        <article class="approach-card reveal" style="--i:0">
-          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">insights</span></span>
-          <h3>В результате вы получаете</h3>
-          <ul><li>Решение или стратегию по вашему объекту</li><li>Увеличение эффективности объекта</li><li>Прозрачный бюджет и сроки реализации</li><li>Экономию времени и денег за счёт отсутствия ошибок</li><li>Оптимизацию затрат на ФОТ посредством экспертизы команды ММ Пром</li></ul>
-        </article>
-        <article class="approach-card reveal" style="--i:1">
-          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">task_alt</span></span>
-          <h3>Рабочие документы проекта</h3>
-          <ul><li>Готовое техническое задание для проектировщиков и подрядчиков</li><li>Финансовую модель с прогнозом инвестиций и доходности</li><li>Дорожную карту проекта с поэтапным запуском</li></ul>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="etapy" class="b-steps-sec section section--tint">
-    <div class="container">
-      <div class="b-sec-head reveal">
-        <p class="sec-index" aria-hidden="true">05</p>
+        <p class="sec-index" aria-hidden="true">03</p>
         <h2>Как мы работаем</h2>
 
       </div>
@@ -661,15 +634,20 @@ import ImgHero from '../assets/images/inner-optimized.webp';
     </div>
   </section>
 
-  <CtaBand variant="grad" id="cta" secIndex="06" heading="Не знаете, с чего начать проект?" lede="Оставьте заявку — превратим задачу в понятный и безопасный план: решение по объекту, прозрачный бюджет и сроки реализации." buttons={[
-          { variant: "gold", b24: "request", label: "Оставить заявку" },
-          { variant: "ghost-light", href: "/katalog/", label: "Смотреть объекты" }
+  <FaqSection variant="simple" id="faq" secIndex="04" title="Частые вопросы" lead="" items={[
+      { q: "Можно ли посмотреть ваши реальные кейсы?", a: "Да, мы открыты и готовы провести вам экскурсии по реализованным объектам и объектам, находящимся на разных стадиях реализации." },
+      { q: "Можно ли получить финансирование после консалтинга?", a: "Да, у нас есть собственные финансовые инструменты." },
+      { q: "Что, если проект слишком сложный?", a: "Мы раскладываем задачу на детали и собираем план в новой упаковке." }
+    ]} />
+
+  <CtaBand variant="grad" id="cta" secIndex="05" heading="Хотите чёткий план для своего промышленного проекта?" lede="Оставьте заявку, и мы вместе создадим техническое задание, финмодель и дорожную карту." buttons={[
+          { variant: "gold", b24: "request", label: "Получить консультацию" }
         ]} />
 
   <section id="uslugi" class="b-others section">
     <div class="container">
       <div class="b-sec-head reveal">
-        <p class="sec-index" aria-hidden="true">07</p>
+        <p class="sec-index" aria-hidden="true">06</p>
         <h2>Другие услуги</h2>
 
       </div>

@@ -14,6 +14,7 @@
 | Версия | Дата | Что изменилось |
 |--------|------|----------------|
 | v0 (baseline) | 2026-10-23 | Инвентаризация 14 страниц (10 услуг + 4 роли): секция карты, медиа, консалтинг; зафиксированы блоки B1/B2 |
+| v1 | 2026-10-27 | Контент `/consalting/` приведён к старой WP-странице `new.mm-prom.ru/consalting/`: hero без метрик, «Услуги» (результаты + 4 пункта), этапы, FAQ ×3; блоки «роли» и «наш подход» удалены, title/meta обновлены |
 
 ## Область и границы фичи
 
@@ -39,7 +40,7 @@
 
 | Группа | Страницы (маршрут) | Каркас секций |
 |--------|--------------------|----------------|
-| Услуги (10) | `arenda` (`/arenda/`), `prodazha` (`/prodazha/`), `trade-in` (`/trade-in/`), `investcomp` (`/investcomp/`), `brokerage` (`/brokerage/`), `stroitelstvo` (`/stroitelstvo/`), `development` (`/development/`), `redevelopment` (`/redevelopment/`), `upravlenie` (`/upravlenie/`), `consalting` (`/consalting/`) | крошки → hero (`b-hero--service`) → `#roli` (role-card) → [только stroitelstvo/development/redevelopment: `#proekty` (proj-card)] → `#sostav` (scope-card) → `#podhod` (approach-card) → `#etapy` (b-flow2, 5 шагов) → `#map` → `#cta` (grad) → `#uslugi` (b-others, 9 карточек) |
+| Услуги (10) | `arenda` (`/arenda/`), `prodazha` (`/prodazha/`), `trade-in` (`/trade-in/`), `investcomp` (`/investcomp/`), `brokerage` (`/brokerage/`), `stroitelstvo` (`/stroitelstvo/`), `development` (`/development/`), `redevelopment` (`/redevelopment/`), `upravlenie` (`/upravlenie/`), `consalting` (`/consalting/`) | крошки → hero (`b-hero--service`) → `#roli` (role-card) → [только stroitelstvo/development/redevelopment: `#proekty` (proj-card)] → `#sostav` (scope-card) → `#podhod` (approach-card) → `#etapy` (b-flow2, 5 шагов) → `#map` → `#cta` (grad) → `#uslugi` (b-others, 9 карточек). Исключение — `consalting`: без `#roli`/`#podhod`/`#map`, с `#faq` ×3 (см. §1.4) |
 | Роли (4) | `investoram` (`/investoram/`), `proizvodstvam` (`/proizvodstvam/`), `sobstvennikam-uchastkov` (`/sobstvennikam-uchastkov/`), `sobstvennikam-zdaniy` (`/sobstvennikam-zdaniy/`) | крошки → hero (`b-hero--service role-hero`) → `#services` (svc-tile) → `#other-roles` (role-link ×3) → `#map` → `#faq` (4 вопроса, вариант A `.faq`) → `#cta` (grad) |
 
 - Hero услуг: eyebrow «Услуга · <название>», h1 с `accent`-спаном, lead, две
@@ -112,18 +113,23 @@
 лентах arenda/prodazha (через коллекцию), остальное — заглушки и мёртвые
 CSS-копии.
 
-### 1.4 Страница «Промышленный консалтинг» (as-is)
+### 1.4 Страница «Консалтинг по промышленной недвижимости» (v1)
 
-- Маршрут `/consalting/`, title «Промышленный консалтинг — ММ Пром»,
-  meta description — текущий текст (взвешенное решение о развитии активов,
-  потенциал земли, ВРИ, сценарии застройки).
-- Каркас как у типовой услуги без `#proekty` (9 секций, map=06); состав:
-  role-card ×3 (Производствам, Собственникам зданий, Собственникам участков),
-  scope-card ×6 (аудит, ВРИ, финмодель, сценарии, ТЗ, дорожная карта),
-  approach-card ×2 («В результате вы получаете», «Рабочие документы проекта»),
-  b-flow2 ×5 шагов, карта, CTA-полоса grad, «Другие услуги» ×9.
-- Медиа: нет ни фото, ни заглушек (§1.3). П. 29 CR добавляет фотографии с
-  действующего сайта `mm-prom.ru/consalting/`.
+- Маршрут `/consalting/`, title «Консалтинг по промышленной недвижимости —
+  ММ Пром», meta description — аудит объектов, техническое задание,
+  финансовая модель и дорожная карта.
+- Источник содержания — старая WP-страница `new.mm-prom.ru/consalting/`
+  (блоки `block-fswide`, `block-basis`, `block-steps`, `block-faq`,
+  `block-callback`). Каркас: крошки → hero с фото → `#sostav` («Услуги»:
+  «В результате вы получаете» ×6 + «Что входит в консалтинг» ×4) →
+  `#etapy` (b-flow2, 5 шагов) → `#faq` ×3 → `#cta` (grad) → `#uslugi`
+  (b-others, 9 карточек). Блоков `#roli`, `#podhod`, `#map` нет.
+- FAQ: кейсы (экскурсии по объектам), финансирование после консалтинга,
+  сложный проект (разбивка на детали и план).
+- CTA: «Хотите чёткий план для своего промышленного проекта?» — заявка на
+  техническое задание, финмодель и дорожную карту.
+- Медиа: фото первого экрана — локальные `assets/external/consalting-sm.avif`
+  (≤1023px) и `assets/external/inner-optimized.webp` (десктоп).
 - Источник фото (WP-версия, блок `block-fswide__media` первого экрана):
   `<picture>` — mobile ≤1023px `https://mm-prom.ru/wp-content/uploads/2026/05/
   consalting-sm.avif`, desktop `https://mm-prom.ru/wp-content/uploads/2026/04/
