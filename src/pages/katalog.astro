@@ -5,7 +5,7 @@ import ObjectCard from '../components/ObjectCard.astro';
 import SiteButton from '../components/SiteButton.astro';
 import { getCollection } from 'astro:content';
 const objects = (await getCollection('objects')).sort((a, b) => a.data.sort - b.data.sort);
-const typeRank: Record<string, number> = { park: 0, production: 1, warehouse: 2, land: 3 };
+const typeRank: Record<string, number> = { park: 0, production: 1, warehouse: 2, storage: 3, land: 4 };
 const byTypeThenSort = (a: (typeof objects)[number], b: (typeof objects)[number]) =>
   (typeRank[a.data.type] ?? 9) - (typeRank[b.data.type] ?? 9) || a.data.sort - b.data.sort;
 // Градация каталога (решение владельца 2026-10-23): «Наши объекты» — флайеры
@@ -17,7 +17,7 @@ const ourObjects = objects
   .sort((a, b) => a.data.sort - b.data.sort);
 const externalObjects = objects.filter((o) => o.data.group === 'external').sort(byTypeThenSort);
 const totalCount = objects.length;
-const typeCounts = { park: 0, warehouse: 0, production: 0, land: 0 };
+const typeCounts = { park: 0, warehouse: 0, storage: 0, production: 0, land: 0 };
 objects.forEach(({ data }) => { typeCounts[data.type] += 1; });
 const plural = (n: number, one: string, few: string, many: string) => {
   const m10 = n % 10, m100 = n % 100;
@@ -30,9 +30,9 @@ const mapObjects = objects.map(({ id, data }) => ({
   id, title: data.title, area: data.area, address: data.address, coords: data.coords,
 }));
 ---
-<BaseLayout title="Каталог объектов — ММ Пром" description="Каталог производственной недвижимости Санкт-Петербурга и Ленинградской области: индустриальные парки, производственно-складские комплексы и земельные участки. Фильтры по типу, сделке, площади и локации, интерактивная карта.">
+<BaseLayout title="Каталог объектов — ММ Пром" description="Каталог производственной недвижимости Санкт-Петербурга и Ленинградской области: индустриальные парки, производственно-складские комплексы, склады и земельные участки. Фильтры по типу, сделке, площади и локации, интерактивная карта.">
   <Fragment slot="head">
-  <link rel="stylesheet" href="/assets/object-card.css?v=6">
+  <link rel="stylesheet" href="/assets/object-card.css?v=7">
     <style is:inline>
     /* ═══════════════════════════════════════════════════════════════════════
        ММ ПРОМ — ГЛАВНАЯ СТРАНИЦА
@@ -578,7 +578,7 @@ const mapObjects = objects.map(({ id, data }) => ({
     <div class="container cat-head__inner">
       <div>
         <h1>Каталог объектов</h1>
-        <p class="cat-head__lead">Производственная недвижимость Санкт-Петербурга и Ленинградской области: индустриальные парки, производственно-складские комплексы, производственные площади и земельные участки.</p>
+        <p class="cat-head__lead">Производственная недвижимость Санкт-Петербурга и Ленинградской области: индустриальные парки, производственно-складские комплексы, склады, производственные площади и земельные участки.</p>
       </div>
       <div class="cat-search">
         <span class="material-symbols-outlined" aria-hidden="true">search</span>
@@ -621,6 +621,7 @@ const mapObjects = objects.map(({ id, data }) => ({
             <option value="all">Все локации</option>
             <option value="spb">Санкт-Петербург</option>
             <option value="lo">Ленинградская область</option>
+            <option value="mo">Московская область</option>
           </select>
         </div>
       </div>
@@ -630,6 +631,7 @@ const mapObjects = objects.map(({ id, data }) => ({
           <button class="chip-f" type="button" data-type="all" aria-pressed="true">Все объекты<span class="chip-f__count">{totalCount}</span></button>
           <button class="chip-f" type="button" data-type="park" aria-pressed="false">Индустриальные парки<span class="chip-f__count">{typeCounts.park}</span></button>
           <button class="chip-f" type="button" data-type="warehouse" aria-pressed="false">Производственно-складские<span class="chip-f__count">{typeCounts.warehouse}</span></button>
+          <button class="chip-f" type="button" data-type="storage" aria-pressed="false">Склады<span class="chip-f__count">{typeCounts.storage}</span></button>
           <button class="chip-f" type="button" data-type="production" aria-pressed="false">Производственные<span class="chip-f__count">{typeCounts.production}</span></button>
           <button class="chip-f" type="button" data-type="land" aria-pressed="false">Земельные участки<span class="chip-f__count">{typeCounts.land}</span></button>
         </div>
@@ -728,7 +730,7 @@ const mapObjects = objects.map(({ id, data }) => ({
     </script>
     <script is:inline src="/assets/ymaps-lazy.js?v=1" defer></script>
           <script is:inline define:vars={{ mapObjects }}>window.MMPROM_OBJECTS = mapObjects;</script>
-<script is:inline src="/assets/catalog.js?v=5" defer></script>
+<script is:inline src="/assets/catalog.js?v=6" defer></script>
 
     <script is:inline src="/assets/site-anim.js?v=5" defer></script>
   </Fragment>

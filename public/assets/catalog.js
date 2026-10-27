@@ -2,7 +2,8 @@
    страницы объектов; правка владельца 2026-10-23: две группы — «Наши объекты»
    (флайеры + PDF) и «Все объекты», единая кликабельная карточка, сброс виден
    только с активными фильтрами, поиск без чувствительности к «ё»; правка
-   2026-10-23: площадь — диапазон с двумя ползунками и полями ввода).
+   2026-10-23: площадь — диапазон с двумя ползунками и полями ввода;
+   2026-10-27: тип «Склады» и локация «Московская область»).
    Карточки отрендерены на билде (ObjectCard); этот скрипт
    работает по data-атрибутам DOM: фильтры, сортировка, поиск, виды
    список/карта, карта.
@@ -37,8 +38,8 @@ document.addEventListener('DOMContentLoaded', function () {
       var areaMaxRange = document.getElementById('f-area-max-range');
       var areaFill = document.getElementById('f-area-fill');
 
-      var LOC_LABEL = { spb:'Санкт-Петербург', lo:'Ленинградская область' };
-      var TYPE_LABEL = { park:'Индустриальные парки', warehouse:'Производственно-складские', production:'Производственные', land:'Земельные участки' };
+      var LOC_LABEL = { spb:'Санкт-Петербург', lo:'Ленинградская область', mo:'Московская область' };
+      var TYPE_LABEL = { park:'Индустриальные парки', warehouse:'Производственно-складские', storage:'Склады', production:'Производственные', land:'Земельные участки' };
       var DEAL_LABEL = { rent:'Аренда', sale:'Продажа' };
 
       /* «ё» в поиске не должна ломать совпадение («заозерная» ↔ «Заозёрная») */
@@ -288,7 +289,20 @@ document.addEventListener('DOMContentLoaded', function () {
         }).filter(Boolean);
         om.removeAll();
         om.add({ type: 'FeatureCollection', features: features });
-        if (features.length) map.setBounds(om.getBounds(), { checkZoomRange: true, zoomMargin: 40 });
+        if (!features.length) return;
+        // Карта региональная: при общем списке не растягиваем её до Московской
+        // области, иначе петербургские кластеры теряются. Одиночный объект
+        // центрируем, компактную выборку вписываем в границы.
+        if (features.length === 1) {
+          map.setCenter(features[0].geometry.coordinates, 11);
+          return;
+        }
+        var lats = features.map(function(f){ return f.geometry.coordinates[0]; });
+        var lons = features.map(function(f){ return f.geometry.coordinates[1]; });
+        var span = Math.max(Math.max.apply(null, lats) - Math.min.apply(null, lats),
+                            Math.max.apply(null, lons) - Math.min.apply(null, lons));
+        if (span > 3) map.setCenter([59.85, 30.35], 9);
+        else map.setBounds(om.getBounds(), { checkZoomRange: true, zoomMargin: 40 });
       }
 
       syncAreaUI();

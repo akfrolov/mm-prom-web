@@ -26,7 +26,13 @@ document.addEventListener('DOMContentLoaded', function () {
               balloonContentBody: o.address + '<br>' + o.area + '<br><a href="' + (o.url || '/obekt/' + o.id + '/') + '">Страница объекта</a>' } };
         }) });
         map.geoObjects.add(om);
-        if (om.getBounds()) map.setBounds(om.getBounds(), { checkZoomRange: true, zoomMargin: 40 });
+        // Региональные карты не растягиваем до Московской области из-за
+        // единственного объекта в Домодедово — петербургские метки теряются.
+        var lats = OBJ.map(function(o){ return o.coords[0]; });
+        var lons = OBJ.map(function(o){ return o.coords[1]; });
+        var span = Math.max(Math.max.apply(null, lats) - Math.min.apply(null, lats),
+                            Math.max.apply(null, lons) - Math.min.apply(null, lons));
+        if (om.getBounds() && span <= 3) map.setBounds(om.getBounds(), { checkZoomRange: true, zoomMargin: 40 });
       });
     }
     if ('IntersectionObserver' in window) {

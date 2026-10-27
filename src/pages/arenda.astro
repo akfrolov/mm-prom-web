@@ -14,7 +14,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
 ---
 <BaseLayout title="Аренда промышленной недвижимости — ММ Пром" description="Сдадим ваш объект надежным арендаторам или найдем готовую площадку для запуска вашего предприятия.">
   <Fragment slot="head">
-  <link rel="stylesheet" href="/assets/object-card.css?v=6">
+  <link rel="stylesheet" href="/assets/object-card.css?v=7">
     <style is:inline>
     /* ═══════════════════════════════════════════════════════════════════════
        ММ ПРОМ — ГЛАВНАЯ СТРАНИЦА
@@ -643,7 +643,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
   <MapSection objects={mapObjects} secIndex="06" />
 
   <script is:inline src="/assets/ymaps-lazy.js?v=1" defer></script>
-    <script is:inline src="/assets/svc-map.js?v=2" defer></script>
+    <script is:inline src="/assets/svc-map.js?v=3" defer></script>
 
   <CtaBand variant="grad" id="cta" secIndex="07" heading="Связаться с экспертом" lede="Оставьте заявку, и мы свяжемся с вами в течение рабочего дня, чтобы подобрать площадку или найти арендатора на ваш объект." buttons={[
           { variant: "gold", b24: "offer", label: "Связаться с экспертом" },
