@@ -489,9 +489,10 @@ import { redevelopmentProjects } from '../data/projects';
     .b-flow2__step{display:flex;flex-direction:column;gap:16px;min-width:0}
     .b-flow2__dot{position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid var(--purple);color:var(--purple);font-weight:800;font-size:.95rem;box-shadow:0 0 0 6px var(--surface);transition:background .22s ease,color .22s ease,transform .22s ease}
     .b-flow2__step:hover .b-flow2__dot{background:var(--purple);color:#fff;transform:scale(1.06)}
-    .b-flow2__body{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;min-height:104px;transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease}
+    .b-flow2__body{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;min-height:104px;flex:1 1 auto;transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease}
     .b-flow2__step:hover .b-flow2__body{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
-    .b-flow2__body p{margin:0;font-weight:500;font-size:.98rem;line-height:1.5}
+    .b-flow2__body h3{margin:0 0 6px;font-size:.98rem;line-height:1.35}
+    .b-flow2__body p{margin:0;font-weight:500;font-size:.92rem;line-height:1.5;color:var(--text-muted)}
     .btn--ghost-light{border-color:rgba(255,255,255,.55);color:#fff;background:transparent}
     .btn--ghost-light:hover{background:#fff;color:var(--purple);border-color:#fff}
 
@@ -551,13 +552,12 @@ import { redevelopmentProjects } from '../data/projects';
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">02</p>
         <h2>Редевелопмент под разные задачи</h2>
-        <p class="b-sec-head__lead">Четыре роли — четыре задачи: подберём сценарий редевелопмента под ваш объект и цель.</p>
+        <p class="b-sec-head__lead">Три роли — три задачи: подберём сценарий редевелопмента под ваш объект и цель.</p>
       </div>
       <div class="b-tasks__grid">
-        <RoleCard icon="domain" title="Собственникам зданий" index={0} items={["Здание морально устарело и требует капремонта: реконструировать или снести и строить заново?", "Латать может оказаться дороже, чем строить с нуля, а вложить десятки миллионов в неокупающуюся реконструкцию — серьёзный риск", "Без расчётов и спецзнаний решение принимается наугад, цена ошибки — миллионы", "ТЭО обоих сценариев с ROI по каждому, анализ потенциала и альтернатив — решение на цифрах, а не на предположениях"]} />
-        <RoleCard icon="factory" title="Производствам" index={1} items={["Модернизация корпуса без переезда", "Планировки и нагрузки под ваш техпроцесс", "Инженерные сети по требованиям производства", "От проекта до строительно-монтажных работ"]} />
-        <RoleCard icon="terrain" title="Собственникам участков" index={2} items={["Оценка потенциала площадки", "Сценарии: реновация или новое строительство", "Сравнение вариантов по затратам", "Понимание, что выгоднее именно здесь"]} />
-        <RoleCard icon="trending_up" title="Инвесторам" index={3} items={["Вход по цене ниже нового строительства", "Заводы и корпуса — в технопарки и индустриальные объекты", "Экономика модернизации до старта", "Понятная отдача на вложение"]} />
+        <RoleCard icon="domain" title="Собственникам зданий" index={0} text="Морально устаревшее здание ставит перед выбором: реконструировать, рискуя вложить десятки миллионов в неокупаемую реконструкцию, или снести и строить с нуля? Мы проанализируем потенциал объекта, чтобы вы приняли решение на цифрах, а не на предположениях, и не потеряли миллионы на ошибке." />
+        <RoleCard icon="factory" title="Производствам" index={1} text="Модернизируем действующий производственный корпус. Разработаем планировки и рассчитаем нагрузки под ваше оборудование, спроектируем и смонтируем инженерные сети по вашим требованиям. Проведем полный цикл работ по редевелопменту." />
+        <RoleCard icon="trending_up" title="Инвесторам" index={2} text="Предлагаем вход в перспективные проекты редевелопмента. Превращаем устаревшие заводы и корпуса в ликвидные технопарки и индустриальные объекты." />
       </div>
     </div>
   </section>
@@ -633,19 +633,19 @@ import { redevelopmentProjects } from '../data/projects';
         <ol class="b-flow2__list">
           <li class="b-flow2__step reveal" style="--i:1">
             <span class="b-flow2__dot" aria-hidden="true">1</span>
-            <div class="b-flow2__body"><p>Подготовка технического задания. Формулировка целей, объемов и требований заказчика.</p></div>
+            <div class="b-flow2__body"><h3>Подготовка технического задания</h3><p>Формулировка целей, объемов и требований заказчика.</p></div>
           </li>          <li class="b-flow2__step reveal" style="--i:2">
             <span class="b-flow2__dot" aria-hidden="true">2</span>
-            <div class="b-flow2__body"><p>Разработка проектной документации. Создание архитектурных решений, чертежей и инженерных схем.</p></div>
+            <div class="b-flow2__body"><h3>Разработка проектной документации</h3><p>Создание архитектурных решений, чертежей и инженерных схем.</p></div>
           </li>          <li class="b-flow2__step reveal" style="--i:3">
             <span class="b-flow2__dot" aria-hidden="true">3</span>
-            <div class="b-flow2__body"><p>Финансовое моделирование проекта. Расчет сметы, поиск инвесторов, оценка сроков окупаемости.</p></div>
+            <div class="b-flow2__body"><h3>Финансовое моделирование проекта</h3><p>Расчет сметы, поиск инвесторов, оценка сроков окупаемости.</p></div>
           </li>          <li class="b-flow2__step reveal" style="--i:4">
             <span class="b-flow2__dot" aria-hidden="true">4</span>
-            <div class="b-flow2__body"><p>Строительно-монтажные работы. Непосредственная реконструкция здания.</p></div>
+            <div class="b-flow2__body"><h3>Строительно-монтажные работы</h3><p>Непосредственная реконструкция здания.</p></div>
           </li>          <li class="b-flow2__step reveal" style="--i:5">
             <span class="b-flow2__dot" aria-hidden="true">5</span>
-            <div class="b-flow2__body"><p>Управление готовым объектом. Запуск в эксплуатацию, техническое обслуживание и коммерческое использование.</p></div>
+            <div class="b-flow2__body"><h3>Управление готовым объектом</h3><p>Запуск в эксплуатацию, техническое обслуживание и коммерческое использование.</p></div>
           </li>
         </ol>
       </div>
