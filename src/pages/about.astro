@@ -446,9 +446,8 @@ import SiteButton from '../components/SiteButton.astro';
     @media (min-width:1024px){.b-others__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
     /* ═══ О компании ═══ */
+    .about-hero{min-height:0}
     .about-hero .b-hero__inner{grid-template-columns:minmax(0,1fr);gap:32px}
-    .about-hero .b-hero__metrics li{display:flex;flex-direction:column;gap:8px}
-    .about-hero .b-hero__metrics li .material-symbols-outlined{font-size:26px;color:var(--purple);font-variation-settings:'FILL' 1,'wght' 500}
     .about-hero__media{margin:0;position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow)}
     .about-hero__media img{display:block;width:100%;height:100%;min-height:280px;max-height:520px;object-fit:cover}
     .about-hero__media img.is-broken{display:none}
@@ -459,17 +458,11 @@ import SiteButton from '../components/SiteButton.astro';
       .about-hero__media{align-self:stretch;display:flex}
       .about-hero__media img{min-height:0;max-height:none;height:100%}
     }
-    .about-who__lead{position:relative;margin:18px 0 0;padding-left:22px;max-width:min(58ch,760px);font-size:clamp(1.15rem,1.02rem + .55vw,1.4rem);line-height:1.55;font-weight:600;color:var(--text)}
-    .about-who__lead::before{content:"";position:absolute;left:0;top:.15em;bottom:.15em;width:4px;border-radius:2px;background:var(--gold)}
-    .about-who__body{display:grid;gap:28px;margin-top:32px;grid-template-columns:1fr}
-    .about-who__text{max-width:min(64ch,640px)}
+    .about-who__body{margin-top:24px}
+    .about-who__text{max-width:min(76ch,820px)}
     .about-who__text p{margin:0 0 1.15em;color:var(--text-muted);font-size:1.0625rem;line-height:1.75}
     .about-who__text p:last-child{margin-bottom:0}
-    .about-who__text strong{color:var(--text);font-weight:600}
-    .about-who__note{align-self:start;display:flex;flex-direction:column;gap:14px;padding:26px;background:#fff;border:1px solid var(--border);border-left:4px solid var(--purple);border-radius:var(--radius)}
-    .about-who__note p{margin:0;font-size:1.05rem;line-height:1.6;font-weight:600;color:var(--text)}
-    .about-who__note span{color:var(--text-muted);font-size:var(--fs-small);line-height:1.6}
-    .about-who__values{display:grid;gap:16px;margin-top:44px;grid-template-columns:1fr}
+    .about-who__values{display:grid;gap:16px;margin-top:40px;grid-template-columns:1fr}
     .value-card{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
     .value-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
     .value-card__icon{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;background:var(--purple-soft);color:var(--purple)}
@@ -477,10 +470,10 @@ import SiteButton from '../components/SiteButton.astro';
     .value-card h3{margin:0;font-size:1.05rem}
     .value-card p{margin:0;color:var(--text-muted);font-size:var(--fs-small)}
     @media (min-width:768px){.about-who__values{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}}
-    @media (min-width:1024px){.about-who__body{grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:48px;align-items:start}}
     @media (min-width:1200px){.about-who__values{grid-template-columns:repeat(4,minmax(0,1fr))}}
 
-    .about-exp__lead{color:var(--text-muted);max-width:70ch;margin:12px 0 0}
+    .b-subhead{margin:24px 0 10px;font-size:var(--fs-h3);line-height:1.3}
+    .about-exp__lead{color:var(--text-muted);max-width:70ch;margin:0}
     .about-exp__points{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:14px;max-width:80ch}
     .about-exp__points li{position:relative;padding-left:52px;font-weight:500}
     .about-exp__points li span{position:absolute;left:0;top:-2px;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800;font-size:.85rem}
@@ -491,15 +484,22 @@ import SiteButton from '../components/SiteButton.astro';
     @media (min-width:1024px){.about-stats{grid-template-columns:repeat(4,minmax(0,1fr))}}
 
     .partners__grid{display:grid;gap:16px;margin-top:32px;grid-template-columns:repeat(2,minmax(0,1fr))}
-    .partner{display:flex;align-items:center;justify-content:center;min-height:110px;padding:20px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);transition:border-color .2s ease,box-shadow .2s ease}
+    .partner{display:flex;align-items:center;justify-content:center;min-height:140px;padding:24px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);transition:border-color .2s ease,box-shadow .2s ease}
     .partner:hover{border-color:var(--purple);box-shadow:var(--shadow)}
-    .partner img{max-width:100%;max-height:56px;width:auto;height:auto;transition:transform .2s ease}
+    .partner img{max-width:100%;max-height:80px;width:auto;height:auto;transition:transform .2s ease}
     .partner:hover img{transform:scale(1.04)}
     .partner img.is-broken{display:none}
     .partner__fallback{display:none;color:var(--text-muted);font-size:var(--fs-small);text-align:center}
     .partner img.is-broken + .partner__fallback{display:block}
-    @media (min-width:768px){.partners__grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}}
-    @media (min-width:1024px){.partners__grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+    @media (min-width:768px){
+      .partners__grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+      .partner{min-height:176px;padding:26px}
+      .partner img{max-height:110px}
+    }
+    @media (min-width:1024px){
+      .partner{min-height:208px;padding:30px}
+      .partner img{max-height:128px}
+    }
     </style>
   </Fragment>
 
@@ -513,19 +513,13 @@ import SiteButton from '../components/SiteButton.astro';
     <div class="b-hero__particles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
     <div class="container b-hero__inner">
       <div class="b-hero__content">
-        <p class="b-hero__eyebrow">01 · Кто мы</p>
+        <p class="b-hero__eyebrow">ММ Пром</p>
         <h1>О компании</h1>
-        <p class="b-hero__lead">Девелопер и оператор индустриальной недвижимости. Компания полного цикла: развитие индустриальных объектов и сопровождение производственных проектов — от идеи до эксплуатации.</p>
+        <p class="b-hero__lead">Девелопер и оператор индустриальной недвижимости</p>
         <div class="b-hero__actions">
           <SiteButton variant="gold" b24="offer">Получить консультацию</SiteButton>
           <SiteButton variant="outline" href="/uslugi/">Наши услуги</SiteButton>
         </div>
-        <ul class="b-hero__metrics">
-          <li><span class="material-symbols-outlined" aria-hidden="true">verified</span><span>с 2011 года</span></li>
-          <li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>200 000+ м²</span></li>
-          <li><span class="material-symbols-outlined" aria-hidden="true">apartment</span><span>25+ проектов</span></li>
-          <li><span class="material-symbols-outlined" aria-hidden="true">groups</span><span>150+ резидентов</span></li>
-        </ul>
       </div>
       <figure class="about-hero__media">
         <img src="/assets/external/main-poster.avif" alt="Индустриальные объекты ММ Пром с высоты" loading="eager" onerror="this.classList.add('is-broken')">
@@ -536,40 +530,35 @@ import SiteButton from '../components/SiteButton.astro';
 
   <section id="kto-my" class="b-tasks section section--tint">
     <div class="container">
-      <p class="sec-index" aria-hidden="true">02</p>
+      <p class="sec-index" aria-hidden="true">01</p>
       <h2>Кто мы</h2>
-      <p class="about-who__lead reveal">ММ Пром — девелопер и оператор индустриальной недвижимости. Мы ведём проект целиком: от первой идеи и участка до работающего производства.</p>
       <div class="about-who__body">
         <div class="about-who__text reveal">
-          <p>Компания полного цикла: в одной команде — девелопмент, инвестиции, строительство и управление. Клиент получает целостное решение, а не набор подрядчиков, которых нужно сводить между собой.</p>
-          <p>Мы работаем с проектами разного формата — от редевелопмента и реконструкции существующих объектов до строительства современных производств с нуля. <strong>Каждый проект начинается с задачи бизнеса</strong>, а не с типового решения.</p>
-          <p>За нами — собственные индустриальные парки и технопарки. Мы знаем объект не только на стройке, но и в эксплуатации: как он ведёт себя через год, что стоит денег и где обычно возникают потери.</p>
+          <p>ММ Пром — компания полного цикла, специализирующаяся на развитии индустриальных объектов и сопровождении производственных проектов.</p>
+          <p>Мы объединяем экспертизу в девелопменте, инвестициях, строительстве и управлении, обеспечивая реализацию проектов от идеи до эксплуатации.</p>
+          <p>Команда ММ Пром обладает опытом реализации проектов различных форматов — от редевелопмента и реконструкции существующих объектов до строительства современных производств с нуля</p>
         </div>
-        <aside class="about-who__note reveal">
-          <p>Один подрядчик на весь цикл — от площадки до готового объекта.</p>
-          <span>Санкт-Петербург и Ленинградская область, с 2011 года</span>
-        </aside>
       </div>
       <div class="about-who__values">
         <article class="value-card reveal">
           <span class="value-card__icon"><span class="material-symbols-outlined" aria-hidden="true">verified</span></span>
           <h3>Профессионализм</h3>
-          <p>Берёмся только за те задачи, в которых уверены. Отвечаем за сроки, качество и результат на каждом этапе.</p>
+          <p>Мы берёмся только за те задачи, в которых уверены. Отвечаем за сроки, качество и результат на каждом этапе работы</p>
         </article>
         <article class="value-card reveal">
           <span class="value-card__icon"><span class="material-symbols-outlined" aria-hidden="true">hub</span></span>
           <h3>Комплексный подход</h3>
-          <p>Девелопмент, управление, брокеридж и финансирование — в одном решении, без стыков между подрядчиками.</p>
+          <p>Объединяем экспертизу в девелопменте, управлении, брокеридже и финансировании, чтобы клиент получал целостное решение</p>
         </article>
         <article class="value-card reveal">
           <span class="value-card__icon"><span class="material-symbols-outlined" aria-hidden="true">tune</span></span>
-          <h3>Индивидуальная работа</h3>
-          <p>Не работаем по шаблонам: каждый объект разбираем отдельно — с учётом целей клиента и особенностей локации.</p>
+          <h3>Индивидуальная работа с каждым проектом</h3>
+          <p>Мы не работаем по шаблонам. Каждый объект и каждая задача разбираются отдельно, с учётом целей клиента и особенностей локации</p>
         </article>
         <article class="value-card reveal">
           <span class="value-card__icon"><span class="material-symbols-outlined" aria-hidden="true">handshake</span></span>
           <h3>Долгосрочное партнёрство</h3>
-          <p>Строим проекты и отношения с расчётом на годы вперёд — с арендаторами, инвесторами и партнёрами.</p>
+          <p>Мы строим проекты и отношения с расчётом на годы вперёд — как с арендаторами, так и с инвесторами и партнёрами</p>
         </article>
       </div>
     </div>
@@ -577,11 +566,12 @@ import SiteButton from '../components/SiteButton.astro';
 
   <section id="opyt" class="b-scope section">
     <div class="container">
-      <p class="sec-index" aria-hidden="true">03</p>
+      <p class="sec-index" aria-hidden="true">02</p>
       <h2>Опыт и масштаб</h2>
-      <p class="about-exp__lead">Группа компаний ММ Пром работает на рынке промышленной недвижимости Санкт-Петербурга и Ленинградской области с 2011 года.</p>
+      <h3 class="b-subhead reveal">Опыт работы компании</h3>
+      <p class="about-exp__lead">Группа компаний ММ Пром работает на рынке промышленной недвижимости Санкт-Петербурга и Ленинградской области с 2011 года</p>
       <ul class="about-exp__points">
-        <li class="reveal"><span aria-hidden="true">01</span>Создали и развиваем собственные индустриальные парки и технопарки</li>
+        <li class="reveal"><span aria-hidden="true">01</span>Создали и развиваем собственные индустриальные и технопарки</li>
         <li class="reveal"><span aria-hidden="true">02</span>Накопили практический опыт эксплуатации, строительства и финансового сопровождения промышленных объектов</li>
       </ul>
       <div class="about-stats">
@@ -592,16 +582,16 @@ import SiteButton from '../components/SiteButton.astro';
 
   <section id="partnery" class="b-others section section--tint">
     <div class="container">
-      <p class="sec-index" aria-hidden="true">04</p>
-      <h2>Наши партнёры</h2>
-      <p class="b-tasks__lead">Ведущие компании рынка доверяют нам свои производственные проекты.</p>
+      <p class="sec-index" aria-hidden="true">03</p>
+      <h2>Наши партнеры</h2>
+      <p class="b-tasks__lead">Ведущие компании рынка доверяют нам свои производственные проекты</p>
       <div class="partners__grid">
         <div class="partner reveal"><img src="/assets/external/partner-01.svg?v=1" alt="Логотип партнёра ММ Пром" loading="lazy" onerror="this.classList.add('is-broken')"><span class="partner__fallback">Логотип партнёра</span></div>        <div class="partner reveal"><img src="/assets/external/partner-02.svg?v=1" alt="Логотип партнёра ММ Пром" loading="lazy" onerror="this.classList.add('is-broken')"><span class="partner__fallback">Логотип партнёра</span></div>        <div class="partner reveal"><img src="/assets/external/partner-03.svg?v=1" alt="Логотип партнёра ММ Пром" loading="lazy" onerror="this.classList.add('is-broken')"><span class="partner__fallback">Логотип партнёра</span></div>        <div class="partner reveal"><img src="/assets/external/partner-04.svg?v=1" alt="Логотип партнёра ММ Пром" loading="lazy" onerror="this.classList.add('is-broken')"><span class="partner__fallback">Логотип партнёра</span></div>        <div class="partner reveal"><img src="/assets/external/partner-05.svg?v=1" alt="Логотип партнёра ММ Пром" loading="lazy" onerror="this.classList.add('is-broken')"><span class="partner__fallback">Логотип партнёра</span></div>        <div class="partner reveal"><img src="/assets/external/partner-06.svg?v=1" alt="Логотип партнёра ММ Пром" loading="lazy" onerror="this.classList.add('is-broken')"><span class="partner__fallback">Логотип партнёра</span></div>        <div class="partner reveal"><img src="/assets/external/partner-07.svg?v=1" alt="Логотип партнёра ММ Пром" loading="lazy" onerror="this.classList.add('is-broken')"><span class="partner__fallback">Логотип партнёра</span></div>        <div class="partner reveal"><img src="/assets/external/partner-08.webp?v=1" alt="Логотип партнёра ММ Пром" loading="lazy" onerror="this.classList.add('is-broken')"><span class="partner__fallback">Логотип партнёра</span></div>        <div class="partner reveal"><img src="/assets/external/partner-09.svg?v=1" alt="Логотип партнёра ММ Пром" loading="lazy" onerror="this.classList.add('is-broken')"><span class="partner__fallback">Логотип партнёра</span></div>        <div class="partner reveal"><img src="/assets/external/partner-10.svg?v=1" alt="Логотип партнёра ММ Пром" loading="lazy" onerror="this.classList.add('is-broken')"><span class="partner__fallback">Логотип партнёра</span></div>        <div class="partner reveal"><img src="/assets/external/partner-11.png?v=1" alt="Логотип партнёра ММ Пром" loading="lazy" onerror="this.classList.add('is-broken')"><span class="partner__fallback">Логотип партнёра</span></div>
       </div>
     </div>
   </section>
 
-  <CtaBand variant="plain" id="cta" secIndex="05" heading="Ищете решение для своей производственной площадки?" lede="У нас вы получите комплексный подход в едином окне — оптимизация текущей площадки, трейд-ин, постройка новой и управление под ключ." buttons={[
+  <CtaBand variant="plain" id="cta" secIndex="04" heading="Ищете решение для своей производственной площадки?" lede="У нас вы получите комплексный подход в едином окне — оптимизация текущей площадки, трейд-ин, постройка новой и управление под ключ" buttons={[
           { variant: "purple", b24: "offer", label: "Получить консультацию" }
         ]} />
 
