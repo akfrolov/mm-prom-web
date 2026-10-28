@@ -426,6 +426,13 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     .b-results li::before{content:"";position:absolute;left:0;top:.45em;width:14px;height:14px;background:var(--gold);transform:rotate(45deg)}
     @media (min-width:768px){.b-results{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px}}
 
+    .b-pains{list-style:none;margin:32px 0 0;padding:0;display:grid;gap:14px;grid-template-columns:1fr}
+    .b-pains li{display:flex;align-items:center;gap:20px;padding:22px 26px;background:#fff;border-radius:var(--radius);border-left:3px solid var(--gold);box-shadow:var(--shadow-sm);transition:box-shadow .2s ease}
+    .b-pains li:hover{box-shadow:var(--shadow)}
+    .b-pains__num{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;background:var(--purple-soft);color:var(--purple);font-weight:800;font-size:1rem}
+    .b-pains p{margin:0;font-weight:500;line-height:1.55}
+    @media (min-width:768px){.b-pains{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 20px}}
+
     .b-approach__grid{display:grid;gap:16px;margin-top:32px;grid-template-columns:1fr}
     .approach-card{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:26px;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
     .approach-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
@@ -589,28 +596,30 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     </div>
   </section>
 
-  <section id="boli" class="b-scope section section--tint">
+  <section id="boli" class="section section--tint">
     <div class="container">
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">03</p>
-        <h2>Боли</h2>
-        <p class="b-sec-head__lead">Когда к нам обращаются</p>
+        <h2>Когда к нам обращаются</h2>
       </div>
-      <div class="b-scope__grid b-scope__grid--two">
-        <div class="scope-card reveal" style="--i:1">
-          <span class="scope-card__num" aria-hidden="true">01</span>
+      <ul class="b-pains">
+        <li class="reveal" style="--i:1">
+          <span class="b-pains__num" aria-hidden="true">01</span>
           <p>Есть действующий производственный объект, который перестал быть эффективным</p>
-        </div>        <div class="scope-card reveal" style="--i:2">
-          <span class="scope-card__num" aria-hidden="true">02</span>
+        </li>
+        <li class="reveal" style="--i:2">
+          <span class="b-pains__num" aria-hidden="true">02</span>
           <p>Недвижимость устарела морально или технически</p>
-        </div>        <div class="scope-card reveal" style="--i:3">
-          <span class="scope-card__num" aria-hidden="true">03</span>
+        </li>
+        <li class="reveal" style="--i:3">
+          <span class="b-pains__num" aria-hidden="true">03</span>
           <p>Сложно самостоятельно продать объект и сразу реинвестировать средства</p>
-        </div>        <div class="scope-card reveal" style="--i:4">
-          <span class="scope-card__num" aria-hidden="true">04</span>
+        </li>
+        <li class="reveal" style="--i:4">
+          <span class="b-pains__num" aria-hidden="true">04</span>
           <p>Есть задача обновить производственную базу без остановки бизнеса</p>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   </section>
 
