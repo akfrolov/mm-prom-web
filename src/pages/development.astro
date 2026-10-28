@@ -1,13 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import RoleCard from '../components/RoleCard.astro';
 import CtaBand from '../components/CtaBand.astro';
+import FaqSection from '../components/FaqSection.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import SiteButton from '../components/SiteButton.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import { Image } from 'astro:assets';
+import ImgHero from '../assets/images/development.avif';
 import { developmentProjects } from '../data/projects';
 ---
-<BaseLayout title="Девелопмент под ключ — ММ Пром" description="Девелопмент под ключ от ММ Пром: берём на себя реализацию промышленного проекта — от участка до запуска. Подбор участка, техническое задание, проектирование и строительство, финансирование, ввод в эксплуатацию.">
+<BaseLayout title="Построим завод или промышленный комплекс под ключ — ММ Пром" description="Девелопмент под ключ от ММ Пром: построим завод или промышленный комплекс — от подбора участка и технического задания до ввода в эксплуатацию и запуска.">
   <Fragment slot="head">
     <link rel="stylesheet" href="/assets/project-card.css?v=1">
     <style is:inline>
@@ -70,6 +72,7 @@ import { developmentProjects } from '../data/projects';
     .b-hero__metrics span{display:block;color:var(--text-muted);font-size:var(--fs-small)}
     .b-hero__media{min-width:0;position:relative}
     .b-hero__media-frame{padding:3px;background:linear-gradient(135deg,var(--gold) 0%,var(--purple) 100%);position:relative;overflow:hidden;border-radius:0}
+    .b-hero__media-frame img{width:100%;height:auto;display:block;border:0;border-radius:0}
     .b-hero__media-frame .img-placeholder{width:100%;aspect-ratio:16/9;border:0;border-radius:0;background:var(--surface);color:var(--text-muted)}
     .b-hero__video{position:absolute;top:3px;left:3px;width:calc(100% - 6px);height:calc(100% - 6px);object-fit:cover;display:block}
     .b-hero__sound{position:absolute;right:16px;bottom:16px;z-index:2;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.9);color:var(--navy);font:inherit;font-size:var(--fs-small);font-weight:600;cursor:pointer;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);box-shadow:0 4px 14px rgba(11,27,51,.1)}
@@ -389,6 +392,15 @@ import { developmentProjects } from '../data/projects';
     .b-hero--service .b-hero__inner{grid-template-columns:minmax(0,1fr);gap:0}
     .b-hero--service .b-hero__lead{max-width:70ch}
     .b-hero--service .b-hero__metrics{margin-top:8px}
+    /* Девелопмент — hero услуги с фото: на широких экранах ставим его
+       рядом с текстом, на мобильных — под текстом */
+    @media (min-width:1024px){
+      .development-hero .b-hero__inner{grid-template-columns:minmax(0,1fr) minmax(0,.92fr);gap:56px;align-items:center}
+    }
+    @media (max-width:1023.98px){
+      .development-hero .b-hero__inner{gap:32px}
+      .development-hero .b-hero__media-frame img{max-height:360px;object-fit:cover}
+    }
 
     .b-tasks__lead,.b-scope__lead,.b-approach__lead,.b-projects__lead{margin:12px 0 0;max-width:70ch;color:var(--text-muted)}
 
@@ -407,6 +419,13 @@ import { developmentProjects } from '../data/projects';
     .badge--type{background:var(--purple-soft);color:var(--purple)}
     @media (min-width:768px){.b-projects__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media (min-width:1024px){.b-projects__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+    .b-subhead{margin:40px 0 18px;font-size:var(--fs-h3);line-height:1.3}
+    .b-subhead:first-of-type{margin-top:0}
+    .b-results{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+    .b-results li{position:relative;padding-left:30px;font-weight:500;line-height:1.55}
+    .b-results li::before{content:"";position:absolute;left:0;top:.45em;width:14px;height:14px;background:var(--gold);transform:rotate(45deg)}
+    @media (min-width:768px){.b-results{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px}}
 
     .b-scope__grid{display:grid;gap:16px;margin-top:32px;grid-template-columns:1fr}
     .scope-card{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
@@ -528,48 +547,26 @@ import { developmentProjects } from '../data/projects';
 
   <Breadcrumbs items={[{ href: "/", label: "Главная" }, { href: "/uslugi/", label: "Услуги" }, { label: "Девелопмент под ключ" }]} />
 
-  <section id="hero" class="b-hero b-hero--service">
+  <section id="hero" class="b-hero b-hero--service development-hero">
     <div class="b-hero__glow b-hero__glow--purple"></div>
     <div class="b-hero__glow b-hero__glow--gold"></div>
     <div class="b-hero__particles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
     <div class="container b-hero__inner">
       <div class="b-hero__content">
         <p class="b-hero__eyebrow">Услуга · Девелопмент под ключ</p>
-        <h1>Девелопмент под <span class="accent">ключ</span></h1>
-        <p class="b-hero__lead">Берём на себя весь процесс Build-to-suit (BTS): от поиска земельного участка и разработки концепции до ввода здания в эксплуатацию и последующей продажи или сдачи в аренду. Если площадка или существующий объект у вас уже есть — преобразуем его в работающий актив. Вы получаете готовое промышленное здание «под ключ» с прозрачной экономикой проекта.</p>
+        <h1>Построим завод или промышленный комплекс <span class="accent">под ключ</span></h1>
+        <p class="b-hero__lead">Берём на себя реализацию промышленного проекта — от участка до запуска.</p>
         <div class="b-hero__actions">
           <SiteButton variant="gold" b24="offer">Обсудить проект</SiteButton>
-          <SiteButton variant="outline" href="/katalog/">Смотреть объекты</SiteButton>
         </div>
-        <ul class="b-hero__metrics"><li><span class="material-symbols-outlined" aria-hidden="true">verified</span><span>25+ проектов</span></li><li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span><span>200 000+ м²</span></li><li><span class="material-symbols-outlined" aria-hidden="true">apartment</span><span>с 2011 года</span></li></ul>
       </div>
-    </div>
-  </section>
-
-  <section id="roli" class="b-tasks section section--tint">
-    <div class="container">
-      <div class="b-sec-head reveal">
-        <p class="sec-index" aria-hidden="true">02</p>
-        <h2>Под разные задачи — разный девелопмент</h2>
-        <p class="b-sec-head__lead">Одна услуга закрывает разные сценарии: производство под технологию, инвестпродукт на своём или подобранном участке, застройку земли.</p>
-      </div>
-      <div class="b-tasks__grid">
-        <RoleCard icon="factory" title="Производствам" index={0} items={["Требуется производство со специфическими нагрузками — обычное здание не подходит", "Особые температурные режимы и логистика внутри цеха", "Спроектируем и построим здание под технологические процессы вашего бизнеса — точно и в срок"]} />
-        <RoleCard icon="landscape" title="Собственникам земли" index={1} items={["Хотите построить промздание или создать инвест-продукт для перепродажи?", "Опасение заморозить капитал в долгострое из-за ошибок в проекте", "Стройка полностью на нас — от ТЗ до ввода в эксплуатацию: готовый арендный бизнес или цех точно в срок"]} />
-        <RoleCard icon="trending_up" title="Инвесторам" index={2} items={["Заморозить капитал в долгострое — главный страх инвестора в девелопменте", "Сорванные сроки, раздувшаяся смета, непредсказуемая маржинальность — проект превращается в обременение", "Есть участок, но непонятно, что строить и нужно ли — с учётом реального спроса в локации", "Инвест-продукт с нуля: смета и сроки фиксируются на старте, целевая маржинальность гарантируется, что строить — по анализу рынка, а не догадкам"]} />
-      </div>
-    </div>
-  </section>
-
-  <section id="proekty" class="b-projects section">
-    <div class="container">
-      <div class="b-sec-head reveal">
-        <p class="sec-index" aria-hidden="true">03</p>
-        <h2>Реализованные проекты</h2>
-        <p class="b-projects__lead">За 2019-2025 годы были реализованы следующие проекты:</p>
-      </div>
-      <div class="b-projects__grid">
-        {developmentProjects.map((project, i) => <ProjectCard project={project} index={i} />)}
+      <div class="b-hero__media">
+        <div class="b-hero__media-frame">
+          <picture>
+            <source media="(max-width: 1023px)" srcset="/assets/external/development-sm.avif">
+            <Image src={ImgHero} widths={[640, 960, 1280, 1920]} sizes="(max-width: 1023px) 100vw, 640px" alt="Построим завод или промышленный комплекс под ключ" loading="eager" fetchpriority="high" />
+          </picture>
+        </div>
       </div>
     </div>
   </section>
@@ -577,10 +574,22 @@ import { developmentProjects } from '../data/projects';
   <section id="sostav" class="b-scope section section--tint">
     <div class="container">
       <div class="b-sec-head reveal">
-        <p class="sec-index" aria-hidden="true">04</p>
-        <h2>Что входит в девелопмент</h2>
-        <p class="b-sec-head__lead">Берём на себя полный цикл реализации проекта.</p>
+        <p class="sec-index" aria-hidden="true">02</p>
+        <h2>Задачи</h2>
+        <p class="b-sec-head__lead">Берём на себя реализацию промышленного проекта — от участка до запуска</p>
       </div>
+      <h3 class="b-subhead reveal">Вы получаете</h3>
+      <ul class="b-results reveal">
+        <li>Готовый к запуску завод или индустриальный комплекс</li>
+        <li>Прозрачную смету и понятные условия реализации проекта</li>
+        <li>Оптимальное соотношение цены и качества при строительстве</li>
+        <li>Единое окно: от технического задания и проектирования до строительства</li>
+        <li>Подключение сетей и создание полной инфраструктуры участка</li>
+        <li>Профессиональную команду с учетом технологии вашего производства</li>
+        <li>Индивидуальные схемы финансирования проекта</li>
+      </ul>
+      <h3 class="b-subhead reveal">Что входит в девелопмент</h3>
+      <p class="b-sec-head__lead reveal" style="margin-bottom:32px">Берём на себя полный цикл реализации проекта</p>
       <div class="b-scope__grid">
         <div class="scope-card reveal" style="--i:1">
           <span class="scope-card__num" aria-hidden="true">01</span>
@@ -602,36 +611,40 @@ import { developmentProjects } from '../data/projects';
           <p>При необходимости — дальнейшее управление объектом</p>
         </div>
       </div>
-      <p class="b-scope__lead">За время работы нашими Клиентами стали многие предприятия и организации Санкт-Петербурга и Северо-Запада России. Наш главный принцип работы — максимально возможное качество выполняемых заказов, профессиональный подход к проектированию, согласованию и индивидуальное отношение к Заказчику. Мы стараемся отладить работу компании таким образом, чтобы клиент, обратившись к нам, испытывал только положительные эмоции.</p>
     </div>
   </section>
 
-  <section id="podhod" class="b-approach section">
+  <section id="partnerstvo" class="section">
+    <div class="container">
+      <div class="b-sec-head reveal">
+        <p class="sec-index" aria-hidden="true">03</p>
+        <h2>Приглашаем к партнерству собственников земельных участков</h2>
+      </div>
+      <div class="tz-panel reveal">
+        <h3>Не знаете, как сформировать требования к промышленному объекту?</h3>
+        <p class="muted">Скачайте пример технического задания проекта и используйте его как основу.</p>
+        <p style="margin:18px 0 0"><SiteButton variant="gold" b24="offer">Обсудить формат сотрудничества</SiteButton></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="proekty" class="b-projects section section--tint">
+    <div class="container">
+      <div class="b-sec-head reveal">
+        <p class="sec-index" aria-hidden="true">04</p>
+        <h2>Реализованные проекты</h2>
+        <p class="b-projects__lead">За 2019-2025 годы были реализованы следующие проекты:</p>
+      </div>
+      <div class="b-projects__grid">
+        {developmentProjects.map((project, i) => <ProjectCard project={project} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <section id="etapy" class="b-steps-sec section">
     <div class="container">
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">05</p>
-        <h2>Наш подход</h2>
-        <p class="b-sec-head__lead">Наш гибкий девелоперский подход позволяет формировать решения под задачи резидентов — от конфигурации производства и условий сделки до инженерной и инвестиционной модели проекта</p>
-      </div>
-      <div class="b-approach__grid">
-        <article class="approach-card reveal" style="--i:0">
-          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">handshake</span></span>
-          <h3>Гибкие условия сделки</h3>
-          <ul><li>Долгосрочная аренда или выкуп</li><li>Индивидуальные решения под задачи бизнеса</li><li>Различные финансовые инструменты</li></ul>
-        </article>
-        <article class="approach-card reveal" style="--i:1">
-          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">key</span></span>
-          <h3>Формат реализации «под ключ»</h3>
-          <ul><li>Полный цикл: от технического задания до управления объектом и ввода в эксплуатацию</li></ul>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="etapy" class="b-steps-sec section section--tint">
-    <div class="container">
-      <div class="b-sec-head reveal">
-        <p class="sec-index" aria-hidden="true">06</p>
         <h2>Как мы работаем</h2>
 
       </div>
@@ -643,10 +656,10 @@ import { developmentProjects } from '../data/projects';
             <div class="b-flow2__body"><p>Встреча и анализ потребностей</p></div>
           </li>          <li class="b-flow2__step reveal" style="--i:2">
             <span class="b-flow2__dot" aria-hidden="true">2</span>
-            <div class="b-flow2__body"><p>Подбор участка и разработка технического задания</p></div>
+            <div class="b-flow2__body"><p>Проектирование и согласования</p></div>
           </li>          <li class="b-flow2__step reveal" style="--i:3">
             <span class="b-flow2__dot" aria-hidden="true">3</span>
-            <div class="b-flow2__body"><p>Проектирование и согласования</p></div>
+            <div class="b-flow2__body"><p>Подбор участка и разработка технического задания</p></div>
           </li>          <li class="b-flow2__step reveal" style="--i:4">
             <span class="b-flow2__dot" aria-hidden="true">4</span>
             <div class="b-flow2__body"><p>Строительство и контроль качества</p></div>
@@ -659,9 +672,15 @@ import { developmentProjects } from '../data/projects';
     </div>
   </section>
 
+  <FaqSection variant="simple" id="faq" secIndex="06" title="Частые вопросы" lead="" items={[
+      { q: "Можно ли строить поэтапно?", a: "Да, возможна поэтапная застройка." },
+      { q: "Как контролируется бюджет?", a: "Утверждаем смету и фиксируем цену в договоре." },
+      { q: "Кто отвечает за ввод в эксплуатацию?", a: "Весь процесс ведём мы, включая согласования и сдачу объекта." },
+      { q: "Помогаете ли вы с привлечением финансирования?", a: "Да, мы предлагаем гибкие финансовые инструменты." }
+    ]} />
+
   <CtaBand variant="grad" id="cta" secIndex="07" heading="Хотите завод или парк без риска сорвать сроки и бюджет?" lede="Оставьте заявку — мы предложим решение под ваши задачи и доведём проект до запуска." buttons={[
-          { variant: "gold", b24: "request", label: "Оставить заявку" },
-          { variant: "ghost-light", href: "/katalog/", label: "Смотреть объекты" }
+          { variant: "gold", b24: "request", label: "Получить консультацию" }
         ]} />
 
   <section id="uslugi" class="b-others section">
