@@ -458,7 +458,6 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     .b-sec-head .sec-index{margin-bottom:14px}
     .b-sec-head h2{margin:0 0 12px;text-wrap:balance}
     .b-sec-head__lead{margin:0;color:var(--text-muted);font-size:1.05rem;line-height:1.68;max-width:68ch}
-    .b-sec-head__lead + .b-sec-head__lead{margin-top:14px}
     .section{padding:clamp(56px,7vw,96px) 0}
 
     /* Герой: акцент в заголовке и метрики */
@@ -550,6 +549,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
       <div class="b-hero__content">
         <p class="b-hero__eyebrow">Инвесторам</p>
         <h1>Инвестиции в промышленную недвижимость</h1>
+        <p class="b-hero__lead">Классические финансовые инструменты дают один источник дохода: проценты по вкладу или купон по облигации. Когда срок заканчивается, инвестор получает назад ту же сумму, что вложил. При этом за годы её покупательная способность снижается из-за инфляции.<br><br>С промышленной недвижимостью иначе. Доход здесь складывается из двух источников. Первый — арендный поток: 8–10,5% годовых. Ставка ежегодно индексируется по договору. Второй — рост стоимости самого объекта. Его инвестор получает при продаже. Если сложить обе составляющие, совокупная доходность, по нашим расчётам, составляет не менее 15% годовых.</p>
         <div class="b-hero__actions">
           <SiteButton variant="gold" b24="offer">Обсудить задачу</SiteButton>
           <SiteButton variant="outline" href="/katalog/">Смотреть объекты</SiteButton>
@@ -584,8 +584,6 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">03</p>
         <h2>Четыре модели: как получить доход</h2>
-        <p class="b-sec-head__lead">Классические финансовые инструменты дают один источник дохода: проценты по вкладу или купон по облигации. Когда срок заканчивается, инвестор получает назад ту же сумму, что вложил. При этом за годы её покупательная способность снижается из-за инфляции.</p>
-        <p class="b-sec-head__lead">С промышленной недвижимостью иначе. Доход здесь складывается из двух источников. Первый — арендный поток: 8–10,5% годовых. Ставка ежегодно индексируется по договору. Второй — рост стоимости самого объекта. Его инвестор получает при продаже. Если сложить обе составляющие, совокупная доходность, по нашим расчётам, составляет не менее 15% годовых.</p>
       </div>
       <div class="b-approach__grid">
         <article class="approach-card reveal" style="--i:0">
