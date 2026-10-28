@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import MapSection from '../components/MapSection.astro';
-import RoleCard from '../components/RoleCard.astro';
+import FaqSection from '../components/FaqSection.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import SiteButton from '../components/SiteButton.astro';
@@ -417,6 +417,14 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     .scope-card p{margin:0;font-weight:500;font-size:1rem}
     @media (min-width:768px){.b-scope__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}}
     @media (min-width:1024px){.b-scope__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media (min-width:1024px){.b-scope__grid--two{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+    .b-subhead{margin:40px 0 18px;font-size:var(--fs-h3);line-height:1.3}
+    .b-subhead:first-of-type{margin-top:0}
+    .b-results{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+    .b-results li{position:relative;padding-left:30px;font-weight:500;line-height:1.55}
+    .b-results li::before{content:"";position:absolute;left:0;top:.45em;width:14px;height:14px;background:var(--gold);transform:rotate(45deg)}
+    @media (min-width:768px){.b-results{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px}}
 
     .b-approach__grid{display:grid;gap:16px;margin-top:32px;grid-template-columns:1fr}
     .approach-card{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:26px;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
@@ -537,7 +545,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
       <div class="b-hero__content">
         <p class="b-hero__eyebrow">Услуга · Трейд-ин / Срочный выкуп</p>
         <h1>Трейд-ин / Срочный <span class="accent">выкуп</span></h1>
-        <p class="b-hero__lead">Принимаем ваш актив — здание, земельный участок или оборудование — и зачитываем его стоимость при приобретении нового объекта. Вам не придётся тратить время на поиск покупателя, торги и согласование условий: мы берём эти задачи на себя. Варианты обмена гибкие: например, здание можно зачесть в счёт земельного участка и наоборот — мы подстроимся под ваши цели и особенности активов.</p>
+        <p class="b-hero__lead">Принимаем ваш актив — здание, земельный участок или оборудование — и зачитываем его стоимость при приобретении нового объекта. Вам не придётся тратить время на поиск покупателя, торги и согласование условий: мы берём эти задачи на себя. Варианты обмена гибкие.</p>
         <div class="b-hero__actions">
           <SiteButton variant="gold" b24="offer">Обсудить проект</SiteButton>
           <SiteButton variant="outline" href="/katalog/">Смотреть объекты</SiteButton>
@@ -547,80 +555,69 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     </div>
   </section>
 
-  <section id="roli" class="b-tasks section section--tint">
+  <section id="zadachi" class="b-scope section">
     <div class="container">
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">02</p>
-        <h2>Обмен актива на новую сделку — без самостоятельных продаж</h2>
-        <p class="b-sec-head__lead">Трейд-ин подстраивается под вашу роль и задачу — от обновления производства до монетизации актива.</p>
+        <h2>Задачи</h2>
+        <p class="b-sec-head__lead">Обмен вашего действующего объекта на более эффективный формат без остановки бизнеса</p>
       </div>
-      <div class="b-tasks__grid">
-        <RoleCard icon="factory" title="Производствам" index={0} items={["Не нужно самостоятельно искать покупателя, вести переговоры и рисковать временем", "Сложно соотнести ценность текущего актива с новой сделкой", "Решение: актив — здание, участок, оборудование — в зачёт по справедливой зачётной стоимости, сделку синхронизируем"]} />
-        <RoleCard icon="apartment" title="Собственникам зданий" index={1} items={["Не нужно самостоятельно искать покупателя, вести переговоры и рисковать временем", "Сложно соотнести ценность текущего актива с новой сделкой", "Решение: здание в зачёт по справедливой зачётной стоимости, сделку синхронизируем"]} />
-        <RoleCard icon="landscape" title="Собственникам участков" index={2} items={["Выкуп земли вместе со строениями", "Оценка и быстрый выход из актива", "Зачёт участка при покупке нового объекта"]} />
-        <RoleCard icon="trending_up" title="Инвесторам" index={3} items={["Активы под доходную стратегию", "Срочный вход в промышленную недвижимость", "Оценка потенциала актива до сделки"]} />
+      <h3 class="b-subhead reveal">В результате вы получаете</h3>
+      <ul class="b-results reveal">
+        <li>Оценку вашей недвижимости с учетом ее инвестиционного потенциала и текущей ситуации на рынке</li>
+        <li>Возможность зачёта объекта в счёт покупки или аренды нового</li>
+        <li>Переезд в более современный и эффективный промышленный формат</li>
+        <li>Оптимизацию затрат на эксплуатацию и логистику</li>
+        <li>Снижение рисков и сроков по сравнению с классической продажей</li>
+      </ul>
+      <h3 class="b-subhead reveal">Какие объекты участвуют в трейд-ин</h3>
+      <div class="b-scope__grid b-scope__grid--two">
+        <div class="scope-card reveal" style="--i:1">
+          <span class="scope-card__num" aria-hidden="true">01</span>
+          <p>Складские и логистические объекты</p>
+        </div>        <div class="scope-card reveal" style="--i:2">
+          <span class="scope-card__num" aria-hidden="true">02</span>
+          <p>Производственные здания и цеха</p>
+        </div>        <div class="scope-card reveal" style="--i:3">
+          <span class="scope-card__num" aria-hidden="true">03</span>
+          <p>Земельные участки промышленного назначения</p>
+        </div>        <div class="scope-card reveal" style="--i:4">
+          <span class="scope-card__num" aria-hidden="true">04</span>
+          <p>Комплексы под редевелопмент</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="sostav" class="b-scope section section--tint">
+  <section id="boli" class="b-scope section section--tint">
     <div class="container">
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">03</p>
-        <h2>Что входит в трейд-ин</h2>
-        <p class="b-sec-head__lead">Берём на себя оценку актива и организацию сделки от первого обращения до перехода к новому объекту.</p>
+        <h2>Боли</h2>
+        <p class="b-sec-head__lead">Когда к нам обращаются</p>
       </div>
-      <div class="b-scope__grid">
+      <div class="b-scope__grid b-scope__grid--two">
         <div class="scope-card reveal" style="--i:1">
           <span class="scope-card__num" aria-hidden="true">01</span>
-          <p>Оценка актива с учётом его инвестиционного потенциала и текущей ситуации на рынке</p>
+          <p>Есть действующий производственный объект, который перестал быть эффективным</p>
         </div>        <div class="scope-card reveal" style="--i:2">
           <span class="scope-card__num" aria-hidden="true">02</span>
-          <p>Зачёт стоимости актива в счёт покупки или аренды нового объекта</p>
+          <p>Недвижимость устарела морально или технически</p>
         </div>        <div class="scope-card reveal" style="--i:3">
           <span class="scope-card__num" aria-hidden="true">03</span>
-          <p>Справедливая зачётная стоимость и синхронизация сделки</p>
+          <p>Сложно самостоятельно продать объект и сразу реинвестировать средства</p>
         </div>        <div class="scope-card reveal" style="--i:4">
           <span class="scope-card__num" aria-hidden="true">04</span>
-          <p>Юридическое сопровождение и согласование условий сделки</p>
-        </div>        <div class="scope-card reveal" style="--i:5">
-          <span class="scope-card__num" aria-hidden="true">05</span>
-          <p>Подбор вариантов замены или формата участия — в зависимости от типа актива и ваших целей</p>
-        </div>        <div class="scope-card reveal" style="--i:6">
-          <span class="scope-card__num" aria-hidden="true">06</span>
-          <p>Сопровождение сделки и переход к новому объекту</p>
+          <p>Есть задача обновить производственную базу без остановки бизнеса</p>
         </div>
       </div>
-
     </div>
   </section>
 
-  <section id="podhod" class="b-approach section">
+  <section id="etapy" class="b-steps-sec section">
     <div class="container">
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">04</p>
-        <h2>Наш подход</h2>
-        <p class="b-sec-head__lead">Обмен вашего действующего объекта на более эффективный формат без остановки бизнеса.</p>
-      </div>
-      <div class="b-approach__grid">
-        <article class="approach-card reveal" style="--i:0">
-          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">swap_horiz</span></span>
-          <h3>Гибкие варианты обмена</h3>
-          <ul><li>Различные варианты — в зависимости от типа актива и ваших целей</li><li>Например, здание можно зачесть в счёт земельного участка и наоборот</li><li>Подстраиваемся под ваши цели и особенности активов</li></ul>
-        </article>
-        <article class="approach-card reveal" style="--i:1">
-          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">sync_alt</span></span>
-          <h3>Сделка без лишних рисков</h3>
-          <ul><li>Не нужно самостоятельно искать покупателя, вести переговоры и рисковать временем</li><li>Снижение рисков и сроков по сравнению с классической продажей</li><li>Переезд в более современный и эффективный промышленный формат</li></ul>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="etapy" class="b-steps-sec section section--tint">
-    <div class="container">
-      <div class="b-sec-head reveal">
-        <p class="sec-index" aria-hidden="true">05</p>
         <h2>Как мы работаем</h2>
 
       </div>
@@ -648,14 +645,19 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     </div>
   </section>
 
+  <FaqSection variant="simple" id="faq" secIndex="05" title="Частые вопросы" lead="" items={[
+      { q: "Любой ли объект можно передать в трейд-ин?", a: "Каждый объект рассматривается индивидуально после анализа" },
+      { q: "Можно ли обменять объект на аренду?", a: "Да, возможны различные форматы зачёта стоимости" },
+      { q: "Обязательно ли продавать объекты?", a: "Нет, мы рассматриваем и сценарии редевелопмента или совместных проектов" }
+    ]} />
+
   <MapSection objects={mapObjects} secIndex="06" />
 
   <script is:inline src="/assets/ymaps-lazy.js?v=1" defer></script>
     <script is:inline src="/assets/svc-map.js?v=3" defer></script>
 
-  <CtaBand variant="grad" id="cta" secIndex="07" heading="Хотите обменять актив на новый формат или продать его срочно?" lede="Расскажите, что у вас есть и что вы хотели бы получить взамен, — мы подберём оптимальное решение." buttons={[
-          { variant: "gold", b24: "request", label: "Оставить заявку" },
-          { variant: "ghost-light", href: "/katalog/", label: "Смотреть объекты" }
+  <CtaBand variant="grad" id="cta" secIndex="07" heading="Хотите обновить производственную недвижимость без лишних рисков?" lede="Оставьте заявку — мы предложим вариант трейд-ин под вашу задачу" buttons={[
+          { variant: "gold", b24: "request", label: "Получить консультацию" }
         ]} />
 
   <section id="uslugi" class="b-others section">
