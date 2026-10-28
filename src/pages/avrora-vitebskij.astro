@@ -8,7 +8,7 @@ import SiteButton from '../components/SiteButton.astro';
 import TzBanner from '../components/TzBanner.astro';
 import B24Loader from '../components/B24Loader.astro';
 ---
-<BaseLayout title="Аврора Витебский — индустриальный парк на Витебском проспекте | ММ Пром" description="Аврора Витебский — новый индустриальный парк на Витебском проспекте: 38 га, участки от 1 га, мощности 1–25 МВт, строительство под ключ.">
+<BaseLayout title="Индустриальный парк «Аврора Витебский» — ММ Пром" description="Аврора Витебский — новый индустриальный парк на Витебском проспекте: 38 га, участки от 1 га, мощности 1–25 МВт, строительство под ключ.">
   <Fragment slot="head">
     <style is:inline>
     /* ═══════════════════════════════════════════════════════════════════════
@@ -421,6 +421,7 @@ import B24Loader from '../components/B24Loader.astro';
 .approach-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
 .approach-card > .material-symbols-outlined{font-size:28px;color:var(--purple)}
 .approach-card h3{margin:0;font-size:1.15rem}
+.approach-card__title{margin:0;font-size:1.15rem;font-weight:800;line-height:1.4;color:var(--text)}
 .approach-card p{margin:0;color:var(--text-muted);font-weight:500;font-size:1rem}
 .approach-card ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .approach-card li{position:relative;padding-left:20px;color:var(--text-muted);font-weight:500;font-size:1rem}
@@ -577,6 +578,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 .obj-split .approach-card__icon{grid-area:icon;width:36px;height:36px;border-radius:9px}
 .obj-split .approach-card__icon .material-symbols-outlined{font-size:19px}
 .obj-split .approach-card h3{grid-area:title;font-size:.95rem;line-height:1.35;margin:0 0 3px}
+.obj-split .approach-card .approach-card__title{grid-area:title;font-size:.95rem;line-height:1.35;margin:0 0 3px}
 .obj-split .approach-card p{grid-area:text;font-size:var(--fs-small);line-height:1.45}
 .obj-split .obj-figure{margin:0;max-width:none}
 .obj-split .obj-cols{grid-template-columns:1fr}
@@ -659,10 +661,10 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
     <div class="container b-hero__inner">
       <div class="b-hero__content">
         <p class="b-hero__eyebrow">Объект · Индустриальный парк</p>
-        <h1>Аврора <span class="accent">Витебский</span></h1>
+        <h1>Индустриальный парк «Аврора <span class="accent">Витебский</span>»</h1>
         <p class="b-hero__lead">Новый индустриальный парк на Витебском проспекте: 38 га с инженерной подготовкой и строительством под ключ для производств любого профиля.</p>
         <p class="b-hero__note">Участки от 1 га, мощности от 1 до 25 МВт и первая видовая линия вдоль Витебского проспекта. Пять минут до КАД, десять минут до метро «Купчино» и тридцать минут до центра Петербурга.</p>
-        <div class="b-hero__actions"><SiteButton variant="gold" b24="offer">Обсудить проект</SiteButton><a class="btn btn--outline" href="/katalog/">Смотреть каталог</a></div>
+        <div class="b-hero__actions"><SiteButton variant="gold" b24="offer">Обсудить проект</SiteButton><a class="btn btn--outline" href="/katalog/">Смотреть каталог объектов</a></div>
         <ul class="b-hero__metrics"><li><strong>38 га</strong><span>территория парка</span></li><li><strong>200 000+ м²</strong><span>возможная застройка</span></li><li><strong>1–25 МВт</strong><span>энергетические мощности</span></li><li><strong>10 минут</strong><span>до метро «Купчино»</span></li></ul>
       </div>
       <figure class="obj-hero__media">
@@ -696,46 +698,46 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         <p class="b-sec-head__lead">Инженерные ресурсы, разрешённое использование и параметры участка. Участки в покупку — 0,3 / 1 / 2 / 3 / 5 га; форма сделки — покупка земельных участков.</p>
       </div>
       <div class="b-approach__grid">
-        <article class="approach-card reveal" style="--i:0">
+        <div class="approach-card reveal" style="--i:0">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">bolt</span></span>
-          <h3>Энергетические мощности</h3>
+          <div class="approach-card__title">Энергетические мощности</div>
           <p>Объём: от 1 до 25 МВт (II–III категория)<br>Прямое подключение к сетям Ленэнерго<br>Стадия: получение технических условий</p>
-        </article>
-        <article class="approach-card reveal" style="--i:1">
+        </div>
+        <div class="approach-card reveal" style="--i:1">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">water_drop</span></span>
-          <h3>Водоснабжение</h3>
+          <div class="approach-card__title">Водоснабжение</div>
           <p>Объём: 1 449,51 м³/сут.<br>Прямое подключение к сетям водоканала<br>Стадия: получены технические условия</p>
-        </article>
-        <article class="approach-card reveal" style="--i:2">
+        </div>
+        <div class="approach-card reveal" style="--i:2">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">water</span></span>
-          <h3>Водоотведение</h3>
+          <div class="approach-card__title">Водоотведение</div>
           <p>Объём: 1 183,75 м³/сут.<br>Прямое подключение к РСО «Агентство Шушары»<br>Стадия: получены технические условия</p>
-        </article>
-        <article class="approach-card reveal" style="--i:3">
+        </div>
+        <div class="approach-card reveal" style="--i:3">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">warning</span></span>
-          <h3>Классы опасности</h3>
+          <div class="approach-card__title">Классы опасности</div>
           <p>III–V классы</p>
-        </article>
-        <article class="approach-card reveal" style="--i:4">
+        </div>
+        <div class="approach-card reveal" style="--i:4">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">local_fire_department</span></span>
-          <h3>Газоснабжение</h3>
+          <div class="approach-card__title">Газоснабжение</div>
           <p>Объём: 2 500 м³/час<br>Прямое подключение к сетям «Петербурггаз» и «Парк Шушары»<br>Стадия: получение технических условий</p>
-        </article>
-        <article class="approach-card reveal" style="--i:5">
+        </div>
+        <div class="approach-card reveal" style="--i:5">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">assignment</span></span>
-          <h3>Виды разрешённого использования</h3>
+          <div class="approach-card__title">Виды разрешённого использования</div>
           <p>6.0. Производственная деятельность<br>6.2. Тяжёлая промышленность<br>6.3. Лёгкая промышленность<br>6.3.1. Фармацевтическая промышленность<br>6.4. Пищевая промышленность<br>6.8. Связь<br>6.9. Склад<br>6.12. Научно-производственная деятельность<br>— и другие</p>
-        </article>
-        <article class="approach-card reveal" style="--i:6">
+        </div>
+        <div class="approach-card reveal" style="--i:6">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">square_foot</span></span>
-          <h3>Размер участка</h3>
+          <div class="approach-card__title">Размер участка</div>
           <p>Общая возможная площадь застройки: более 200 000 м²<br>Территория: 38 га</p>
-        </article>
-        <article class="approach-card reveal" style="--i:7">
+        </div>
+        <div class="approach-card reveal" style="--i:7">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">pin_drop</span></span>
-          <h3>Кадастровые номера</h3>
+          <div class="approach-card__title">Кадастровые номера</div>
           <p>78:42:0015105:60<br>78:42:0015105:3113</p>
-        </article>
+        </div>
       </div>
     </div>
   </section>
@@ -775,36 +777,36 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
       </div>
       <div class="obj-split">
       <div class="b-approach__grid">
-        <article class="approach-card reveal" style="--i:0">
+        <div class="approach-card reveal" style="--i:0">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">key</span></span>
-          <h3>Аренда</h3>
+          <div class="approach-card__title">Аренда</div>
           <p>Быстрый старт для промышленного бизнеса</p>
-        </article>
-        <article class="approach-card reveal" style="--i:1">
+        </div>
+        <div class="approach-card reveal" style="--i:1">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">sell</span></span>
-          <h3>Покупка</h3>
+          <div class="approach-card__title">Покупка</div>
           <p>Собственный актив и полный контроль</p>
-        </article>
-        <article class="approach-card reveal" style="--i:2">
+        </div>
+        <div class="approach-card reveal" style="--i:2">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">handshake</span></span>
-          <h3>Аренда с выкупом</h3>
+          <div class="approach-card__title">Аренда с выкупом</div>
           <p>Арендуете — постепенно становитесь собственником</p>
-        </article>
-        <article class="approach-card reveal" style="--i:3">
+        </div>
+        <div class="approach-card reveal" style="--i:3">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">swap_horiz</span></span>
-          <h3>Trade-In</h3>
+          <div class="approach-card__title">Trade-In</div>
           <p>Обмен старого актива на новый</p>
-        </article>
-        <article class="approach-card reveal" style="--i:4">
+        </div>
+        <div class="approach-card reveal" style="--i:4">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">savings</span></span>
-          <h3>Финансовые инструменты</h3>
+          <div class="approach-card__title">Финансовые инструменты</div>
           <p>Гибкие схемы для разного бюджета</p>
-        </article>
-        <article class="approach-card reveal" style="--i:5">
+        </div>
+        <div class="approach-card reveal" style="--i:5">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">foundation</span></span>
-          <h3>Строительство под ключ</h3>
+          <div class="approach-card__title">Строительство под ключ</div>
           <p>Возьмём реализацию проекта на себя</p>
-        </article>
+        </div>
       </div>
       <figure class="obj-figure">
         <Image src={ImgDeal} widths={[640, 760, 1520]} sizes="(max-width: 1023px) 100vw, 760px" alt="Формы сделки" loading="lazy" />
@@ -914,9 +916,9 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
           <p style="color:rgba(255,255,255,.75)">Расскажите о производстве. Оценим возможность размещения, инженерную модель и дальнейшие шаги.</p>
           <div class="b-cta__row">
             <SiteButton variant="gold" b24="request">Оставить заявку</SiteButton>
-            <a class="btn btn--ghost-light" href="/katalog/">Смотреть каталог</a>
+            <a class="btn btn--ghost-light" href="/katalog/">Перейти в каталог объектов</a>
           </div>
-          <a class="b-cta__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
+          <a class="b-cta__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span><span class="visually-hidden">Связаться по телефону: </span>8 800 333 10 10</a>
 
           <div slot="aside" class="b24-form-wrap">
             <B24Loader form="estimateInline" />

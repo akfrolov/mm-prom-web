@@ -436,6 +436,7 @@ import { B24_FORMS } from '../lib/b24';
 .approach-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
 .approach-card > .material-symbols-outlined{font-size:28px;color:var(--purple)}
 .approach-card h3{margin:0;font-size:1.15rem}
+.approach-card__title{margin:0;font-size:1.15rem;font-weight:800;line-height:1.4;color:var(--text)}
 .approach-card p{margin:0;color:var(--text-muted);font-weight:500;font-size:1rem}
 .approach-card ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .approach-card li{position:relative;padding-left:20px;color:var(--text-muted);font-weight:500;font-size:1rem}
@@ -594,6 +595,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 .obj-split .approach-card__icon{grid-area:icon;width:36px;height:36px;border-radius:9px}
 .obj-split .approach-card__icon .material-symbols-outlined{font-size:19px}
 .obj-split .approach-card h3{grid-area:title;font-size:.95rem;line-height:1.35;margin:0 0 3px}
+.obj-split .approach-card .approach-card__title{grid-area:title;font-size:.95rem;line-height:1.35;margin:0 0 3px}
 .obj-split .approach-card p{grid-area:text;font-size:var(--fs-small);line-height:1.45}
 .obj-split .obj-figure{margin:0;max-width:none}
 .obj-split .obj-cols{grid-template-columns:1fr}
@@ -663,7 +665,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
     <div class="container b-hero__inner">
       <div class="b-hero__content">
         <p class="b-hero__eyebrow">Объект · Технопарк</p>
-        <h1>Атлас <span class="accent">Гаражный</span></h1>
+        <h1>Технопарк «Атлас <span class="accent">Гаражный</span>» в Обухово</h1>
         <p class="b-hero__lead">Готовые производственные площади рядом с метро. Развитая инфраструктура, все необходимые инженерные сети. Удобная логистика, возможность адаптации под задачи производства.</p>
         <p class="b-hero__note">4 этажа производственно-складских помещений. Общая площадь здания — 10 719 м² (включая производственные, вспомогательные и технические помещения)</p>
         <div class="b-hero__actions"><SiteButton variant="gold" b24="offer">Обсудить объект</SiteButton><a class="btn btn--outline" href="/katalog/">Смотреть каталог</a></div>
@@ -802,56 +804,56 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
       </div>
       <div class="obj-split">
       <div class="b-approach__grid">
-        <article class="approach-card reveal" style="--i:0">
+        <div class="approach-card reveal" style="--i:0">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">height</span></span>
-          <h3>Высота</h3>
+          <div class="approach-card__title">Высота</div>
           <p>1 этаж — 11,5 м<br>2 этаж — 4,8 м<br>3 этаж — 3,4 м (возможно увеличение)</p>
-        </article>
-        <article class="approach-card reveal" style="--i:1">
+        </div>
+        <div class="approach-card reveal" style="--i:1">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">precision_manufacturing</span></span>
-          <h3>Кран-балки</h3>
+          <div class="approach-card__title">Кран-балки</div>
           <p>Предусмотрена возможность установки<br>Грузоподъёмность 10 т<br>Высота до крюка 8 м</p>
-        </article>
-        <article class="approach-card reveal" style="--i:2">
+        </div>
+        <div class="approach-card reveal" style="--i:2">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">weight</span></span>
-          <h3>Нагрузка на пол</h3>
+          <div class="approach-card__title">Нагрузка на пол</div>
           <p>1 этаж — 5 т/м² равномерно распределённая<br>2–3 этаж — 1 т/м² равномерно распределённая</p>
-        </article>
-        <article class="approach-card reveal" style="--i:3">
+        </div>
+        <div class="approach-card reveal" style="--i:3">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">elevator</span></span>
-          <h3>Лифты</h3>
+          <div class="approach-card__title">Лифты</div>
           <p>Пассажирский и грузовой, г/п 3 т<br>Возможен монтаж внутренних и внешних подъёмников</p>
-        </article>
-        <article class="approach-card reveal" style="--i:4">
+        </div>
+        <div class="approach-card reveal" style="--i:4">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">air</span></span>
-          <h3>Система вентиляции</h3>
+          <div class="approach-card__title">Система вентиляции</div>
           <p>Приточно-вытяжная</p>
-        </article>
-        <article class="approach-card reveal" style="--i:5">
+        </div>
+        <div class="approach-card reveal" style="--i:5">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">straighten</span></span>
-          <h3>Габариты здания</h3>
+          <div class="approach-card__title">Габариты здания</div>
           <p>29 × 75 м</p>
-        </article>
-        <article class="approach-card reveal" style="--i:6">
+        </div>
+        <div class="approach-card reveal" style="--i:6">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">grid_on</span></span>
-          <h3>Шаг колонн</h3>
+          <div class="approach-card__title">Шаг колонн</div>
           <p>1 пролёт — 14 × 6<br>2 пролёт — 15 × 6</p>
-        </article>
-        <article class="approach-card reveal" style="--i:7">
+        </div>
+        <div class="approach-card reveal" style="--i:7">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">shield</span></span>
-          <h3>Безопасность</h3>
+          <div class="approach-card__title">Безопасность</div>
           <p>Круглосуточная охрана территории<br>Контрольно-пропускной режим<br>Видеонаблюдение</p>
-        </article>
-        <article class="approach-card reveal" style="--i:8">
+        </div>
+        <div class="approach-card reveal" style="--i:8">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">local_fire_department</span></span>
-          <h3>Газ в производственных целях</h3>
+          <div class="approach-card__title">Газ в производственных целях</div>
           <p>Есть возможность подключения</p>
-        </article>
-        <article class="approach-card reveal" style="--i:9">
+        </div>
+        <div class="approach-card reveal" style="--i:9">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">fire_extinguisher</span></span>
-          <h3>Пожарная безопасность</h3>
+          <div class="approach-card__title">Пожарная безопасность</div>
           <p>Автоматическая пожарная сигнализация<br>Внутренний противопожарный водопровод (пожарные краны)</p>
-        </article>
+        </div>
       </div>
       <figure class="obj-figure">
         <Image src={ImgSpecs} widths={[640, 960, 1349]} sizes="(max-width: 1023px) 100vw, 634px" alt="Характеристики объекта Атлас Гаражный" loading="lazy" />
@@ -895,41 +897,41 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         <p class="b-sec-head__lead">Ресурсы, разрешённое использование и кадастровые данные.</p>
       </div>
       <div class="b-approach__grid">
-        <article class="approach-card reveal" style="--i:0">
+        <div class="approach-card reveal" style="--i:0">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">bolt</span></span>
-          <h3>Энергетические мощности</h3>
+          <div class="approach-card__title">Энергетические мощности</div>
           <p>Объём: до 1 МВт (II–III категория)<br>Подключение: ПАО «Россети Ленэнерго»<br>Тарифы ниже среднегородских</p>
-        </article>
-        <article class="approach-card reveal" style="--i:1">
+        </div>
+        <div class="approach-card reveal" style="--i:1">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">water_drop</span></span>
-          <h3>Водоснабжение и водоотведение</h3>
+          <div class="approach-card__title">Водоснабжение и водоотведение</div>
           <p>Объём: 43 м³/сут</p>
-        </article>
-        <article class="approach-card reveal" style="--i:2">
+        </div>
+        <div class="approach-card reveal" style="--i:2">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">square_foot</span></span>
-          <h3>Размер участка</h3>
+          <div class="approach-card__title">Размер участка</div>
           <p>Площадь земельного участка: 6 643 м²</p>
-        </article>
-        <article class="approach-card reveal" style="--i:3">
+        </div>
+        <div class="approach-card reveal" style="--i:3">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">local_fire_department</span></span>
-          <h3>Газоснабжение</h3>
+          <div class="approach-card__title">Газоснабжение</div>
           <p>Собственная газовая котельная<br>Общая мощность 4,2 МВт<br>Объём газа: 288,5 м³/час<br>Тепловая мощность 0,831 Гкал/ч</p>
-        </article>
-        <article class="approach-card reveal" style="--i:4">
+        </div>
+        <div class="approach-card reveal" style="--i:4">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">assignment</span></span>
-          <h3>Виды разрешённого использования</h3>
+          <div class="approach-card__title">Виды разрешённого использования</div>
           <p>Производственная деятельность<br>Лёгкая и тяжёлая промышленность<br>Автомобилестроительная, фармацевтическая, нефтехимическая, пищевая, целлюлозно-бумажная промышленность<br>Склады</p>
-        </article>
-        <article class="approach-card reveal" style="--i:5">
+        </div>
+        <div class="approach-card reveal" style="--i:5">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">warning</span></span>
-          <h3>Классы опасности</h3>
+          <div class="approach-card__title">Классы опасности</div>
           <p>II–III классы</p>
-        </article>
-        <article class="approach-card reveal" style="--i:6">
+        </div>
+        <div class="approach-card reveal" style="--i:6">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">pin_drop</span></span>
-          <h3>Кадастровый номер участка</h3>
+          <div class="approach-card__title">Кадастровый номер участка</div>
           <p>78:13:0007482:2547</p>
-        </article>
+        </div>
       </div>
     </div>
   </section>
@@ -944,31 +946,31 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
     </div>
     <div class="obj-split">
       <div class="b-approach__grid">
-        <article class="approach-card reveal" style="--i:0">
+        <div class="approach-card reveal" style="--i:0">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">key</span></span>
-          <h3>Аренда</h3>
+          <div class="approach-card__title">Аренда</div>
           <p>Быстрый старт для промышленного бизнеса</p>
-        </article>
-        <article class="approach-card reveal" style="--i:1">
+        </div>
+        <div class="approach-card reveal" style="--i:1">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">sell</span></span>
-          <h3>Покупка</h3>
+          <div class="approach-card__title">Покупка</div>
           <p>Собственный актив и полный контроль</p>
-        </article>
-        <article class="approach-card reveal" style="--i:2">
+        </div>
+        <div class="approach-card reveal" style="--i:2">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">handshake</span></span>
-          <h3>Аренда с выкупом</h3>
+          <div class="approach-card__title">Аренда с выкупом</div>
           <p>Арендуете — постепенно становитесь собственником</p>
-        </article>
-        <article class="approach-card reveal" style="--i:3">
+        </div>
+        <div class="approach-card reveal" style="--i:3">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">swap_horiz</span></span>
-          <h3>Trade-In</h3>
+          <div class="approach-card__title">Trade-In</div>
           <p>Обмен старого актива на новый</p>
-        </article>
-        <article class="approach-card reveal" style="--i:4">
+        </div>
+        <div class="approach-card reveal" style="--i:4">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">savings</span></span>
-          <h3>Финансовые инструменты</h3>
+          <div class="approach-card__title">Финансовые инструменты</div>
           <p>Гибкие схемы для разного бюджета</p>
-        </article>
+        </div>
       </div>
       <figure class="obj-figure">
         <Image src={ImgDeal} widths={[400, 640, 800]} sizes="(max-width: 1023px) 100vw, 634px" alt="Формы сделки" loading="lazy" />
@@ -1005,7 +1007,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
               <SiteButton variant="gold" b24="request">Оставить заявку</SiteButton>
               <a class="btn btn--ghost-light" href="/katalog/">В каталог</a>
             </div>
-            <a class="b-cta__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
+            <a class="b-cta__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span><span class="visually-hidden">Связаться по телефону: </span>8 800 333 10 10</a>
           </div>
         </div>
 

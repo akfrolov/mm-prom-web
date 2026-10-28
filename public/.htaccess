@@ -1,6 +1,17 @@
 DirectoryIndex index.html
 ErrorDocument 404 /404.html
 
+AddDefaultCharset UTF-8
+<IfModule mod_mime.c>
+  AddCharset UTF-8 .html .css .js .mjs .json .xml .svg .txt
+</IfModule>
+
+ServerSignature Off
+<IfModule mod_headers.c>
+  Header always unset Server
+  Header always unset X-Powered-By
+</IfModule>
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
 

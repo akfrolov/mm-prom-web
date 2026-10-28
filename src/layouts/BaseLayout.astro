@@ -68,6 +68,7 @@ const metrika = `<script>
     <meta name="description" content={description}>
     <meta name="robots" content={robots}>
     <link rel="icon" type="image/png" href="/mm-logo.png">
+    <link rel="apple-touch-icon" sizes="116x116" href="/mm-logo.png">
     <link rel="canonical" href={canonical}>
     <meta property="og:type" content={ogType}>
     <meta property="og:site_name" content="ММ Пром">
@@ -116,7 +117,7 @@ const metrika = `<script>
           <a href="/contact/" data-astro-prefetch>Контакты</a>
         </nav>
         <div class="site-header__actions">
-          <a class="site-header__phone" href="tel:88003331010">8 800 333 10 10</a>
+          <a class="site-header__phone" href="tel:88003331010"><span class="visually-hidden">Телефон: </span>8 800 333 10 10</a>
           <B24Loader form="request" />
           <button class="btn btn--purple site-header__cta" type="button" data-b24-form="click/36/skk415" data-b24-form-telemetry-sign="v1:36:site.a467aeed9d7582f9de1e8a4dfb29aea466dae483b5806ff9c02b839525a9d495" data-b24-loader={B24_FORMS.request.loader}>Оставить заявку</button>
           <button class="site-header__burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu"><span class="material-symbols-outlined" aria-hidden="true">menu</span></button>
@@ -192,7 +193,7 @@ const metrika = `<script>
             <a class="mobile-menu__link" href="/contact/" data-astro-prefetch><span class="material-symbols-outlined" aria-hidden="true">place</span>Контакты</a>
           </nav>
           <div class="mobile-menu__actions">
-            <a class="site-header__phone" href="tel:88003331010">8 800 333 10 10</a>
+            <a class="site-header__phone" href="tel:88003331010"><span class="visually-hidden">Позвонить: </span>8 800 333 10 10</a>
             <B24Loader form="request" />
             <button class="btn btn--purple" type="button" data-b24-form="click/36/skk415" data-b24-form-telemetry-sign="v1:36:site.a467aeed9d7582f9de1e8a4dfb29aea466dae483b5806ff9c02b839525a9d495" data-b24-loader={B24_FORMS.request.loader}>Оставить заявку</button>
           </div>
@@ -358,7 +359,7 @@ const metrika = `<script>
               <a class="btn btn--gold" href="/uslugi/">Все услуги<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
               <a class="mm-foot__link mm-foot__link--catalog" href="/katalog/"><span class="material-symbols-outlined" aria-hidden="true">grid_view</span>Каталог объектов</a>
             </div>
-            <a class="mm-foot__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span>8 800 333 10 10</a>
+            <a class="mm-foot__phone" href="tel:88003331010"><span class="material-symbols-outlined" aria-hidden="true">call</span><span class="visually-hidden">Позвонить в офис: </span>8 800 333 10 10</a>
           </div>
         </section>
       </div>
@@ -399,11 +400,11 @@ const metrika = `<script>
         </nav>
         <div class="site-footer__col">
           <p class="site-footer__title">Контакты</p>
-          <a class="site-footer__phone" href="tel:88003331010">8 800 333 10 10</a>
+          <a class="site-footer__phone" href="tel:88003331010"><span class="visually-hidden">Бесплатный звонок: </span>8 800 333 10 10</a>
           <p class="site-footer__addr">Санкт-Петербург, ул. Савушкина, 125 к.6</p>
           <div class="site-footer__social">
             <a href="https://t.me/mm_prom1" aria-label="Телеграм-канал ММ Пром"><svg viewBox="0 0 24 24" width="22" height="22" fill="#229ED9" aria-hidden="true"><path d="M9.04 15.51l-.38 5.35c.54 0 .78-.23 1.06-.51l2.55-2.44 5.28 3.87c.97.53 1.66.25 1.92-.9l3.48-16.3c.31-1.43-.52-1.99-1.46-1.64L1.1 9.76c-1.39.54-1.37 1.32-.24 1.67l5.3 1.65L18.35 5.1c.57-.38 1.09-.17.66.21L9.04 15.51z"/></svg></a>
-            <a href="https://max.ru/channel_MM_PROM" aria-label="Канал ММ Пром в MAX"><img src="/assets/max-logo.svg" width="22" height="22" alt="" aria-hidden="true" loading="lazy"></a>
+            <a href="https://max.ru/channel_MM_PROM" aria-label="Канал ММ Пром в MAX"><img src="/assets/max-logo.svg" width="22" height="22" alt="Макс" aria-hidden="true" loading="lazy"></a>
           </div>
         </div>
       </div>
