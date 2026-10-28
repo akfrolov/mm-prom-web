@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import MapSection from '../components/MapSection.astro';
-import RoleCard from '../components/RoleCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import SiteButton from '../components/SiteButton.astro';
@@ -457,6 +456,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     .b-sec-head .sec-index{margin-bottom:14px}
     .b-sec-head h2{margin:0 0 12px;text-wrap:balance}
     .b-sec-head__lead{margin:0;color:var(--text-muted);font-size:1.05rem;line-height:1.68;max-width:68ch}
+    .b-sec-head__lead + .b-sec-head__lead{margin-top:14px}
     .section{padding:clamp(56px,7vw,96px) 0}
 
     /* Герой: акцент в заголовке и метрики */
@@ -547,18 +547,35 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     </div>
   </section>
 
-  <section id="roli" class="b-tasks section section--tint">
+  <section id="modeli" class="b-approach section section--tint">
     <div class="container">
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">02</p>
-        <h2>Разные роли — разная задача финансирования</h2>
-        <p class="b-sec-head__lead">Участку — деньги на стройку, инвестору — доходный формат, производству — площадку и финансирование под ключ.</p>
+        <h2>Четыре модели: как получить доход</h2>
+        <p class="b-sec-head__lead">Классические финансовые инструменты дают один источник дохода: проценты по вкладу или купон по облигации. Когда срок заканчивается, инвестор получает назад ту же сумму, что вложил. При этом за годы её покупательная способность снижается из-за инфляции.</p>
+        <p class="b-sec-head__lead">С промышленной недвижимостью иначе. Доход здесь складывается из двух источников. Первый — арендный поток: 8–10,5% годовых. Ставка ежегодно индексируется по договору. Второй — рост стоимости самого объекта. Его инвестор получает при продаже. Если сложить обе составляющие, совокупная доходность, по нашим расчётам, составляет не менее 15% годовых.</p>
       </div>
-      <div class="b-tasks__grid">
-        <RoleCard icon="factory" title="Производствам" index={0} items={["Заёмное финансирование площадки", "Софинансирование проекта под ключ", "Соинвестирование в проект", "Участки и готовые здания из портфеля"]} />
-        <RoleCard icon="apartment" title="Собственникам зданий" index={1} items={["Здание как источник финансирования", "Дополнительный доход от актива", "Актив в управлении ММ Пром"]} />
-        <RoleCard icon="landscape" title="Собственникам участков" index={2} items={["Деньги нужны уже сейчас, а банки отказывают или предлагают ставки, при которых проект теряет экономическую привлекательность", "Кредитному комитету мало «хорошей идеи» — нужны выстроенная логика проекта и безупречная документация", "Решение: альтернативные пути — льготное финансирование через программы господдержки промышленного строительства"]} />
-        <RoleCard icon="trending_up" title="Инвесторам" index={3} items={["Хочется вложиться в перспективный проект, но без операционной нагрузки и с минимальными рисками", "Цели разные: кому-то быстрая отдача в спекулятивном бизнесе, кому-то надёжный «пенсионный» проект", "Решение: «пенсионный» формат — покупка бизнеса с полным управлением на нашей стороне; для спекулятивных моделей — стратегия быстрой реализации потенциала актива"]} />
+      <div class="b-approach__grid">
+        <article class="approach-card reveal" style="--i:0">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">apartment</span></span>
+          <h3>Классическая аренда</h3>
+          <p>Стабильный поток 8–10,5% годовых с ежегодной индексацией. Подходит тем, кому важен регулярный предсказуемый доход. Объект при этом остаётся в собственности и дорожает.</p>
+        </article>
+        <article class="approach-card reveal" style="--i:1">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">swap_horiz</span></span>
+          <h3>Смешанная модель</h3>
+          <p>Часть площадей сдаётся конечному арендатору (например, 5 тыс. кв. м из 10 тыс.). Остальные блоки по 3–5 тыс. кв. м продаются. Инвестор получает и арендный доход, и прибыль от продажи раньше срока, поэтому итоговая доходность выше.</p>
+        </article>
+        <article class="approach-card reveal" style="--i:2">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">sell</span></span>
+          <h3>Продажа объекта через 10 лет</h3>
+          <p>Здесь полностью работают обе составляющие: инвестор 10 лет получает аренду, а затем продаёт подорожавший объект. Ориентир совокупной доходности — не менее 15% годовых. В портфеле компании есть проекты с доходностью около 20%. Но в расчётах на долгий срок эксперты советуют закладывать более консервативный ориентир.</p>
+        </article>
+        <article class="approach-card reveal" style="--i:3">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">autorenew</span></span>
+          <h3>Реконструкция существующих объектов</h3>
+          <p>В проект можно быстрее войти и быстрее из него выйти. Поэтому при продаже производственной компании доходность на капитал может быть на 2–5 процентных пунктов выше, чем при строительстве с нуля. Если же объект сдаётся в аренду, нужно учитывать его состояние: здание с историей требует расходов на обслуживание и эксплуатацию.</p>
+        </article>
       </div>
     </div>
   </section>
