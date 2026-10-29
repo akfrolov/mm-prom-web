@@ -7,7 +7,7 @@
 | **Спринт** | sprint-cr-2026-002; реализация — шаг `imp-services`, зависимость: `imp-pages` (компонент MapSection) + `imp-catalog` (попапы svc-map ведут на `/obekt/<id>/`) |
 | **Статус** | baseline (текущее состояние as-is до дельты; целевые правки — блоки B1/B2, состав дельты — `/write-delta`, фиксация исполненного — `/merge-cr`) |
 | **Дата** | 2026-10-23 |
-| **Страница-эталон для правок** | `src/pages/consalting.astro` — на ней оба блока (удаление карты B1 + добавление фото B2); вторая проверочная — `src/pages/investcomp.astro` (только удаление карты) |
+| **Страница-эталон для правок** | `src/pages/consalting.astro` — на ней оба блока (удаление карты B1 + добавление фото B2); вторая проверочная — `src/pages/investoram.astro` (карта и объединённые блоки инвестиций) |
 
 ## История
 
@@ -41,8 +41,8 @@
 
 | Группа | Страницы (маршрут) | Каркас секций |
 |--------|--------------------|----------------|
-| Услуги (10) | `arenda` (`/arenda/`), `prodazha` (`/prodazha/`), `trade-in` (`/trade-in/`), `investcomp` (`/investcomp/`), `brokerage` (`/brokerage/`), `stroitelstvo` (`/stroitelstvo/`), `development` (`/development/`), `redevelopment` (`/redevelopment/`), `upravlenie` (`/upravlenie/`), `consalting` (`/consalting/`) | крошки → hero (`b-hero--service`) → `#roli` (role-card) → [только stroitelstvo/development/redevelopment: `#proekty` (proj-card)] → `#sostav` (scope-card) → `#podhod` (approach-card) → `#etapy` (b-flow2, 5 шагов) → `#map` → `#cta` (grad) → `#uslugi` (b-others, 9 карточек). Исключение — `consalting`: без `#roli`/`#podhod`/`#map`, с `#faq` ×3 (см. §1.4) |
-| Роли (4) | `investoram` (`/investoram/`), `proizvodstvam` (`/proizvodstvam/`), `sobstvennikam-uchastkov` (`/sobstvennikam-uchastkov/`), `sobstvennikam-zdaniy` (`/sobstvennikam-zdaniy/`) | крошки → hero (`b-hero--service role-hero`) → `#services` (svc-tile) → `#other-roles` (role-link ×3) → `#map` → `#faq` (4 вопроса, вариант A `.faq`) → `#cta` (grad) |
+| Услуги (9) | `arenda` (`/arenda/`), `prodazha` (`/prodazha/`), `trade-in` (`/trade-in/`), `brokerage` (`/brokerage/`), `stroitelstvo` (`/stroitelstvo/`), `development` (`/development/`), `redevelopment` (`/redevelopment/`), `upravlenie` (`/upravlenie/`), `consalting` (`/consalting/`) | крошки → hero (`b-hero--service`) → `#roli` (role-card) → [только stroitelstvo/development/redevelopment: `#proekty` (proj-card)] → `#sostav` (scope-card) → `#podhod` (approach-card) → `#etapy` (b-flow2, 5 шагов) → `#map` → `#cta` (grad) → `#uslugi` (b-others, 9 карточек). Исключение — `consalting`: без `#roli`/`#podhod`/`#map`, с `#faq` ×3 (см. §1.4) |
+| Роли (4) | `investoram` (`/investoram/`, объединена с услугой инвестирования; `/investcomp/` → редирект), `proizvodstvam` (`/proizvodstvam/`), `sobstvennikam-uchastkov` (`/sobstvennikam-uchastkov/`), `sobstvennikam-zdaniy` (`/sobstvennikam-zdaniy/`) | investoram: крошки → hero (`b-hero--service role-hero`) → `#services` (svc-tile) → `#modeli` (approach-card ×4) → `#sostav` (scope-card) → `#podhod` (approach-card) → `#etapy` (b-flow2, 5 шагов) → `#other-roles` (role-link ×3) → `#map` → `#faq` (4 вопроса) → `#cta` (grad). Остальные роли: `#services` → `#other-roles` → `#map` → `#faq` → `#cta` |
 
 - Hero услуг: eyebrow «Услуга · <название>», h1 с `accent`-спаном, lead, две
   кнопки (`btn--gold` «Обсудить проект» → `/modalka-zayavki/` + `btn--outline`
@@ -53,13 +53,16 @@
 - Нумерация `sec-index`: без `#proekty` — roli 02, sostav 03, podhod 04,
   etapy 05, **map 06**, cta 07, uslugi 08; с `#proekty` — proekty 03, sostav 04,
   podhod 05, etapy 06, **map 07**, cta 08, uslugi 09. У ролей — services 02,
-  other-roles 03, **map 04**, faq 05, cta 06.
-- Количество блоков: role-card ×34 (4 у arenda/investcomp/trade-in/redevelopment,
-  3 у остальных); scope-card 6 у девяти услуг, 3 у redevelopment; approach-card
-  2 (3 у investcomp, 4 у brokerage); proj-card — stroitelstvo ×4,
-  development ×5, redevelopment ×2 (заглушки, §1.3); svc-tile — 9 на
-  инвесторам/производствам/собственникам участков, 8 на собственникам зданий;
-  other-card — по 9 на каждой услуге (все 10 услуг минус своя).
+  other-roles 03, **map 04**, faq 05, cta 06; у объединённой investoram —
+  services 02, modeli 03, sostav 04, podhod 05, etapy 06, other-roles 07,
+  **map 08**, faq 09, cta 10.
+- Количество блоков: role-card ×30 (4 у arenda/trade-in/redevelopment,
+  3 у остальных); scope-card 6 у восьми услуг, 3 у redevelopment; approach-card
+  2 (4 у brokerage); proj-card — stroitelstvo ×4,
+  development ×5, redevelopment ×2 (заглушки, §1.3); svc-tile — 8 на
+  investoram, 9 на производствам/собственникам участков, 8 на собственникам
+  зданий; other-card — по 9 на каждой услуге (8 других услуг + объединённая
+  страница инвестиций).
 - Содержание ролей не меняется по CR (границы п. 30, «Границы» CR); их
   особенности — см. §1.5.
 
@@ -144,11 +147,11 @@ CSS-копии.
   «square_foot200 000+ м²» и т. п.) — дефект миграции; исправлено 2026-10-23
   по запросу владельца: подписи «с 2011 года», «200 000+ м²», «25+ проектов»,
   «150+ резидентов».
-- Лид секции `#services` отстаёт от факта: investoram/proizvodstvam/
+- Лид секции `#services` отстаёт от факта: proizvodstvam/
   sobstvennikam-uchastkov — «Восемь сценариев…» при 9 плитках;
   sobstvennikam-zdaniy — «Семь сценариев…» при 8 плитках. Вне скоупа.
-- Состав ссылок svc-tile: investoram — 9 (все услуги, кроме консалтинга);
-  sobstvennikam-zdaniy — 8 (нет строительства и девелопмента).
+- Состав ссылок svc-tile: investoram — 8 (все услуги, кроме инвестиций и
+  консалтинга); sobstvennikam-zdaniy — 8 (нет строительства и девелопмента).
 
 ### 1.6 Сводная таблица (as-is)
 
@@ -177,7 +180,6 @@ CSS-копии.
 | `arenda` | оставить карту | `grep -q 'svc-map' src/pages/arenda.astro` |
 | `prodazha` | оставить карту | `grep -q 'svc-map' src/pages/prodazha.astro` |
 | `trade-in` | оставить карту | `grep -q 'svc-map' src/pages/trade-in.astro` |
-| `investcomp` | оставить карту | `grep -q 'svc-map' src/pages/investcomp.astro` |
 | `brokerage` | оставить карту | `grep -q 'svc-map' src/pages/brokerage.astro` |
 | `investoram` | оставить карту | `grep -q 'svc-map' src/pages/investoram.astro` |
 | `proizvodstvam` | оставить карту | `grep -q 'svc-map' src/pages/proizvodstvam.astro` |
@@ -200,7 +202,7 @@ CSS-копии.
    src="https://api-maps.yandex.ru/2.1/?apikey=…">`;
 4. тег `/assets/svc-map.js?v=1`;
 5. frontmatter-конструкции, ставшие мёртвыми: `mapObjects` (у trade-in,
-   investcomp, brokerage, upravlenie, consalting — `getCollection('objects')` и
+   brokerage, upravlenie, consalting — `getCollection('objects')` и
    `objects` используются только для карты → импорт и переменные удаляются тоже);
 6. мёртвые CSS-копии `.b-map-sec*` в инлайн-стилях этих страниц — заодно
    (решение дельты, пост-чеком не грепается).
@@ -350,7 +352,7 @@ CSS-копии.
 ## Источники инвентаризации
 
 - `src/pages/arenda.astro`, `prodazha.astro`, `trade-in.astro`,
-  `investcomp.astro`, `brokerage.astro`, `stroitelstvo.astro`,
+  `brokerage.astro`, `stroitelstvo.astro`,
   `development.astro`, `redevelopment.astro`, `upravlenie.astro`,
   `consalting.astro`, `investoram.astro`, `proizvodstvam.astro`,
   `sobstvennikam-uchastkov.astro`, `sobstvennikam-zdaniy.astro` — разметка,

@@ -10,7 +10,7 @@ import { getCollection } from 'astro:content';
 const objects = (await getCollection('objects')).sort((a, b) => a.data.sort - b.data.sort);
 const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coords: data.coords, address: data.address, area: data.area }));
 ---
-<BaseLayout title="Инвесторам — ММ Пром" description="Готовые инвест-продукты, соинвестирование и управление активом с прогнозируемым доходом.">
+<BaseLayout title="Инвесторам: инвестиции и финансирование — ММ Пром" description="Инвестиции и финансирование в промышленной недвижимости: готовые инвест-продукты, соинвестирование и управление активом с прогнозируемым доходом.">
   <Fragment slot="head">
     <style is:inline>
     /* ═══════════════════════════════════════════════════════════════════════
@@ -547,9 +547,9 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     <div class="b-hero__particles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
     <div class="container b-hero__inner">
       <div class="b-hero__content">
-        <p class="b-hero__eyebrow">Инвесторам</p>
+        <p class="b-hero__eyebrow">Инвесторам · Инвестиции и финансирование</p>
         <h1>Инвестиции в промышленную недвижимость</h1>
-        <p class="b-hero__lead">Классические финансовые инструменты дают один источник дохода: проценты по вкладу или купон по облигации. Когда срок заканчивается, инвестор получает назад ту же сумму, что вложил. При этом за годы её покупательная способность снижается из-за инфляции.<br><br>С промышленной недвижимостью иначе. Доход здесь складывается из двух источников. Первый — арендный поток: 8–10,5% годовых. Ставка ежегодно индексируется по договору. Второй — рост стоимости самого объекта. Его инвестор получает при продаже. Если сложить обе составляющие, совокупная доходность, по нашим расчётам, составляет не менее 15% годовых.</p>
+        <p class="b-hero__lead">Классические финансовые инструменты дают один источник дохода: проценты по вкладу. Когда срок заканчивается, инвестор получает назад ту же сумму, что вложил. При этом за годы её покупательная способность снижается из-за инфляции.<br><br>С промышленной недвижимостью иначе. Доход здесь складывается из двух источников. Первый — арендный поток: 8–10,5% годовых. Ставка ежегодно индексируется по договору. Второй — рост стоимости самого объекта. Его инвестор получает при продаже. Если сложить обе составляющие, совокупная доходность, по нашим расчётам, составляет не менее 15% годовых.</p>
         <div class="b-hero__actions">
           <SiteButton variant="gold" b24="offer">Обсудить задачу</SiteButton>
           <SiteButton variant="outline" href="/katalog/">Смотреть объекты</SiteButton>
@@ -610,10 +610,98 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     </div>
   </section>
 
-  <section id="other-roles" class="section">
+  <section id="sostav" class="b-scope section section--tint">
     <div class="container">
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">04</p>
+        <h2>Что входит в инвестиции и финансирование</h2>
+        <p class="b-sec-head__lead">В нашем портфеле есть перспективные земельные участки и готовые промышленные здания: можем предложить их как часть инвестиционной структуры или как площадку под реализацию проекта.</p>
+      </div>
+      <div class="b-scope__grid">
+        <div class="scope-card reveal" style="--i:1">
+          <span class="scope-card__num" aria-hidden="true">01</span>
+          <p>Понятную инвестиционную модель с прогнозом доходности</p>
+        </div>        <div class="scope-card reveal" style="--i:2">
+          <span class="scope-card__num" aria-hidden="true">02</span>
+          <p>Расчёт доходности с учётом всех рисков: финансовая модель, по которой вы чётко понимаете, какие результаты и в какие сроки получите</p>
+        </div>        <div class="scope-card reveal" style="--i:3">
+          <span class="scope-card__num" aria-hidden="true">03</span>
+          <p>Реальный актив с обеспечением в виде земли и зданий</p>
+        </div>        <div class="scope-card reveal" style="--i:4">
+          <span class="scope-card__num" aria-hidden="true">04</span>
+          <p>Регулярный доход от арендных потоков и рост стоимости объекта по мере развития проекта</p>
+        </div>        <div class="scope-card reveal" style="--i:5">
+          <span class="scope-card__num" aria-hidden="true">05</span>
+          <p>Участие соинвестором: если проект перспективный и экономически обоснованный, входим собственными средствами и разделяем риски на старте</p>
+        </div>        <div class="scope-card reveal" style="--i:6">
+          <span class="scope-card__num" aria-hidden="true">06</span>
+          <p>Профессиональное управление активом силами ММ Пром</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="podhod" class="b-approach section">
+    <div class="container">
+      <div class="b-sec-head reveal">
+        <p class="sec-index" aria-hidden="true">05</p>
+        <h2>Наш подход</h2>
+        <p class="b-sec-head__lead">Инвестиции, основанные на реальных активах и понятной экономике: формат участия подбираем под вашу задачу и ваши цели.</p>
+      </div>
+      <div class="b-approach__grid">
+        <article class="approach-card reveal" style="--i:0">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">insights</span></span>
+          <h3>Во что мы инвестируем</h3>
+          <ul><li>Индустриальные парки и технопарки</li><li>Производственно-складские комплексы</li><li>Земельные участки под промышленную застройку</li><li>Проекты редевелопмента с потенциалом роста капитализации</li></ul>
+        </article>
+        <article class="approach-card reveal" style="--i:1">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">handshake</span></span>
+          <h3>Соинвестор, а не только консультант</h3>
+          <ul><li>Входим в перспективный проект собственными средствами</li><li>Разделяем риски на старте</li><li>Формат участия подбираем индивидуально</li></ul>
+        </article>
+        <article class="approach-card reveal" style="--i:2">
+          <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">fact_check</span></span>
+          <h3>Прозрачная отчётность и управление</h3>
+          <ul><li>Управление и эксплуатацию полностью берёт на себя ММ Пром</li><li>Прозрачная отчётность: вы видите, как работает ваш капитал</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="etapy" class="b-steps-sec section section--tint">
+    <div class="container">
+      <div class="b-sec-head reveal">
+        <p class="sec-index" aria-hidden="true">06</p>
+        <h2>Как мы работаем</h2>
+      </div>
+      <div class="b-flow2" data-count="5">
+        <div class="b-flow2__track" aria-hidden="true"><span class="b-flow2__fill"></span></div>
+        <ol class="b-flow2__list">
+          <li class="b-flow2__step reveal" style="--i:1">
+            <span class="b-flow2__dot" aria-hidden="true">1</span>
+            <div class="b-flow2__body"><p>Анализ локации и спроса</p></div>
+          </li>          <li class="b-flow2__step reveal" style="--i:2">
+            <span class="b-flow2__dot" aria-hidden="true">2</span>
+            <div class="b-flow2__body"><p>Анализ финансовой модели</p></div>
+          </li>          <li class="b-flow2__step reveal" style="--i:3">
+            <span class="b-flow2__dot" aria-hidden="true">3</span>
+            <div class="b-flow2__body"><p>Анализ сценариев реализации и выхода</p></div>
+          </li>          <li class="b-flow2__step reveal" style="--i:4">
+            <span class="b-flow2__dot" aria-hidden="true">4</span>
+            <div class="b-flow2__body"><p>Подбор формата участия — индивидуально</p></div>
+          </li>          <li class="b-flow2__step reveal" style="--i:5">
+            <span class="b-flow2__dot" aria-hidden="true">5</span>
+            <div class="b-flow2__body"><p>Управление и эксплуатацию полностью берёт на себя ММ Пром</p></div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="other-roles" class="section">
+    <div class="container">
+      <div class="b-sec-head reveal">
+        <p class="sec-index" aria-hidden="true">07</p>
         <h2>Кому ещё мы помогаем</h2>
         <p class="b-sec-head__lead">Посмотрите, как мы работаем с другими участниками рынка.</p>
       </div>
@@ -637,12 +725,12 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
     </div>
   </section>
 
-  <MapSection objects={mapObjects} secIndex="05" />
+  <MapSection objects={mapObjects} secIndex="08" />
 
   <script is:inline src="/assets/ymaps-lazy.js?v=1" defer></script>
     <script is:inline src="/assets/svc-map.js?v=3" defer></script>
 
-  <FaqSection variant="simple" id="faq" secIndex="06" title="Частые вопросы" lead="" items={[
+  <FaqSection variant="simple" id="faq" secIndex="09" title="Частые вопросы" lead="" items={[
       { q: "Не хочу заниматься операционкой. Какой формат подойдёт?", a: "Мы возьмём на себя всю операционную работу и контроль процессов. У вас остаются прозрачная отчётность и ключевые показатели — вы видите, как работает капитал, не погружаясь в рутину." },
       { q: "Участок уже есть, но непонятно, что на нём строить. Что делать?", a: "Мы изучим рынок и баланс спроса и предложения в вашей локации и посоветуем, что здесь имеет смысл строить. Если окажется, что стройка не оправдана, скажем об этом прямо." },
       { q: "Как защититься от риска долгостроя и раздувшейся сметы?", a: [
@@ -652,7 +740,7 @@ const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coord
       { q: "Объект уже в собственности, но съедает прибыль. С чего начать?", a: "Начнём с аудита: приедем на объект, оценим его состояние и покажем, где именно теряется прибыль. Затем выстроим стратегию работы с арендаторами и заполним площади, наладим регулярное обслуживание и составим понятный план дальнейших действий и бюджета." }
     ]} />
 
-  <CtaBand variant="grad" id="cta" secIndex="07" heading="Расскажите о своих инвестиционных целях" lede="Подберём оптимальный формат работы с понятными перспективами — от «пенсионного» актива под нашим управлением до стратегии быстрой реализации потенциала." buttons={[
+  <CtaBand variant="grad" id="cta" secIndex="10" heading="Расскажите о своих инвестиционных целях" lede="Подберём оптимальный формат работы с понятными перспективами — от «пенсионного» актива под нашим управлением до стратегии быстрой реализации потенциала." buttons={[
           { variant: "gold", b24: "offer", label: "Обсудить задачу" },
           { variant: "ghost-light", href: "/katalog/", label: "Смотреть объекты" }
         ]} />

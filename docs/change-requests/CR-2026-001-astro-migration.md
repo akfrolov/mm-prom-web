@@ -28,14 +28,14 @@
 | usluga_development.html | `/development/` | WP |
 | usluga_upravlenie.html | `/upravlenie/` | WP |
 | usluga_treyd_in.html | `/trade-in/` | WP |
-| usluga_investicii.html | `/investcomp/` | WP |
+| usluga_investicii.html | `/investoram/` (объединена с ролью инвестора; `/investcomp/` → редирект) | WP |
 | usluga_arenda.html | `/arenda/` | новый |
 | usluga_prodazha.html | `/prodazha/` | новый |
 | usluga_stroitelstvo.html | `/stroitelstvo/` | новый |
 | usluga_redevelopment.html | `/redevelopment/` | новый |
 | katalog_obektov.html | `/katalog/` | новый |
 | blog.html | `/blog/` | новый (на WP «Блог» → Telegram) |
-| rol_investoram.html | `/investoram/` | новый |
+| rol_investoram.html | `/investoram/` (объединённая страница инвесторам и услуги инвестирования) | новый |
 | rol_proizvodstva.html | `/proizvodstvam/` | новый |
 | rol_uchastki.html | `/sobstvennikam-uchastkov/` | новый |
 | rol_zdaniya.html | `/sobstvennikam-zdaniy/` | новый |

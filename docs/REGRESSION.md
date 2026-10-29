@@ -9,10 +9,12 @@
 ## Маршруты (каноническая таблица URL — источник правды)
 
 `/` · `/about/` · `/contact/` · `/uslugi/` · `/consalting/` · `/brokerage/` ·
-`/development/` · `/upravlenie/` · `/trade-in/` · `/investcomp/` · `/arenda/` ·
+`/development/` · `/upravlenie/` · `/trade-in/` · `/arenda/` ·
 `/prodazha/` · `/stroitelstvo/` · `/redevelopment/` · `/katalog/` · `/blog/` ·
 `/investoram/` · `/proizvodstvam/` · `/sobstvennikam-uchastkov/` ·
 `/sobstvennikam-zdaniy/` · `/atlas-garazhnyj/` · `/avrora-vitebskij/` (+ 404).
+`/investcomp/` — редирект на `/investoram/` (страница услуги инвестирования
+объединена с ролью инвестора).
 
 ## Ожидаемое поведение среды
 

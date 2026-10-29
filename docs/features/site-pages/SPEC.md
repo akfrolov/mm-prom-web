@@ -65,7 +65,7 @@
 - Общий скрипт `public/assets/site-anim.js` подключён на 21 странице
   (не подключён: `index.astro` — свой inline-JS-набор, `404.astro`).
 - Общий ассет `object-card.css` подключают страницы с лентами объектов
-  (`index`, `arenda`, `prodazha`, `katalog`, `investcomp`, роли) — вне этой
+  (`index`, `arenda`, `prodazha`, `katalog`, роли) — вне этой
   фичи (фича `object-card`).
 
 Мёртвые копии стилей (CSS есть, разметки нет) — при выносе в `base.css`
@@ -192,11 +192,11 @@ sobstvennikam-zdaniy). CSS обоих паттернов дублируется 
 | `.role-card` | 10 страниц услуг (секция `#roli`, `b-tasks section--tint`) | `.b-tasks__grid` 1→2→3 | `<article class="role-card reveal">` → иконка 44×44, `h3` (роль), список боли/решения `ul.role-card__list` |
 | `.role-link` | 4 страницы ролей (секция `#other-roles`) | вертикальный список | `<a class="role-link reveal" href="/<роль>/">` → иконка, `role-link__name`, `role-link__desc`, круглая стрелка |
 
-Количество: `role-card` — 34 шт. (по 3–4 на каждой из 10 услуг: 4 у
-arenda/investcomp/redevelopment/trade-in, 3 у остальных); `role-link` — по 3
+Количество: `role-card` — 30 шт. (по 3–4 на каждой из 9 услуг: 4 у
+arenda/redevelopment/trade-in, 3 у остальных); `role-link` — по 3
 на каждой роли (12, «три другие роли»). Отдельно `other-card` (секция
-`b-others` «Другие услуги»: 10 услуг × 9 карточек) — страница-специфичный
-паттерн, в B2 не входит.
+`b-others` «Другие услуги»: 9 карточек на каждой услуге, кроме объединённой
+investoram) — страница-специфичный паттерн, в B2 не входит.
 
 ### 1.10 Секция карты объектов (14 страниц)
 
@@ -214,9 +214,8 @@ arenda/investcomp/redevelopment/trade-in, 3 у остальных); `role-link` 
   (`api-maps.yandex.ru/2.1/?apikey=2ae53810-…&lang=ru_RU`), затем
   `/assets/svc-map.js?v=1` (defer). Подсказка-логика попапа/перехода — фича
   `catalog` (svc-map.js), здесь фиксируется только разметочный шаблон секции.
-- 14 страниц с секцией: 10 услуг (arenda, brokerage, consalting, development,
-  investcomp, prodazha, redevelopment, stroitelstvo, trade-in, upravlenie)
-  + 4 роли. Удаление карты с 5 страниц (п. 30) — фича `services`; в этой
+- 13 страниц с секцией: 9 услуг (arenda, brokerage, consalting, development,
+  prodazha, redevelopment, stroitelstvo, trade-in, upravlenie) + 4 роли. Удаление карты с 5 страниц (п. 30) — фича `services`; в этой
   фиче количество точек вставки считается от 14, компонент должен
   поддерживать удаление блока со страницы без правки других.
 

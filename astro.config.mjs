@@ -15,6 +15,9 @@ export default defineConfig({
   },
   compressHTML: false,
   prefetch: true,
+  redirects: {
+    '/investcomp/': '/investoram/',
+  },
   integrations: [sitemap()],
   fonts: [
     {
