@@ -304,6 +304,6 @@ export const projects: ProjectData[] = [
 
 export const projectById = Object.fromEntries(projects.map((p) => [p.id, p])) as Record<string, ProjectData>;
 
-export const stroitelstvoProjects = ['rus-telkom', 'karlino', 'dikom', 'spv-technopark'].map((id) => projectById[id]);
-export const developmentProjects = ['rus-telkom', 'karlino', 'dikom', 'spv-technopark', 'agp'].map((id) => projectById[id]);
+export const stroitelstvoProjects = ['karlino', 'dikom', 'agp'].map((id) => projectById[id]);
+export const developmentProjects = ['rus-telkom', 'spv-technopark'].map((id) => projectById[id]);
 export const redevelopmentProjects = ['olda', 'spv-tsekh'].map((id) => projectById[id]);
