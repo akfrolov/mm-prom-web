@@ -224,10 +224,10 @@ export const projects: ProjectData[] = [
     "note": "Реконструкция производственного здания",
     "inProgress": true,
     "images": [
+      "/assets/projects/spv-tsekh/4.webp",
       "/assets/projects/spv-tsekh/1.webp",
       "/assets/projects/spv-tsekh/2.webp",
       "/assets/projects/spv-tsekh/3.webp",
-      "/assets/projects/spv-tsekh/4.webp",
       "/assets/projects/spv-tsekh/5.webp",
       "/assets/projects/spv-tsekh/6.webp",
       "/assets/projects/spv-tsekh/7.webp",
