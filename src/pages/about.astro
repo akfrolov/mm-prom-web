@@ -144,26 +144,36 @@ import ImgBuildToSuit from '../assets/images/about/build-to-suit.webp';
     @media (min-width:768px){.about-services{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}}
     @media (min-width:1024px){.about-services{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
-    /* ── Этапы ───────────────────────────────────────────────────────────── */
-    .about-process{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:16px;grid-template-columns:1fr}
-    .about-process li{padding-top:14px;border-top:2px solid var(--gold)}
-    .about-process__num{display:block;margin-bottom:6px;font-size:.8rem;font-weight:800;letter-spacing:.08em;color:var(--purple)}
-    .about-process p{margin:0;color:var(--text-muted);font-size:var(--fs-small);line-height:1.6}
-    @media (min-width:768px){.about-process{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}}
-    @media (min-width:1024px){
-      .about-process--4{grid-template-columns:repeat(4,minmax(0,1fr))}
-      .about-process--5,.about-process--6{grid-template-columns:repeat(3,minmax(0,1fr))}
-      .about-split .about-process--6{grid-template-columns:repeat(2,minmax(0,1fr))}
+    /* ── Этапы: конвейер с золотой линией (как на страницах услуг) ───────── */
+    .b-flow2{position:relative;margin-top:6px}
+    .b-flow2__track{position:absolute;left:22px;right:22px;top:22px;height:2px;background:var(--border);border-radius:2px;overflow:hidden}
+    .b-flow2__fill{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--purple) 0%,var(--gold) 100%);transition:width 1.4s cubic-bezier(.22,.61,.36,1)}
+    .b-flow2.is-filled .b-flow2__fill{width:100%}
+    .b-flow2__list{position:relative;display:grid;grid-template-columns:repeat(var(--n,5),minmax(0,1fr));gap:20px;list-style:none;margin:0;padding:0}
+    .b-flow2__step{display:flex;flex-direction:column;gap:16px;min-width:0}
+    .b-flow2__dot{position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid var(--purple);color:var(--purple);font-weight:800;font-size:.95rem;box-shadow:0 0 0 6px var(--surface);transition:background .22s ease,color .22s ease,transform .22s ease}
+    .b-flow2__step:hover .b-flow2__dot{background:var(--purple);color:#fff;transform:scale(1.06)}
+    .b-flow2__body{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;min-height:104px;transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease}
+    .b-flow2__step:hover .b-flow2__body{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
+    .b-flow2__body p{margin:0;font-weight:500;font-size:.98rem;line-height:1.5}
+    .section--tint .b-flow2__dot{box-shadow:0 0 0 6px var(--surface)}
+    @media (max-width:767px){
+      .b-flow2__track{left:21px;right:auto;top:0;bottom:0;width:2px;height:auto}
+      .b-flow2__fill{width:100%;height:0;transition:height 1.4s cubic-bezier(.22,.61,.36,1)}
+      .b-flow2.is-filled .b-flow2__fill{height:100%}
+      .b-flow2__list{grid-template-columns:1fr;gap:14px}
+      .b-flow2__step{flex-direction:row;gap:14px;align-items:flex-start}
+      .b-flow2__dot{flex:0 0 auto;box-shadow:0 0 0 5px var(--surface)}
+      .b-flow2__body{min-height:0;flex:1 1 auto;padding:14px 16px}
     }
 
-    .about-split{display:grid;gap:28px;margin-top:28px}
     .about-checks{list-style:none;margin:0;padding:0;display:grid;gap:12px}
     .about-checks li{position:relative;padding-left:34px;color:var(--text-muted);font-size:1rem;line-height:1.55}
     .about-checks li::before{content:"✓";position:absolute;left:0;top:.05em;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--navy);font-size:14px;font-weight:800}
-    @media (min-width:1024px){.about-split{grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}}
+    @media (min-width:768px){.about-checks--cols{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:32px}}
 
     /* ── Кейсы ───────────────────────────────────────────────────────────── */
-    .about-cases{display:grid;gap:20px;margin-top:32px;grid-template-columns:1fr}
+    .about-cases{display:grid;gap:20px;margin-top:32px;grid-template-columns:1fr;align-items:start}
     .case-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
     .case-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
     .case-card__media{overflow:hidden;background:var(--surface)}
@@ -172,23 +182,15 @@ import ImgBuildToSuit from '../assets/images/about/build-to-suit.webp';
     .case-card__body h3{margin:0;font-size:1.1rem;line-height:1.35}
     .case-card__body h3 a{color:inherit;text-decoration:none}
     .case-card__body h3 a:hover{color:var(--purple)}
-    .case-card__meta{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-size:var(--fs-small);color:var(--text-muted)}
-    .case-card__meta li{display:flex;align-items:flex-start;gap:8px}
-    .case-card__meta .material-symbols-outlined{flex:0 0 auto;font-size:18px;color:var(--purple)}
+    .case-card__tag{display:inline-flex;align-self:flex-start;padding:4px 12px;border-radius:999px;background:var(--purple-soft);color:var(--purple);font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
     .case-card__label{margin:0;font-weight:700;font-size:var(--fs-small);color:var(--navy)}
     .case-card__list{margin:0;padding-left:18px;display:grid;gap:4px;color:var(--text-muted);font-size:var(--fs-small);line-height:1.55}
+    .case-card__media--pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}
+    .case-card__figure{position:relative;margin:0;overflow:hidden;background:var(--surface)}
+    .case-card__figure img{display:block;width:100%;height:100%;aspect-ratio:4/3;object-fit:cover}
+    .ba-label{position:absolute;left:10px;top:10px;padding:4px 11px;border-radius:999px;background:rgba(14,0,40,.82);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.02em}
     @media (min-width:768px){.about-cases{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media (min-width:1024px){.about-cases--3{grid-template-columns:repeat(3,minmax(0,1fr))}}
-
-    /* ── Управление: кейс + было/стало ───────────────────────────────────── */
-    .about-mgmt{display:grid;gap:24px;margin-top:32px}
-    .about-mgmt .case-card{height:auto}
-    .about-ba{display:grid;gap:16px;align-content:start}
-    .about-ba > h3{margin:0;font-size:1.1rem;line-height:1.4}
-    .ba-figure{position:relative;margin:0;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm)}
-    .ba-figure img{display:block;width:100%;height:100%;aspect-ratio:4/3;object-fit:cover}
-    .ba-label{position:absolute;left:14px;top:14px;padding:6px 14px;border-radius:999px;background:rgba(14,0,40,.82);color:#fff;font-size:var(--fs-small);font-weight:700;letter-spacing:.02em}
-    @media (min-width:1024px){.about-mgmt{grid-template-columns:1.1fr .9fr;gap:32px;align-items:start}}
 
     /* ── Консалтинг и инвестиции ─────────────────────────────────────────── */
     .about-panels{display:grid;gap:20px;margin-top:28px}
@@ -212,8 +214,8 @@ import ImgBuildToSuit from '../assets/images/about/build-to-suit.webp';
     .invest-steps{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:14px}
     .invest-step{display:flex;gap:14px;align-items:flex-start}
     .invest-step__num{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800;font-size:.85rem}
-    .invest-step p{margin:0;color:var(--text-muted);line-height:1.65}
-    .invest-step strong{color:var(--navy)}
+    .invest-step p{margin:0;color:var(--text-muted);line-height:1.75}
+    .invest-step strong{color:var(--navy);display:inline}
     .invest-models{display:grid;gap:14px}
     .invest-model{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:20px}
     .invest-model h4{margin:0 0 6px;font-size:1rem;color:var(--purple)}
@@ -240,7 +242,7 @@ import ImgBuildToSuit from '../assets/images/about/build-to-suit.webp';
     }
 
     /* ── Reveal-анимации ─────────────────────────────────────────────────── */
-    html.js .reveal{opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease}
+    html.js .reveal{opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease;transition-delay:calc(var(--i,0) * 70ms)}
     html.js .reveal.is-visible{opacity:1;transform:none}
     @media (prefers-reduced-motion:reduce){
       html.js .reveal{opacity:1;transform:none;transition:none}
@@ -277,7 +279,6 @@ import ImgBuildToSuit from '../assets/images/about/build-to-suit.webp';
     <div class="container">
       <p class="sec-index" aria-hidden="true">01</p>
       <h2>Наши преимущества</h2>
-      <p class="about-lead">Пять причин, по которым бизнес выбирает ГК «ММ ПРОМ» для запуска, расширения и развития промышленных объектов.</p>
       <div class="about-adv">
         <article class="adv-card reveal">
           <span class="adv-card__icon"><span class="material-symbols-outlined" aria-hidden="true">hub</span></span>
@@ -347,7 +348,6 @@ import ImgBuildToSuit from '../assets/images/about/build-to-suit.webp';
     <div class="container">
       <p class="sec-index" aria-hidden="true">03</p>
       <h2>Наши клиенты</h2>
-      <p class="about-lead">Работаем с производственными компаниями, инвесторами и собственниками недвижимости — у каждой аудитории своя задача и свой набор решений.</p>
       <div class="about-clients">
         <a class="client-card reveal" href="/proizvodstvam/">
           <span class="client-card__icon"><span class="material-symbols-outlined" aria-hidden="true">factory</span></span>
@@ -381,7 +381,6 @@ import ImgBuildToSuit from '../assets/images/about/build-to-suit.webp';
     <div class="container">
       <p class="sec-index" aria-hidden="true">04</p>
       <h2>Услуги</h2>
-      <p class="about-lead">Шесть направлений, которые закрывают полный цикл работ с промышленной недвижимостью.</p>
       <div class="about-services">
         <a class="service-card reveal" href="/consalting/">
           <span class="service-card__icon"><span class="material-symbols-outlined" aria-hidden="true">engineering</span></span>
@@ -427,50 +426,45 @@ import ImgBuildToSuit from '../assets/images/about/build-to-suit.webp';
     <div class="container">
       <p class="sec-index" aria-hidden="true">05</p>
       <h2>Девелопмент под ключ</h2>
-      <p class="about-lead">Берём на себя весь цикл — от подбора участка и проектирования до ввода объекта в эксплуатацию.</p>
-      <div class="about-split">
-        <div class="reveal">
-          <h3 class="b-subhead">Задачи по проекту</h3>
-          <ul class="about-checks">
-            <li>Сбор и получение исходно-разрешительной документации</li>
-            <li>Проектирование и получение положительной экспертизы по проекту</li>
-            <li>Получение разрешения на строительство</li>
-            <li>Разработка рабочей документации, выбор подрядчиков</li>
-            <li>Строительный контроль, полное сопровождение строительства</li>
-            <li>Получение заключения о соответствии и акта ввода в эксплуатацию объекта</li>
-          </ul>
-        </div>
-        <div class="reveal">
-          <h3 class="b-subhead">Этапы работы</h3>
-          <ol class="about-process about-process--6">
-            <li><span class="about-process__num">01</span><p>Подбор земельного участка в нашем парке или на рынке</p></li>
-            <li><span class="about-process__num">02</span><p>Подготовка технического задания и проектирование предпроектных работ</p></li>
-            <li><span class="about-process__num">03</span><p>Финансовая модель и подбор источников финансирования</p></li>
-            <li><span class="about-process__num">04</span><p>Строительство промздания с инженерными системами</p></li>
-            <li><span class="about-process__num">05</span><p>Подключение сетей, согласование, ввод в эксплуатацию</p></li>
-            <li><span class="about-process__num">06</span><p>Дальнейшее управление объектом при необходимости</p></li>
-          </ol>
-        </div>
+      <h3 class="b-subhead reveal">Задачи по проекту</h3>
+      <ul class="about-checks about-checks--cols reveal">
+        <li>Сбор и получение исходно-разрешительной документации</li>
+        <li>Проектирование и получение положительной экспертизы по проекту</li>
+        <li>Получение разрешения на строительство</li>
+        <li>Разработка рабочей документации, выбор подрядчиков</li>
+        <li>Строительный контроль, полное сопровождение строительства</li>
+        <li>Получение заключения о соответствии и акта ввода в эксплуатацию объекта</li>
+      </ul>
+      <h3 class="b-subhead reveal">Этапы работы</h3>
+      <div class="b-flow2" data-count="6">
+        <div class="b-flow2__track" aria-hidden="true"><span class="b-flow2__fill"></span></div>
+        <ol class="b-flow2__list" style="--n:6">
+          <li class="b-flow2__step reveal" style="--i:1"><span class="b-flow2__dot" aria-hidden="true">1</span><div class="b-flow2__body"><p>Подбор земельного участка в нашем парке или на рынке</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:2"><span class="b-flow2__dot" aria-hidden="true">2</span><div class="b-flow2__body"><p>Подготовка технического задания и проектирование предпроектных работ</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:3"><span class="b-flow2__dot" aria-hidden="true">3</span><div class="b-flow2__body"><p>Финансовая модель и подбор источников финансирования</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:4"><span class="b-flow2__dot" aria-hidden="true">4</span><div class="b-flow2__body"><p>Строительство промздания с инженерными системами</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:5"><span class="b-flow2__dot" aria-hidden="true">5</span><div class="b-flow2__body"><p>Подключение сетей, согласование, ввод в эксплуатацию</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:6"><span class="b-flow2__dot" aria-hidden="true">6</span><div class="b-flow2__body"><p>Дальнейшее управление объектом при необходимости</p></div></li>
+        </ol>
       </div>
+      <h3 class="b-subhead reveal">Наши кейсы</h3>
       <div class="about-cases">
         <article class="case-card reveal">
           <div class="case-card__media"><Image src={ImgAtlas} alt="Индустриальный парк «Атлас Гаражный»" widths={[320, 634]} sizes="(max-width: 767px) 100vw, 420px" loading="lazy" /></div>
           <div class="case-card__body">
+            <span class="case-card__tag">Кейс · Индустриальный парк</span>
             <h3><a href="/atlas-garazhnyj/">Индустриальный парк «Атлас Гаражный»</a></h3>
-            <ul class="case-card__meta">
-              <li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span>Площадь земельного участка — 10 499 м²</li>
-              <li><span class="material-symbols-outlined" aria-hidden="true">apartment</span>Площадь здания — 4 008,14 м²</li>
-            </ul>
+            <p class="case-card__label">Площадь земельного участка — 10 499 м²</p>
+            <p class="case-card__label">Площадь здания — 4 008,14 м²</p>
           </div>
         </article>
         <article class="case-card reveal">
-          <div class="case-card__media"><Image src={ImgProductionComplex} alt="Производственный комплекс с площадью здания 7 996,60 м²" widths={[320, 633]} sizes="(max-width: 767px) 100vw, 420px" loading="lazy" /></div>
+          <div class="case-card__media"><Image src={ImgProductionComplex} alt="Производственный комплекс с площадью здания 7 996,60 м²" widths={[320, 633]} sizes="(max-width: 767px) 100vw, 420px" loading="lazy" /></div>
           <div class="case-card__body">
+            <span class="case-card__tag">Кейс · Производственный комплекс</span>
             <h3>Производственный комплекс</h3>
-            <ul class="case-card__meta">
-              <li><span class="material-symbols-outlined" aria-hidden="true">square_foot</span>Площадь земельного участка — 14 359 м²</li>
-              <li><span class="material-symbols-outlined" aria-hidden="true">apartment</span>Площадь здания — 7 996,60 м²</li>
-            </ul>
+            <p class="case-card__label">Площадь земельного участка — 14 359 м²</p>
+            <p class="case-card__label">Площадь здания — 7 996,60 м²</p>
           </div>
         </article>
       </div>
@@ -482,20 +476,25 @@ import ImgBuildToSuit from '../assets/images/about/build-to-suit.webp';
     <div class="container">
       <p class="sec-index" aria-hidden="true">06</p>
       <h2>Редевелопмент</h2>
-      <p class="about-lead">Даём промышленным объектам новую жизнь: реконструируем здания, модернизируем инфраструктуру и повышаем доходность площадки.</p>
-      <ol class="about-process about-process--5">
-        <li><span class="about-process__num">01</span><p>Подготовка технического задания. Формулировка целей, объёмов и требований заказчика</p></li>
-        <li><span class="about-process__num">02</span><p>Разработка проектной документации. Создание архитектурных решений, чертежей и инженерных схем</p></li>
-        <li><span class="about-process__num">03</span><p>Финансовое моделирование проекта. Расчёт сметы, поиск инвесторов, оценка сроков окупаемости</p></li>
-        <li><span class="about-process__num">04</span><p>Строительно-монтажные работы. Непосредственная реконструкция здания</p></li>
-        <li><span class="about-process__num">05</span><p>Управление готовым объектом. Запуск в эксплуатацию, техническое обслуживание и коммерческое использование</p></li>
-      </ol>
+      <h3 class="b-subhead reveal">Этапы работы</h3>
+      <div class="b-flow2" data-count="5">
+        <div class="b-flow2__track" aria-hidden="true"><span class="b-flow2__fill"></span></div>
+        <ol class="b-flow2__list" style="--n:5">
+          <li class="b-flow2__step reveal" style="--i:1"><span class="b-flow2__dot" aria-hidden="true">1</span><div class="b-flow2__body"><p>Подготовка технического задания. Формулировка целей, объёмов и требований заказчика</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:2"><span class="b-flow2__dot" aria-hidden="true">2</span><div class="b-flow2__body"><p>Разработка проектной документации. Создание архитектурных решений, чертежей и инженерных схем</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:3"><span class="b-flow2__dot" aria-hidden="true">3</span><div class="b-flow2__body"><p>Финансовое моделирование проекта. Расчёт сметы, поиск инвесторов, оценка сроков окупаемости</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:4"><span class="b-flow2__dot" aria-hidden="true">4</span><div class="b-flow2__body"><p>Строительно-монтажные работы. Непосредственная реконструкция здания</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:5"><span class="b-flow2__dot" aria-hidden="true">5</span><div class="b-flow2__body"><p>Управление готовым объектом. Запуск в эксплуатацию, техническое обслуживание и коммерческое использование</p></div></li>
+        </ol>
+      </div>
+      <h3 class="b-subhead reveal">Наши кейсы</h3>
       <div class="about-cases">
         <article class="case-card reveal">
-          <div class="case-card__media"><Image src={ImgAntaresAerial} alt="Редевелопмент промышленного комплекса с общей площадью строений 37 336 м²" widths={[320, 528]} sizes="(max-width: 767px) 100vw, 420px" loading="lazy" /></div>
+          <div class="case-card__media"><Image src={ImgAntaresAerial} alt="Редевелопмент промышленного комплекса с общей площадью строений 37 336 м²" widths={[320, 528]} sizes="(max-width: 767px) 100vw, 420px" loading="lazy" /></div>
           <div class="case-card__body">
+            <span class="case-card__tag">Кейс · Промышленный комплекс</span>
             <h3>Редевелопмент промышленного комплекса</h3>
-            <p class="case-card__label">Общая площадь строений — 37 336 м²</p>
+            <p class="case-card__label">Общая площадь строений — 37 336 м²</p>
             <p class="case-card__label">Ключевые этапы реализации проекта:</p>
             <ul class="case-card__list">
               <li>Анализ текущего состояния объекта и подготовка технического задания под новые задачи</li>
@@ -507,14 +506,15 @@ import ImgBuildToSuit from '../assets/images/about/build-to-suit.webp';
         <article class="case-card reveal">
           <div class="case-card__media"><Image src={ImgRedevelopment} alt="Технопарк «Антарес Латышских стрелков» с высоты" widths={[320, 510]} sizes="(max-width: 767px) 100vw, 420px" loading="lazy" /></div>
           <div class="case-card__body">
+            <span class="case-card__tag">Кейс · Технопарк</span>
             <h3><a href="/obekt/antares/">Технопарк «Антарес Латышских стрелков»</a></h3>
-            <p class="case-card__label">Общая площадь строений — 3 325 м²</p>
+            <p class="case-card__label">Общая площадь строений — 3 325 м²</p>
             <p class="case-card__label">Ключевые этапы реализации проекта:</p>
             <ul class="case-card__list">
               <li>Модернизация инженерных систем</li>
               <li>Усиление конструкций</li>
-              <li>Установка 2 кран-балок (5 т)</li>
-              <li>Монтаж грузового подъёмника (2 т)</li>
+              <li>Установка 2 кран-балок (5 т)</li>
+              <li>Монтаж грузового подъёмника (2 т)</li>
               <li>Обустройство 4 ворот под еврофуру</li>
             </ul>
           </div>
@@ -528,18 +528,23 @@ import ImgBuildToSuit from '../assets/images/about/build-to-suit.webp';
     <div class="container">
       <p class="sec-index" aria-hidden="true">07</p>
       <h2>Управление</h2>
-      <p class="about-lead">Берём объект под управление и отвечаем за его техническое состояние, арендаторов и коммерческий результат.</p>
-      <ol class="about-process about-process--4">
-        <li><span class="about-process__num">01</span><p>Поддержка и развитие инженерных систем (тепло, электричество, вентиляция, вода)</p></li>
-        <li><span class="about-process__num">02</span><p>Организация клининга, охраны, обслуживание 24/7</p></li>
-        <li><span class="about-process__num">03</span><p>Взаимодействие с арендаторами: поиск, договоры, контроль платежей</p></li>
-        <li><span class="about-process__num">04</span><p>Оптимизация планировочных решений и максимально эффективное использование объекта</p></li>
-      </ol>
-      <div class="about-mgmt">
+      <h3 class="b-subhead reveal">Этапы работы</h3>
+      <div class="b-flow2" data-count="4">
+        <div class="b-flow2__track" aria-hidden="true"><span class="b-flow2__fill"></span></div>
+        <ol class="b-flow2__list" style="--n:4">
+          <li class="b-flow2__step reveal" style="--i:1"><span class="b-flow2__dot" aria-hidden="true">1</span><div class="b-flow2__body"><p>Поддержка и развитие инженерных систем (тепло, электричество, вентиляция, вода)</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:2"><span class="b-flow2__dot" aria-hidden="true">2</span><div class="b-flow2__body"><p>Организация клининга, охраны, обслуживание 24/7</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:3"><span class="b-flow2__dot" aria-hidden="true">3</span><div class="b-flow2__body"><p>Взаимодействие с арендаторами: поиск, договоры, контроль платежей</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:4"><span class="b-flow2__dot" aria-hidden="true">4</span><div class="b-flow2__body"><p>Оптимизация планировочных решений и максимально эффективное использование объекта</p></div></li>
+        </ol>
+      </div>
+      <h3 class="b-subhead reveal">Наши кейсы</h3>
+      <div class="about-cases">
         <article class="case-card reveal">
-          <div class="case-card__media"><Image src={ImgAtlasAerial} alt="Индустриальный парк «Атлас Гаражный» под внешним управлением" widths={[320, 634]} sizes="(max-width: 1023px) 100vw, 560px" loading="lazy" /></div>
+          <div class="case-card__media"><Image src={ImgAtlasAerial} alt="Индустриальный парк «Атлас Гаражный» под внешним управлением" widths={[320, 634]} sizes="(max-width: 767px) 100vw, 560px" loading="lazy" /></div>
           <div class="case-card__body">
-            <h3>Кейс. Внешнее управление индустриальным парком «Атлас. Гаражный»</h3>
+            <span class="case-card__tag">Кейс · Внешнее управление</span>
+            <h3><a href="/atlas-garazhnyj/">Индустриальный парк «Атлас Гаражный»</a></h3>
             <p class="case-card__label">Ключевые этапы реализации проекта:</p>
             <ul class="case-card__list">
               <li>Привлечение новых арендаторов</li>
@@ -548,17 +553,23 @@ import ImgBuildToSuit from '../assets/images/about/build-to-suit.webp';
             </ul>
           </div>
         </article>
-        <div class="about-ba">
-          <h3>Внутреннее управление технопарком «Антарес. Латышских стрелков»</h3>
-          <figure class="ba-figure reveal">
-            <Image src={ImgAntaresBefore} alt="Технопарк «Антарес» до реконструкции" widths={[320, 640, 753]} sizes="(max-width: 1023px) 100vw, 420px" loading="lazy" />
-            <figcaption class="ba-label">Было</figcaption>
-          </figure>
-          <figure class="ba-figure reveal">
-            <Image src={ImgAntaresAfter} alt="Технопарк «Антарес» после реконструкции" widths={[320, 640, 752]} sizes="(max-width: 1023px) 100vw, 420px" loading="lazy" />
-            <figcaption class="ba-label">Стало</figcaption>
-          </figure>
-        </div>
+        <article class="case-card reveal">
+          <div class="case-card__media case-card__media--pair">
+            <figure class="case-card__figure">
+              <Image src={ImgAntaresBefore} alt="Технопарк «Антарес» до реконструкции" widths={[320, 640, 753]} sizes="(max-width: 767px) 50vw, 280px" loading="lazy" />
+              <figcaption class="ba-label">Было</figcaption>
+            </figure>
+            <figure class="case-card__figure">
+              <Image src={ImgAntaresAfter} alt="Технопарк «Антарес» после реконструкции" widths={[320, 640, 752]} sizes="(max-width: 767px) 50vw, 280px" loading="lazy" />
+              <figcaption class="ba-label">Стало</figcaption>
+            </figure>
+          </div>
+          <div class="case-card__body">
+            <span class="case-card__tag">Кейс · Внутреннее управление</span>
+            <h3><a href="/obekt/antares/">Технопарк «Антарес Латышских стрелков»</a></h3>
+            <p class="case-card__label">Результат управления — реконструкция объекта</p>
+          </div>
+        </article>
       </div>
       <a class="about-more" href="/upravlenie/">Подробнее об управлении<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
     </div>
@@ -568,35 +579,42 @@ import ImgBuildToSuit from '../assets/images/about/build-to-suit.webp';
     <div class="container">
       <p class="sec-index" aria-hidden="true">08</p>
       <h2>Брокеридж</h2>
-      <p class="about-lead">Подбираем промышленные и складские объекты под задачи бизнеса и сопровождаем сделку на всех этапах.</p>
-      <ol class="about-process about-process--5">
-        <li><span class="about-process__num">01</span><p>Подбор земли и зданий под конкретные требования</p></li>
-        <li><span class="about-process__num">02</span><p>Доступ к закрытым предложениям, которых нет на рынке</p></li>
-        <li><span class="about-process__num">03</span><p>Юридическая проверка объекта (доп. услуга)</p></li>
-        <li><span class="about-process__num">04</span><p>Переговоры и согласования лучших условий</p></li>
-        <li><span class="about-process__num">05</span><p>Сопровождение сделки на всех этапах</p></li>
-      </ol>
+      <h3 class="b-subhead reveal">Этапы работы</h3>
+      <div class="b-flow2" data-count="5">
+        <div class="b-flow2__track" aria-hidden="true"><span class="b-flow2__fill"></span></div>
+        <ol class="b-flow2__list" style="--n:5">
+          <li class="b-flow2__step reveal" style="--i:1"><span class="b-flow2__dot" aria-hidden="true">1</span><div class="b-flow2__body"><p>Подбор земли и зданий под конкретные требования</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:2"><span class="b-flow2__dot" aria-hidden="true">2</span><div class="b-flow2__body"><p>Доступ к закрытым предложениям, которых нет на рынке</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:3"><span class="b-flow2__dot" aria-hidden="true">3</span><div class="b-flow2__body"><p>Юридическая проверка объекта (доп. услуга)</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:4"><span class="b-flow2__dot" aria-hidden="true">4</span><div class="b-flow2__body"><p>Переговоры и согласования лучших условий</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:5"><span class="b-flow2__dot" aria-hidden="true">5</span><div class="b-flow2__body"><p>Сопровождение сделки на всех этапах</p></div></li>
+        </ol>
+      </div>
+      <h3 class="b-subhead reveal">Наши кейсы</h3>
       <div class="about-cases about-cases--3">
         <article class="case-card reveal">
           <div class="case-card__media"><Image src={ImgBrokerageRent} alt="Производственный комплекс ПСК «Карвиль»" widths={[320, 630]} sizes="(max-width: 767px) 100vw, 360px" loading="lazy" /></div>
           <div class="case-card__body">
+            <span class="case-card__tag">Кейс · Аренда</span>
             <h3><a href="/arenda/">Аренда</a></h3>
-            <p class="case-card__label">Производственный комплекс, 9 300 м² | ПСК «Карвиль»</p>
+            <p class="case-card__label">Производственный комплекс, 9 300 м² | ПСК «Карвиль»</p>
             <p class="case-card__label">Производство автокомпонентов</p>
           </div>
         </article>
         <article class="case-card reveal">
-          <div class="case-card__media"><Image src={ImgBrokerageSale} alt="Производственный комплекс на Ладожской площадью 6 500 м²" widths={[320, 630]} sizes="(max-width: 767px) 100vw, 360px" loading="lazy" /></div>
+          <div class="case-card__media"><Image src={ImgBrokerageSale} alt="Производственный комплекс на Ладожской площадью 6 500 м²" widths={[320, 630]} sizes="(max-width: 767px) 100vw, 360px" loading="lazy" /></div>
           <div class="case-card__body">
+            <span class="case-card__tag">Кейс · Продажа</span>
             <h3><a href="/prodazha/">Продажа</a></h3>
-            <p class="case-card__label">Производственный комплекс | Ладожская, 6 500 м² | Участок 1,7 га</p>
+            <p class="case-card__label">Производственный комплекс | Ладожская, 6 500 м² | Участок 1,7 га</p>
           </div>
         </article>
         <article class="case-card reveal">
           <div class="case-card__media"><Image src={ImgBuildToSuit} alt="Здание, построенное по модели Build-to-Suit в Шушарах" widths={[320, 633]} sizes="(max-width: 767px) 100vw, 360px" loading="lazy" /></div>
           <div class="case-card__body">
+            <span class="case-card__tag">Кейс · Build-to-Suit</span>
             <h3><a href="/stroitelstvo/">Build-to-Suit</a></h3>
-            <p class="case-card__label">20 000 м² | Шушары</p>
+            <p class="case-card__label">20 000 м² | Шушары</p>
             <p class="case-card__label">Производство ортопедических изделий</p>
           </div>
         </article>
@@ -609,17 +627,21 @@ import ImgBuildToSuit from '../assets/images/about/build-to-suit.webp';
     <div class="container">
       <p class="sec-index" aria-hidden="true">09</p>
       <h2>Промышленный консалтинг</h2>
-      <p class="about-lead">Помогаем выбрать путь — строительство, покупку или аренду — и собрать финансирование под задачу бизнеса.</p>
-      <ol class="about-process about-process--4">
-        <li><span class="about-process__num">01</span><p>Выбор «собственность или аренда», исходя из ситуации внутри компании и на рынке недвижимости в заданном регионе поиска</p></li>
-        <li><span class="about-process__num">02</span><p>Аудит для проработки кредитования</p></li>
-        <li><span class="about-process__num">03</span><p>Поиск возможности получения льготного финансирования, оформление документов</p></li>
-        <li><span class="about-process__num">04</span><p>Поиск инвестора либо группы инвесторов как альтернатива банковскому кредитованию</p></li>
-      </ol>
-      <p class="about-lead"><strong>Цель</strong> — приобретение объекта недвижимости с применением всех возможных источников финансирования, в том числе льготного. <strong>Результат:</strong> выбор пути — строительство, покупка или аренда.</p>
+      <h3 class="b-subhead reveal">Этапы работы</h3>
+      <div class="b-flow2" data-count="4">
+        <div class="b-flow2__track" aria-hidden="true"><span class="b-flow2__fill"></span></div>
+        <ol class="b-flow2__list" style="--n:4">
+          <li class="b-flow2__step reveal" style="--i:1"><span class="b-flow2__dot" aria-hidden="true">1</span><div class="b-flow2__body"><p>Выбор «собственность или аренда», исходя из ситуации внутри компании и на рынке недвижимости в заданном регионе поиска</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:2"><span class="b-flow2__dot" aria-hidden="true">2</span><div class="b-flow2__body"><p>Аудит для проработки кредитования</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:3"><span class="b-flow2__dot" aria-hidden="true">3</span><div class="b-flow2__body"><p>Поиск возможности получения льготного финансирования, оформление документов</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:4"><span class="b-flow2__dot" aria-hidden="true">4</span><div class="b-flow2__body"><p>Поиск инвестора либо группы инвесторов как альтернатива банковскому кредитованию</p></div></li>
+        </ol>
+      </div>
+      <p class="about-lead"><strong>Результат:</strong> выбор пути — строительство, покупка или аренда.</p>
       <div class="about-panels">
         <article class="about-case-panel reveal">
           <span class="about-case-panel__tag">Кейс</span>
+          <p><strong>Цель</strong> — приобретение объекта недвижимости с применением всех возможных источников финансирования, в том числе льготного.</p>
           <p><strong>Задача:</strong> производственной компании требовалось приобрести смежный участок со строениями для второй очереди. План: выкупить площадку, построить один корпус, продать оставшиеся 4 здания с землёй.</p>
           <p><strong>Решение ГК «ММ ПРОМ»:</strong></p>
           <ul class="case-card__list">
@@ -644,16 +666,20 @@ import ImgBuildToSuit from '../assets/images/about/build-to-suit.webp';
     <div class="container">
       <p class="sec-index" aria-hidden="true">10</p>
       <h2>Схема инвестиций для частного бизнеса</h2>
+      <h3 class="b-subhead reveal">Этапы работы</h3>
+      <div class="b-flow2" data-count="6">
+        <div class="b-flow2__track" aria-hidden="true"><span class="b-flow2__fill"></span></div>
+        <ol class="b-flow2__list" style="--n:6">
+          <li class="b-flow2__step reveal" style="--i:1"><span class="b-flow2__dot" aria-hidden="true">1</span><div class="b-flow2__body"><p>Определение объёма инвестиций</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:2"><span class="b-flow2__dot" aria-hidden="true">2</span><div class="b-flow2__body"><p>Подбор объекта</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:3"><span class="b-flow2__dot" aria-hidden="true">3</span><div class="b-flow2__body"><p>Юридическое и техническое сопровождение сделки. Анализ рисков</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:4"><span class="b-flow2__dot" aria-hidden="true">4</span><div class="b-flow2__body"><p>Совершение сделки</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:5"><span class="b-flow2__dot" aria-hidden="true">5</span><div class="b-flow2__body"><p>Управление объектом</p></div></li>
+          <li class="b-flow2__step reveal" style="--i:6"><span class="b-flow2__dot" aria-hidden="true">6</span><div class="b-flow2__body"><p>Продажа целиком или части объекта</p></div></li>
+        </ol>
+      </div>
       <p class="about-lead"><strong>Цель</strong> — вложение капитала в промышленную недвижимость. Тренд на локализацию производства формирует гарантированный спрос на производственные площади. Преумножение капитала зависит от конкретного объекта или земельного участка.</p>
       <p class="about-lead">У ГК «ММ ПРОМ» есть отдел продаж и аналитики, мы также сдаём в аренду и продаём объекты, не принадлежащие ГК, что позволяет знать неочевидные тренды рынка и понимать ситуацию со спросом и предложением.</p>
-      <ol class="about-process about-process--6">
-        <li><span class="about-process__num">01</span><p>Определение объёма инвестиций</p></li>
-        <li><span class="about-process__num">02</span><p>Подбор объекта</p></li>
-        <li><span class="about-process__num">03</span><p>Юридическое и техническое сопровождение сделки. Анализ рисков</p></li>
-        <li><span class="about-process__num">04</span><p>Совершение сделки</p></li>
-        <li><span class="about-process__num">05</span><p>Управление объектом</p></li>
-        <li><span class="about-process__num">06</span><p>Продажа целиком или части объекта</p></li>
-      </ol>
       <div class="about-invest reveal">
         <p><strong>Проблема инвестора:</strong> кто арендатор? Где гарантия нового арендатора при съезде текущего? Как управлять объектом?</p>
         <div class="invest-solution">
@@ -726,6 +752,21 @@ import ImgBuildToSuit from '../assets/images/about/build-to-suit.webp';
         reveals.forEach(function(el){ rio.observe(el); });
       } else {
         reveals.forEach(function(el){ el.classList.add('is-visible'); });
+      }
+      var flows = document.querySelectorAll('.b-flow2');
+      if (flows.length) {
+        if ('IntersectionObserver' in window && !reduce) {
+          var fio = new IntersectionObserver(function(entries){
+            entries.forEach(function(en){
+              if (!en.isIntersecting) return;
+              en.target.classList.add('is-filled');
+              fio.unobserve(en.target);
+            });
+          }, { threshold: 0.25 });
+          flows.forEach(function(f){ fio.observe(f); });
+        } else {
+          flows.forEach(function(f){ f.classList.add('is-filled'); });
+        }
       }
     })();
     </script>
