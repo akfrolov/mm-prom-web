@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import type { ProjectData } from '../data/projects';
 
 interface Props {
@@ -14,14 +15,24 @@ const { project, index = 0 } = Astro.props;
     <div class="proj-card__track" role="group" aria-label={`Фотографии проекта: ${project.title}`}>
       {project.images.map((src, i) => (
         <figure class="proj-card__shot">
-          <img
-            src={src}
-            alt={`${project.title} — фотография ${i + 1}`}
-            loading="lazy"
-            decoding="async"
-            width="800"
-            height="600"
-          />
+          {typeof src === 'string' ? (
+            <img
+              src={src}
+              alt={`${project.title} — фотография ${i + 1}`}
+              loading="lazy"
+              decoding="async"
+              width="800"
+              height="600"
+            />
+          ) : (
+            <Image
+              src={src}
+              alt={`${project.title} — фотография ${i + 1}`}
+              widths={[400, 800]}
+              sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+              loading="lazy"
+            />
+          )}
         </figure>
       ))}
     </div>
@@ -32,13 +43,15 @@ const { project, index = 0 } = Astro.props;
       <span class="badge badge--type">{project.type}</span>
       {project.inProgress && <span class="badge badge--work">В работе</span>}
     </div>
-    <h3>{project.title}</h3>
-    <p class="proj-card__customer">Заказчик — {project.customer}</p>
+    <h3>{project.link ? <a href={project.link} style="color:inherit;text-decoration:none">{project.title}</a> : project.title}</h3>
+    {project.customer && <p class="proj-card__customer">Заказчик — {project.customer}</p>}
     {project.note && <p class="proj-card__note">{project.note}</p>}
-    <p class="proj-card__customer">
-      <span class="material-symbols-outlined" aria-hidden="true" style="font-size:16px;vertical-align:-3px">event</span>
-      {project.period}
-    </p>
+    {project.period && (
+      <p class="proj-card__customer">
+        <span class="material-symbols-outlined" aria-hidden="true" style="font-size:16px;vertical-align:-3px">event</span>
+        {project.period}
+      </p>
+    )}
     <ul class="proj-card__meta">
       {project.highlights.map((item) => (
         <li>
@@ -49,16 +62,34 @@ const { project, index = 0 } = Astro.props;
         </li>
       ))}
     </ul>
-    <details class="proj-card__details">
-      <summary>Состав работ и показатели</summary>
-      <p class="proj-card__details-title">Состав реализованных задач по проекту</p>
-      <ul class="proj-card__list">
-        {project.tasks.map((task) => <li>{task}</li>)}
-      </ul>
-      <p class="proj-card__details-title">{project.specsTitle}</p>
-      <ul class="proj-card__list proj-card__list--specs">
-        {project.specs.map((spec) => <li>{spec}</li>)}
-      </ul>
-    </details>
+    {project.stages?.length ? (
+      <>
+        <p class="proj-card__details-title">{project.stagesTitle ?? 'Ключевые этапы реализации проекта:'}</p>
+        <ul class="proj-card__list">
+          {project.stages.map((stage) => <li>{stage}</li>)}
+        </ul>
+      </>
+    ) : null}
+    {(project.tasks?.length || project.specs?.length) && (
+      <details class="proj-card__details">
+        <summary>Состав работ и показатели</summary>
+        {project.tasks?.length ? (
+          <>
+            <p class="proj-card__details-title">Состав реализованных задач по проекту</p>
+            <ul class="proj-card__list">
+              {project.tasks.map((task) => <li>{task}</li>)}
+            </ul>
+          </>
+        ) : null}
+        {project.specs?.length ? (
+          <>
+            <p class="proj-card__details-title">{project.specsTitle}</p>
+            <ul class="proj-card__list proj-card__list--specs">
+              {project.specs.map((spec) => <li>{spec}</li>)}
+            </ul>
+          </>
+        ) : null}
+      </details>
+    )}
   </div>
 </article>

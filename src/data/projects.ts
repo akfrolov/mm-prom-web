@@ -1,15 +1,22 @@
+import type { ImageMetadata } from 'astro';
+import ImgRedevelopment from '../assets/images/about/antares-aerial.webp';
+import ImgAntares from '../assets/images/about/redevelopment-complex.webp';
+
 export interface ProjectData {
   id: string;
   type: string;
   title: string;
-  customer: string;
+  customer?: string;
+  link?: string;
   note?: string;
-  period: string;
+  period?: string;
   inProgress?: boolean;
-  images: string[];
-  tasks: string[];
-  specs: string[];
-  specsTitle: string;
+  images: (string | ImageMetadata)[];
+  stages?: string[];
+  stagesTitle?: string;
+  tasks?: string[];
+  specs?: string[];
+  specsTitle?: string;
   highlights: string[];
 }
 
@@ -299,6 +306,41 @@ export const projects: ProjectData[] = [
       "строительный объем здания – 55 020,54 м3."
     ],
     "specsTitle": "Основные технико-экономические показатели объекта"
+  },
+  {
+    "id": "redevelopment-complex",
+    "title": "Редевелопмент промышленного комплекса",
+    "type": "Редевелопмент",
+    "inProgress": false,
+    "images": [
+      ImgRedevelopment
+    ],
+    "highlights": ["Общая площадь строений — 37 336 м²"],
+    "stagesTitle": "Ключевые этапы реализации проекта:",
+    "stages": [
+      "Анализ текущего состояния объекта и подготовка технического задания под новые задачи",
+      "Проектирование реконструкции и модернизации инфраструктуры",
+      "Разработка финансовой модели и привлечение инвесторов"
+    ]
+  },
+  {
+    "id": "antares-technopark",
+    "title": "Технопарк «Антарес Латышских стрелков»",
+    "type": "Редевелопмент",
+    "link": "/obekt/antares/",
+    "inProgress": false,
+    "images": [
+      ImgAntares
+    ],
+    "highlights": ["Общая площадь строений — 3 325 м²"],
+    "stagesTitle": "Ключевые этапы реализации проекта:",
+    "stages": [
+      "Модернизация инженерных систем",
+      "Усиление конструкций",
+      "Установка 2 кран-балок (5 т)",
+      "Монтаж грузового подъёмника (2 т)",
+      "Обустройство 4 ворот под еврофуру"
+    ]
   }
 ];
 
@@ -306,4 +348,4 @@ export const projectById = Object.fromEntries(projects.map((p) => [p.id, p])) as
 
 export const stroitelstvoProjects = ['karlino', 'dikom', 'agp'].map((id) => projectById[id]);
 export const developmentProjects = ['rus-telkom', 'spv-technopark'].map((id) => projectById[id]);
-export const redevelopmentProjects = ['olda', 'spv-tsekh'].map((id) => projectById[id]);
+export const redevelopmentProjects = ['olda', 'redevelopment-complex', 'antares-technopark'].map((id) => projectById[id]);
