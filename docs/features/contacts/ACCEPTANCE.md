@@ -32,7 +32,7 @@
 | B1.2 | п. 24, реш. 7, Макс рядом | Рядом с каждой из трёх Telegram-ссылок на `/contact/` (hero-действия, блок каналов, CTA-полоса) есть ссылка на Макс → `https://max.ru/channel_MM_PROM` (target `_blank`, `rel="noopener"` — как у Telegram-ссылок as-is); каналы в едином виде; touch-цель ≥44px; скриншот 360/1366 |
 | B1.3 | реш. 1, ЦИАН/Авито | В блоке каналов `/contact/` — активные ссылки: ЦИАН → `https://www.cian.ru/company/62039710`, Авито → `https://www.avito.ru/brands/mmprom/all/nedvizhimost`; единый вид с остальными каналами; клик открывает страницу компании/бренда |
 | B1.4 | п. 24, meta | Рендер `/contact/`: `meta[name=description]` и `og:description` содержат «Телеграм» и не содержат «Telegram»; остальной текст описания (офис, телефон, почта) без изменений; canonical/`og:url` — `https://mm-prom.ru/contact/` не изменён |
-| B1.5 | п. 24, реш. 7, подвал | В подвале всех страниц — пара иконок Telegram → `t.me/mm_prom1` и Макс → `max.ru/channel_MM_PROM`; aria-подписи сохранены («Телеграм-канал ММ Пром», «Канал ММ Пром в MAX»); href Макса не `se14192436_biz` |
+| B1.5 | п. 24, реш. 7, подвал | В подвале всех страниц — пара иконок Telegram → `t.me/mm_prom1` и Макс → `max.ru/channel_MM_PROM`; aria-подписи сохранены («Телеграм-канал ГК „ММ ПРОМ“», «Канал ГК „ММ ПРОМ“ в MAX»); href Макса не `se14192436_biz` |
 | B1.6 | живые ссылки (критерий CR) | HTTP 200 при открытии: `t.me/mm_prom1`, `max.ru/channel_MM_PROM` (реш. 7: рабочий), `www.cian.ru/company/62039710`, `www.avito.ru/brands/mmprom/all/nedvizhimost` |
 
 ## C. Регресс (что не должно измениться)

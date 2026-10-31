@@ -24,7 +24,7 @@ const { Content } = await render(article);
 const { title: articleTitle, lead, date, category, source } = article.data;
 const cover = article.data.cover as ImageMetadata;
 const categoryLabel = articleCategoryLabel(category);
-const pageTitle = `${articleTitle} — публикации ММ Пром`;
+const pageTitle = `${articleTitle} — публикации ГК «ММ ПРОМ»`;
 const minutes = readingMinutes(article.body);
 
 // Astro Images API: обложка отдаётся адаптивными WebP-вариантами, а для OG

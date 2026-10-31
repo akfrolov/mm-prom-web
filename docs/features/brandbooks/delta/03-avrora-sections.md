@@ -41,7 +41,7 @@
 
 **Приёмка (механически):** `id="breadcrumbs"` + `aria-current`;
 `8cc2b044-1-optimized.png`; `grep -c 'modalka'` = 0; title/description
-объектные (не текст «ММ Пром — единое окно…»); ACCEPTANCE B2-1.
+объектные (не текст «ГК „ММ ПРОМ“ — единое окно…»); ACCEPTANCE B2-1.
 
 ### TC-BB-21 (W12; тип: preview + grep)
 

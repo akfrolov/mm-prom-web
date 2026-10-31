@@ -42,7 +42,7 @@
 | # | Пункт | Сценарий приёмки |
 |---|-------|------------------|
 | C1 | п. 28, маршруты | Открываются все 5: `/blog/kuda-vygodno-investirovat/`, `/blog/promyshlennaya-ipoteka-probuksovyvaet/`, `/blog/razbor-trendov-promyshlennoj-nedvizhimosti/`, `/blog/stroitelnyj-rynok-pod-davleniem/` (directory-формат, слэш в конце); `/blog/unknown-slug/` отдаёт 404 |
-| C2 | п. 28, SEO/OG статьи | Каждый рендер: `<title>` по маске «{Статья} — публикации ММ Пром»; canonical и `og:url` = `https://mm-prom.ru/blog/<slug>/`; `og:type = "article"`; `og:image` = абсолютный URL сгенерированного JPEG 1200×630 обложки; description = lead (критерий CR «canonical и OG совпадают») |
+| C2 | п. 28, SEO/OG статьи | Каждый рендер: `<title>` по маске «{Статья} — публикации ГК „ММ ПРОМ“»; canonical и `og:url` = `https://mm-prom.ru/blog/<slug>/`; `og:type = "article"`; `og:image` = абсолютный URL сгенерированного JPEG 1200×630 обложки; description = lead (критерий CR «canonical и OG совпадают») |
 | C3 | п. 28, шапка статьи | Крошки «Главная → Публикации → {Статья}» (3 звена, среднее → `/blog/`); h1 = титул; lead-абзац; мета: дата (если есть) + «1 мин чтения»; обложка 16:9 → 21:9 на ≥1024, не искажает пропорции |
 | C4 | п. 28, тело | Текст статьи соответствует заметке `docs/notes` (сверка по 2–3 опорным фразам на статью); абзацы/списки отрисованы; ширина текста ≤ 76ch; тексты перенесены как есть (опечатки не редактируются — SPEC §6.3) |
 | C5 | п. 28, первоисточник | После тела — блок «Подробнее: {издание}» с внешней ссылкой: `rustempo.ru/property/…`, `rg.ru/2026/07/14/…`, `biz-anatomy.ru/biznes-idei/…`, `abnews.ru/news/2026/8/6/…` по таблице §2.1 (target=`_blank`, rel=`noopener`); у новости компании внешнего блока нет; строка «Подробнее» заметки в теле не дублируется |

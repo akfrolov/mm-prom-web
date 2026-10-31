@@ -66,7 +66,7 @@ const mainImage = photoList[0] ?? '';
 const isMultiGallery = photoList.length > 1;
 // OG-изображение объекта — первое фото галереи, иначе фото карточки (§3.2).
 const ogImage = gallery[0] ?? d.image ?? undefined;
-const pageTitle = `${d.title} — карточка объекта — ММ Пром`;
+const pageTitle = `${d.title} — карточка объекта — ГК «ММ ПРОМ»`;
 const pageDescription = heroText ?? d.desc;
 // Ключевые параметры: площадь выводится одной плиткой, поэтому строка specs
 // с площадью («Общая площадь»/«Площадь»/«Площадь участка»…) не дублируется.
@@ -135,7 +135,7 @@ const jsonLd = {
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
     <style is:inline>
     /* ═══════════════════════════════════════════════════════════════════════
-       ММ ПРОМ — карточка объекта /obekt/<id>/ (SPEC object-pages, блок B1)
+       ГК «ММ ПРОМ» — карточка объекта /obekt/<id>/ (SPEC object-pages, блок B1)
        Токены — из base.css (navy/purple/gold, Manrope+Inter).
        ═══════════════════════════════════════════════════════════════════════ */
 

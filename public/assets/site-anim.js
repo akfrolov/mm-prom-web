@@ -1,4 +1,4 @@
-/* Слой анимаций сайта ММ Пром */
+/* Слой анимаций сайта ГК «ММ ПРОМ» */
 (function () {
   'use strict';
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;

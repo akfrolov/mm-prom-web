@@ -10,11 +10,11 @@ import { getCollection } from 'astro:content';
 const objects = (await getCollection('objects')).sort((a, b) => a.data.sort - b.data.sort);
 const mapObjects = objects.map(({ id, data }) => ({ id, title: data.title, coords: data.coords, address: data.address, area: data.area }));
 ---
-<BaseLayout title="Собственникам участков — ММ Пром" description="Оцениваем потенциал участка, подбираем формат застройки и сопровождаем проект до ввода.">
+<BaseLayout title="Собственникам участков — ГК «ММ ПРОМ»" description="Оцениваем потенциал участка, подбираем формат застройки и сопровождаем проект до ввода.">
   <Fragment slot="head">
     <style is:inline>
     /* ═══════════════════════════════════════════════════════════════════════
-       ММ ПРОМ — ГЛАВНАЯ СТРАНИЦА
+       ГК «ММ ПРОМ» — ГЛАВНАЯ СТРАНИЦА
        Дизайн по брендбуку «МИ ПРОМ ГРУППА КОМПАНИЙ» (2026):
        • тёмно-синий (доверие, профессионализм) — доминанта,
        • глубокий фиолетовый (премиальность) — акценты,

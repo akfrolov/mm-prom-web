@@ -185,7 +185,7 @@ CR-2026-002 меняет в этой фиче только переходы: м�
   `upravlenie`, `consalting` и роли `proizvodstvam`,
   `sobstvennikam-zdaniy`, `sobstvennikam-uchastkov`, `investoram`.
 - Секция страницы: `section#map` → `#svc-map`
-  (`role="application"`, aria-label «Карта объектов ММ Пром»), бар с
+  (`role="application"`, aria-label «Карта объектов ГК „ММ ПРОМ“»), бар с
   подсказкой «Нажмите на метку — откроется карточка объекта» и кнопкой
   «Смотреть каталог» → `/katalog/`.
 - Инициализация ленивая: `IntersectionObserver` (`rootMargin: 250px`,

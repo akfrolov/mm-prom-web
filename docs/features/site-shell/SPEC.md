@@ -35,7 +35,7 @@ Head содержит:
 
 - favicon: `<link rel="icon" type="image/png" href="/mmprom-logo.png">`
   (строка 30; целевая замена на `mm-logo.png` — п. 3, ещё не внесена);
-- canonical, OG (`og:type=website`, `og:site_name=ММ Пром`,
+- canonical, OG (`og:type=website`, `og:site_name=ГК «ММ ПРОМ»`,
   `og:image=/mmprom-logo.png`, `og:locale=ru_RU`);
 - шрифты: preconnect `fonts.googleapis.com`/`fonts.gstatic.com` +
   **Inter wght 400–800** и **Material Symbols Outlined**; **Manrope не
@@ -122,11 +122,11 @@ name="tail" />` страниц.
   3. nav «Компания» — О компании, Публикации, Контакты;
   4. «Контакты»: телефон, адрес «Санкт-Петербург, ул. Савушкина, 125 к.6»,
      `.site-footer__social` — Telegram (`https://t.me/mm_prom1`, SVG-иконка,
-     aria-label «Телеграм-канал ММ Пром») и Макс
+     aria-label «Телеграм-канал ГК „ММ ПРОМ“») и Макс
      (**`https://max.ru/se14192436_biz` — 404**, п. 24: заменить на
      `https://max.ru/channel_MM_PROM`; ссылка Макса уже стоит рядом с
      Telegram — состав менять не нужно).
-- `.site-footer__bottom`: © 2011–2026 ММ Пром; «Политика конфиденциальности»
+- `.site-footer__bottom`: © 2011–2026 ГК «ММ ПРОМ»; «Политика конфиденциальности»
   — неактивный span (`aria-disabled="true"`, «Документ готовится»).
 - Видимого текста «Telegram» в подвале нет (все подписи русские, слово
   «Телеграм» в aria-label уже написано по-русски) — правка написания п. 24

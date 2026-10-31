@@ -66,7 +66,7 @@ DOM: `section#hero.b-hero` → две подсветки `.b-hero__glow--purple/
    требует его отсутствия именно в `index.astro` (координация §13.1).
 5. **Медиа-кадр** (`b-hero__media-frame`): рамка-градиент 3px (gold→purple,
    без clip-path-выреза мокапа); фолбэк-заглушка `.img-placeholder` («Видео:
-   производственно-складской комплекс ММ Пром», 16/9); поверх —
+   производственно-складской комплекс ГК „ММ ПРОМ“», 16/9); поверх —
    `<video class="b-hero__video" muted autoplay loop playsinline
    preload="metadata">`, у которого **и постер, и источник — внешние**:
    `poster="https://mm-prom.ru/wp-content/uploads/2026/05/main.avif"`,

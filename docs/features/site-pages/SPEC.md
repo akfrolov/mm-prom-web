@@ -204,7 +204,7 @@ investoram) — страница-специфичный паттерн, в B2 н
   rowhead (`h2` «Объекты на карте» + ссылка `b-more` «Весь каталог»), лид
   (число объектов), `.b-map-sec__wrap` → канвас
   `<div id="svc-map" class="b-map-sec__canvas" role="application"
-  aria-label="Карта объектов ММ Пром">` + `.b-map-sec__bar` (подсказка
+  aria-label="Карта объектов ГК «ММ ПРОМ»">` + `.b-map-sec__bar` (подсказка
   «Нажмите на метку — откроется карточка объекта» + `btn--outline`
   «Смотреть каталог» → `/katalog/`).
 - Данные: frontmatter собирает `mapObjects` из коллекции
