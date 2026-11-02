@@ -3,7 +3,7 @@ title: "Провели долгожданный розыгрыш!"
 lead: "В последний день «Российского промышленника» ГК «ММ ПРОМ» разыграла футбольные мячи Adidas UCL League с автографом Андрея Аршавина."
 category: news
 date: "2026-10-24"
-cover: "../../assets/articles/rozygrysh-myachej-arshavina.webp"
+cover: "../../assets/articles/rozygrysh-myachej-arshavina-cover.jpg"
 ---
 
 Сегодня, в последний день «Российского промышленника», мы разыграли футбольные мячи Adidas UCL League с автографом Андрея Аршавина.

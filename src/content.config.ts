@@ -58,14 +58,16 @@ const objects = defineCollection({
   }),
 });
 
-// Коллекция статей (CR-2026-002, п. 28): md-файлы src/content/articles/<slug>.md.
-// id = имя файла = слаг маршрута /blog/<slug>/. Время чтения не хранится —
+// Коллекция статей (CR-2026-002, п. 28): md/mdx-файлы src/content/articles/<slug>.(md|mdx).
+// id = имя файла = слаг маршрута /blog/<slug>/. MDX — для статей с иллюстрациями
+// в теле: <Image> из astro:assets даёт точные widths/sizes без site-wide layout.
+// Время чтения не хранится —
 // вычисляется на build по объёму тела (~200 слов/мин). Дата необязательна:
 // у материала без даты в интерфейсе не выводится. Рубрика используется
 // фильтром на /blog/; source необязателен — у новостей компании нет
 // внешнего первоисточника.
 const articles = defineCollection({
-  loader: glob({ base: './src/content/articles', pattern: '**/*.md' }),
+  loader: glob({ base: './src/content/articles', pattern: '**/*.{md,mdx}' }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),

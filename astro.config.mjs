@@ -1,5 +1,6 @@
 import { defineConfig, fontProviders } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import mdx from '@astrojs/mdx';
 
 // Миграция HTML → Astro (CR-2026-001).
 // compressHTML: false обязателен для механического порта — дефолт v7 'jsx'
@@ -18,7 +19,7 @@ export default defineConfig({
   redirects: {
     '/investcomp/': '/investoram/',
   },
-  integrations: [sitemap()],
+  integrations: [sitemap(), mdx()],
   fonts: [
     {
       provider: fontProviders.google(),

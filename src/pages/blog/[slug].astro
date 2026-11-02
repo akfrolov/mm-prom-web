@@ -78,11 +78,6 @@ const ogCover = await getImage({
     .article-body h2::after{content:"";display:block;width:48px;height:4px;border-radius:2px;background:var(--gold);margin-top:8px}
     .article-body strong{color:var(--navy)}
 
-    /* ── Изображения из Markdown (![]()): astro:assets оптимизирует файл,
-       поэтому в теле нужен только контейнерный стиль. ─────────────────── */
-    .article-body img{display:block;width:100%;height:auto;margin:1.6em 0;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}
-    .article-caption{margin:-.8em 0 1.6em;font-size:var(--fs-small);color:var(--text-muted)}
-
     /* ── Иллюстрации в теле статьи (адаптивные варианты из public) ─────── */
     .article-figure{margin:1.6em 0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
     .article-figure img{display:block;width:100%;height:auto}
