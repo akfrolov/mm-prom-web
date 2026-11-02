@@ -19,6 +19,12 @@ proxy:
     - www.mm-prom.ru
   app_port: 80
   forward_headers: true
+  # Hero-видео ~26 МБ: без буферизации ответа и с запасом по таймауту,
+  # иначе kamal-proxy режет отдачу на 30 с (http2: stream closed → 500).
+  response_timeout: 300
+  buffering:
+    requests: true
+    responses: false
   healthcheck:
     path: /
     interval: 3
