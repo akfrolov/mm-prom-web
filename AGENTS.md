@@ -22,7 +22,7 @@ prod — Beget/mm-prom.ru, замена WordPress — gated, см. DEPLOY-раз
 | Локальный просмотр сборки | `npm run preview` (http://localhost:4321) |
 | Проверка типов | `npx astro check` |
 | Проверка страниц | Playwright по `astro preview` — `skill('webapp-testing')` |
-| Заливка на Beget (прод-стенд) | `npm run build` + `python3 deploy/beget/sync.py` |
+| Деплой прода | `push` в `main` → GitHub Actions → GitHub Pages |
 
 Сборка окружений: прод (дефолт) — canonical/OG + Метрика №109764749 + robots с
 Sitemap; staging (`MMPROM_ENV=staging`, `ASTRO_SITE=<staging>`) — noindex, без
@@ -177,27 +177,25 @@ Astro-шаблоны + `astro check`; серверный код — типы и�
 
 ## Деплой
 
-- **Staging**: GitHub Actions (`push` в `main`) → Pages; `MMPROM_ENV=staging`,
-  noindex, без Метрики; домен — переменная `ASTRO_SITE_STAGING` (выбор
-  домена — владелец; проектный URL `*.github.io/<repo>/` НЕ подходит: сайт
-  без `base`, ссылки корневые). Яндекс-ключи: staging-домен + localhost в
-  allowed-domains.
-- **Beget (прод-стенд `mm-prom-astro`)**: FTP `infommit.beget.tech`, логин
-  `infommit_astro`, корень FTP = `/mm-prom-astro/public_html/`. Реквизиты —
-  только в `deploy/beget/secrets.env` (chmod 600, в git не коммитить).
-  Порядок: прод-сборка `ASTRO_SITE=https://mm-prom.ru MMPROM_ENV=prod
-  npm run build`, затем `python3 deploy/beget/sync.py` — зеркалит `dist/`
-  (текстовые файлы сверяет по содержимому, бинарные по размеру, удаляет
-  устаревшее). Скрипт не заливает `CNAME`, не трогает `cgi-bin` и
-  `.well-known`. Отдельно проверять, что `dist/` собран в прод-режиме
-  (canonical `https://mm-prom.ru`, Метрика, robots со Sitemap).
-- **Prod (замена WordPress на mm-prom.ru) — GATED**: (1) приёмка staging;
-  (2) план форм заявок (82 CTA на `/modalka-zayavki/`; у WP — Bitrix24
-  `b24-10u6qz.bitrix24site.ru`); (3) 301-карта дублей WP (`/garage/`, `/ga/`,
-  `/vitebski/`, `/avrora-vitebskij-3/`, `/sitemap.html`); (4) текст
-  `/privacy/`; (5) проверка canonical/OG/Метрики. Сборка
-  `ASTRO_SITE=https://mm-prom.ru npm run build`, заливка — по процедуре
-  Beget выше, серверные 301 — в `.htaccess` (детали: `docs/DEPLOY.md`).
+- **Prod (mm-prom.ru) — GitHub Pages**: `push` в `main` →
+  `.github/workflows/deploy.yml`; сборка `ASTRO_SITE=https://mm-prom.ru
+  MMPROM_ENV=prod` (canonical/OG, Метрика, robots со Sitemap). Домен — `CNAME`
+  в корне репо и `public/` (`mm-prom.ru`, попадает в `dist/`); переменная
+  репозитория `ASTRO_SITE` переопределяет домен сборки.
+- **DNS (reg.ru)**: apex `mm-prom.ru` — A на `185.199.108.153`,
+  `185.199.109.153`, `185.199.110.153`, `185.199.111.153`; `www` — CNAME на
+  `akfrolov.github.io` (сейчас записи `www` нет). HTTPS включается только
+  после выпуска сертификата в Settings → Pages (+ Enforce HTTPS).
+- **Один custom domain**: staging-домен `test.mm-prom.ru` выведен из Pages;
+  staging-режим остаётся для локальных проверок (`MMPROM_ENV=staging`,
+  noindex, без Метрики, robots без Sitemap). Проектный URL
+  `*.github.io/<repo>/` не подходит: сайт без `base`, ссылки корневые.
+- **Ограничение Pages**: серверных 301 нет — дубли WordPress (`/garage/`,
+  `/ga/`, `/vitebski/`, `/avrora-vitebskij-3/`, `/sitemap.html`) закрываются
+  `redirects` Astro (страницы) или на уровне DNS/CDN.
+- **Beget — легаси**: стенд `mm-prom-astro` и `deploy/beget/sync.py` после
+  переезда не используются; реквизиты остаются в `deploy/beget/secrets.env`
+  (chmod 600, в git не коммитить).
 
 ## Исследование и документация
 

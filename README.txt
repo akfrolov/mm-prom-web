@@ -71,6 +71,7 @@ staging (noindex): MMPROM_ENV=staging ASTRO_SITE=<staging-домен> npm run bu
 
 Деплой
 ------
-Staging — GitHub Actions (push в main) → GitHub Pages (.github/workflows/
-deploy.yml). Prod — замена WordPress на mm-prom.ru, gated: см. DEPLOY-раздел
-AGENTS.md и CR-2026-001 (шаг 9).
+Прод mm-prom.ru — GitHub Actions (push в main) → GitHub Pages
+(.github/workflows/deploy.yml): сборка ASTRO_SITE=https://mm-prom.ru
+MMPROM_ENV=prod. Staging-режим (noindex, без Метрики) остаётся для локальных
+проверок. DNS и сертификат — DEPLOY-раздел AGENTS.md.

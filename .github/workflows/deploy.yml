@@ -1,15 +1,13 @@
-# Staging-деплой на GitHub Pages (CR-2026-001 шаг 8).
+# Деплой прода на GitHub Pages (mm-prom.ru).
 #
-# Домен staging — ВЫБРАН владельцем: test.mm-prom.ru (CNAME в корне репо и в
-# public/, попадает в dist/). Сайт собирается без `base` (все ссылки/ассеты
-# корневые), поэтому проектный URL вида https://<owner>.github.io/<repo>/
-# работать не будет.
-# Переменная репозитория ASTRO_SITE_STAGING (Settings → Secrets and
-# variables → Actions → Variables) переопределяет дефолт ниже.
-# Яндекс.Карты: test.mm-prom.ru + localhost добавить в allowed-domains ОБОИХ
+# Домен — mm-prom.ru: apex A-записи на IP GitHub Pages, CNAME в корне репо и в
+# public/ попадает в dist/. Сайт собирается без `base` (все ссылки/ассеты
+# корневые), поэтому проектный URL https://<owner>.github.io/<repo>/ не работает.
+# Переменная репозитория ASTRO_SITE переопределяет домен сборки.
+# Яндекс.Карты: mm-prom.ru + www + localhost добавить в allowed-domains ОБОИХ
 # ключей (ограничения применяются ~15 минут).
 
-name: Deploy staging to GitHub Pages
+name: Deploy production to GitHub Pages
 
 on:
   push:
@@ -26,7 +24,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  ASTRO_SITE_STAGING: ${{ vars.ASTRO_SITE_STAGING || 'https://test.mm-prom.ru' }}
+  ASTRO_SITE: ${{ vars.ASTRO_SITE || 'https://mm-prom.ru' }}
+  MMPROM_ENV: prod
 
 jobs:
   build:
@@ -41,11 +40,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Build (staging — noindex, без Метрики, robots без Sitemap)
+      - name: Build (prod — canonical/OG, Метрика, robots с Sitemap)
         run: npm run build
-        env:
-          ASTRO_SITE: ${{ env.ASTRO_SITE_STAGING }}
-          MMPROM_ENV: staging
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact
