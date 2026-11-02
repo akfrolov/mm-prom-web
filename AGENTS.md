@@ -182,6 +182,10 @@ Astro-шаблоны + `astro check`; серверный код — типы и�
   MMPROM_ENV=prod` (canonical/OG, Метрика, robots со Sitemap). Домен — `CNAME`
   в корне репо и `public/` (`mm-prom.ru`, попадает в `dist/`); переменная
   репозитория `ASTRO_SITE` переопределяет домен сборки.
+- **Uptime**: GlitchTip (`errors.burofrolova.ru`, org `buro`, проект `mm-prom`),
+  монитор `https://mm-prom.ru/` (60 с, порог 3); конфиг —
+  `tessa-infra/apps/glitchtip/monitors-seed.sh`, алерт «Падение приложений
+  (uptime)» → Telegram.
 - **DNS (reg.ru)**: apex `mm-prom.ru` — A на `185.199.108.153`,
   `185.199.109.153`, `185.199.110.153`, `185.199.111.153`; `www` — CNAME на
   `akfrolov.github.io` (сейчас записи `www` нет). HTTPS включается только
