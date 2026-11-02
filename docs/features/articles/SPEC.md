@@ -15,10 +15,11 @@
 |--------|------|----------------|
 | v0 | 2026-10-23 | Спецификация новой фичи: инвентаризация as-is заглушки `/blog/` и заметок `docs/notes`; целевая модель данных (4 записи), блоки B1 «Коллекция и список» и B2 «Страница статьи» |
 | v1 | 2026-10-27 | Правка владельца: CTA статьи — «Обсудить ваш проект» вместо «Обсудить похожий проект» (формулировка нерелевантна новостям и аналитике, где проекта в материале нет) |
+| v2 | 2026-11-02 | Единый формат статей — MDX (`src/content/articles/*.mdx`); иллюстрации в теле — `<Image>` из `astro:assets` с явными `widths`/`sizes`, исходники в `src/assets/articles/`, `public/assets/articles/` для новых иллюстраций не используется |
 
 ## Область и границы фичи
 
-**Входит:** коллекция `articles` (5 файлов `src/content/articles/*.md` + схема в
+**Входит:** коллекция `articles` (`src/content/articles/*.mdx` + схема в
 `src/content.config.ts`); обложки статей в `src/assets/articles/` (astro:assets); страница
 списка `src/pages/blog.astro` (замена заглушки); шаблон статьи
 `src/pages/blog/[slug].astro`; снятие noindex раздела; появление раздела и
@@ -126,8 +127,8 @@ as-is (фиксирует п. 24), URL Макса (реш. 7: `max.ru/channel_MM
 
 ### 2.1 Модель данных — коллекция `articles`
 
-Новая content collection `articles` (markdown, `glob`-лоадер,
-`base: './src/content/articles'`), id = имя файла = слаг маршрута:
+Новая content collection `articles` (MDX, `glob`-лоадер,
+`base: './src/content/articles'`, `pattern: '**/*.mdx'`), id = имя файла = слаг маршрута:
 
 | Слаг (= id) | Дата (frontmatter, ISO) | Первоисточник {label, url} |
 |-------------|--------------------------|-----------------------------|
@@ -136,6 +137,9 @@ as-is (фиксирует п. 24), URL Макса (реш. 7: `max.ru/channel_MM
 | `razbor-trendov-promyshlennoj-nedvizhimosti` | 2026-09-18 → «18 сентября 2026» | Анатомия бизнеса — biz-anatomy-URL §1.4 |
 | `stroitelnyj-rynok-pod-davleniem` | 2026-08-06 → «6 августа 2026» | Abnews.ru — abnews-URL §1.4 |
 | `gk-mm-prom-na-forume-v-omske` | 2026-10-27 → «27 октября 2026» | нет (новость компании) |
+| `rossijskij-promyshlennik-start` | 2026-10-22 → «22 октября 2026» | нет (новость компании) |
+| `kruglyj-stol-promzona-u-metro` | 2026-10-23 → «23 октября 2026» | нет (новость компании) |
+| `rozygrysh-myachej-arshavina` | 2026-10-24 → «24 октября 2026» | нет (новость компании) |
 
 Схема zod в `src/content.config.ts` (агент-проект, уточнение дельты):
 
@@ -146,11 +150,11 @@ as-is (фиксирует п. 24), URL Макса (реш. 7: `max.ru/channel_MM
 | `category` | `'cases' \| 'analytics' \| 'guides' \| 'news'` | Рубрика для табов `/blog/`; подписи — `ARTICLE_CATEGORIES` в `src/lib/articles.ts` |
 | `date` | string, optional | ISO-дата публикации; отсутствует → в интерфейсе не выводится (п. 28) |
 | `source` | `{ label: string, url: string }`, optional | Первоисточник: издание и абсолютная ссылка (гиперссылка из строки «Подробнее» заметки); у новостей компании отсутствует |
-| `cover` | `image()` | Обложка из `src/assets/articles/<slug>.webp`: Astro Images API (`Image`, `getImage` для OG-JPEG) |
+| `cover` | `image()` | Обложка из `src/assets/articles/` (`.webp`/`.jpg`): Astro Images API (`Image`, `getImage` для OG-JPEG) |
 
-Тело md-файла — текст заметки (§1.4) как есть, **кроме** frontmatter, строки
+Тело MDX-файла — текст заметки (§1.4) как есть, **кроме** frontmatter, строки
 «Подробнее …» (реализуется блоком первоисточника, §2.5) и служебной
-md-разметки заголовка. Время чтения **не хранится** — вычисляется на build по
+Markdown-разметки заголовка. Время чтения **не хранится** — вычисляется на build по
 объёму тела (§2.5).
 
 ### 2.2 Обложки
@@ -172,21 +176,28 @@ PNG из `docs/notes` копируются в `src/assets/articles/` под им
 `og:image` — `getImage()` в JPEG 1200×630. Обложка используется: карточка
 списка, шапка статьи, OG статьи.
 
-Иллюстрации в теле новости лежат в `public/assets/articles/` адаптивными
-вариантами (`<slug>-N-<width>.webp`): `public/` не проходит обработку
-`astro:assets`, поэтому ширины 480/640/960/1280 подготовлены заранее и
-подключены через `srcset`/`sizes` с cache-busting `?v=1`.
+Иллюстрации в теле статьи — исходники в `src/assets/articles/` (JPEG/WebP) и
+`<Image>` из `astro:assets` в MDX с явными `widths` (обычно 480/640/960/1280)
+и `sizes` (например, `(max-width: 900px) 100vw, 760px` для альбомных,
+`(max-width: 640px) 100vw, 520px` для портретных). Astro генерирует
+WebP-варианты и content-hashed URL; `public/assets/articles/` для новых
+иллюстраций не используется. Подпись — `<figcaption>` внутри
+`.article-figure`; портретные — с модификатором `article-figure--portrait`.
+
+Исходники обложек и иллюстраций хранятся в `src/assets/articles/` в исходном
+формате (JPEG/PNG/WebP). Astro конвертирует их в WebP на сборке, поэтому
+повторное пережатие WebP→WebP не выполняется.
 
 ### 2.3 План блоков реализации
 
 | Блок | Шаг плана | Пост-чек (контракт плана) |
 |------|-----------|---------------------------|
-| **B1 «Коллекция и список»** | `imp-articles-b1` (deps: `imp-pages`, `imp-shell`); commit `feat(blog): коллекция статей и список публикаций (CR-2026-002)` | `grep -q 'articles' src/content.config.ts && test -d src/content/articles && test "$(ls src/content/articles | wc -l)" -eq 4 && ! grep -q 'noindex' src/pages/blog.astro` |
+| **B1 «Коллекция и список»** | `imp-articles-b1` (deps: `imp-pages`, `imp-shell`); commit `feat(blog): коллекция статей и список публикаций (CR-2026-002)` | `grep -q 'articles' src/content.config.ts && test -d src/content/articles && test -n "$(ls src/content/articles/*.mdx 2>/dev/null)" && ! grep -q 'noindex' src/pages/blog.astro` |
 | **B2 «Страница статьи»** | `imp-articles-b2` (deps: `imp-articles-b1`); commit `feat(blog): страница статьи (CR-2026-002)` | `test -f 'src/pages/blog/[slug].astro' && grep -q 'getStaticPaths' 'src/pages/blog/[slug].astro'` |
 
 ### 2.4 Блок B1 «Коллекция и список» (п. 28 + каналы п. 24)
 
-1. **Коллекция.** `src/content/articles/` — 5 md-файлов (слаги §2.1) со схемой
+1. **Коллекция.** `src/content/articles/` — MDX-файлы (слаги §2.1) со схемой
    §2.1 в `src/content.config.ts`; пост-чек плана требует литерал `articles` в
    схеме. Обложки — в `src/assets/articles/`, поле `cover` — `image()` (§2.2).
 2. **`/blog/` перезаписывается** (заглушка `#wip` и её CSS уходят): мета по
@@ -326,21 +337,21 @@ PNG из `docs/notes` копируются в `src/assets/articles/` под им
    `npx astro check`).
 2. Пост-чеки плана §2.3 (grep-набор B1/B2).
 3. Сборочная проверка: `dist/blog/index.html` + `dist/blog/<slug>/index.html`
-   ×4; в `dist/sitemap-*.xml` — `/blog/` и 4 `/blog/.../`; `meta robots` в
-   HTML страниц — `index, follow` (прод-сборка).
+   для каждой статьи; в `dist/sitemap-*.xml` — `/blog/` и все `/blog/<slug>/`;
+   `meta robots` в HTML страниц — `index, follow` (прод-сборка).
 4. Открытие по `astro preview` (Playwright, `webapp-testing`,
    `reducedMotion:'reduce'`, ожидание `document.fonts.ready`) на 360 / 768 /
    1024 / 1366: `/blog/` (карточки, мета-даты/«1 мин чтения», каналы) и одна-две
    статьи (крошки, шапка, обложка, тело, первоисточник, OG в `head`;
    `/blog/unknown-slug/` → 404); консоль без ошибок.
 5. DOM-якоря для grep-сверки рендера: заголовок «Статьи и кейсы», ссылки
-   `/blog/<slug>/` ×4, `og:type="article"` и обложка в `og:image` статьи, блок
+   `/blog/<slug>/`, `og:type="article"` и обложка в `og:image` статьи, блок
    «Подробнее: …» с href издания, «Телеграм-канал» и `max.ru/channel_MM_PROM`
    в обеих полосах каналов.
 
 ## 6. Решения агента — на ревью владельца
 
-1. **Хранение статей — content collection `src/content/articles/*.md`** со
+1. **Хранение статей — content collection `src/content/articles/*.mdx`** со
    свежими frontmatter (title/lead/date/source/cover): в заметках
    `docs/notes` только `creator: USER`, модель §2.1 — проект под целевые
    требования; имена файлов = слаги из CR.

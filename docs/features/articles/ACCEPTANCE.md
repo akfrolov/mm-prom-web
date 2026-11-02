@@ -14,10 +14,10 @@
 
 | # | Проверка | Ожидание |
 |---|----------|----------|
-| A1 | `npm run build` | зелёный; в `dist/` есть `dist/blog/index.html` и `dist/blog/<slug>/index.html` ×4 |
+| A1 | `npm run build` | зелёный; в `dist/` есть `dist/blog/index.html` и `dist/blog/<slug>/index.html` для каждой статьи |
 | A2 | `npx astro check` | зелёный |
 | A3 | `grep -q 'articles' src/content.config.ts` | схема коллекции articles в конфиге (пост-чек плана B1) |
-| A4 | `test -d src/content/articles && test "$(ls src/content/articles | wc -l)" -eq 4` | ровно 4 файла со слагами: `kuda-vygodno-investirovat`, `promyshlennaya-ipoteka-probuksovyvaet`, `razbor-trendov-promyshlennoj-nedvizhimosti`, `stroitelnyj-rynok-pod-davleniem` |
+| A4 | `test -d src/content/articles && test -n "$(ls src/content/articles/*.mdx 2>/dev/null)"` | MDX-файлы со слагами из SPEC §2.1 |
 | A5 | `! grep -q 'noindex' src/pages/blog.astro` | проп индексируемости снят (пост-чек плана B1); прод-рендер — `meta robots = "index, follow"` |
 | A6 | `test -f 'src/pages/blog/[slug].astro' && grep -q 'getStaticPaths' 'src/pages/blog/[slug].astro'` | шаблон статьи с генерацией по коллекции (пост-чек плана B2) |
 | A7 | обложки: `test -f src/assets/articles/<slug>.webp` ×5 | 5 файлов по таблице SPEC §2.2; в разметке подключаются через `astro:assets` |
@@ -29,7 +29,7 @@
 
 | # | Пункт | Сценарий приёмки |
 |---|-------|------------------|
-| B1.1 | п. 28, модель данных | В `src/content.config.ts`: коллекция `articles` с полями `title`, `lead`, `date` (optional), `source {label,url}` (optional), `category`, `cover` (`image()`); md-файлы несут данные таблицы SPEC §2.1: титулы §1.4, даты (нет / 2026-07-14 / 2026-09-18 / 2026-08-06), первоисточники с href изданий, обложки §2.2. Сборка и `astro check` проходят |
+| B1.1 | п. 28, модель данных | В `src/content.config.ts`: коллекция `articles` с полями `title`, `lead`, `date` (optional), `source {label,url}` (optional), `category`, `cover` (`image()`); MDX-файлы несут данные таблицы SPEC §2.1: титулы §1.4, даты (нет / 2026-07-14 / 2026-09-18 / 2026-08-06), первоисточники с href изданий, обложки §2.2. Сборка и `astro check` проходят |
 | B1.2 | п. 28, список | `/blog/` — не заглушка: h1 «Статьи и кейсы» (по макету, с жёлтым подчёркиванием), lead макета, карточки `.post-card` (сетка 1 → 2 на ≥768 → 3 на ≥1024): обложка, заголовок-ссылка → `/blog/<slug>/`, excerpt, мета. Скриншоты 360 / 1366 — вёрстка соответствует макету, 360 — без горизонтального скролла |
 | B1.3 | п. 28, дата/время в карточках | Карточки: у статей с датой формат «18 сентября 2026» (без ведущего нуля) + время чтения с иконкой `schedule`; у `kuda-vygodno-investirovat` элемента даты нет (§2.4 п. 4) |
 | B1.4 | п. 28, снятие noindex | Рендер `/blog/` (прод-сборка): `meta[name=robots] = "index, follow"`; staging-сборка сохраняет noindex-механику env (`BaseLayout` unchanged в этой механике) |
