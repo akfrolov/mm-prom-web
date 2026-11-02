@@ -71,7 +71,9 @@ staging (noindex): MMPROM_ENV=staging ASTRO_SITE=<staging-домен> npm run bu
 
 Деплой
 ------
-Прод mm-prom.ru — GitHub Actions (push в main) → GitHub Pages
-(.github/workflows/deploy.yml): сборка ASTRO_SITE=https://mm-prom.ru
-MMPROM_ENV=prod. Staging-режим (noindex, без Метрики) остаётся для локальных
-проверок. DNS и сертификат — DEPLOY-раздел AGENTS.md.
+Прод mm-prom.ru — Kamal на tessa (139.100.238.81):
+`tessa-infra/kamal deploy -c config/deploy.yml`. Dockerfile: Astro build →
+nginx (deploy/nginx.conf), kamal-proxy + Let's Encrypt. GitHub Pages
+(.github/workflows/deploy.yml) — резерв, домен обслуживает tessa.
+Staging-режим (noindex, без Метрики) остаётся для локальных проверок.
+DNS — DEPLOY-раздел AGENTS.md.

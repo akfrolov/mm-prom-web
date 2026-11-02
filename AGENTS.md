@@ -22,7 +22,7 @@ prod — Beget/mm-prom.ru, замена WordPress — gated, см. DEPLOY-раз
 | Локальный просмотр сборки | `npm run preview` (http://localhost:4321) |
 | Проверка типов | `npx astro check` |
 | Проверка страниц | Playwright по `astro preview` — `skill('webapp-testing')` |
-| Деплой прода | `push` в `main` → GitHub Actions → GitHub Pages |
+| Деплой прода | `tessa-infra/kamal deploy -c config/deploy.yml` |
 
 Сборка окружений: прод (дефолт) — canonical/OG + Метрика №109764749 + robots с
 Sitemap; staging (`MMPROM_ENV=staging`, `ASTRO_SITE=<staging>`) — noindex, без
@@ -177,26 +177,23 @@ Astro-шаблоны + `astro check`; серверный код — типы и�
 
 ## Деплой
 
-- **Prod (mm-prom.ru) — GitHub Pages**: `push` в `main` →
-  `.github/workflows/deploy.yml`; сборка `ASTRO_SITE=https://mm-prom.ru
-  MMPROM_ENV=prod` (canonical/OG, Метрика, robots со Sitemap). Домен — `CNAME`
-  в корне репо и `public/` (`mm-prom.ru`, попадает в `dist/`); переменная
-  репозитория `ASTRO_SITE` переопределяет домен сборки.
+- **Prod (mm-prom.ru) — Kamal на tessa**: из корня репо
+  `tessa-infra/kamal deploy -c config/deploy.yml` (хост `deploy@139.100.238.81`,
+  образ `cr.selcloud.ru/buro/mm-prom`, kamal-proxy + Let's Encrypt). Сборка —
+  `Dockerfile`: node 24 → `astro build` (prod-режим) → nginx:alpine; раздача —
+  `deploy/nginx.conf` (www → apex, кэш `/_astro`, 404.html, robots).
+- **GitHub Pages — резерв**: workflow `.github/workflows/deploy.yml` остаётся
+  (push в `main`), но домен обслуживает tessa; прод от Pages не зависит.
+  `CNAME` в корне и `public/` — `mm-prom.ru`.
 - **Uptime**: GlitchTip (`errors.burofrolova.ru`, org `buro`, проект `mm-prom`),
   монитор `https://mm-prom.ru/` (60 с, порог 3); конфиг —
   `tessa-infra/apps/glitchtip/monitors-seed.sh`, алерт «Падение приложений
   (uptime)» → Telegram.
-- **DNS (reg.ru)**: apex `mm-prom.ru` — A на `185.199.108.153`,
-  `185.199.109.153`, `185.199.110.153`, `185.199.111.153`; `www` — CNAME на
-  `akfrolov.github.io` (сейчас записи `www` нет). HTTPS включается только
-  после выпуска сертификата в Settings → Pages (+ Enforce HTTPS).
-- **Один custom domain**: staging-домен `test.mm-prom.ru` выведен из Pages;
-  staging-режим остаётся для локальных проверок (`MMPROM_ENV=staging`,
-  noindex, без Метрики, robots без Sitemap). Проектный URL
-  `*.github.io/<repo>/` не подходит: сайт без `base`, ссылки корневые.
-- **Ограничение Pages**: серверных 301 нет — дубли WordPress (`/garage/`,
-  `/ga/`, `/vitebski/`, `/avrora-vitebskij-3/`, `/sitemap.html`) закрываются
-  `redirects` Astro (страницы) или на уровне DNS/CDN.
+- **DNS (reg.ru)**: apex `mm-prom.ru` — A на `139.100.238.81`; `www` — CNAME
+  на `mm-prom.ru` (kamal-proxy выпускает сертификаты на оба имени).
+- **Staging**: staging-режим остаётся для локальных проверок
+  (`MMPROM_ENV=staging`, noindex, без Метрики, robots без Sitemap); отдельного
+  публичного staging-домена нет.
 - **Beget — легаси**: стенд `mm-prom-astro` и `deploy/beget/sync.py` после
   переезда не используются; реквизиты остаются в `deploy/beget/secrets.env`
   (chmod 600, в git не коммитить).
