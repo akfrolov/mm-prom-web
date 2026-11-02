@@ -14,3 +14,6 @@ deploy/kamal/secrets
 
 # Beget FTP (mm-prom-astro)
 deploy/beget/secrets.env
+
+# Kamal secrets (registry creds) — локально
+.kamal/

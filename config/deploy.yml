@@ -1,0 +1,29 @@
+# Прод ГК «ММ ПРОМ» — статика на Kamal (хост tessa, kamal-proxy).
+# Сборка образа — Dockerfile в корне репо (Astro build → nginx).
+# Секреты: .kamal/secrets (gitignored), имена — KAMAL_REGISTRY_USER/PASSWORD.
+service: mm-prom
+image: buro/mm-prom
+
+registry:
+  server: cr.selcloud.ru
+  username: [KAMAL_REGISTRY_USER]
+  password: [KAMAL_REGISTRY_PASSWORD]
+
+builder:
+  arch: amd64
+
+proxy:
+  ssl: true
+  hosts:
+    - mm-prom.ru
+    - www.mm-prom.ru
+  app_port: 80
+  forward_headers: true
+  healthcheck:
+    path: /
+    interval: 3
+    timeout: 5
+
+servers:
+  web:
+    - deploy@139.100.238.81
