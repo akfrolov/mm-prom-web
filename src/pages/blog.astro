@@ -35,10 +35,12 @@ const articles = (await getCollection('articles'))
        крошки) — base.css/blocks.css; здесь только карточка публикации. */
 
     /* ── Шапка раздела: h1 + подводка (по макету docs/mockups/blog.html) ── */
-    .b-filters{padding:clamp(28px,4vw,48px) 0 clamp(24px,3vw,40px)}
+    .b-filters{padding:clamp(20px,3vw,32px) 0 clamp(20px,2.5vw,28px)}
     .b-filters h1{margin-bottom:12px}
     .b-filters h1::after{content:"";display:block;width:64px;height:4px;border-radius:2px;background:var(--gold);margin-top:10px}
     .b-filters__lead{margin:0;max-width:70ch;color:var(--text-muted)}
+    /* Лента начинается сразу после фильтров — верхний отступ секции меньше */
+    #feed.section--tint{padding-top:clamp(24px,3.5vw,40px)}
 
     /* ── Рубрики и поиск (макет docs/mockups/blog.html, #filters) ───────── */
     .blog-toolbar{display:flex;flex-direction:column;gap:12px;margin:20px 0 0}
