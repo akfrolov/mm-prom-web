@@ -12,15 +12,9 @@ cover: "../../assets/articles/kruglyj-stol-promzona-u-metro.webp"
 
 Эту точку зрения подтвердил генеральный директор ООО «Петропак» Константин Тилилюк, объяснивший экономику проекта на кейсе собственной компании. Хотя часть производств переезжает в Ленобласть из-за более низкой стоимости земли и аренды, Константин выбрал другой путь. Сопоставив расходы на логистику и затраты на рост зарплатного фонда (людей необходимо удерживать), компания пришла к выводу: экономическая выгода оказывается небольшой, а операционных хлопот становится значительно больше.
 
-<figure class="article-figure">
-  <img
-    src="/assets/articles/kruglyj-stol-promzona-u-metro-2-960.webp?v=1"
-    srcset="/assets/articles/kruglyj-stol-promzona-u-metro-2-640.webp?v=1 640w, /assets/articles/kruglyj-stol-promzona-u-metro-2-960.webp?v=1 960w, /assets/articles/kruglyj-stol-promzona-u-metro-2-1280.webp?v=1 1280w"
-    sizes="(max-width: 900px) 100vw, 760px"
-    width="1280" height="853"
-    alt="Выступление на круглом столе «Строительство промзоны у метро: экономика и концепция»" loading="lazy" decoding="async">
-  <figcaption>Круглый стол «Строительство промзоны у метро: экономика и концепция»</figcaption>
-</figure>
+![Выступление на круглом столе «Строительство промзоны у метро: экономика и концепция»](../../assets/articles/kruglyj-stol-promzona-u-metro-2.webp)
+
+<p class="article-caption">Круглый стол «Строительство промзоны у метро: экономика и концепция»</p>
 
 ## Финансирование и господдержка
 
