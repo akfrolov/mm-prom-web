@@ -73,7 +73,7 @@ const articles = defineCollection({
       title: z.string(),
       lead: z.string(),
       date: z.string().optional(),
-      category: z.enum(['cases', 'analytics', 'guides', 'news']),
+      category: z.enum(['media', 'cases', 'analytics', 'guides', 'news']),
       source: z.object({ label: z.string(), url: z.string() }).optional(),
       cover: image(),
     }),

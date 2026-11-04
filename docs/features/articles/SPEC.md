@@ -16,6 +16,7 @@
 | v0 | 2026-10-23 | Спецификация новой фичи: инвентаризация as-is заглушки `/blog/` и заметок `docs/notes`; целевая модель данных (4 записи), блоки B1 «Коллекция и список» и B2 «Страница статьи» |
 | v1 | 2026-10-27 | Правка владельца: CTA статьи — «Обсудить ваш проект» вместо «Обсудить похожий проект» (формулировка нерелевантна новостям и аналитике, где проекта в материале нет) |
 | v2 | 2026-11-02 | Единый формат статей — MDX (`src/content/articles/*.mdx`); иллюстрации в теле — `<Image>` из `astro:assets` с явными `widths`/`sizes`, исходники в `src/assets/articles/`, `public/assets/articles/` для новых иллюстраций не используется |
+| v3 | 2026-11-04 | Рубрика `media` («СМИ о нас»): публикации внешних изданий вынесены из `analytics`/`guides`; добавлена статья Игоря Рабцевича «Ловушка для инвестора» («Строительная газета», 01.09.2026) |
 
 ## Область и границы фичи
 
@@ -132,6 +133,7 @@ as-is (фиксирует п. 24), URL Макса (реш. 7: `max.ru/channel_MM
 
 | Слаг (= id) | Дата (frontmatter, ISO) | Первоисточник {label, url} |
 |-------------|--------------------------|-----------------------------|
+| `lovushka-dlya-investora` | 2026-09-01 → «1 сентября 2026» | Строительная газета — `https://stroygaz.ru/publication/biznes/lovushka-dlya-investora-chto-vliyaet-na-kachestvo-analiza-i-podgotovki-plana-realizatsii-obekta/` |
 | `kuda-vygodno-investirovat` | не задана → не выводится (п. 28) | Rustempo.ru — rustempo-URL §1.4 |
 | `promyshlennaya-ipoteka-probuksovyvaet` | 2026-07-14 → «14 июля 2026» | Российская газета — rg-URL §1.4 |
 | `razbor-trendov-promyshlennoj-nedvizhimosti` | 2026-09-18 → «18 сентября 2026» | Анатомия бизнеса — biz-anatomy-URL §1.4 |
@@ -147,7 +149,7 @@ as-is (фиксирует п. 24), URL Макса (реш. 7: `max.ru/channel_MM
 |------|-----|------------|
 | `title` | string | Заголовок (титул заметки, без markdown-разметки) |
 | `lead` | string | Короткое резюме для карточки и лида статьи (первый абзац заметки без служебной md-разметки) |
-| `category` | `'cases' \| 'analytics' \| 'guides' \| 'news'` | Рубрика для табов `/blog/`; подписи — `ARTICLE_CATEGORIES` в `src/lib/articles.ts` |
+| `category` | `'media' \| 'cases' \| 'analytics' \| 'guides' \| 'news'` | Рубрика для табов `/blog/`; подписи — `ARTICLE_CATEGORIES` в `src/lib/articles.ts` |
 | `date` | string, optional | ISO-дата публикации; отсутствует → в интерфейсе не выводится (п. 28) |
 | `source` | `{ label: string, url: string }`, optional | Первоисточник: издание и абсолютная ссылка (гиперссылка из строки «Подробнее» заметки); у новостей компании отсутствует |
 | `cover` | `image()` | Обложка из `src/assets/articles/` (`.webp`/`.jpg`): Astro Images API (`Image`, `getImage` для OG-JPEG) |

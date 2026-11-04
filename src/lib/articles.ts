@@ -6,6 +6,7 @@
 // в коллекции articles; порядок — как в макете docs/mockups/blog.html.
 export const ARTICLE_CATEGORIES = [
   { id: 'all', label: 'Все материалы' },
+  { id: 'media', label: 'СМИ о нас' },
   { id: 'cases', label: 'Кейсы проектов' },
   { id: 'analytics', label: 'Аналитика рынка' },
   { id: 'guides', label: 'Гайды и инструкции' },
