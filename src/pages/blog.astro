@@ -25,6 +25,11 @@ const articles = (await getCollection('articles'))
     if (!b.date) return -1;
     return b.date.localeCompare(a.date);
   });
+
+// Показываем только рубрики, под которые есть материалы: пустые табы скрыты.
+const categories = ARTICLE_CATEGORIES.filter(
+  (category) => category.id === 'all' || articles.some((article) => article.category === category.id),
+);
 ---
 
 <BaseLayout title="Публикации — статьи и кейсы ГК «ММ ПРОМ»" description="Экспертные статьи и кейсы об индустриальной недвижимости.">
@@ -108,7 +113,7 @@ const articles = (await getCollection('articles'))
       <p class="b-filters__lead">Экспертные статьи и кейсы об индустриальной недвижимости</p>
       <div class="blog-toolbar">
         <div class="blog-cats" role="tablist" aria-label="Рубрики публикаций">
-          {ARTICLE_CATEGORIES.map((category) => (
+          {categories.map((category) => (
             <button
               type="button"
               role="tab"
