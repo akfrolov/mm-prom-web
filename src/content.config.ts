@@ -42,11 +42,64 @@ const objects = defineCollection({
       .object({
         title: z.string().optional(),
         text: z.string().optional(),
+        description: z.string().optional(),
         image: z.string().optional(),
       })
       .passthrough()
       .optional(),
     faq: z.array(z.object({ q: z.string(), a: z.string() })).optional(),
+    details: z
+      .object({
+        scheme: z
+          .object({
+            title: z.string(),
+            text: z.string().optional(),
+            image: z.string(),
+            alt: z.string(),
+            rows: z.array(
+              z.object({
+                name: z.string(),
+                area: z.string(),
+                land: z.string(),
+                height: z.string(),
+                load: z.string(),
+                equipment: z.string(),
+              }),
+            ),
+          })
+          .optional(),
+        advantages: z
+          .object({
+            title: z.string(),
+            items: z.array(z.object({ icon: z.string(), text: z.string() })),
+          })
+          .optional(),
+        development: z
+          .object({
+            title: z.string(),
+            text: z.string().optional(),
+            image: z.string(),
+            alt: z.string(),
+            items: z.array(
+              z.object({
+                name: z.string(),
+                area: z.string(),
+                land: z.string().optional(),
+                floors: z.string().optional(),
+                image: z.string().optional(),
+                alt: z.string().optional(),
+              }),
+            ),
+          })
+          .optional(),
+        business: z
+          .object({
+            title: z.string(),
+            items: z.array(z.object({ icon: z.string(), text: z.string() })),
+          })
+          .optional(),
+      })
+      .optional(),
     cta: z
       .object({
         title: z.string(),
