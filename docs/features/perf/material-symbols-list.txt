@@ -91,3 +91,10 @@ water_drop
 weight
 widgets
 zoom_in
+apparel
+restaurant
+medication
+memory
+directions_boat
+ac_unit
+train
