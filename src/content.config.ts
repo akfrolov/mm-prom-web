@@ -76,6 +76,9 @@ const articles = defineCollection({
       category: z.enum(['media', 'cases', 'analytics', 'guides', 'news']),
       source: z.object({ label: z.string(), url: z.string() }).optional(),
       cover: image(),
+      // Кадрирование обложки: «top» для фото с людьми, чтобы кроп 21:9
+      // не срезал лица сверху; по умолчанию — по центру.
+      coverPosition: z.enum(['top', 'center', 'bottom']).optional(),
     }),
 });
 

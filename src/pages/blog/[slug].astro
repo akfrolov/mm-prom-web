@@ -21,7 +21,7 @@ interface Props {
 
 const { article } = Astro.props;
 const { Content } = await render(article);
-const { title: articleTitle, lead, date, category, source } = article.data;
+const { title: articleTitle, lead, date, category, source, coverPosition } = article.data;
 const cover = article.data.cover as ImageMetadata;
 const categoryLabel = articleCategoryLabel(category);
 const pageTitle = `${articleTitle} — публикации ГК «ММ ПРОМ»`;
@@ -63,6 +63,10 @@ const ogCover = await getImage({
     /* ── Обложка: 16:9, на десктопе 21:9 (по макету) ───────────────────── */
     .article-cover{margin:0 0 clamp(20px,3vw,32px);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
     .article-cover img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+    /* Кадрирование обложки из frontmatter: top — для фото с людьми,
+       чтобы на 21:9 не срезать лица сверху. */
+    .article-cover--top img{object-position:center top}
+    .article-cover--bottom img{object-position:center bottom}
     @media (min-width:1024px){
       .article-cover img{aspect-ratio:21/9}
     }
@@ -132,7 +136,7 @@ const ogCover = await getImage({
             <span class="article-meta__item"><span class="material-symbols-outlined" aria-hidden="true">schedule</span>{minutes} мин чтения</span>
           </div>
         </div>
-        <figure class="article-cover">
+        <figure class:list={["article-cover", coverPosition && `article-cover--${coverPosition}`]}>
           <Image
             src={cover}
             widths={coverWidths}

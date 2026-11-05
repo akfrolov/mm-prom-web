@@ -3,9 +3,11 @@
   "type": "park",
   "typeLabel": "Индустриальный парк",
   "deal": [
+    "Аренда",
     "Продажа"
   ],
   "dealTypes": [
+    "rent",
     "sale"
   ],
   "area": "38 га",
@@ -72,7 +74,7 @@
   "link": "/avrora-vitebskij/",
   "presentation": "/gejt-broshury/",
   "media": {
-    "src": "/assets/external/7da0587c-garage.avif",
+    "src": "/assets/objects/avrora-vitebsky/cover.webp",
     "alt": "Аврора Витебский — индустриальный парк",
     "caption": "Аврора Витебский — индустриальный парк на Витебском проспекте"
   },
