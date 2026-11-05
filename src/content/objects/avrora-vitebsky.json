@@ -3,9 +3,11 @@
   "type": "park",
   "typeLabel": "Индустриальный парк",
   "deal": [
+    "Аренда",
     "Продажа"
   ],
   "dealTypes": [
+    "rent",
     "sale"
   ],
   "area": "38 га",
