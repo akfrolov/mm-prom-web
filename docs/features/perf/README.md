@@ -1,6 +1,6 @@
 # Подмножество Material Symbols
 
-`material-symbols-list.txt` — 93 имени глифов, которые реально встречаются в
+`material-symbols-list.txt` — 100 имён глифов, которые реально встречаются в
 разметке и данных объектов. Источник правды — отрендеренный `dist/`: имена
 собираются из `<span class="material-symbols-outlined">…</span>` плюс
 динамические (`volume_up`/`volume_off`). Новый глиф сначала добавляется в
