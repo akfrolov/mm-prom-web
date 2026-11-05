@@ -14,7 +14,7 @@ import SiteButton from '../components/SiteButton.astro';
 import B24Loader from '../components/B24Loader.astro';
 import { B24_FORMS } from '../lib/b24';
 ---
-<BaseLayout title="Атлас Гаражный — технопарк в Обухово | ГК «ММ ПРОМ»" description="Атлас Гаражный — технопарк в Обухово: общая площадь здания 10 719 м², 4 этажа производственно-складских помещений, кран-балки 10 т, 1 МВт, 5 минут до КАД.">
+<BaseLayout title="Атлас Гаражный — технопарк в Обухово | ГК «ММ ПРОМ»" description="Атлас Гаражный — технопарк в Обухово: общая площадь здания 8 577 м², 3 этажа производственных площадей, кран-балки 10 т, 1 МВт, 5 минут до КАД.">
   <Fragment slot="head">
     <style is:inline>
     /* ═══════════════════════════════════════════════════════════════════════
@@ -667,9 +667,9 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         <p class="b-hero__eyebrow">Объект · Технопарк</p>
         <h1>Технопарк <span class="accent">Атлас Гаражный</span> в Обухово</h1>
         <p class="b-hero__lead">Готовые производственные площади рядом с метро. Развитая инфраструктура, все необходимые инженерные сети. Удобная логистика, возможность адаптации под задачи производства.</p>
-        <p class="b-hero__note">4 этажа производственно-складских помещений. Общая площадь здания — 10 719 м² (включая производственные, вспомогательные и технические помещения)</p>
+        <p class="b-hero__note">3 этажа производственных площадей. Общая площадь здания — 8 577 м² (включая производственные, административные и вспомогательные помещения)</p>
         <div class="b-hero__actions"><SiteButton variant="gold" b24="offer">Обсудить объект</SiteButton><a class="btn btn--outline" href="/katalog/">Смотреть каталог</a></div>
-        <ul class="b-hero__metrics"><li><strong>10 719 м²</strong><span>общая площадь здания</span></li><li><strong>5 минут</strong><span>до КАД</span></li><li><strong>10 минут</strong><span>до метро «Обухово» пешком</span></li><li><strong>25 минут</strong><span>до центра Петербурга</span></li></ul>
+        <ul class="b-hero__metrics"><li><strong>8 577 м²</strong><span>общая площадь здания</span></li><li><strong>5 минут</strong><span>до КАД</span></li><li><strong>10 минут</strong><span>до метро «Обухово» пешком</span></li><li><strong>25 минут</strong><span>до центра Петербурга</span></li></ul>
       </div>
       <figure class="obj-hero__media">
         <Image src={ImgHero} widths={[640, 960, 1280]} sizes="(max-width: 1023px) 100vw, 640px" alt="Атлас Гаражный — технопарк в Обухово" loading="eager" fetchpriority="high" />
@@ -724,7 +724,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
       <div class="b-sec-head reveal">
         <p class="sec-index" aria-hidden="true">04</p>
         <h2>Площадь объекта</h2>
-        <p class="b-sec-head__lead">Общая площадь здания — 10 719 м², включает производственные, вспомогательные и технические помещения.</p>
+        <p class="b-sec-head__lead">Общая площадь здания — 8 577 м², включает производственные, административные и вспомогательные помещения.</p>
       </div>
       <div class="obj-split">
       <div class="obj-cols">
@@ -740,7 +740,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         </div>
         <div class="obj-detail reveal" style="--i:1">
           <h3>АБК (7 этажей)</h3>
-          <p class="obj-detail__note">Технические помещения, раздевалки, офисы.</p>
+          <p class="obj-detail__note">Технические помещения, раздевалки, офисы. Общая площадь — 1 850 м².</p>
           <ul>
             <li><span>1 этаж</span><span>301 м²</span></li>
             <li><span>2 этаж (технический)</span><span>243 м²</span></li>
@@ -785,7 +785,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
             </tr>
             <tr>
               <td data-label="Формат"><strong>Здание целиком</strong></td>
-              <td data-label="Площадь">10 719 м²</td>
+              <td data-label="Площадь">8 577 м²</td>
               <td data-label="Сценарий">Производство, склад и административный блок</td>
               <td><button type="button" data-b24-form="click/24/n783uf" data-b24-form-telemetry-sign="v1:24:site.3b4e323fab4e65c363e6c71df8d2d6f8700bc8ae8a6372e7c238a5a4bfa10e8d" data-b24-loader={B24_FORMS.placement.loader}>Подобрать ↗</button></td>
             </tr>
@@ -822,7 +822,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         <div class="approach-card reveal" style="--i:3">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">elevator</span></span>
           <div class="approach-card__title">Лифты</div>
-          <p>Пассажирский и грузовой, г/п 3 т<br>Возможен монтаж внутренних и внешних подъёмников</p>
+          <p>Пассажирский лифт и грузовой подъёмник 2 т<br>Возможен монтаж внутренних и внешних подъёмников</p>
         </div>
         <div class="approach-card reveal" style="--i:4">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">air</span></span>
@@ -900,7 +900,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         <div class="approach-card reveal" style="--i:0">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">bolt</span></span>
           <div class="approach-card__title">Энергетические мощности</div>
-          <p>Объём: до 1 МВт (II–III категория)<br>Подключение: ПАО «Россети Ленэнерго»<br>Тарифы ниже среднегородских</p>
+          <p>Объём: 1 МВт, возможность увеличения до 5 МВт (II–III категория)<br>Подключение: ПАО «Россети Ленэнерго»<br>Тарифы ниже среднегородских</p>
         </div>
         <div class="approach-card reveal" style="--i:1">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">water_drop</span></span>
@@ -1025,8 +1025,8 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
       { q: "Можно арендовать или только купить?", a: "И арендовать, и купить. Для аренды предусмотрены долгосрочные договоры и гибкие условия." },
       { q: "Сколько стоит аренда или покупка?", a: "Стоимость зависит от площади, срока аренды и требований к доработке объекта. Оставьте заявку — рассчитаем стоимость под ваш проект." },
       { q: "Можно ли изменить планировку?", a: "Да. Планировку можно менять: делить объект на секции, объединять этажи и выполнять доработку по техническому заданию арендатора." },
-      { q: "Как перемещать грузы между этажами?", a: "Есть 4 внешних промышленных подъёмника по 2 т, габарит каждого — 2 × 3 м. Кроме того, есть 2 грузоподъёмных устройства по 10 т, высота до крюка — 7,5 м. Возможен монтаж внутренних и внешних подъемников." },
-      { q: "Какая электрическая мощность доступна?", a: "1 МВт с возможностью увеличения." },
+      { q: "Как перемещать грузы между этажами?", a: "Есть грузовой подъёмник 2 т и кран-балки до 10 т. Возможен монтаж внутренних и внешних подъёмников." },
+      { q: "Какая электрическая мощность доступна?", a: "1 МВт с возможностью увеличения до 5 МВт." },
       { q: "Подойдёт ли здание моему производству?", a: "Это зависит от технологии, необходимой мощности, высоты помещений, нагрузки на полы, грузопотока и требований к инженерным системам. Перед просмотром можно отправить технические требования — менеджер ГК «ММ ПРОМ» предварительно оценит возможность размещения." },
       { q: "Виды разрешенного производства", a: "Производственная деятельность, легкая и тяжелая промышленность, автомобилестроительная, фармацевтическая, нефтехимическая, пищевая, целлюлозно-бумажная промышленность, склады." },
       { q: "Как посмотреть объект?", a: "Позвоните нам по телефону 8 800 333 10 10 или оставьте заявку, чтобы менеджер с вами связался." }
@@ -1175,7 +1175,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
   if (!el) return;
   var started = false;
   var MAX_FIT_ZOOM = 15;
-  var PINS = [{"coords": [59.846744, 30.441623], "title": "Атлас Гаражный", "sub": "Гаражный проезд, 1", "main": true}, {"coords": [59.8487, 30.4577], "title": "Метро «Обухово»", "sub": "15 минут пешком"}, {"coords": [59.845301, 30.457701], "title": "5 минут до КАД", "sub": ""}, {"coords": [59.843589, 30.435506], "title": "25 минут до центра", "sub": "Петербург"}];
+  var PINS = [{"coords": [59.846744, 30.441623], "title": "Атлас Гаражный", "sub": "Гаражный проезд, 1", "main": true}, {"coords": [59.8487, 30.4577], "title": "Метро «Обухово»", "sub": "10 минут пешком"}, {"coords": [59.845301, 30.457701], "title": "5 минут до КАД", "sub": ""}, {"coords": [59.843589, 30.435506], "title": "25 минут до центра", "sub": "Петербург"}];
   function labelLayout(pin){
     var cls = pin.main ? 'ymap-label ymap-label--main' : 'ymap-label';
     var html = '<div class="'+cls+'"><span class="ymap-label__dot"></span><span class="ymap-label__body"><b>'+pin.title+'</b>'+(pin.sub?'<i>'+pin.sub+'</i>':'')+'</span></div>';
