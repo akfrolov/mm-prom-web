@@ -536,6 +536,14 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 .obj-hero__media img{display:block;width:100%;height:100%;max-height:480px;object-fit:cover}
 @media (max-width:1023px){.obj-hero .b-hero__inner{grid-template-columns:1fr;gap:32px}.obj-hero__media img{max-height:360px}}
 
+.obj-hero__areas{display:grid;gap:14px;margin:24px 0;grid-template-columns:1fr}
+.obj-hero__areas .obj-detail{padding:18px 20px;border-radius:14px}
+.obj-hero__areas .obj-detail h2{font-size:1rem;margin:0 0 6px}
+.obj-hero__areas .obj-detail__note{margin-bottom:10px}
+.obj-hero__areas .obj-detail ul{gap:5px}
+.obj-hero__areas .obj-detail li{padding-bottom:5px;font-size:.9rem}
+@media (min-width:768px){.obj-hero__areas{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 .obj-figure{margin:28px 0 0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:#fff}
 .obj-figure img{display:block;width:100%;height:auto}
 .obj-figure figcaption{padding:12px 16px;border-top:1px solid var(--border);color:var(--text-muted);font-size:var(--fs-small)}
@@ -666,8 +674,31 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
       <div class="b-hero__content">
         <p class="b-hero__eyebrow">Объект · Технопарк</p>
         <h1>Технопарк <span class="accent">Атлас Гаражный</span> в Обухово</h1>
-        <p class="b-hero__lead">Готовые производственные площади рядом с метро. Развитая инфраструктура, все необходимые инженерные сети. Удобная логистика, возможность адаптации под задачи производства.</p>
-        <p class="b-hero__note">3 этажа производственных площадей. Общая площадь здания — 8 577 м² (включая производственные, административные и вспомогательные помещения)</p>
+        <div class="obj-hero__areas">
+          <div class="obj-detail">
+            <h2>Производство (3 этажа)</h2>
+            <p class="obj-detail__note">Производственные площади с возможностью установки кран-балок.</p>
+            <ul>
+              <li><span>1 этаж</span><span>2 176 м²</span></li>
+              <li><span>в том числе антресоль</span><span>133 м²</span></li>
+              <li><span>2 этаж</span><span>2 209 м²</span></li>
+              <li><span>3 этаж</span><span>2 209 м²</span></li>
+            </ul>
+          </div>
+          <div class="obj-detail">
+            <h2>АБК (7 этажей)</h2>
+            <p class="obj-detail__note">Технические помещения, раздевалки, офисы.</p>
+            <ul>
+              <li><span>1 этаж</span><span>301 м²</span></li>
+              <li><span>2 этаж (технический)</span><span>243 м²</span></li>
+              <li><span>3 этаж</span><span>239 м²</span></li>
+              <li><span>4 этаж</span><span>239 м²</span></li>
+              <li><span>5 этаж</span><span>275 м²</span></li>
+              <li><span>6 этаж</span><span>275 м²</span></li>
+              <li><span>7 этаж</span><span>278 м²</span></li>
+            </ul>
+          </div>
+        </div>
         <div class="b-hero__actions"><SiteButton variant="gold" b24="offer">Обсудить объект</SiteButton><a class="btn btn--outline" href="/katalog/">Смотреть каталог</a></div>
         <ul class="b-hero__metrics"><li><strong>8 577 м²</strong><span>общая площадь здания</span></li><li><strong>5 минут</strong><span>до КАД</span></li><li><strong>10 минут</strong><span>до метро «Обухово» пешком</span></li><li><strong>25 минут</strong><span>до центра Петербурга</span></li></ul>
       </div>
