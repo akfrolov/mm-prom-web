@@ -53,6 +53,10 @@ interface Props {
 const { obj, similar } = Astro.props;
 const d = obj.data;
 
+// Мета-строка «адрес · район» под h1: у собственных объектов (group ours/prom)
+// адрес не выводится — решение владельца 2026-11-06; у внешней подборки остаётся.
+const showHeadAddress = d.group === 'external';
+
 const heroTitle = d.hero?.title ?? d.title;
 const heroText = d.hero?.text;
 const heroParagraphs = heroText ? heroText.split(/\n\s*\n/).filter(Boolean) : [];
@@ -355,7 +359,7 @@ const jsonLd = {
           {d.busy && <span class="badge badge--busy">Нет площадей</span>}
         </div>
         <h1>{heroTitle}</h1>
-        <p class="obj-head__meta">{d.address} · {d.district}</p>
+        {showHeadAddress && <p class="obj-head__meta">{d.address} · {d.district}</p>}
         <p class="obj-head__desc">{d.desc}</p>
       </section>
 
