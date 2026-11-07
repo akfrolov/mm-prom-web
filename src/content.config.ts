@@ -68,6 +68,19 @@ const objects = defineCollection({
             ),
           })
           .optional(),
+        floors: z
+          .object({
+            title: z.string(),
+            rows: z.array(
+              z.object({
+                floor: z.string(),
+                area: z.string(),
+                height: z.string(),
+                load: z.string(),
+              }),
+            ),
+          })
+          .optional(),
         advantages: z
           .object({
             title: z.string(),

@@ -232,7 +232,7 @@ const jsonLd = {
     .b-about p + p{margin-top:12px}
 
     /* ── Схема объектов и территории под застройку ──────────────────────── */
-    .b-scheme h2,.b-development h2,.b-advantages h2,.b-business h2{margin:0 0 12px}
+    .b-scheme h2,.b-floors h2,.b-development h2,.b-advantages h2,.b-business h2{margin:0 0 12px}
     .b-sect-lead{margin:-4px 0 16px;color:var(--text-muted)}
     .b-scheme__media,.b-development__media{margin:0 0 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
     .b-scheme__media img,.b-development__media img{display:block;width:100%;height:auto}
@@ -404,6 +404,34 @@ const jsonLd = {
           </table>
         </div>
       </section>
+
+      {details?.floors && (
+        <section id="floors" class="b-floors">
+          <h2>{details.floors.title}</h2>
+          <div class="table-wrap">
+            <table class="scheme-table floors-table">
+              <thead>
+                <tr>
+                  <th scope="col">Этаж</th>
+                  <th scope="col">Площадь</th>
+                  <th scope="col">Высота</th>
+                  <th scope="col">Нагрузка на пол</th>
+                </tr>
+              </thead>
+              <tbody>
+                {details.floors.rows.map((row) => (
+                  <tr>
+                    <th scope="row">{row.floor}</th>
+                    <td data-label="Площадь">{row.area}</td>
+                    <td data-label="Высота">{row.height}</td>
+                    <td data-label="Нагрузка на пол">{row.load}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
 
       {heroText && (
         <section id="about" class="b-about">
