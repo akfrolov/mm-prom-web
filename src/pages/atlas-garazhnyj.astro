@@ -599,6 +599,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 .obj-split .approach-card p{grid-area:text;font-size:var(--fs-small);line-height:1.45}
 .obj-split .obj-figure{margin:0;max-width:none}
 .obj-split .obj-cols{grid-template-columns:1fr}
+.obj-split .obj-table-wrap{margin-top:0}
 .obj-split .b-approach__grid{grid-template-columns:1fr;gap:0;margin-top:0;border-top:1px solid var(--border)}
 .obj-split:not(.obj-split--media-left) .obj-figure{position:sticky;top:96px}
 
@@ -725,17 +726,17 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         <p class="b-sec-head__lead">Общая площадь здания — 10 719 м², включает производственные, административные и вспомогательные помещения.</p>
       </div>
       <div class="obj-split">
-      <div class="obj-cols">
-        <div class="obj-detail reveal">
-          <h3>Производство (4 этажа)</h3>
-          <p class="obj-detail__note">Производственные площади с возможностью установки кран-балок.</p>
-          <ul>
-            <li><span>1 этаж</span><span>2 176 м²</span></li>
-            <li><span>в том числе антресоль</span><span>133 м²</span></li>
-            <li><span>2 этаж</span><span>2 209 м²</span></li>
-            <li><span>3 этаж</span><span>2 209 м²</span></li>
-          </ul>
-        </div>
+      <div class="obj-table-wrap">
+        <table class="obj-table">
+          <thead><tr><th>Этаж</th><th>Площадь</th><th>Высота</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Этаж">1 этаж</td><td data-label="Площадь"><strong>2 823 м²</strong></td><td data-label="Высота">3,2–10,7 м</td></tr>
+            <tr><td data-label="Этаж">Технический этаж</td><td data-label="Площадь"><strong>811 м²</strong></td><td data-label="Высота">—</td></tr>
+            <tr><td data-label="Этаж">2 этаж</td><td data-label="Площадь"><strong>2 497 м²</strong></td><td data-label="Высота">4,2 м</td></tr>
+            <tr><td data-label="Этаж">3 этаж</td><td data-label="Площадь"><strong>3 026 м²</strong></td><td data-label="Высота">3,5–7,3 м</td></tr>
+            <tr><td data-label="Этаж">4 этаж</td><td data-label="Площадь"><strong>1 562 м²</strong></td><td data-label="Высота">3,6 м</td></tr>
+          </tbody>
+        </table>
       </div>
       <figure class="obj-figure">
         <Image src={ImgArea} widths={[480, 640, 1080]} sizes="(max-width: 1023px) 100vw, 634px" alt="Площадь объекта Атлас Гаражный — 2 очередь" loading="lazy" />
