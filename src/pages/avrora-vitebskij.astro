@@ -471,13 +471,13 @@ import B24Loader from '../components/B24Loader.astro';
 .b-flow2__track{position:absolute;left:22px;right:22px;top:22px;height:2px;background:var(--border);border-radius:2px;overflow:hidden}
 .b-flow2__fill{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--purple) 0%,var(--gold) 100%);transition:width 1.4s cubic-bezier(.22,.61,.36,1)}
 .b-flow2.is-filled .b-flow2__fill{width:100%}
-.b-flow2__list{position:relative;display:grid;grid-template-columns:repeat(var(--n,5),minmax(0,1fr));gap:20px;list-style:none;margin:0;padding:0}
+.b-flow2__list{position:relative;display:grid;grid-template-columns:repeat(var(--n,5),minmax(0,1fr));gap:14px;list-style:none;margin:0;padding:0}
 .b-flow2__step{display:flex;flex-direction:column;gap:16px;min-width:0}
 .b-flow2__dot{position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid var(--purple);color:var(--purple);font-weight:800;font-size:.95rem;box-shadow:0 0 0 6px var(--surface);transition:background .22s ease,color .22s ease,transform .22s ease}
 .b-flow2__step:hover .b-flow2__dot{background:var(--purple);color:#fff;transform:scale(1.06)}
-.b-flow2__body{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;min-height:104px;transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease}
+.b-flow2__body{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px 14px;min-height:104px;min-width:0;transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease}
 .b-flow2__step:hover .b-flow2__body{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
-.b-flow2__body p{margin:0;font-weight:500;font-size:.98rem;line-height:1.5}
+.b-flow2__body p{margin:0;font-weight:500;font-size:.98rem;line-height:1.5;overflow-wrap:break-word;word-break:break-word}
 
 /* CTA: градиент брендбука */
 .b-cta--grad{background:linear-gradient(120deg,var(--purple) 0%,var(--navy) 100%);color:#fff;position:relative;overflow:hidden}
@@ -493,11 +493,8 @@ import B24Loader from '../components/B24Loader.astro';
 /* Каскадное появление карточек */
 html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 
-/* Мобильная версия */
-@media (max-width:767px){
-  .b-sec-head{margin-bottom:26px}
-  .b-sec-head__lead{font-size:1rem}
-  .approach-card{padding:20px}
+/* Дорожная карта: вертикальный таймлайн на узких экранах */
+@media (max-width:1279px){
   .b-flow2__track{left:21px;right:auto;top:0;bottom:0;width:2px;height:auto}
   .b-flow2__fill{width:100%;height:0;transition:height 1.4s cubic-bezier(.22,.61,.36,1)}
   .b-flow2.is-filled .b-flow2__fill{height:100%}
@@ -505,6 +502,13 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
   .b-flow2__step{flex-direction:row;gap:14px;align-items:flex-start}
   .b-flow2__dot{flex:0 0 auto;box-shadow:0 0 0 5px var(--surface)}
   .b-flow2__body{min-height:0;flex:1 1 auto;padding:14px 16px}
+}
+
+/* Мобильная версия */
+@media (max-width:767px){
+  .b-sec-head{margin-bottom:26px}
+  .b-sec-head__lead{font-size:1rem}
+  .approach-card{padding:20px}
   .b-cta--grad .b-cta__row{gap:10px}
   .b-cta--grad .btn{width:100%;justify-content:center}
 }
