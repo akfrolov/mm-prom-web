@@ -515,8 +515,12 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 
 /* ═══ Страницы объектов: компоненты в каноне сайта ═══ */
 .obj-hero .b-hero__inner{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:48px;align-items:center}
+.obj-hero__aside{display:flex;flex-direction:column;gap:14px;min-width:0}
 .obj-hero__media{margin:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);background:var(--surface)}
 .obj-hero__media img{display:block;width:100%;height:100%;max-height:480px;object-fit:cover}
+.obj-hero__tags{display:flex;flex-wrap:wrap;gap:8px}
+.obj-hero__tags .badge--deal-rent{background:rgba(90,57,148,.92);color:#fff}
+.obj-hero__tags .badge--deal-sale{background:rgba(235,184,30,.95);color:var(--navy)}
 @media (max-width:1023px){.obj-hero .b-hero__inner{grid-template-columns:1fr;gap:32px}.obj-hero__media img{max-height:360px}}
 
 .obj-figure{margin:28px 0 0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:#fff}
@@ -667,9 +671,12 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         <div class="b-hero__actions"><SiteButton variant="gold" b24="offer">Обсудить проект</SiteButton><a class="btn btn--outline" href="/katalog/">Смотреть каталог объектов</a></div>
         <ul class="b-hero__metrics"><li><strong>38 га</strong><span>территория парка</span></li><li><strong>200 000+ м²</strong><span>возможная застройка</span></li><li><strong>1–25 МВт</strong><span>энергетические мощности</span></li><li><strong>10 минут</strong><span>до метро «Купчино»</span></li></ul>
       </div>
-      <figure class="obj-hero__media">
-        <Image src={ImgHero} widths={[640, 800, 960, 1190]} sizes="(max-width: 1023px) 100vw, 640px" alt="Аврора Витебский — индустриальный парк на Витебском проспекте" loading="eager" fetchpriority="high" />
-      </figure>
+      <div class="obj-hero__aside">
+        <figure class="obj-hero__media">
+          <Image src={ImgHero} widths={[640, 800, 960, 1190]} sizes="(max-width: 1023px) 100vw, 640px" alt="Аврора Витебский — индустриальный парк на Витебском проспекте" loading="eager" fetchpriority="high" />
+        </figure>
+        <div class="obj-hero__tags" aria-label="Форматы сделки"><span class="badge badge--deal-rent">Аренда</span><span class="badge badge--deal-sale">Продажа</span></div>
+      </div>
     </div>
   </section>
 
