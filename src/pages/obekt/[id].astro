@@ -368,6 +368,34 @@ const jsonLd = {
         <div id="obj-map-canvas" class="obj-map-canvas" role="region" aria-label={`Карта: ${d.address}`}></div>
       </section>
 
+      {details?.floors && (
+        <section id="floors" class="b-floors">
+          <h2>{details.floors.title}</h2>
+          <div class="table-wrap">
+            <table class="scheme-table floors-table">
+              <thead>
+                <tr>
+                  <th scope="col">Этаж</th>
+                  <th scope="col">Площадь</th>
+                  <th scope="col">Высота</th>
+                  <th scope="col">Нагрузка на пол</th>
+                </tr>
+              </thead>
+              <tbody>
+                {details.floors.rows.map((row) => (
+                  <tr>
+                    <th scope="row">{row.floor}</th>
+                    <td data-label="Площадь">{row.area}</td>
+                    <td data-label="Высота">{row.height}</td>
+                    <td data-label="Нагрузка на пол">{row.load}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
       <section id="key-params" class="b-price">
         <h2>Ключевые параметры</h2>
         <dl class="price-grid">
@@ -404,34 +432,6 @@ const jsonLd = {
           </table>
         </div>
       </section>
-
-      {details?.floors && (
-        <section id="floors" class="b-floors">
-          <h2>{details.floors.title}</h2>
-          <div class="table-wrap">
-            <table class="scheme-table floors-table">
-              <thead>
-                <tr>
-                  <th scope="col">Этаж</th>
-                  <th scope="col">Площадь</th>
-                  <th scope="col">Высота</th>
-                  <th scope="col">Нагрузка на пол</th>
-                </tr>
-              </thead>
-              <tbody>
-                {details.floors.rows.map((row) => (
-                  <tr>
-                    <th scope="row">{row.floor}</th>
-                    <td data-label="Площадь">{row.area}</td>
-                    <td data-label="Высота">{row.height}</td>
-                    <td data-label="Нагрузка на пол">{row.load}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-      )}
 
       {heroText && (
         <section id="about" class="b-about">
