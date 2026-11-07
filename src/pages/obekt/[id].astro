@@ -363,6 +363,11 @@ const jsonLd = {
         <p class="obj-head__desc">{d.desc}</p>
       </section>
 
+      <section id="location" class="b-location">
+        <h2>Расположение на карте</h2>
+        <div id="obj-map-canvas" class="obj-map-canvas" role="region" aria-label={`Карта: ${d.address}`}></div>
+      </section>
+
       <section id="key-params" class="b-price">
         <h2>Ключевые параметры</h2>
         <dl class="price-grid">
@@ -499,11 +504,6 @@ const jsonLd = {
           </ul>
         </section>
       )}
-
-      <section id="location" class="b-location">
-        <h2>Расположение на карте</h2>
-        <div id="obj-map-canvas" class="obj-map-canvas" role="region" aria-label={`Карта: ${d.address}`}></div>
-      </section>
 
       <section id="similar" class="b-similar section--tint" aria-labelledby="similar-title">
         <h2 id="similar-title">Похожие объекты</h2>
