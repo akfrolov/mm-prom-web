@@ -5,6 +5,68 @@ import { glob } from 'astro/loaders';
 // id = имя файла (поле id в JSON не задаётся). Поля каталога покрывают фильтры
 // (areaNum/location/dealTypes/busy), поля карточки — канон .obj-card; hero/faq/cta
 // подготовлены под будущие страницы объектов (/obekt/[id]/).
+// Блоки детальной части карточки объекта: используются и в плоской раскладке
+// (scheme/advantages/development/business), и в разбивке details.parts на
+// самостоятельные разделы страницы.
+const objectSpec = z.tuple([z.string(), z.string(), z.string()]);
+
+const objectScheme = z.object({
+  title: z.string(),
+  text: z.string().optional(),
+  image: z.string(),
+  alt: z.string(),
+  rows: z.array(
+    z.object({
+      name: z.string(),
+      area: z.string(),
+      land: z.string(),
+      height: z.string(),
+      load: z.string(),
+      equipment: z.string(),
+    }),
+  ),
+});
+
+const objectAdvantages = z.object({
+  title: z.string(),
+  items: z.array(z.object({ icon: z.string(), text: z.string() })),
+});
+
+const objectDevelopment = z.object({
+  title: z.string(),
+  text: z.string().optional(),
+  image: z.string(),
+  alt: z.string(),
+  items: z.array(
+    z.object({
+      name: z.string(),
+      area: z.string(),
+      land: z.string().optional(),
+      floors: z.string().optional(),
+      image: z.string().optional(),
+      alt: z.string().optional(),
+    }),
+  ),
+});
+
+const objectBusiness = z.object({
+  title: z.string(),
+  items: z.array(z.object({ icon: z.string(), text: z.string() })),
+});
+
+const objectPart = z.object({
+  id: z.string(),
+  title: z.string(),
+  lead: z.string().optional(),
+  text: z.string().optional(),
+  specsTitle: z.string().optional(),
+  specs: z.array(objectSpec).optional(),
+  scheme: objectScheme.optional(),
+  advantages: objectAdvantages.optional(),
+  development: objectDevelopment.optional(),
+  business: objectBusiness.optional(),
+});
+
 const objects = defineCollection({
   loader: glob({ base: './src/content/objects', pattern: '**/*.json' }),
   schema: z.object({
@@ -19,7 +81,7 @@ const objects = defineCollection({
     address: z.string(),
     district: z.string(),
     desc: z.string(),
-    specs: z.array(z.tuple([z.string(), z.string(), z.string()])),
+    specs: z.array(objectSpec),
     price: z.string(),
     image: z.string(),
     images: z.array(z.string()).optional(),
@@ -50,24 +112,11 @@ const objects = defineCollection({
     faq: z.array(z.object({ q: z.string(), a: z.string() })).optional(),
     details: z
       .object({
-        scheme: z
-          .object({
-            title: z.string(),
-            text: z.string().optional(),
-            image: z.string(),
-            alt: z.string(),
-            rows: z.array(
-              z.object({
-                name: z.string(),
-                area: z.string(),
-                land: z.string(),
-                height: z.string(),
-                load: z.string(),
-                equipment: z.string(),
-              }),
-            ),
-          })
-          .optional(),
+        // Разбивка страницы на самостоятельные разделы (например, «построенные
+        // объекты» и «участки под застройку»). При заполнении плоские блоки
+        // scheme/advantages/development/business не выводятся.
+        parts: z.array(objectPart).optional(),
+        scheme: objectScheme.optional(),
         floors: z
           .object({
             title: z.string(),
@@ -81,36 +130,9 @@ const objects = defineCollection({
             ),
           })
           .optional(),
-        advantages: z
-          .object({
-            title: z.string(),
-            items: z.array(z.object({ icon: z.string(), text: z.string() })),
-          })
-          .optional(),
-        development: z
-          .object({
-            title: z.string(),
-            text: z.string().optional(),
-            image: z.string(),
-            alt: z.string(),
-            items: z.array(
-              z.object({
-                name: z.string(),
-                area: z.string(),
-                land: z.string().optional(),
-                floors: z.string().optional(),
-                image: z.string().optional(),
-                alt: z.string().optional(),
-              }),
-            ),
-          })
-          .optional(),
-        business: z
-          .object({
-            title: z.string(),
-            items: z.array(z.object({ icon: z.string(), text: z.string() })),
-          })
-          .optional(),
+        advantages: objectAdvantages.optional(),
+        development: objectDevelopment.optional(),
+        business: objectBusiness.optional(),
       })
       .optional(),
     cta: z

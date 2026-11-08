@@ -1,0 +1,145 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+// Самостоятельные разделы карточки объекта (details.parts): например,
+// «Построенные объекты» и «Земельные участки под застройку». Каждый раздел
+// получает собственный заголовок и набор блоков; блоки выводятся в порядке
+// scheme → development → specs → advantages → business.
+type ObjectData = CollectionEntry<'objects'>['data'];
+type ObjectPart = NonNullable<NonNullable<ObjectData['details']>['parts']>[number];
+
+interface Props {
+  parts: ObjectPart[];
+}
+
+const { parts } = Astro.props;
+---
+
+{parts.map((part, index) => (
+  <section id={part.id} class="b-part" aria-labelledby={`${part.id}-title`}>
+    <header class="b-part__head">
+      <span class="b-part__index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+      <div class="b-part__head-text">
+        <h2 id={`${part.id}-title`}>{part.title}</h2>
+        {part.lead && <p class="b-part__lead">{part.lead}</p>}
+      </div>
+    </header>
+
+    {part.text && (
+      <div class="b-part__text">
+        {part.text.split(/\n\s*\n/).filter(Boolean).map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    )}
+
+    {part.scheme && (
+      <section class="b-part__sub b-scheme">
+        <h3>{part.scheme.title}</h3>
+        {part.scheme.text && <p class="b-sect-lead">{part.scheme.text}</p>}
+        <figure class="b-scheme__media">
+          <img src={part.scheme.image} alt={part.scheme.alt} loading="lazy" />
+        </figure>
+        <div class="table-wrap">
+          <table class="scheme-table">
+            <thead>
+              <tr>
+                <th scope="col">Объект</th>
+                <th scope="col">Площадь</th>
+                <th scope="col">Земельный участок</th>
+                <th scope="col">Высота</th>
+                <th scope="col">Нагрузка на пол</th>
+                <th scope="col">Грузоподъёмное оборудование</th>
+              </tr>
+            </thead>
+            <tbody>
+              {part.scheme.rows.map((row) => (
+                <tr>
+                  <th scope="row">{row.name}</th>
+                  <td data-label="Площадь">{row.area}</td>
+                  <td data-label="Земельный участок">{row.land}</td>
+                  <td data-label="Высота">{row.height}</td>
+                  <td data-label="Нагрузка на пол">{row.load}</td>
+                  <td data-label="Оборудование">{row.equipment}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    )}
+
+    {part.development && (
+      <section class="b-part__sub b-development">
+        <h3>{part.development.title}</h3>
+        {part.development.text && <p class="b-sect-lead">{part.development.text}</p>}
+        <figure class="b-development__media">
+          <img src={part.development.image} alt={part.development.alt} loading="lazy" />
+        </figure>
+        <div class="dev-grid">
+          {part.development.items.map((item) => (
+            <article class="dev-card">
+              {item.image && (
+                <div class="dev-card__media">
+                  <img src={item.image} alt={item.alt ?? item.name} loading="lazy" />
+                </div>
+              )}
+              <div class="dev-card__body">
+                <h4>{item.name}</h4>
+                <dl>
+                  <div><dt>Площадь здания</dt><dd>{item.area}</dd></div>
+                  {item.land && <div><dt>Земельный участок</dt><dd>{item.land}</dd></div>}
+                  {item.floors && <div><dt>Этажность</dt><dd>{item.floors}</dd></div>}
+                </dl>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {part.specs && (
+      <section class="b-part__sub b-specs">
+        <h3>{part.specsTitle ?? 'Характеристики'}</h3>
+        <div class="table-wrap">
+          <table class="specs-table">
+            <tbody>
+              {part.specs.map(([, label, value]) => (
+                <tr>
+                  <th scope="row">{label}</th>
+                  <td>{value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    )}
+
+    {part.advantages && (
+      <section class="b-part__sub b-advantages">
+        <h3>{part.advantages.title}</h3>
+        <ul class="adv-grid">
+          {part.advantages.items.map((item) => (
+            <li>
+              <span class="material-symbols-outlined" aria-hidden="true">{item.icon}</span>
+              <span>{item.text}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {part.business && (
+      <section class="b-part__sub b-business">
+        <h3>{part.business.title}</h3>
+        <ul class="adv-grid">
+          {part.business.items.map((item) => (
+            <li>
+              <span class="material-symbols-outlined" aria-hidden="true">{item.icon}</span>
+              <span>{item.text}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </section>
+))}
