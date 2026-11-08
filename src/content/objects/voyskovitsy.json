@@ -141,7 +141,7 @@
         "scheme": {
           "title": "Схема объектов",
           "text": "Построенные здания на территории",
-          "image": "/assets/objects/voyskovitsy/scheme-existing.webp",
+          "image": "/assets/objects/voyskovitsy/scheme-existing.webp?v=2",
           "alt": "Схема построенных зданий производственного комплекса в Войсковицах",
           "rows": [
             {
