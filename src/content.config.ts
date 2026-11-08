@@ -32,6 +32,23 @@ const objectAdvantages = z.object({
   items: z.array(z.object({ icon: z.string(), text: z.string() })),
 });
 
+// Схема расположения объекта + таблица параметров: заменяет универсальный
+// раздел «Характеристики» (#specs) на странице объекта.
+const objectLayout = z.object({
+  title: z.string(),
+  text: z.string().optional(),
+  image: z.string(),
+  alt: z.string(),
+  rows: z.array(
+    z.object({
+      floor: z.string(),
+      area: z.string(),
+      height: z.string(),
+      load: z.string(),
+    }),
+  ),
+});
+
 const objectDevelopment = z.object({
   title: z.string(),
   text: z.string().optional(),
@@ -119,6 +136,7 @@ const objects = defineCollection({
         // объекты» и «участки под застройку»). При заполнении плоские блоки
         // scheme/advantages/development/business не выводятся.
         parts: z.array(objectPart).optional(),
+        layout: objectLayout.optional(),
         scheme: objectScheme.optional(),
         floors: z
           .object({

@@ -443,21 +443,53 @@ const jsonLd = {
         {d.busy && <p class="b-note">Нет свободных площадей</p>}
       </section>
 
-      <section id="specs" class="b-specs">
-        <h2>Характеристики</h2>
-        <div class="table-wrap">
-          <table class="specs-table">
-            <tbody>
-              {d.specs.map(([, label, value]) => (
+      {details?.layout ? (
+        <section id="layout" class="b-scheme">
+          <h2>{details.layout.title}</h2>
+          {details.layout.text && <p class="b-sect-lead">{details.layout.text}</p>}
+          <figure class="b-scheme__media">
+            <img src={details.layout.image} alt={details.layout.alt} loading="lazy" />
+          </figure>
+          <div class="table-wrap">
+            <table class="scheme-table">
+              <thead>
                 <tr>
-                  <th scope="row">{label}</th>
-                  <td>{value}</td>
+                  <th scope="col">Этаж</th>
+                  <th scope="col">Площадь</th>
+                  <th scope="col">Высота</th>
+                  <th scope="col">Нагрузка на пол</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+              </thead>
+              <tbody>
+                {details.layout.rows.map((row) => (
+                  <tr>
+                    <th scope="row">{row.floor}</th>
+                    <td data-label="Площадь">{row.area}</td>
+                    <td data-label="Высота">{row.height}</td>
+                    <td data-label="Нагрузка на пол">{row.load}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      ) : (
+        <section id="specs" class="b-specs">
+          <h2>Характеристики</h2>
+          <div class="table-wrap">
+            <table class="specs-table">
+              <tbody>
+                {d.specs.map(([, label, value]) => (
+                  <tr>
+                    <th scope="row">{label}</th>
+                    <td>{value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
 
       {heroText && (
         <section id="about" class="b-about">

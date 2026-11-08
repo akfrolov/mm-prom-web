@@ -116,6 +116,34 @@
     ]
   ],
   "price": "по запросу",
+  "details": {
+    "layout": {
+      "title": "Схема расположения объекта",
+      "text": "Расположение 3 очереди на генеральном плане территории и параметры производственных этажей.",
+      "image": "/assets/objects/atlas-garazhny-3/scheme.webp",
+      "alt": "Схема расположения Атлас Гаражный — 3 очередь на генеральном плане территории",
+      "rows": [
+        {
+          "floor": "1 этаж",
+          "area": "2 176 м²",
+          "height": "11,5 м",
+          "load": "5 т/м²"
+        },
+        {
+          "floor": "2 этаж",
+          "area": "2 209 м²",
+          "height": "4,8 м",
+          "load": "1 т/м²"
+        },
+        {
+          "floor": "3 этаж",
+          "area": "2 209 м²",
+          "height": "3,4 м",
+          "load": "1 т/м²"
+        }
+      ]
+    }
+  },
   "image": "/assets/objects/atlas-garazhny-3/cover.webp",
   "images": [
     "/assets/objects/atlas-garazhny-3/cover.webp",
