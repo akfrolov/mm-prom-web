@@ -82,6 +82,9 @@ const objects = defineCollection({
     district: z.string(),
     desc: z.string(),
     specs: z.array(objectSpec),
+    // Переопределение плиток «Ключевые параметры» (иначе — первые 3 записи
+    // specs). Например, расширенный набор характеристик из брендбука объекта.
+    keySpecs: z.array(objectSpec).optional(),
     price: z.string(),
     image: z.string(),
     images: z.array(z.string()).optional(),

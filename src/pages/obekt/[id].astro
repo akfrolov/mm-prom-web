@@ -89,7 +89,7 @@ const isAreaValue = (value) => {
 };
 const areaSpec = d.specs.find(([, label]) => /площад/i.test(label));
 const areaSpecValue = areaSpec && isAreaValue(areaSpec[2]) ? areaSpec[2].trim() : areaValue;
-const keySpecs = d.specs.filter((s) => s !== areaSpec).slice(0, 3);
+const keySpecs = d.keySpecs ?? d.specs.filter((s) => s !== areaSpec).slice(0, 3);
 const price = d.price.trim() || 'по запросу';
 const placeholderText = d.placeholder ?? d.title;
 const singlePhoto = photoList.length === 1;
