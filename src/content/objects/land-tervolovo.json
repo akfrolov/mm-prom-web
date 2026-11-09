@@ -52,6 +52,7 @@
     ]
   ],
   "price": "по запросу",
+  "hideSpecs": true,
   "image": "/assets/objects/tervolovo/cover.webp",
   "images": [
     "/assets/objects/tervolovo/cover.webp",
