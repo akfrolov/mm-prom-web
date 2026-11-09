@@ -99,6 +99,9 @@ const objects = defineCollection({
     district: z.string(),
     desc: z.string(),
     specs: z.array(objectSpec),
+    // Скрыть универсальный раздел «Характеристики» (#specs) на странице объекта,
+    // когда его содержание уже раскрыто в других разделах (схема, преимущества).
+    hideSpecs: z.boolean().optional(),
     // Переопределение плиток «Ключевые параметры» (иначе — первые 3 записи
     // specs). Например, расширенный набор характеристик из брендбука объекта.
     keySpecs: z.array(objectSpec).optional(),

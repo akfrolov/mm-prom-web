@@ -473,7 +473,7 @@ const jsonLd = {
             </table>
           </div>
         </section>
-      ) : (
+      ) : !d.hideSpecs ? (
         <section id="specs" class="b-specs">
           <h2>Характеристики</h2>
           <div class="table-wrap">
@@ -489,7 +489,7 @@ const jsonLd = {
             </table>
           </div>
         </section>
-      )}
+      ) : null}
 
       {heroText && (
         <section id="about" class="b-about">
