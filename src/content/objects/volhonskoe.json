@@ -50,6 +50,7 @@
   ],
   "price": "по запросу",
   "hideSpecs": true,
+  "hideAbout": true,
   "image": "/assets/objects/volhonskoe/cover.webp",
   "images": [
     "/assets/objects/volhonskoe/cover.webp",

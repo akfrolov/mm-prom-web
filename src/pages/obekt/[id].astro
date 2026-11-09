@@ -491,7 +491,7 @@ const jsonLd = {
         </section>
       ) : null}
 
-      {heroText && (
+      {heroText && !d.hideAbout && (
         <section id="about" class="b-about">
           <h2>Об объекте</h2>
           {heroParagraphs.map((paragraph) => <p>{paragraph}</p>)}
