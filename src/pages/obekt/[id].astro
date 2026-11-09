@@ -403,11 +403,7 @@ const jsonLd = {
         <div id="obj-map-canvas" class="obj-map-canvas" role="region" aria-label={`Карта: ${d.address}`}></div>
       </section>
 
-      {parts ? (
-        <ObjectParts parts={parts} />
-      ) : (
-        <>
-      {details?.floors && (
+      {!parts && details?.floors && (
         <section id="floors" class="b-floors">
           <h2>{details.floors.title}</h2>
           <div class="table-wrap">
@@ -456,6 +452,18 @@ const jsonLd = {
         {d.busy && <p class="b-note">Нет свободных площадей</p>}
       </section>
 
+      {parts ? (
+        <>
+          {heroText && !d.hideAbout && (
+            <section id="about" class="b-about">
+              <h2>Об объекте</h2>
+              {heroParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+            </section>
+          )}
+          <ObjectParts parts={parts} />
+        </>
+      ) : (
+        <>
       {details?.layout ? (
         <section id="layout" class="b-scheme">
           <h2>{details.layout.title}</h2>
@@ -546,6 +554,8 @@ const jsonLd = {
           </div>
         </section>
       )}
+        </>
+      )}
 
       {details?.advantages && (
         <section id="advantages" class="b-advantages">
@@ -602,8 +612,6 @@ const jsonLd = {
             ))}
           </ul>
         </section>
-      )}
-        </>
       )}
 
       <section id="similar" class="b-similar section--tint" aria-labelledby="similar-title">
