@@ -59,6 +59,7 @@ const d = obj.data;
 const showHeadAddress = d.group === 'external';
 
 const heroTitle = d.hero?.title ?? d.title;
+const heroFit = d.hero?.fit ?? 'cover';
 const heroText = d.hero?.text;
 const heroParagraphs = heroText ? heroText.split(/\n\s*\n/).filter(Boolean) : [];
 const details = d.details;
@@ -197,6 +198,12 @@ const jsonLd = {
     .gallery-caption{margin:8px 0 0;font-size:var(--fs-small);color:var(--text-muted)}
     @media (min-width:768px){.gallery-media{min-height:380px}}
     @media (min-width:1024px){.gallery-media{min-height:440px}}
+    /* hero.fit = natural: высота блока по пропорциям фото, кадр виден целиком
+       без обрезки (фото участка с нанесёнными границами). Битое фото — обычная
+       высота ветки с заглушкой. */
+    .gallery-media--natural{min-height:0}
+    .gallery-media--natural.is-broken{min-height:260px}
+    .gallery-media--natural img{position:relative;height:auto}
 
     /* ── Галерея: лента превью (ветка «мульти-галерея») ─────────────────── */
     .gallery-thumbs{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px}
@@ -355,7 +362,7 @@ const jsonLd = {
   <div class="container object-shell">
     <div class="object-main">
       <section id="gallery" class="b-gallery" aria-label="Фото объекта">
-        <div class="gallery-media">
+        <div class={`gallery-media${heroFit === 'natural' ? ' gallery-media--natural' : ''}`}>
           <div class="img-placeholder" aria-hidden={mainImage ? 'true' : undefined}>
             <span class="material-symbols-outlined" aria-hidden="true">image</span>
             <span>{placeholderText}</span>
@@ -365,7 +372,7 @@ const jsonLd = {
               src={mainImage}
               alt={d.title}
               loading="eager"
-              onerror="this.classList.add('is-broken');var ph=this.parentNode.querySelector('.img-placeholder');if(ph){ph.removeAttribute('aria-hidden');}"
+              onerror="this.classList.add('is-broken');this.parentNode.classList.add('is-broken');var ph=this.parentNode.querySelector('.img-placeholder');if(ph){ph.removeAttribute('aria-hidden');}"
             />
           )}
         </div>

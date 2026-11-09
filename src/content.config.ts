@@ -131,6 +131,11 @@ const objects = defineCollection({
         text: z.string().optional(),
         description: z.string().optional(),
         image: z.string().optional(),
+        // Как показывать главное фото первого экрана: 'cover' (по умолчанию) —
+        // кадр заполняет блок фиксированной высоты с обрезкой; 'natural' —
+        // высота блока по пропорциям фото, кадр виден целиком (нужно для фото
+        // участков с нанесёнными границами, которые нельзя обрезать).
+        fit: z.enum(['cover', 'natural']).optional(),
       })
       .passthrough()
       .optional(),

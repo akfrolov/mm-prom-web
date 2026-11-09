@@ -115,6 +115,9 @@
       ]
     }
   },
+  "hero": {
+    "fit": "natural"
+  },
   "badgeLabel": "Земельный участок",
   "badgeClass": "badge--park",
   "media": {
