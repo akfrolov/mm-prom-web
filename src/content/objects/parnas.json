@@ -59,6 +59,7 @@
     ]
   ],
   "hideSpecs": true,
+  "hideAbout": true,
   "keySpecs": [
     [
       "layers",
