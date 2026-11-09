@@ -13,9 +13,23 @@ interface Props {
 }
 
 const { parts } = Astro.props;
+
+// В таблице схемы колонки, где все значения пустые («—»), не выводятся.
+const isFilled = (value: string) => {
+  const v = value.trim();
+  return v.length > 0 && v !== '—' && v !== '–' && v !== '-';
+};
+const schemeCols = (rows: { land: string; height: string; load: string; equipment: string }[]) => ({
+  land: rows.some((row) => isFilled(row.land)),
+  height: rows.some((row) => isFilled(row.height)),
+  load: rows.some((row) => isFilled(row.load)),
+  equipment: rows.some((row) => isFilled(row.equipment)),
+});
 ---
 
-{parts.map((part, index) => (
+{parts.map((part, index) => {
+  const cols = part.scheme ? schemeCols(part.scheme.rows) : null;
+  return (
   <section id={part.id} class="b-part" aria-labelledby={`${part.id}-title`}>
     <header class="b-part__head">
       <span class="b-part__index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
@@ -44,10 +58,10 @@ const { parts } = Astro.props;
               <tr>
                 <th scope="col">Объект</th>
                 <th scope="col">Площадь</th>
-                <th scope="col">Земельный участок</th>
-                <th scope="col">Высота</th>
-                <th scope="col">Нагрузка на пол</th>
-                <th scope="col">Грузоподъёмное оборудование</th>
+                {cols?.land && <th scope="col">Земельный участок</th>}
+                {cols?.height && <th scope="col">Высота</th>}
+                {cols?.load && <th scope="col">Нагрузка на пол</th>}
+                {cols?.equipment && <th scope="col">Грузоподъёмное оборудование</th>}
               </tr>
             </thead>
             <tbody>
@@ -55,10 +69,10 @@ const { parts } = Astro.props;
                 <tr>
                   <th scope="row">{row.name}</th>
                   <td data-label="Площадь">{row.area}</td>
-                  <td data-label="Земельный участок">{row.land}</td>
-                  <td data-label="Высота">{row.height}</td>
-                  <td data-label="Нагрузка на пол">{row.load}</td>
-                  <td data-label="Оборудование">{row.equipment}</td>
+                  {cols?.land && <td data-label="Земельный участок">{row.land}</td>}
+                  {cols?.height && <td data-label="Высота">{row.height}</td>}
+                  {cols?.load && <td data-label="Нагрузка на пол">{row.load}</td>}
+                  {cols?.equipment && <td data-label="Оборудование">{row.equipment}</td>}
                 </tr>
               ))}
             </tbody>
@@ -142,4 +156,5 @@ const { parts } = Astro.props;
       </section>
     )}
   </section>
-))}
+  );
+})}

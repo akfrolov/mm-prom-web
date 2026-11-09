@@ -62,6 +62,19 @@ const heroTitle = d.hero?.title ?? d.title;
 const heroText = d.hero?.text;
 const heroParagraphs = heroText ? heroText.split(/\n\s*\n/).filter(Boolean) : [];
 const details = d.details;
+// В таблице схемы территории колонки, где все значения пустые («—»), не выводятся.
+const isFilled = (value: string) => {
+  const v = value.trim();
+  return v.length > 0 && v !== '—' && v !== '–' && v !== '-';
+};
+const schemeCols = (rows: { land: string; height: string; load: string; equipment: string }[]) => ({
+  land: rows.some((row) => isFilled(row.land)),
+  height: rows.some((row) => isFilled(row.height)),
+  load: rows.some((row) => isFilled(row.load)),
+  equipment: rows.some((row) => isFilled(row.equipment)),
+});
+const scheme = details?.scheme ?? null;
+const schemeVisible = scheme ? schemeCols(scheme.rows) : null;
 // Разделы детальной части (details.parts): самостоятельные блоки страницы,
 // например «Построенные объекты» и «Земельные участки под застройку».
 const parts = details?.parts ?? null;
@@ -498,12 +511,12 @@ const jsonLd = {
         </section>
       )}
 
-      {details?.scheme && (
+      {scheme && (
         <section id="scheme" class="b-scheme">
-          <h2>{details.scheme.title}</h2>
-          {details.scheme.text && <p class="b-sect-lead">{details.scheme.text}</p>}
+          <h2>{scheme.title}</h2>
+          {scheme.text && <p class="b-sect-lead">{scheme.text}</p>}
           <figure class="b-scheme__media">
-            <img src={details.scheme.image} alt={details.scheme.alt} loading="lazy" />
+            <img src={scheme.image} alt={scheme.alt} loading="lazy" />
           </figure>
           <div class="table-wrap">
             <table class="scheme-table">
@@ -511,21 +524,21 @@ const jsonLd = {
                 <tr>
                   <th scope="col">Объект</th>
                   <th scope="col">Площадь</th>
-                  <th scope="col">Земельный участок</th>
-                  <th scope="col">Высота</th>
-                  <th scope="col">Нагрузка на пол</th>
-                  <th scope="col">Грузоподъёмное оборудование</th>
+                  {schemeVisible?.land && <th scope="col">Земельный участок</th>}
+                  {schemeVisible?.height && <th scope="col">Высота</th>}
+                  {schemeVisible?.load && <th scope="col">Нагрузка на пол</th>}
+                  {schemeVisible?.equipment && <th scope="col">Грузоподъёмное оборудование</th>}
                 </tr>
               </thead>
               <tbody>
-                {details.scheme.rows.map((row) => (
+                {scheme.rows.map((row) => (
                   <tr>
                     <th scope="row">{row.name}</th>
                     <td data-label="Площадь">{row.area}</td>
-                    <td data-label="Земельный участок">{row.land}</td>
-                    <td data-label="Высота">{row.height}</td>
-                    <td data-label="Нагрузка на пол">{row.load}</td>
-                    <td data-label="Оборудование">{row.equipment}</td>
+                    {schemeVisible?.land && <td data-label="Земельный участок">{row.land}</td>}
+                    {schemeVisible?.height && <td data-label="Высота">{row.height}</td>}
+                    {schemeVisible?.load && <td data-label="Нагрузка на пол">{row.load}</td>}
+                    {schemeVisible?.equipment && <td data-label="Оборудование">{row.equipment}</td>}
                   </tr>
                 ))}
               </tbody>
