@@ -28,6 +28,7 @@
       "аренда / продажа"
     ]
   ],
+  "hideSpecs": true,
   "price": "по запросу",
   "image": "/assets/objects/ip-razmetelevo/cover.webp",
   "images": [

@@ -33,6 +33,7 @@
       "продажа / долгосрочная аренда"
     ]
   ],
+  "hideSpecs": true,
   "price": "по запросу",
   "image": "/assets/objects/rybatskoe/cover.webp",
   "images": [

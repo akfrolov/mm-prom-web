@@ -31,6 +31,7 @@
       "продажа"
     ]
   ],
+  "hideSpecs": true,
   "price": "по запросу",
   "image": "/assets/objects/kapraliev/cover.webp",
   "images": [

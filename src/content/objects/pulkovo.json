@@ -33,6 +33,7 @@
       "аренда / продажа"
     ]
   ],
+  "hideSpecs": true,
   "price": "по запросу",
   "image": "/assets/objects/pulkovo/cover.webp",
   "images": [

@@ -33,6 +33,7 @@
       "аренда / продажа"
     ]
   ],
+  "hideSpecs": true,
   "price": "по запросу",
   "image": "/assets/objects/kievskoe-95/cover.webp",
   "images": [
