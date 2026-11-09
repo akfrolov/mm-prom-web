@@ -138,7 +138,7 @@ as-is (фиксирует п. 24), URL Макса (реш. 7: `max.ru/channel_MM
 | `promyshlennaya-ipoteka-probuksovyvaet` | 2026-07-14 → «14 июля 2026» | Российская газета — rg-URL §1.4 |
 | `razbor-trendov-promyshlennoj-nedvizhimosti` | 2026-09-18 → «18 сентября 2026» | Анатомия бизнеса — biz-anatomy-URL §1.4 |
 | `stroitelnyj-rynok-pod-davleniem` | 2026-08-06 → «6 августа 2026» | Abnews.ru — abnews-URL §1.4 |
-| `gk-mm-prom-na-forume-v-omske` | 2026-10-27 → «27 октября 2026» | нет (новость компании) |
+| `gk-mm-prom-na-forume-v-omske` | 2026-09-27 → «27 сентября 2026» | нет (новость компании) |
 | `rossijskij-promyshlennik-start` | 2026-10-22 → «22 октября 2026» | нет (новость компании) |
 | `kruglyj-stol-promzona-u-metro` | 2026-10-23 → «23 октября 2026» | нет (новость компании) |
 | `rozygrysh-myachej-arshavina` | 2026-10-24 → «24 октября 2026» | нет (новость компании) |
