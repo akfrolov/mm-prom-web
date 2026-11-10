@@ -322,6 +322,8 @@ const jsonLd = {
     /* ── Расположение: карта во всю ширину контентной колонки ───────────── */
     .b-location h2,.b-similar h2{margin:0 0 12px}
     .obj-map-canvas{position:relative;min-height:320px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+    .obj-map__address{display:flex;align-items:flex-start;gap:8px;margin:10px 0 0;font-size:var(--fs-small);color:var(--text-muted)}
+    .obj-map__address .material-symbols-outlined{flex:0 0 auto;font-size:18px;color:var(--purple)}
     @media (min-width:768px){.obj-map-canvas{min-height:420px}}
     @media (min-width:1024px){.obj-map-canvas{min-height:480px}}
 
@@ -408,6 +410,12 @@ const jsonLd = {
       <section id="location" class="b-location">
         <h2>Расположение на карте</h2>
         <div id="obj-map-canvas" class="obj-map-canvas" role="region" aria-label={`Карта: ${d.address}`}></div>
+        {!showHeadAddress && (
+          <p class="obj-map__address">
+            <span class="material-symbols-outlined" aria-hidden="true">place</span>
+            {d.address}
+          </p>
+        )}
       </section>
 
       {!parts && details?.floors && (
