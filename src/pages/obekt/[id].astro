@@ -410,12 +410,10 @@ const jsonLd = {
       <section id="location" class="b-location">
         <h2>Расположение на карте</h2>
         <div id="obj-map-canvas" class="obj-map-canvas" role="region" aria-label={`Карта: ${d.address}`}></div>
-        {!showHeadAddress && (
-          <p class="obj-map__address">
-            <span class="material-symbols-outlined" aria-hidden="true">place</span>
-            {d.address}
-          </p>
-        )}
+        <p class="obj-map__address">
+          <span class="material-symbols-outlined" aria-hidden="true">place</span>
+          {d.address}
+        </p>
       </section>
 
       {!parts && details?.floors && (
