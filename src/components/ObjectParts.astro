@@ -111,20 +111,16 @@ const schemeCols = (rows: { land: string; height: string; load: string; equipmen
     )}
 
     {part.specs && (
-      <section class="b-part__sub b-specs">
+      <section class="b-part__sub b-specs b-price">
         <h3>{part.specsTitle ?? 'Характеристики'}</h3>
-        <div class="table-wrap">
-          <table class="specs-table">
-            <tbody>
-              {part.specs.map(([, label, value]) => (
-                <tr>
-                  <th scope="row">{label}</th>
-                  <td>{value}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <dl class="price-grid">
+          {part.specs.map(([icon, label, value]) => (
+            <div class="price-item">
+              <dt><span class="material-symbols-outlined" aria-hidden="true">{icon}</span>{label}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
     )}
 
