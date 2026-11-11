@@ -104,6 +104,9 @@ const objects = defineCollection({
     hideSpecs: z.boolean().optional(),
     // Скрыть раздел «Об объекте» (#about), даже если заполнен hero.text.
     hideAbout: z.boolean().optional(),
+    // Скрыть верхний раздел «Ключевые параметры» (#key-params): нужен, когда
+    // параметры уже раскрыты в разделах details.parts.
+    hideKeyParams: z.boolean().optional(),
     // Переопределение плиток «Ключевые параметры» (иначе — первые 3 записи
     // specs). Например, расширенный набор характеристик из брендбука объекта.
     keySpecs: z.array(objectSpec).optional(),

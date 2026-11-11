@@ -445,26 +445,28 @@ const jsonLd = {
         </section>
       )}
 
-      <section id="key-params" class="b-price">
-        <h2>Ключевые параметры</h2>
-        <dl class="price-grid">
-          {keySpecs.map(([icon, label, value]) => (
+      {!d.hideKeyParams && (
+        <section id="key-params" class="b-price">
+          <h2>Ключевые параметры</h2>
+          <dl class="price-grid">
+            {keySpecs.map(([icon, label, value]) => (
+              <div class="price-item">
+                <dt><span class="material-symbols-outlined" aria-hidden="true">{icon}</span>{label}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))}
             <div class="price-item">
-              <dt><span class="material-symbols-outlined" aria-hidden="true">{icon}</span>{label}</dt>
-              <dd>{value}</dd>
+              <dt><span class="material-symbols-outlined" aria-hidden="true">square_foot</span>Площадь</dt>
+              <dd>{areaSpecValue}</dd>
             </div>
-          ))}
-          <div class="price-item">
-            <dt><span class="material-symbols-outlined" aria-hidden="true">square_foot</span>Площадь</dt>
-            <dd>{areaSpecValue}</dd>
-          </div>
-          <div class="price-item">
-            <dt><span class="material-symbols-outlined" aria-hidden="true">payments</span>Цена</dt>
-            <dd>{price}</dd>
-          </div>
-        </dl>
-        {d.busy && <p class="b-note">Нет свободных площадей</p>}
-      </section>
+            <div class="price-item">
+              <dt><span class="material-symbols-outlined" aria-hidden="true">payments</span>Цена</dt>
+              <dd>{price}</dd>
+            </div>
+          </dl>
+          {d.busy && <p class="b-note">Нет свободных площадей</p>}
+        </section>
+      )}
 
       {parts ? (
         <>
