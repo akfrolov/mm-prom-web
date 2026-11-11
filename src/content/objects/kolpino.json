@@ -84,6 +84,7 @@
     ]
   ],
   "hideSpecs": true,
+  "hideKeyParams": true,
   "price": "по запросу",
   "image": "/assets/objects/kolpino/cover.webp",
   "images": [
