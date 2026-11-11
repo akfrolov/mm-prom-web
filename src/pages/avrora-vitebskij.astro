@@ -606,6 +606,11 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 .adv-card__icon .material-symbols-outlined{font-size:26px}
 .adv-card h3{margin:0;padding-right:48px;color:#fff;font-size:1.12rem;line-height:1.35}
 .adv-card p{margin:0;color:rgba(255,255,255,.72);font-size:var(--fs-small);line-height:1.6}
+.adv-subhead{margin:52px 0 24px;padding-top:26px;border-top:1px solid var(--border);max-width:760px}
+.adv-subhead h3{margin:0;font-size:var(--fs-h3);line-height:1.3;text-wrap:balance}
+.adv-subhead p{margin:8px 0 0;color:var(--text-muted);font-size:var(--fs-small);line-height:1.6}
+@media (min-width:1024px){.adv-grid--bts{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:767px){.adv-subhead{margin-top:36px;padding-top:22px}}
 
 .obj-next{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;padding:32px;border:1px solid var(--border);border-radius:var(--radius);background:#fff}
 .obj-next h2{margin:0 0 6px;font-size:var(--fs-h3)}
@@ -741,7 +746,7 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
         <div class="approach-card reveal" style="--i:6">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">square_foot</span></span>
           <div class="approach-card__title">Участки</div>
-          <p>Лоты: 0,3га, 1га, 2га, 3га, 5 га<br>Территория: 38 га<br>Застройка: более 200 000 м²<br>Форма сделки: покупка земельных участков</p>
+          <p>Лоты: 0,3га, 1га, 2га, 3га, 5 га, 10 га<br>Территория: 38 га<br>Застройка: более 200 000 м²<br>Форма сделки: покупка земельных участков</p>
         </div>
         <div class="approach-card reveal" style="--i:7">
           <span class="approach-card__icon"><span class="material-symbols-outlined" aria-hidden="true">pin_drop</span></span>
@@ -856,6 +861,45 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
           <span class="adv-card__icon"><span class="material-symbols-outlined" aria-hidden="true">local_shipping</span></span>
           <h3>Близость к трассе М-11 на Москву</h3>
           <p>Удобный доступ для легкового и грузового транспорта</p>
+        </article>
+      </div>
+
+      <div class="adv-subhead reveal">
+        <h3>BTS-проекты. Построим по техническому заданию заказчика</h3>
+      </div>
+      <div class="adv-grid adv-grid--bts">
+        <article class="adv-card reveal" style="--i:0">
+          <span class="adv-card__num" aria-hidden="true">05</span>
+          <span class="adv-card__icon"><span class="material-symbols-outlined" aria-hidden="true">domain</span></span>
+          <h3>Новый индустриальный парк</h3>
+        </article>
+        <article class="adv-card reveal" style="--i:1">
+          <span class="adv-card__num" aria-hidden="true">06</span>
+          <span class="adv-card__icon"><span class="material-symbols-outlined" aria-hidden="true">warehouse</span></span>
+          <h3>Производственно-складское здание</h3>
+          <p>Площадь от 1 500 до 20 000 м²</p>
+        </article>
+        <article class="adv-card reveal" style="--i:2">
+          <span class="adv-card__num" aria-hidden="true">07</span>
+          <span class="adv-card__icon"><span class="material-symbols-outlined" aria-hidden="true">landscape</span></span>
+          <h3>Возможность выбора земельного участка</h3>
+        </article>
+        <article class="adv-card reveal" style="--i:3">
+          <span class="adv-card__num" aria-hidden="true">08</span>
+          <span class="adv-card__icon"><span class="material-symbols-outlined" aria-hidden="true">bolt</span></span>
+          <h3>Подключение к инженерным сетям</h3>
+          <p>С учётом специальных требований</p>
+        </article>
+        <article class="adv-card reveal" style="--i:4">
+          <span class="adv-card__num" aria-hidden="true">09</span>
+          <span class="adv-card__icon"><span class="material-symbols-outlined" aria-hidden="true">place</span></span>
+          <h3>Первая линия Витебского проспекта</h3>
+        </article>
+        <article class="adv-card reveal" style="--i:5">
+          <span class="adv-card__num" aria-hidden="true">10</span>
+          <span class="adv-card__icon"><span class="material-symbols-outlined" aria-hidden="true">map</span></span>
+          <h3>Выгодное расположение для логистики</h3>
+          <p>По СЗФО и всей России</p>
         </article>
       </div>
     </div>
