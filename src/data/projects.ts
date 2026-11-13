@@ -308,6 +308,29 @@ export const projects: ProjectData[] = [
     "specsTitle": "Основные технико-экономические показатели объекта"
   },
   {
+    "id": "spv-technopark-2",
+    "title": "Технопарк 2-я очередь",
+    "customer": "ООО «СПВ»",
+    "note": "",
+    "inProgress": true,
+    "images": [
+      "/assets/projects/spv-technopark-2/1.webp"
+    ],
+    "highlights": ["Общая площадь: 10 719 м²", "Этажей: 4"],
+    "type": "Строительство",
+    "period": "02.2024 – конец 2026 года",
+    "tasks": [
+      "Сбор и получение исходно-разрешительной документации",
+      "Проектирование и получение положительного заключения экспертизы по проекту",
+      "Получение разрешения на строительство",
+      "Разработка рабочей документации",
+      "Проведение конкурсных процедур по выбору подрядчиков",
+      "Строительный контроль, выполнение функции Технического заказчика, полное сопровождение строительства, взаимодействие от лица Заказчика/Застройщика с органами ГАСНиЭ, Ростехнадзор, Роспотребнадзор",
+      "Получение актов технологического присоединения, подготовка документации для получения заключения о соответствии и акта ввода в эксплуатацию",
+      "Получение заключения о соответствии и акта ввода в эксплуатацию объекта"
+    ]
+  },
+  {
     "id": "redevelopment-complex",
     "title": "Редевелопмент промышленного комплекса",
     "type": "Редевелопмент",
@@ -347,5 +370,5 @@ export const projects: ProjectData[] = [
 export const projectById = Object.fromEntries(projects.map((p) => [p.id, p])) as Record<string, ProjectData>;
 
 export const stroitelstvoProjects = ['karlino', 'dikom', 'agp'].map((id) => projectById[id]);
-export const developmentProjects = ['rus-telkom', 'spv-technopark'].map((id) => projectById[id]);
+export const developmentProjects = ['rus-telkom', 'spv-technopark', 'spv-technopark-2'].map((id) => projectById[id]);
 export const redevelopmentProjects = ['olda', 'redevelopment-complex', 'antares-technopark'].map((id) => projectById[id]);
