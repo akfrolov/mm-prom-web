@@ -62,6 +62,8 @@ const heroTitle = d.hero?.title ?? d.title;
 const heroFit = d.hero?.fit ?? 'cover';
 const heroText = d.hero?.text;
 const heroParagraphs = heroText ? heroText.split(/\n\s*\n/).filter(Boolean) : [];
+// Верхний текст карточки (d.desc): пустая строка в данных делит его на абзацы.
+const descParagraphs = d.desc.split(/\n\s*\n/).filter(Boolean);
 const details = d.details;
 // В таблице схемы территории колонки, где все значения пустые («—»), не выводятся.
 const isFilled = (value: string) => {
@@ -222,6 +224,7 @@ const jsonLd = {
     .obj-head__badges{display:flex;flex-wrap:wrap;gap:6px}
     .obj-head__meta{margin:0 0 8px;font-size:var(--fs-small);color:var(--text-muted)}
     .obj-head__desc{margin:0;max-width:72ch;color:var(--text-muted);white-space:pre-line}
+    .obj-head__desc + .obj-head__desc{margin-top:12px}
 
     /* ── Ключевые параметры ─────────────────────────────────────────────── */
     .b-price{padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
@@ -405,7 +408,7 @@ const jsonLd = {
         </div>
         <h1>{heroTitle}</h1>
         {showHeadAddress && <p class="obj-head__meta">{d.address} · {d.district}</p>}
-        <p class="obj-head__desc">{d.desc}</p>
+        {descParagraphs.map((paragraph) => <p class="obj-head__desc">{paragraph}</p>)}
       </section>
 
       <section id="location" class="b-location">
