@@ -75,6 +75,21 @@ const objectBusiness = z.object({
   items: z.array(z.object({ icon: z.string(), text: z.string() })),
 });
 
+// Карточки объектов комплекса (фото + название + площадь застройки) —
+// выводятся сразу после раздела «Расположение на карте».
+const objectBuildings = z.object({
+  title: z.string(),
+  text: z.string().optional(),
+  items: z.array(
+    z.object({
+      name: z.string(),
+      area: z.string().optional(),
+      image: z.string(),
+      alt: z.string().optional(),
+    }),
+  ),
+});
+
 const objectPart = z.object({
   id: z.string(),
   title: z.string(),
@@ -173,6 +188,7 @@ const objects = defineCollection({
           .optional(),
         advantages: objectAdvantages.optional(),
         development: objectDevelopment.optional(),
+        buildings: objectBuildings.optional(),
         business: objectBusiness.optional(),
       })
       .optional(),

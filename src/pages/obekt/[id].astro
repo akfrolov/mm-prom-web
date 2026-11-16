@@ -259,7 +259,7 @@ const jsonLd = {
     .b-about p + p{margin-top:12px}
 
     /* ── Схема объектов и территории под застройку ──────────────────────── */
-    .b-scheme h2,.b-floors h2,.b-development h2,.b-advantages h2,.b-business h2{margin:0 0 12px}
+    .b-scheme h2,.b-floors h2,.b-development h2,.b-advantages h2,.b-business h2,.b-buildings h2{margin:0 0 12px}
     .b-sect-lead{margin:-4px 0 16px;color:var(--text-muted)}
     .b-scheme__media,.b-development__media{margin:0 0 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
     .b-scheme__media img,.b-development__media img{display:block;width:100%;height:auto}
@@ -304,6 +304,11 @@ const jsonLd = {
     .dev-card dt{color:var(--text-muted)}
     .dev-card dd{margin:0;font-weight:700;text-align:right}
     @media (min-width:768px){.dev-grid{grid-template-columns:repeat(3,1fr)}}
+
+    /* ── Объекты комплекса: карточки сразу под картой ───────────────────── */
+    .b-buildings__grid{grid-template-columns:repeat(2,1fr)}
+    .b-buildings .dev-card h3{margin:0 0 8px}
+    @media (max-width:767px){.b-buildings__grid{grid-template-columns:1fr}}
 
     /* ── Преимущества для бизнеса ───────────────────────────────────────── */
     .b-business{padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
@@ -423,6 +428,30 @@ const jsonLd = {
           {d.address}
         </p>
       </section>
+
+      {details?.buildings && (
+        <section id="buildings" class="b-buildings">
+          <h2>{details.buildings.title}</h2>
+          {details.buildings.text && <p class="b-sect-lead">{details.buildings.text}</p>}
+          <div class="dev-grid b-buildings__grid">
+            {details.buildings.items.map((item) => (
+              <article class="dev-card">
+                <div class="dev-card__media">
+                  <img src={item.image} alt={item.alt ?? item.name} loading="lazy" />
+                </div>
+                <div class="dev-card__body">
+                  <h3>{item.name}</h3>
+                  {item.area && (
+                    <dl>
+                      <div><dt>Площадь застройки</dt><dd>{item.area}</dd></div>
+                    </dl>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
 
       {!parts && details?.floors && (
         <section id="floors" class="b-floors">
