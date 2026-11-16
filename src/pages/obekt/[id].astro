@@ -106,6 +106,7 @@ const isAreaValue = (value) => {
 const areaSpec = d.specs.find(([, label]) => /площад/i.test(label));
 const areaSpecValue = areaSpec && isAreaValue(areaSpec[2]) ? areaSpec[2].trim() : areaValue;
 const keySpecs = d.keySpecs ?? d.specs.filter((s) => s !== areaSpec).slice(0, 3);
+const areaLabel = d.areaLabel ?? 'Площадь';
 const price = d.price.trim() || 'по запросу';
 const placeholderText = d.placeholder ?? d.title;
 const singlePhoto = photoList.length === 1;
@@ -459,7 +460,7 @@ const jsonLd = {
               </div>
             ))}
             <div class="price-item">
-              <dt><span class="material-symbols-outlined" aria-hidden="true">square_foot</span>Площадь</dt>
+              <dt><span class="material-symbols-outlined" aria-hidden="true">square_foot</span>{areaLabel}</dt>
               <dd>{areaSpecValue}</dd>
             </div>
             <div class="price-item">

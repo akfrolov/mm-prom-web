@@ -110,6 +110,9 @@ const objects = defineCollection({
     // Переопределение плиток «Ключевые параметры» (иначе — первые 3 записи
     // specs). Например, расширенный набор характеристик из брендбука объекта.
     keySpecs: z.array(objectSpec).optional(),
+    // Подпись плитки площади в «Ключевых параметрах» (по умолчанию «Площадь»):
+    // «Общая площадь» — когда в карточке несколько зданий/участков.
+    areaLabel: z.string().optional(),
     price: z.string(),
     image: z.string(),
     images: z.array(z.string()).optional(),
