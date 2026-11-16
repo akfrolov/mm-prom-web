@@ -90,6 +90,20 @@ const objectBuildings = z.object({
   ),
 });
 
+// Карточки объектов в составе (фото + название + описание) — выводятся сразу
+// под разделом «Ключевые параметры».
+const objectUnits = z.object({
+  title: z.string().optional(),
+  items: z.array(
+    z.object({
+      name: z.string(),
+      text: z.string().optional(),
+      image: z.string(),
+      alt: z.string().optional(),
+    }),
+  ),
+});
+
 const objectPart = z.object({
   id: z.string(),
   title: z.string(),
@@ -189,6 +203,7 @@ const objects = defineCollection({
         advantages: objectAdvantages.optional(),
         development: objectDevelopment.optional(),
         buildings: objectBuildings.optional(),
+        units: objectUnits.optional(),
         business: objectBusiness.optional(),
       })
       .optional(),
