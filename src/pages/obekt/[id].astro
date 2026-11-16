@@ -264,6 +264,10 @@ const jsonLd = {
     .b-sect-lead{margin:-4px 0 16px;color:var(--text-muted)}
     .b-scheme__media,.b-development__media{margin:0 0 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
     .b-scheme__media img,.b-development__media img{display:block;width:100%;height:auto}
+    /* imageFit='contain': размер как у мастер-плана в «Организации территории» —
+       блок фиксированной высоты, изображение вписано и центрировано. */
+    .b-scheme__media--contain{display:flex;align-items:center;justify-content:center;height:clamp(320px,52vh,560px)}
+    .b-scheme__media--contain img{width:auto;height:auto;max-width:100%;max-height:100%}
     .scheme-table{width:100%;border-collapse:collapse;font-size:var(--fs-small)}
     .scheme-table th,.scheme-table td{padding:11px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--border)}
     .scheme-table td{white-space:pre-line}
@@ -488,7 +492,7 @@ const jsonLd = {
         <section id="layout" class="b-scheme">
           <h2>{details.layout.title}</h2>
           {details.layout.text && <p class="b-sect-lead">{details.layout.text}</p>}
-          <figure class="b-scheme__media">
+          <figure class={`b-scheme__media${details.layout.imageFit === 'contain' ? ' b-scheme__media--contain' : ''}`}>
             <img src={details.layout.image} alt={details.layout.alt} loading="lazy" />
           </figure>
           <div class="table-wrap">

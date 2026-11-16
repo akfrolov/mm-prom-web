@@ -39,6 +39,10 @@ const objectLayout = z.object({
   text: z.string().optional(),
   image: z.string(),
   alt: z.string(),
+  // 'contain' — вписать изображение в блок фиксированной высоты, как
+  // мастер-план в разделе «Организация территории»; по умолчанию — во всю
+  // ширину контентной колонки.
+  imageFit: z.enum(['full', 'contain']).optional(),
   rows: z.array(
     z.object({
       floor: z.string(),
