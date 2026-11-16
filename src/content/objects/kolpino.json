@@ -8,8 +8,8 @@
   "dealTypes": [
     "rent"
   ],
-  "area": "7 200 м² · 6 900 м²",
-  "areaNum": 7200,
+  "area": "14 100 м²",
+  "areaNum": 14100,
   "location": "spb",
   "address": "Санкт-Петербург, Колпино, территория Ижорского завода",
   "district": "Колпинский район",
@@ -59,11 +59,6 @@
   ],
   "keySpecs": [
     [
-      "square_foot",
-      "Общая площадь",
-      "14 100 м²"
-    ],
-    [
       "precision_manufacturing",
       "Грузоподъёмные механизмы",
       "5–30 т"
@@ -74,18 +69,13 @@
       "11–16 м"
     ],
     [
-      "place",
-      "До КАД",
-      "20 минут"
-    ],
-    [
-      "place",
-      "До Московского шоссе",
-      "10 минут"
+      "straighten",
+      "Габариты пролёта",
+      "28 × 256 м"
     ]
   ],
   "hideSpecs": true,
-  "hideKeyParams": true,
+  "areaLabel": "Общая площадь",
   "price": "по запросу",
   "image": "/assets/objects/kolpino/cover.webp",
   "images": [
