@@ -647,6 +647,14 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 .ymap-label--main .ymap-label__body b{color:#fff}
 .ymap-label--main .ymap-label__body i{color:rgba(255,255,255,.75)}
 
+/* ── Компактный ритм страницы: меньше расстояние между блоками информации ── */
+.section{padding:clamp(36px,5vw,68px) 0}
+.b-sec-head{margin-bottom:26px}
+.b-approach__grid{margin-top:20px}
+.obj-figure,.obj-table-wrap,.obj-floors,.obj-cols,.mp{margin-top:20px}
+@media (min-width:768px){.b-approach__grid{gap:16px}}
+@media (max-width:767px){.b-sec-head{margin-bottom:18px}}
+
 #deals + #cta{padding-top:0}
 
     </style>
