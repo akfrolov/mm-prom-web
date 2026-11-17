@@ -126,6 +126,9 @@ const objects = defineCollection({
     deal: z.array(z.string()),
     dealTypes: z.array(z.enum(['rent', 'sale'])),
     area: z.string(),
+    // Подпись площади в карточке каталога, когда она отличается от «area»
+    // (например, диапазон по нескольким объектам в карточке).
+    cardArea: z.string().optional(),
     areaNum: z.number().nullable(),
     location: z.enum(['spb', 'lo', 'mo']),
     address: z.string(),

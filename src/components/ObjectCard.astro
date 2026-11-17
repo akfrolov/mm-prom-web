@@ -46,7 +46,7 @@ const cardMedia = d.media ?? (d.image ? { src: d.image, alt: d.title, caption: '
       <h3><a class="obj-card__cover" href={href} aria-label={`Открыть страницу объекта: ${d.title}`}>{d.title}</a></h3>
       <p class="obj-card__addr"><span class="material-symbols-outlined" aria-hidden="true">place</span><span>{d.address}</span></p>
       <div class="obj-card__facts">
-        <div class="obj-card__fact"><span>Площадь</span><strong>{d.area}</strong></div>
+        <div class="obj-card__fact"><span>Площадь</span><strong>{d.cardArea ?? d.area}</strong></div>
         <div class="obj-card__fact"><span>Локация</span><strong>{d.district}</strong></div>
       </div>
       {d.busy && (
