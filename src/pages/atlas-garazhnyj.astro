@@ -661,6 +661,11 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 
 #deals + #cta{padding-top:0}
 
+/* ── Минимальный зазор hero («Объект · Технопарк») → «02 Расположение» ── */
+.obj-hero .b-hero__inner{padding-bottom:clamp(16px,2vw,28px)}
+#hero + #location{padding-top:clamp(8px,1vw,16px)}
+@media (max-width:767px){.obj-hero .b-hero__inner{padding-bottom:12px}#hero + #location{padding-top:6px}}
+
     </style>
   </Fragment>
 <!-- ═══ Атлас Гаражный — 2 очередь ═══ -->
