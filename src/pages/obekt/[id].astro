@@ -113,6 +113,16 @@ const singlePhoto = photoList.length === 1;
 const caption = d.media?.caption && singlePhoto ? d.media.caption : '';
 const ctaTitle = d.cta?.title ?? 'Нужна консультация по объекту?';
 const ctaText = d.cta?.text ?? 'Ответим по ставке, коммуникациям и срокам заезда. Покажем объект в удобное время.';
+// Карта: у «Атлас Гаражный — 3 очередь» набор подписей-меток как на
+// /atlas-garazhnyj/ (объект, метро, КАД, центр), остальные — одна метка.
+const mapPins = obj.id === 'atlas-garazhny-3'
+  ? [
+      { coords: d.coords, title: d.title, sub: d.address.replace(/^Санкт-Петербург,\s*/, ''), main: true },
+      { coords: [59.8487, 30.4577], title: 'Метро «Обухово»', sub: '10 минут пешком' },
+      { coords: [59.845301, 30.457701], title: '5 минут до КАД', sub: '' },
+      { coords: [59.843589, 30.435506], title: '25 минут до центра', sub: 'Петербург' },
+    ]
+  : null;
 // Микроразметка: хлебные крошки + карточка объекта (адрес, гео, площадь, specs).
 // Цена во всех объектах «по запросу», поэтому Offer не выводим.
 const siteUrl = Astro.site ?? new URL('https://mm-prom.ru');
@@ -350,6 +360,17 @@ const jsonLd = {
     .obj-map__address .material-symbols-outlined{flex:0 0 auto;font-size:18px;color:var(--purple)}
     @media (min-width:768px){.obj-map-canvas{min-height:420px}}
     @media (min-width:1024px){.obj-map-canvas{min-height:480px}}
+
+    /* ── Карта: подписи точек (как на /atlas-garazhnyj/) ────────────────── */
+    .ymap-label{position:relative;display:flex;align-items:center;gap:8px;transform:translate(-9px,-9px);white-space:nowrap;cursor:pointer}
+    .ymap-label__dot{width:18px;height:18px;border-radius:50%;background:var(--purple);border:3px solid #fff;box-shadow:0 2px 8px rgba(14,0,40,.35);flex:0 0 auto}
+    .ymap-label__body{display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:8px;padding:6px 10px;box-shadow:0 6px 18px rgba(14,0,40,.14);font-size:.8rem;line-height:1.25}
+    .ymap-label__body b{font-weight:700;color:var(--text)}
+    .ymap-label__body i{font-style:normal;color:var(--text-muted);font-size:.72rem}
+    .ymap-label--main .ymap-label__dot{width:22px;height:22px;background:var(--gold);border-color:var(--purple)}
+    .ymap-label--main .ymap-label__body{border-color:var(--purple);background:var(--purple);color:#fff}
+    .ymap-label--main .ymap-label__body b{color:#fff}
+    .ymap-label--main .ymap-label__body i{color:rgba(255,255,255,.75)}
 
     /* ── Похожие объекты ────────────────────────────────────────────────── */
     .b-similar{padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
@@ -758,13 +779,19 @@ const jsonLd = {
         });
       })();
     </script>
-    <script is:inline define:vars={{ coords: d.coords, mapTitle: d.title, mapAddress: d.address }}>
+    <script is:inline define:vars={{ coords: d.coords, mapTitle: d.title, mapAddress: d.address, mapPins }}>
       (function () {
         var el = document.getElementById('obj-map-canvas');
         if (!el) return;
+        var MAX_FIT_ZOOM = 15;
         var PIN = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="36" height="44" viewBox="0 0 36 44"><path d="M18 1C9.2 1 2 8.1 2 16.9 2 28 18 43 18 43s16-15 16-26.1C34 8.1 26.8 1 18 1z" fill="#5A3994" stroke="#ffffff" stroke-width="2"/><circle cx="18" cy="17" r="6" fill="#EBB81E"/></svg>');
         var visible = !('IntersectionObserver' in window);
         var started = false;
+        function labelLayout(pin) {
+          var cls = pin.main ? 'ymap-label ymap-label--main' : 'ymap-label';
+          var html = '<div class="' + cls + '"><span class="ymap-label__dot"></span><span class="ymap-label__body"><b>' + pin.title + '</b>' + (pin.sub ? '<i>' + pin.sub + '</i>' : '') + '</span></div>';
+          return ymaps.templateLayoutFactory.createClass(html);
+        }
         function start() {
           if (!visible || started) return;
           if (!window.mmEnsureYmaps) {
@@ -779,6 +806,27 @@ const jsonLd = {
               zoom: 14,
               controls: ['zoomControl', 'fullscreenControl']
             }, { suppressMapOpenBlock: true });
+            if (mapPins && mapPins.length) {
+              map.behaviors.enable('scrollZoom');
+              mapPins.forEach(function (pin) {
+                var pm = new ymaps.Placemark(pin.coords, {
+                  hintContent: pin.title,
+                  balloonContentHeader: pin.title,
+                  balloonContentBody: pin.sub || ''
+                }, {
+                  iconLayout: labelLayout(pin),
+                  iconShape: { type: 'Rectangle', coordinates: [[-10, -10], [10, 10]] }
+                });
+                map.geoObjects.add(pm);
+              });
+              var bounds = ymaps.geoQuery(map.geoObjects).getBounds();
+              if (bounds) {
+                map.setBounds(bounds, { checkZoomRange: true, zoomMargin: 60 }).then(function () {
+                  if (map.getZoom() > MAX_FIT_ZOOM) map.setZoom(MAX_FIT_ZOOM);
+                });
+              }
+              return;
+            }
             var placemark = new ymaps.Placemark(center, {
               hintContent: mapTitle,
               balloonContent: mapTitle + '<br>' + mapAddress
