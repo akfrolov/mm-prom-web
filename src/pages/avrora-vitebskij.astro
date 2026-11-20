@@ -515,13 +515,6 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 
 .b-scope__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
 
-/* ── Компактный ритм страницы: меньше расстояние между блоками информации ── */
-.section{padding:clamp(36px,5vw,68px) 0}
-.b-sec-head{margin-bottom:26px}
-.b-approach__grid{margin-top:20px}
-.obj-figure,.obj-table-wrap,.obj-floors,.obj-cols,.mp,.b-map-sec__wrap{margin-top:20px}
-@media (min-width:768px){.b-approach__grid{gap:16px}}
-@media (max-width:767px){.b-sec-head{margin-bottom:18px}}
     </style>
     <style is:inline>
 
@@ -655,6 +648,21 @@ html.js .reveal{transition-delay:calc(var(--i,0) * 70ms)}
 .ymap-label--main .ymap-label__body{border-color:var(--purple);background:var(--purple);color:#fff}
 .ymap-label--main .ymap-label__body b{color:#fff}
 .ymap-label--main .ymap-label__body i{color:rgba(255,255,255,.75)}
+
+/* ── Компактный ритм страницы: меньше расстояние между блоками информации ── */
+.section{padding:clamp(22px,2.6vw,36px) 0}
+#location.section{padding-top:clamp(16px,2vw,26px)}
+.b-sec-head{margin-bottom:14px}
+.b-sec-head h2{margin-bottom:8px}
+.b-sec-head .sec-index{margin-bottom:8px}
+.b-approach__grid{margin-top:12px}
+.obj-figure,.obj-table-wrap,.obj-floors,.obj-cols,.mp,.b-map-sec__wrap{margin-top:12px}
+.obj-tags{margin-top:12px}
+.b-scope__cta{margin-top:14px}
+.b-faq__list{gap:8px}
+.adv-grid{gap:12px}
+@media (min-width:768px){.b-approach__grid{gap:10px}.adv-grid{gap:12px}}
+@media (max-width:767px){.b-sec-head{margin-bottom:10px}.section{padding:18px 0}.b-approach__grid{gap:12px}}
 
     </style>
   </Fragment>
