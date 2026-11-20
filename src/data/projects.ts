@@ -316,7 +316,7 @@ export const projects: ProjectData[] = [
     "images": [
       "/assets/projects/spv-technopark-2/1.webp"
     ],
-    "highlights": ["Общая площадь: 10 719 м²", "Этажей: 4"],
+    "highlights": ["Общая площадь: 10 537 м²", "Этажей: 4"],
     "type": "Строительство",
     "period": "02.2024 – конец 2026 года",
     "tasks": [
