@@ -21,7 +21,7 @@ interface Props {
 
 const { article } = Astro.props;
 const { Content } = await render(article);
-const { title: articleTitle, lead, date, category, source, coverPosition } = article.data;
+const { title: articleTitle, lead, date, category, source, coverPosition, coverFit } = article.data;
 const cover = article.data.cover as ImageMetadata;
 const categoryLabel = articleCategoryLabel(category);
 const pageTitle = `${articleTitle} — публикации ГК «ММ ПРОМ»`;
@@ -70,6 +70,10 @@ const ogCover = await getImage({
     @media (min-width:1024px){
       .article-cover img{aspect-ratio:21/9}
     }
+    /* Обложка-скриншот (coverFit: contain): во всю ширину, без кропа —
+       высота по пропорциям изображения, чтобы был виден весь текст.
+       Правило идёт после @media: специфичность равна .article-cover img. */
+    .article-cover--contain img{height:auto;aspect-ratio:auto;object-fit:contain}
 
     /* ── Тело статьи: максимум 76ch ────────────────────────────────────── */
     .b-article{padding:clamp(28px,4vw,48px) 0 clamp(16px,2vw,24px)}
@@ -136,7 +140,7 @@ const ogCover = await getImage({
             <span class="article-meta__item"><span class="material-symbols-outlined" aria-hidden="true">schedule</span>{minutes} мин чтения</span>
           </div>
         </div>
-        <figure class:list={["article-cover", coverPosition && `article-cover--${coverPosition}`]}>
+        <figure class:list={["article-cover", coverPosition && `article-cover--${coverPosition}`, coverFit === "contain" && "article-cover--contain"]}>
           <Image
             src={cover}
             widths={coverWidths}
