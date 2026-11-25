@@ -28,10 +28,9 @@ const articles = (await getCollection('articles'))
     return b.date.localeCompare(a.date);
   });
 
-// Показываем только рубрики, под которые есть материалы: пустые табы скрыты.
-const categories = ARTICLE_CATEGORIES.filter(
-  (category) => category.id === 'all' || articles.some((article) => article.category === category.id),
-);
+// Табы рубрик: показываем все рубрики с tab: true, включая новые «Кейсы»
+// и «Рынок» — они видны и наполнятся по мере публикации материалов.
+const categories = ARTICLE_CATEGORIES.filter((category) => category.tab);
 ---
 
 <BaseLayout title="Публикации — статьи и кейсы ГК «ММ ПРОМ»" description="Экспертные статьи и кейсы об индустриальной недвижимости.">

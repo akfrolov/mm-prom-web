@@ -4,13 +4,15 @@
 
 // Рубрики раздела «Публикации». id совпадает со значением поля category
 // в коллекции articles; порядок — как в макете docs/mockups/blog.html.
+// tab: false — рубрика есть в данных, но не выводится отдельным табом
+// (её материалы видны в «Все материалы»).
 export const ARTICLE_CATEGORIES = [
-  { id: 'all', label: 'Все материалы' },
-  { id: 'media', label: 'СМИ о нас' },
-  { id: 'cases', label: 'Кейсы проектов' },
-  { id: 'analytics', label: 'Аналитика рынка' },
-  { id: 'guides', label: 'Гайды и инструкции' },
-  { id: 'news', label: 'Новости компании' },
+  { id: 'all', label: 'Все материалы', tab: true },
+  { id: 'media', label: 'СМИ о нас', tab: true },
+  { id: 'cases', label: 'Кейсы', tab: true },
+  { id: 'analytics', label: 'Рынок', tab: true },
+  { id: 'news', label: 'Новости компании', tab: true },
+  { id: 'guides', label: 'Гайды и инструкции', tab: false },
 ] as const;
 
 export type ArticleCategory = Exclude<(typeof ARTICLE_CATEGORIES)[number]['id'], 'all'>;
