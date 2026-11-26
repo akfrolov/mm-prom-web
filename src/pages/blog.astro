@@ -67,34 +67,44 @@ const categories = ARTICLE_CATEGORIES.filter((category) => category.tab);
       .blog-search{flex:0 0 clamp(220px,20vw,300px)}
     }
 
-    /* ── Карточка публикации (канон .post-card макета) ──────────────────── */
-    .post-card{position:relative;display:flex;flex-direction:column;height:100%;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease}
+    /* ── Карточка публикации (оформление по образцу brizdevelopment.ru/news):
+       обложка-полоса с бейджем рубрики, дата и время чтения над заголовком,
+       лид, стрелка «Читать далее»; вся карточка кликабельна. ───────────── */
+    .post-card{position:relative;display:flex;flex-direction:column;height:100%;background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:0 8px 24px rgba(14,0,40,.06);overflow:hidden;transition:box-shadow .28s ease}
     .post-card[hidden]{display:none}
-    .post-card:hover{border-color:var(--purple);box-shadow:var(--shadow);transform:translateY(-3px)}
+    .post-card:hover{box-shadow:0 22px 48px rgba(14,0,40,.16)}
     .post-card:focus-within{outline:2px solid var(--purple);outline-offset:2px}
-    .post-card__media{position:relative;flex:0 0 auto;aspect-ratio:4/3;background:var(--surface);border-bottom:1px solid var(--border);overflow:hidden}
-    .post-card__media img{width:100%;height:100%;object-fit:cover;display:block}
+    .post-card__media{position:relative;flex:0 0 auto;height:clamp(176px,16vw,200px);background:var(--surface);overflow:hidden}
+    .post-card__media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+    .post-card:hover .post-card__media img{transform:scale(1.05)}
     /* Кадрирование обложки из frontmatter статьи (см. src/content.config.ts):
        top — для фото с людьми, чтобы кроп не срезал лица сверху. */
     .post-card__media--top img{object-position:center top}
     .post-card__media--bottom img{object-position:center bottom}
     /* Обложка-скриншот: показываем целиком, без кропа (coverFit: contain). */
     .post-card__media--contain img{object-fit:contain}
-    .post-card__body{display:flex;flex-direction:column;gap:8px;padding:18px;flex:1 1 auto}
-    .post-card__tags{display:flex;flex-wrap:wrap;gap:8px}
-    .tag{display:inline-flex;align-items:center;min-height:24px;padding:2px 10px;border-radius:999px;background:rgba(90,57,148,.08);color:var(--purple);font-size:var(--fs-small);font-weight:600}
-    .tag--cases{background:rgba(201,150,15,.14);color:var(--gold-deep)}
-    .tag--news{background:rgba(235,184,30,.18);color:var(--navy)}
-    .post-card__body h3{margin:0;font-size:1.0625rem;line-height:1.35}
+    .post-card:hover .post-card__media--contain img{transform:none}
+    /* Рубрика — залитый бейдж поверх обложки (как на brizdevelopment.ru). */
+    .post-card__badge{position:absolute;top:12px;left:12px;display:inline-flex;align-items:center;min-height:26px;padding:3px 12px;border-radius:999px;background:var(--purple);color:#fff;font-size:.75rem;font-weight:600;line-height:1.2;letter-spacing:.01em}
+    .post-card__badge--media{background:var(--purple)}
+    .post-card__badge--cases{background:var(--gold);color:var(--navy)}
+    .post-card__badge--analytics{background:var(--navy-3)}
+    .post-card__badge--news{background:var(--navy)}
+    .post-card__badge--guides{background:var(--purple-dark)}
+    .post-card__body{display:flex;flex-direction:column;padding:20px;flex:1 1 auto}
+    .post-card__meta{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin:0 0 8px;font-size:var(--fs-small);color:var(--text-muted)}
+    .post-card__read{display:inline-flex;align-items:center;gap:6px}
+    .post-card__read::before{content:"·";font-weight:700}
+    .post-card__body h3{margin:0 0 8px;font-size:1.0625rem;line-height:1.35}
     /* Вся карточка кликабельна: ссылка заголовка растянута на карточку */
-    .post-card__body h3 a{color:var(--text);text-decoration:none}
+    .post-card__body h3 a{color:var(--text);text-decoration:none;transition:color .2s ease}
     .post-card__body h3 a::after{content:"";position:absolute;inset:0;z-index:1;border-radius:inherit}
     .post-card:hover .post-card__body h3 a{color:var(--purple)}
     .post-card__body h3 a:focus-visible{outline:none}
-    .post-card__excerpt{margin:0;font-size:var(--fs-small);color:var(--text-muted)}
-    .post-card__meta{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:auto;padding-top:12px;border-top:1px solid var(--border);font-size:var(--fs-small);color:var(--text-muted)}
-    .post-card__meta span{display:inline-flex;align-items:center;gap:6px}
-    .post-card__meta .material-symbols-outlined{font-size:16px;color:var(--purple)}
+    .post-card__excerpt{margin:0;flex:1 1 auto;font-size:var(--fs-small);line-height:1.55;color:var(--text-muted)}
+    .post-card__more{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-size:var(--fs-small);font-weight:700;color:var(--purple);transition:gap .25s ease}
+    .post-card:hover .post-card__more{gap:12px}
+    .post-card__more svg{width:16px;height:16px;flex:0 0 auto}
 
     /* ── Reveal-анимации (как на других страницах) ──────────────────────── */
     html.js .reveal{opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease}
@@ -154,19 +164,21 @@ const categories = ARTICLE_CATEGORIES.filter((category) => category.tab);
                 sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
                 alt={`Обложка: ${article.title}`}
               />
+              <span class:list={["post-card__badge", `post-card__badge--${article.category}`]}>{article.categoryLabel}</span>
             </div>
             <div class="post-card__body">
-              <div class="post-card__tags">
-                <span class:list={["tag", `tag--${article.category}`]}>{article.categoryLabel}</span>
+              <div class="post-card__meta">
+                {article.date && (
+                  <time datetime={article.date}>{formatArticleDate(article.date)}</time>
+                )}
+                <span class="post-card__read">{article.minutes} мин чтения</span>
               </div>
               <h3><a href={`/blog/${article.id}/`}>{article.title}</a></h3>
               <p class="post-card__excerpt">{article.lead}</p>
-              <div class="post-card__meta">
-                {article.date && (
-                  <span><span class="material-symbols-outlined" aria-hidden="true">calendar_today</span>{formatArticleDate(article.date)}</span>
-                )}
-                <span><span class="material-symbols-outlined" aria-hidden="true">schedule</span>{article.minutes} мин чтения</span>
-              </div>
+              <span class="post-card__more" aria-hidden="true">
+                Читать далее
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
             </div>
           </article>
         ))}
