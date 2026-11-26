@@ -17,7 +17,6 @@ const articles = (await getCollection('articles'))
     categoryLabel: articleCategoryLabel(entry.data.category),
     cover: entry.data.cover as ImageMetadata,
     coverPosition: entry.data.coverPosition,
-    coverFit: entry.data.coverFit,
     minutes: readingMinutes(entry.body),
   }))
   // Порядок: по дате убыв., материал без даты — последним (§2.4 п. 4).
@@ -93,12 +92,10 @@ const categories = ARTICLE_CATEGORIES.filter((category) => category.tab);
     .post-card__media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
     .post-card:hover .post-card__media img{transform:scale(1.05)}
     /* Кадрирование обложки из frontmatter статьи (см. src/content.config.ts):
-       top — для фото с людьми, чтобы кроп не срезал лица сверху. */
+       top — для фото с людьми и скриншотов публикаций, чтобы кроп не срезал
+       верх кадра (лица, заголовок). */
     .post-card__media--top img{object-position:center top}
     .post-card__media--bottom img{object-position:center bottom}
-    /* Обложка-скриншот: показываем целиком, без кропа (coverFit: contain). */
-    .post-card__media--contain img{object-fit:contain}
-    .post-card:hover .post-card__media--contain img{transform:none}
     /* Рубрика — залитый бейдж поверх обложки (как на brizdevelopment.ru). */
     .post-card__badge{position:absolute;top:12px;left:12px;display:inline-flex;align-items:center;min-height:26px;padding:3px 12px;border-radius:999px;background:var(--purple);color:#fff;font-size:.75rem;font-weight:600;line-height:1.2;letter-spacing:.01em}
     .post-card__badge--media{background:var(--purple)}
@@ -174,7 +171,7 @@ const categories = ARTICLE_CATEGORIES.filter((category) => category.tab);
       <div class="grid grid--3">
         {articles.map((article) => (
           <article class="post-card reveal" data-category={article.category}>
-            <div class:list={["post-card__media", article.coverPosition && `post-card__media--${article.coverPosition}`, article.coverFit === "contain" && "post-card__media--contain"]}>
+            <div class:list={["post-card__media", article.coverPosition && `post-card__media--${article.coverPosition}`]}>
               <Image
                 src={article.cover}
                 widths={[400, 640, 960]}
