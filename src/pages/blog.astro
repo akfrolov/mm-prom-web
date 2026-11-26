@@ -33,7 +33,7 @@ const articles = (await getCollection('articles'))
 const categories = ARTICLE_CATEGORIES.filter((category) => category.tab);
 ---
 
-<BaseLayout title="Публикации — статьи и кейсы ГК «ММ ПРОМ»" description="Экспертные статьи и кейсы об индустриальной недвижимости.">
+<BaseLayout title="Новости — статьи и кейсы ГК «ММ ПРОМ»" description="Экспертные статьи и кейсы об индустриальной недвижимости.">
   <Fragment slot="head">
     <style is:inline>
     /* ═══ Страница «Публикации»: шапка раздела и лента статей ═══
@@ -122,7 +122,7 @@ const categories = ARTICLE_CATEGORIES.filter((category) => category.tab);
 
 <main>
 
-  <Breadcrumbs items={[{ href: "/", label: "Главная" }, { label: "Публикации" }]} />
+  <Breadcrumbs items={[{ href: "/", label: "Главная" }, { label: "Новости" }]} />
 
   <section id="filters" class="b-filters">
     <div class="container">
