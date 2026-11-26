@@ -40,25 +40,40 @@ const categories = ARTICLE_CATEGORIES.filter((category) => category.tab);
        Общие блоки (section, section--tint, grid--3, b-cta, кнопки,
        крошки) — base.css/blocks.css; здесь только карточка публикации. */
 
-    /* ── Шапка раздела: h1 + подводка (по макету docs/mockups/blog.html) ── */
-    .b-filters{padding:clamp(20px,3vw,32px) 0 clamp(20px,2.5vw,28px)}
-    .b-filters h1{margin-bottom:12px}
+    /* ── Шапка раздела: инверсный блок (крошки, h1, подводка, фильтры).
+       Фиолетово-тёмный градиент — как в мегаменю и тёмных CTA: выделяет
+       шапку раздела на светлой странице (решение владельца 2026-11-26). ── */
+    .blog-top{position:relative;overflow:hidden;background:linear-gradient(120deg,var(--purple) 0%,var(--navy) 100%);color:#fff}
+    /* Фирменный мотив — контурный квадрат, как у .b-cta--grad. */
+    .blog-top::after{content:"";position:absolute;top:-56px;right:-56px;width:180px;height:180px;border:2px solid rgba(235,184,30,.35);transform:rotate(15deg);pointer-events:none}
+    /* На узких экранах квадрат заходит на заголовок — убираем. */
+    @media (max-width:767px){.blog-top::after{display:none}}
+    .blog-top .container{position:relative;z-index:1}
+    .blog-top .b-breadcrumbs ol{color:rgba(255,255,255,.72)}
+    .blog-top .b-breadcrumbs li+li::before{color:rgba(255,255,255,.35)}
+    .blog-top .b-breadcrumbs a{color:rgba(255,255,255,.85)}
+    .blog-top .b-breadcrumbs a:hover{color:var(--gold)}
+    .blog-top .b-breadcrumbs [aria-current="page"]{color:#fff}
+
+    /* h1 + подводка (структура по макету docs/mockups/blog.html) */
+    .b-filters{padding:clamp(16px,2.5vw,24px) 0 clamp(24px,3vw,36px)}
+    .b-filters h1{margin-bottom:12px;color:#fff}
     .b-filters h1::after{content:"";display:block;width:64px;height:4px;border-radius:2px;background:var(--gold);margin-top:10px}
-    .b-filters__lead{margin:0;max-width:70ch;color:var(--text-muted)}
+    .b-filters__lead{margin:0;max-width:70ch;color:rgba(255,255,255,.82)}
     /* Лента начинается сразу после фильтров — верхний отступ секции меньше */
     #feed.section--tint{padding-top:clamp(24px,3.5vw,40px)}
 
     /* ── Рубрики и поиск (макет docs/mockups/blog.html, #filters) ───────── */
     .blog-toolbar{display:flex;flex-direction:column;gap:12px;margin:20px 0 0}
     .blog-cats{display:flex;flex-wrap:wrap;gap:8px}
-    .blog-cats__tab{min-height:44px;padding:8px 16px;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--text-muted);font:inherit;font-size:var(--fs-small);font-weight:700;cursor:pointer;white-space:nowrap}
-    .blog-cats__tab:hover{border-color:var(--purple);color:var(--purple)}
-    .blog-cats__tab.is-active{border-color:var(--purple-soft);background:var(--purple-soft);color:var(--purple)}
+    .blog-cats__tab{min-height:44px;padding:8px 16px;border:1px solid rgba(255,255,255,.3);border-radius:999px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.88);font:inherit;font-size:var(--fs-small);font-weight:700;cursor:pointer;white-space:nowrap}
+    .blog-cats__tab:hover{border-color:var(--gold);background:rgba(255,255,255,.12);color:var(--gold)}
+    .blog-cats__tab.is-active{border-color:var(--gold);background:var(--gold);color:var(--navy)}
     .blog-search{display:flex}
     .search-box{position:relative;flex:1 1 auto}
-    .search-box__ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--text-muted);pointer-events:none}
-    .search-box input[type="search"]{width:100%;min-height:44px;padding:10px 16px 10px 44px;border:2px solid var(--border);border-radius:var(--radius);font:inherit;font-size:var(--fs-small);color:var(--text);background:#fff}
-    .search-box input[type="search"]:focus-visible{outline:3px solid rgba(90,57,148,.22);outline-offset:1px;border-color:var(--purple)}
+    .search-box__ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--purple);pointer-events:none}
+    .search-box input[type="search"]{width:100%;min-height:44px;padding:10px 16px 10px 44px;border:2px solid transparent;border-radius:var(--radius);font:inherit;font-size:var(--fs-small);color:var(--text);background:#fff}
+    .search-box input[type="search"]:focus-visible{outline:3px solid rgba(235,184,30,.55);outline-offset:1px;border-color:var(--gold)}
     .search-box input[type="search"]::placeholder{color:var(--text-muted);opacity:.7}
     .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
     @media (min-width:768px){
@@ -122,35 +137,37 @@ const categories = ARTICLE_CATEGORIES.filter((category) => category.tab);
 
 <main>
 
-  <Breadcrumbs items={[{ href: "/", label: "Главная" }, { label: "Новости" }]} />
+  <div class="blog-top">
+    <Breadcrumbs items={[{ href: "/", label: "Главная" }, { label: "Новости" }]} />
 
-  <section id="filters" class="b-filters">
-    <div class="container">
-      <h1>Статьи и кейсы</h1>
-      <p class="b-filters__lead">Экспертные статьи и кейсы об индустриальной недвижимости</p>
-      <div class="blog-toolbar">
-        <div class="blog-cats" role="tablist" aria-label="Рубрики публикаций">
-          {categories.map((category) => (
-            <button
-              type="button"
-              role="tab"
-              class:list={["blog-cats__tab", category.id === "all" && "is-active"]}
-              data-category={category.id}
-              aria-selected={category.id === "all" ? "true" : "false"}
-              aria-controls="feed"
-            >{category.label}</button>
-          ))}
-        </div>
-        <form class="blog-search" action="#" role="search">
-          <div class="search-box">
-            <span class="material-symbols-outlined search-box__ico" aria-hidden="true">search</span>
-            <label class="sr-only" for="blog-q">Поиск по публикациям</label>
-            <input id="blog-q" name="q" type="search" placeholder="Поиск по статьям и кейсам" autocomplete="off">
+    <section id="filters" class="b-filters">
+      <div class="container">
+        <h1>Статьи и кейсы</h1>
+        <p class="b-filters__lead">Экспертные статьи и кейсы об индустриальной недвижимости</p>
+        <div class="blog-toolbar">
+          <div class="blog-cats" role="tablist" aria-label="Рубрики публикаций">
+            {categories.map((category) => (
+              <button
+                type="button"
+                role="tab"
+                class:list={["blog-cats__tab", category.id === "all" && "is-active"]}
+                data-category={category.id}
+                aria-selected={category.id === "all" ? "true" : "false"}
+                aria-controls="feed"
+              >{category.label}</button>
+            ))}
           </div>
-        </form>
+          <form class="blog-search" action="#" role="search">
+            <div class="search-box">
+              <span class="material-symbols-outlined search-box__ico" aria-hidden="true">search</span>
+              <label class="sr-only" for="blog-q">Поиск по публикациям</label>
+              <input id="blog-q" name="q" type="search" placeholder="Поиск по статьям и кейсам" autocomplete="off">
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
   <section id="feed" class="section section--tint">
     <div class="container">
